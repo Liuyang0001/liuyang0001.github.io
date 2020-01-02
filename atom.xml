@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://liuyang1.club/"/>
-  <updated>2018-09-02T16:44:42.689Z</updated>
+  <updated>2020-01-02T08:00:12.867Z</updated>
   <id>http://liuyang1.club/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>1.两数之和</title>
+    <link href="http://liuyang1.club/2020/01/02/1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/"/>
+    <id>http://liuyang1.club/2020/01/02/1-两数之和/</id>
+    <published>2020-01-02T07:11:09.000Z</published>
+    <updated>2020-01-02T08:00:12.867Z</updated>
+    
+    <content type="html"><![CDATA[<p>给定一个整数数组<code>nums</code>和一个目标值<code>target</code>，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。</p><p>你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p><a id="more"></a><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [2, 7, 11, 15], target = 9</span><br></pre></td></tr></table></figure><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">因为 nums[<span class="number">0</span>] + nums[<span class="number">1</span>] = <span class="number">2</span> + <span class="number">7</span> = <span class="number">9</span></span><br><span class="line">所以返回 [<span class="number">0</span>, <span class="number">1</span>]</span><br></pre></td></tr></table></figure><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>通过哈希来求解，这里通过字典来模拟哈希查询的过程。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; List[int]:</span></span><br><span class="line">        hashmap=&#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> i,num <span class="keyword">in</span> enumerate(nums):</span><br><span class="line">            <span class="keyword">if</span> hashmap.get(target - num) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>: <span class="comment"># 当前字典中找到对应key</span></span><br><span class="line">                <span class="keyword">return</span> [i,hashmap.get(target - num)]</span><br><span class="line">            hashmap[num] = i <span class="comment"># 未找到则将其加入字典中</span></span><br></pre></td></tr></table></figure><h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p><a href="https://leetcode-cn.com/problems/two-sum" target="_blank" rel="noopener">LeetCode中该题地址，Click here!</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;给定一个整数数组&lt;code&gt;nums&lt;/code&gt;和一个目标值&lt;code&gt;target&lt;/code&gt;，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。&lt;/p&gt;
+&lt;p&gt;你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://liuyang1.club/categories/LeetCode/"/>
+    
+    
+      <category term="Python" scheme="http://liuyang1.club/tags/Python/"/>
+    
+      <category term="Algorithms" scheme="http://liuyang1.club/tags/Algorithms/"/>
+    
+      <category term="数组" scheme="http://liuyang1.club/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="哈希表" scheme="http://liuyang1.club/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>数据结构-树</title>
@@ -524,36 +553,6 @@
     <summary type="html">
     
       &lt;p&gt;有时候靠单一的关键字参数查询已经很难满足查询要求，此时就需要ORM的F和Q查询。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Web Study Notes" scheme="http://liuyang1.club/categories/Web-Study-Notes/"/>
-    
-    
-      <category term="Python" scheme="http://liuyang1.club/tags/Python/"/>
-    
-      <category term="Django" scheme="http://liuyang1.club/tags/Django/"/>
-    
-      <category term="Web" scheme="http://liuyang1.club/tags/Web/"/>
-    
-      <category term="数据库" scheme="http://liuyang1.club/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-      <category term="ORM" scheme="http://liuyang1.club/tags/ORM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ORM分组与聚合查询</title>
-    <link href="http://liuyang1.club/2018/03/27/ORM%E5%88%86%E7%BB%84%E4%B8%8E%E8%81%9A%E5%90%88%E6%9F%A5%E8%AF%A2/"/>
-    <id>http://liuyang1.club/2018/03/27/ORM分组与聚合查询/</id>
-    <published>2018-03-27T14:24:29.000Z</published>
-    <updated>2018-03-27T15:28:48.215Z</updated>
-    
-    <content type="html"><![CDATA[<p>详解ORM的分组查询和聚合查询。<br><a id="more"></a></p><h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db.models <span class="keyword">import</span> Avg,Min,Sum,Max</span><br></pre></td></tr></table></figure><table><thead><tr><th>方法</th><th>描述</th></tr></thead><tbody><tr><td>Avg</td><td>平均值</td></tr><tr><td>Min</td><td>最小值</td></tr><tr><td>Sum</td><td>求和</td></tr><tr><td>Max</td><td>最大值</td></tr></tbody></table><h3 id="聚合查询"><a href="#聚合查询" class="headerlink" title="聚合查询"></a>聚合查询</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aggregate(*args,**kwargs)</span><br></pre></td></tr></table></figure><p>通过对QuerySet进行计算，返回一个聚合值的字典。<code>aggregate()</code>中每一个参数都指定一个包含在字典中的返回值。即<strong>在查询集上生成聚合</strong>。</p><p>比如，你想要计算所有在售书的平均价钱。<br>首先拿到所有的书的QuerySet对象，使用<code>aggregate()</code>函数直接拿到平均值。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Book.objects.all().aggregate(Avg(<span class="string">'price'</span>))</span><br><span class="line">&#123;<span class="string">'price__avg'</span>: <span class="number">34.35</span>&#125;</span><br></pre></td></tr></table></figure></p><p><code>aggregate()</code>子句的参数描述了我们想要计算的聚合值，在这个例子中，是Book模型中price字段的平均值。</p><p><code>aggregate()</code>是<code>QuerySet</code> 的一个终止子句，意思是说，它<strong>返回一个包含一些键值对的字典</strong>。键的名称是聚合值的标识符，值是计算出来的聚合值。键的名称是按照字段和聚合函数的名称自动生成出来的。</p><p>当然我们也可以自己定义键名：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Book.objects.aggregate(average_price=Avg(<span class="string">'price'</span>))</span><br><span class="line">&#123;<span class="string">'average_price'</span>: <span class="number">34.35</span>&#125;</span><br></pre></td></tr></table></figure><p>并且从上面的语法看，这个方法是可以接受多个方法参数的，也就是说，我们可以同时使用最大值，最小值，总和等方法作为参数：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Book.objects.aggregate(Avg(<span class="string">'price'</span>), Max(<span class="string">'price'</span>), Min(<span class="string">'price'</span>))</span><br><span class="line">&#123;<span class="string">'price__avg'</span>: <span class="number">34.35</span>, <span class="string">'price__max'</span>: Decimal(<span class="string">'81.20'</span>), <span class="string">'price__min'</span>: Decimal(<span class="string">'12.99'</span>)&#125;</span><br></pre></td></tr></table></figure><hr><h3 id="分类查询"><a href="#分类查询" class="headerlink" title="分类查询"></a>分类查询</h3><h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">annotate(*args,**kwargs):</span><br></pre></td></tr></table></figure><p>   可以通过计算查询结果中每一个对象所关联的对象集合，从而得出总计值(也可以是平均值或总和)，即为查询集的每一项生成聚合。</p><p>假设我们现在的需求是按照作者的名字分组：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Book.objects.values(<span class="string">'authors__name'</span>).annotate(Max(<span class="string">'price'</span>))</span><br><span class="line">&lt;QuerySet [&#123;<span class="string">'authors__name'</span>: <span class="string">'x1'</span>, <span class="string">'price__max'</span>: Decimal(<span class="string">'100.00'</span>)&#125;,</span><br><span class="line">&#123;<span class="string">'authors__name'</span>: <span class="string">'x2'</span>, <span class="string">'price__max'</span>: Decimal(<span class="string">'100.00'</span>)&#125;,</span><br><span class="line">&#123;<span class="string">'authors__name'</span>: <span class="string">'x3'</span>, <span class="string">'price__max'</span>: Decimal(<span class="string">'100.00'</span>)&#125;]&gt;</span><br></pre></td></tr></table></figure><hr><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><center>总结</center></h3><ul><li><p>聚合是<code>aggreate()</code>，通过QuerySet 进行计算。做<strong>求值运算</strong>的时候使用。</p></li><li><p>分组是<code>annotate()</code>，括号里是条件，遇到<strong>每什么什么</strong>的时候就要分组。</p></li></ul><hr>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;详解ORM的分组查询和聚合查询。&lt;br&gt;
     
     </summary>
     
