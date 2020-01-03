@@ -5,9 +5,9 @@
   <subtitle>Python技术博客</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://liuyang1.club/"/>
-  <updated>2020-01-03T06:17:17.021Z</updated>
-  <id>http://liuyang1.club/</id>
+  <link href="https://liuyang0001.github.io/"/>
+  <updated>2020-01-03T06:27:19.252Z</updated>
+  <id>https://liuyang0001.github.io/</id>
   
   <author>
     <name>Liu Yang</name>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>两数相加</title>
-    <link href="http://liuyang1.club/2020/01/03/2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/"/>
-    <id>http://liuyang1.club/2020/01/03/2-两数相加/</id>
+    <title>2.两数相加</title>
+    <link href="https://liuyang0001.github.io/2020/01/03/2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/"/>
+    <id>https://liuyang0001.github.io/2020/01/03/2-两数相加/</id>
     <published>2020-01-03T06:04:18.000Z</published>
-    <updated>2020-01-03T06:17:17.021Z</updated>
+    <updated>2020-01-03T06:27:19.252Z</updated>
     
     <content type="html"><![CDATA[<p>给出两个非空的链表用来表示两个非负的整数。其中，它们各自的位数是按照逆序的方式存储的，并且它们的每个节点只能存储一位数字。如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。 您可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p><a id="more"></a><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><code>输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)</code></p><p><code>输出：7 -&gt; 0 -&gt; 8</code></p><p><code>原因：342 + 465 = 807</code></p><h2 id="解法1"><a href="#解法1" class="headerlink" title="解法1"></a>解法1</h2><p>将链表转换成字符串，方便进行逆置操作；最后再讲字符串转换成链表。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addTwoNumbers</span><span class="params">(self, l1: ListNode, l2: ListNode)</span> -&gt; ListNode:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">ln2str</span><span class="params">(ln: ListNode)</span>:</span><span class="comment">#链表转换为字符串</span></span><br><span class="line">            <span class="keyword">if</span> ln.next == <span class="keyword">None</span>:</span><br><span class="line">                <span class="keyword">return</span> str(ln.val)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> str(ln.val) + str(ln2str(ln.next))</span><br><span class="line">                </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">str2ln</span><span class="params">(str_res: str)</span>:</span><span class="comment">#字符串转换成链表</span></span><br><span class="line">            <span class="keyword">if</span> len(str_res)==<span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> ListNode(int(str_res))</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                ln_temp = ListNode(int(str_res[<span class="number">0</span>]))</span><br><span class="line">                ln_temp.next = str2ln(str_res[<span class="number">1</span>:])</span><br><span class="line">                <span class="keyword">return</span> ln_temp</span><br><span class="line"></span><br><span class="line">        str1 = ln2str(l1)[::<span class="number">-1</span>] <span class="comment">#将链表1转换为字符串并逆置</span></span><br><span class="line">        str2 = ln2str(l2)[::<span class="number">-1</span>] <span class="comment">#将链表2转换为字符串并逆置</span></span><br><span class="line">        str_res = str(int(str1)+int(str2))[::<span class="number">-1</span>] <span class="comment">#相加后转换为字符串，逆置</span></span><br><span class="line">        <span class="keyword">return</span> str2ln(str_res)  <span class="comment">#返回转换成的链表</span></span><br></pre></td></tr></table></figure><h2 id="解法2"><a href="#解法2" class="headerlink" title="解法2"></a>解法2</h2><p>把两个数按位相加，并存到一个新的链表中，使用carry保存是否需要进位。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 官方解法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addTwoNumbers</span><span class="params">(self, l1: ListNode, l2: ListNode)</span> -&gt; ListNode:</span></span><br><span class="line">        dummyHead = ListNode(<span class="number">0</span>) <span class="comment"># 建立一个头结点</span></span><br><span class="line">        curr, carry = dummyHead, <span class="number">0</span> <span class="comment">#curr表当前结点；carry表进位</span></span><br><span class="line">        <span class="keyword">while</span> l1 <span class="keyword">or</span> l2: <span class="comment"># 不全为空</span></span><br><span class="line">            sum = <span class="number">0</span></span><br><span class="line">            <span class="keyword">if</span> l1: <span class="comment"># l1非空</span></span><br><span class="line">                sum += l1.val</span><br><span class="line">                l1 = l1.next</span><br><span class="line">            <span class="keyword">if</span> l2: <span class="comment"># l2非空</span></span><br><span class="line">                sum += l2.val</span><br><span class="line">                l2 = l2.next</span><br><span class="line">            sum += carry</span><br><span class="line">            carry = sum // <span class="number">10</span></span><br><span class="line">            curr.next = ListNode(sum % <span class="number">10</span>)</span><br><span class="line">            curr = curr.next</span><br><span class="line">        <span class="keyword">if</span> carry &gt; <span class="number">0</span>: <span class="comment"># 需要进位，使得链表加长</span></span><br><span class="line">            curr.next = ListNode(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> dummyHead.next; <span class="comment">#返回除头结点之后链表</span></span><br></pre></td></tr></table></figure><h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p><a href="https://leetcode-cn.com/problems/add-two-numbers" target="_blank" rel="noopener">LeetCode中该题地址，Click here!</a></p>]]></content>
     
@@ -31,23 +31,23 @@
     
     </summary>
     
-      <category term="LeetCode" scheme="http://liuyang1.club/categories/LeetCode/"/>
+      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
     
     
-      <category term="Python" scheme="http://liuyang1.club/tags/Python/"/>
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
     
-      <category term="Algorithms" scheme="http://liuyang1.club/tags/Algorithms/"/>
+      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
     
-      <category term="数学" scheme="http://liuyang1.club/tags/%E6%95%B0%E5%AD%A6/"/>
+      <category term="数学" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
     
-      <category term="链表" scheme="http://liuyang1.club/tags/%E9%93%BE%E8%A1%A8/"/>
+      <category term="链表" scheme="https://liuyang0001.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
     
   </entry>
   
   <entry>
     <title>1.两数之和</title>
-    <link href="http://liuyang1.club/2020/01/02/1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/"/>
-    <id>http://liuyang1.club/2020/01/02/1-两数之和/</id>
+    <link href="https://liuyang0001.github.io/2020/01/02/1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/"/>
+    <id>https://liuyang0001.github.io/2020/01/02/1-两数之和/</id>
     <published>2020-01-02T07:11:09.000Z</published>
     <updated>2020-01-02T08:00:12.867Z</updated>
     
@@ -60,23 +60,23 @@
     
     </summary>
     
-      <category term="LeetCode" scheme="http://liuyang1.club/categories/LeetCode/"/>
+      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
     
     
-      <category term="Python" scheme="http://liuyang1.club/tags/Python/"/>
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
     
-      <category term="Algorithms" scheme="http://liuyang1.club/tags/Algorithms/"/>
+      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
     
-      <category term="数组" scheme="http://liuyang1.club/tags/%E6%95%B0%E7%BB%84/"/>
+      <category term="数组" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E7%BB%84/"/>
     
-      <category term="哈希表" scheme="http://liuyang1.club/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
+      <category term="哈希表" scheme="https://liuyang0001.github.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/"/>
     
   </entry>
   
   <entry>
     <title>数据结构-树</title>
-    <link href="http://liuyang1.club/2018/09/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%91/"/>
-    <id>http://liuyang1.club/2018/09/01/数据结构-树/</id>
+    <link href="https://liuyang0001.github.io/2018/09/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%91/"/>
+    <id>https://liuyang0001.github.io/2018/09/01/数据结构-树/</id>
     <published>2018-09-01T10:41:01.000Z</published>
     <updated>2018-09-02T16:44:42.689Z</updated>
     
@@ -88,19 +88,19 @@
     
     </summary>
     
-      <category term="Data Structure Study Notes" scheme="http://liuyang1.club/categories/Data-Structure-Study-Notes/"/>
+      <category term="Data Structure Study Notes" scheme="https://liuyang0001.github.io/categories/Data-Structure-Study-Notes/"/>
     
     
-      <category term="C/C++" scheme="http://liuyang1.club/tags/C-C/"/>
+      <category term="C/C++" scheme="https://liuyang0001.github.io/tags/C-C/"/>
     
-      <category term="Tree" scheme="http://liuyang1.club/tags/Tree/"/>
+      <category term="Tree" scheme="https://liuyang0001.github.io/tags/Tree/"/>
     
   </entry>
   
   <entry>
     <title>数据结构-队</title>
-    <link href="http://liuyang1.club/2018/09/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F/"/>
-    <id>http://liuyang1.club/2018/09/01/数据结构-队/</id>
+    <link href="https://liuyang0001.github.io/2018/09/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F/"/>
+    <id>https://liuyang0001.github.io/2018/09/01/数据结构-队/</id>
     <published>2018-09-01T05:55:46.000Z</published>
     <updated>2018-09-01T10:11:29.187Z</updated>
     
@@ -112,19 +112,19 @@
     
     </summary>
     
-      <category term="Data Structure Study Notes" scheme="http://liuyang1.club/categories/Data-Structure-Study-Notes/"/>
+      <category term="Data Structure Study Notes" scheme="https://liuyang0001.github.io/categories/Data-Structure-Study-Notes/"/>
     
     
-      <category term="C/C++" scheme="http://liuyang1.club/tags/C-C/"/>
+      <category term="C/C++" scheme="https://liuyang0001.github.io/tags/C-C/"/>
     
-      <category term="Queue" scheme="http://liuyang1.club/tags/Queue/"/>
+      <category term="Queue" scheme="https://liuyang0001.github.io/tags/Queue/"/>
     
   </entry>
   
   <entry>
     <title>数据结构-栈</title>
-    <link href="http://liuyang1.club/2018/08/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88/"/>
-    <id>http://liuyang1.club/2018/08/31/数据结构-栈/</id>
+    <link href="https://liuyang0001.github.io/2018/08/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88/"/>
+    <id>https://liuyang0001.github.io/2018/08/31/数据结构-栈/</id>
     <published>2018-08-31T13:07:03.000Z</published>
     <updated>2018-09-01T08:53:00.481Z</updated>
     
@@ -136,19 +136,19 @@
     
     </summary>
     
-      <category term="Data Structure Study Notes" scheme="http://liuyang1.club/categories/Data-Structure-Study-Notes/"/>
+      <category term="Data Structure Study Notes" scheme="https://liuyang0001.github.io/categories/Data-Structure-Study-Notes/"/>
     
     
-      <category term="C/C++" scheme="http://liuyang1.club/tags/C-C/"/>
+      <category term="C/C++" scheme="https://liuyang0001.github.io/tags/C-C/"/>
     
-      <category term="Stack" scheme="http://liuyang1.club/tags/Stack/"/>
+      <category term="Stack" scheme="https://liuyang0001.github.io/tags/Stack/"/>
     
   </entry>
   
   <entry>
     <title>数据结构-表</title>
-    <link href="http://liuyang1.club/2018/08/29/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E8%A1%A8/"/>
-    <id>http://liuyang1.club/2018/08/29/数据结构-表/</id>
+    <link href="https://liuyang0001.github.io/2018/08/29/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E8%A1%A8/"/>
+    <id>https://liuyang0001.github.io/2018/08/29/数据结构-表/</id>
     <published>2018-08-29T13:28:51.000Z</published>
     <updated>2018-09-01T05:44:04.279Z</updated>
     
@@ -160,21 +160,21 @@
     
     </summary>
     
-      <category term="Data Structure Study Notes" scheme="http://liuyang1.club/categories/Data-Structure-Study-Notes/"/>
+      <category term="Data Structure Study Notes" scheme="https://liuyang0001.github.io/categories/Data-Structure-Study-Notes/"/>
     
     
-      <category term="C/C++" scheme="http://liuyang1.club/tags/C-C/"/>
+      <category term="C/C++" scheme="https://liuyang0001.github.io/tags/C-C/"/>
     
-      <category term="Linked List" scheme="http://liuyang1.club/tags/Linked-List/"/>
+      <category term="Linked List" scheme="https://liuyang0001.github.io/tags/Linked-List/"/>
     
-      <category term="Sequence List" scheme="http://liuyang1.club/tags/Sequence-List/"/>
+      <category term="Sequence List" scheme="https://liuyang0001.github.io/tags/Sequence-List/"/>
     
   </entry>
   
   <entry>
     <title>Python下划线</title>
-    <link href="http://liuyang1.club/2018/04/21/Python%E4%B8%8B%E5%88%92%E7%BA%BF/"/>
-    <id>http://liuyang1.club/2018/04/21/Python下划线/</id>
+    <link href="https://liuyang0001.github.io/2018/04/21/Python%E4%B8%8B%E5%88%92%E7%BA%BF/"/>
+    <id>https://liuyang0001.github.io/2018/04/21/Python下划线/</id>
     <published>2018-04-21T07:40:15.000Z</published>
     <updated>2018-08-31T11:19:06.798Z</updated>
     
@@ -186,19 +186,19 @@
     
     </summary>
     
-      <category term="Python Study Notes" scheme="http://liuyang1.club/categories/Python-Study-Notes/"/>
+      <category term="Python Study Notes" scheme="https://liuyang0001.github.io/categories/Python-Study-Notes/"/>
     
     
-      <category term="Python" scheme="http://liuyang1.club/tags/Python/"/>
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
     
-      <category term="下划线" scheme="http://liuyang1.club/tags/%E4%B8%8B%E5%88%92%E7%BA%BF/"/>
+      <category term="下划线" scheme="https://liuyang0001.github.io/tags/%E4%B8%8B%E5%88%92%E7%BA%BF/"/>
     
   </entry>
   
   <entry>
     <title>selenium遇到click失效问题解决</title>
-    <link href="http://liuyang1.club/2018/04/11/selenium%E9%81%87%E5%88%B0click%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/"/>
-    <id>http://liuyang1.club/2018/04/11/selenium遇到click失效问题解决/</id>
+    <link href="https://liuyang0001.github.io/2018/04/11/selenium%E9%81%87%E5%88%B0click%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/"/>
+    <id>https://liuyang0001.github.io/2018/04/11/selenium遇到click失效问题解决/</id>
     <published>2018-04-11T14:04:56.000Z</published>
     <updated>2018-04-11T15:03:34.596Z</updated>
     
@@ -210,23 +210,23 @@
     
     </summary>
     
-      <category term="Spider Study Notes" scheme="http://liuyang1.club/categories/Spider-Study-Notes/"/>
+      <category term="Spider Study Notes" scheme="https://liuyang0001.github.io/categories/Spider-Study-Notes/"/>
     
     
-      <category term="Python" scheme="http://liuyang1.club/tags/Python/"/>
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
     
-      <category term="Spider" scheme="http://liuyang1.club/tags/Spider/"/>
+      <category term="Spider" scheme="https://liuyang0001.github.io/tags/Spider/"/>
     
-      <category term="Selenium" scheme="http://liuyang1.club/tags/Selenium/"/>
+      <category term="Selenium" scheme="https://liuyang0001.github.io/tags/Selenium/"/>
     
-      <category term="web driver" scheme="http://liuyang1.club/tags/web-driver/"/>
+      <category term="web driver" scheme="https://liuyang0001.github.io/tags/web-driver/"/>
     
   </entry>
   
   <entry>
     <title>Django编写Restful-Api：ViewSets与Routers</title>
-    <link href="http://liuyang1.club/2018/04/08/Django%E7%BC%96%E5%86%99Restful-Api%EF%BC%9AViewSets%E4%B8%8ERouters/"/>
-    <id>http://liuyang1.club/2018/04/08/Django编写Restful-Api：ViewSets与Routers/</id>
+    <link href="https://liuyang0001.github.io/2018/04/08/Django%E7%BC%96%E5%86%99Restful-Api%EF%BC%9AViewSets%E4%B8%8ERouters/"/>
+    <id>https://liuyang0001.github.io/2018/04/08/Django编写Restful-Api：ViewSets与Routers/</id>
     <published>2018-04-08T13:05:07.000Z</published>
     <updated>2018-04-08T13:24:36.986Z</updated>
     
@@ -238,25 +238,25 @@
     
     </summary>
     
-      <category term="Web Study Notes" scheme="http://liuyang1.club/categories/Web-Study-Notes/"/>
+      <category term="Web Study Notes" scheme="https://liuyang0001.github.io/categories/Web-Study-Notes/"/>
     
     
-      <category term="Python" scheme="http://liuyang1.club/tags/Python/"/>
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
     
-      <category term="Django" scheme="http://liuyang1.club/tags/Django/"/>
+      <category term="Django" scheme="https://liuyang0001.github.io/tags/Django/"/>
     
-      <category term="Web" scheme="http://liuyang1.club/tags/Web/"/>
+      <category term="Web" scheme="https://liuyang0001.github.io/tags/Web/"/>
     
-      <category term="数据库" scheme="http://liuyang1.club/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="数据库" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
-      <category term="Restful-Api" scheme="http://liuyang1.club/tags/Restful-Api/"/>
+      <category term="Restful-Api" scheme="https://liuyang0001.github.io/tags/Restful-Api/"/>
     
   </entry>
   
   <entry>
     <title>Django编写Restful-Api：超链接</title>
-    <link href="http://liuyang1.club/2018/04/08/Django%E7%BC%96%E5%86%99Restful-Api%EF%BC%9A%E8%B6%85%E9%93%BE%E6%8E%A5/"/>
-    <id>http://liuyang1.club/2018/04/08/Django编写Restful-Api：超链接/</id>
+    <link href="https://liuyang0001.github.io/2018/04/08/Django%E7%BC%96%E5%86%99Restful-Api%EF%BC%9A%E8%B6%85%E9%93%BE%E6%8E%A5/"/>
+    <id>https://liuyang0001.github.io/2018/04/08/Django编写Restful-Api：超链接/</id>
     <published>2018-04-07T16:05:07.000Z</published>
     <updated>2018-04-07T16:10:13.734Z</updated>
     
@@ -268,25 +268,25 @@
     
     </summary>
     
-      <category term="Web Study Notes" scheme="http://liuyang1.club/categories/Web-Study-Notes/"/>
+      <category term="Web Study Notes" scheme="https://liuyang0001.github.io/categories/Web-Study-Notes/"/>
     
     
-      <category term="Python" scheme="http://liuyang1.club/tags/Python/"/>
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
     
-      <category term="Django" scheme="http://liuyang1.club/tags/Django/"/>
+      <category term="Django" scheme="https://liuyang0001.github.io/tags/Django/"/>
     
-      <category term="Web" scheme="http://liuyang1.club/tags/Web/"/>
+      <category term="Web" scheme="https://liuyang0001.github.io/tags/Web/"/>
     
-      <category term="数据库" scheme="http://liuyang1.club/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="数据库" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
-      <category term="Restful-Api" scheme="http://liuyang1.club/tags/Restful-Api/"/>
+      <category term="Restful-Api" scheme="https://liuyang0001.github.io/tags/Restful-Api/"/>
     
   </entry>
   
   <entry>
     <title>Django编写Restful-Api：权限控制</title>
-    <link href="http://liuyang1.club/2018/04/07/Django%E7%BC%96%E5%86%99Restful-Api%EF%BC%9A%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/"/>
-    <id>http://liuyang1.club/2018/04/07/Django编写Restful-Api：权限控制/</id>
+    <link href="https://liuyang0001.github.io/2018/04/07/Django%E7%BC%96%E5%86%99Restful-Api%EF%BC%9A%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6/"/>
+    <id>https://liuyang0001.github.io/2018/04/07/Django编写Restful-Api：权限控制/</id>
     <published>2018-04-07T04:05:07.000Z</published>
     <updated>2018-04-07T06:20:33.488Z</updated>
     
@@ -298,25 +298,25 @@
     
     </summary>
     
-      <category term="Web Study Notes" scheme="http://liuyang1.club/categories/Web-Study-Notes/"/>
+      <category term="Web Study Notes" scheme="https://liuyang0001.github.io/categories/Web-Study-Notes/"/>
     
     
-      <category term="Python" scheme="http://liuyang1.club/tags/Python/"/>
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
     
-      <category term="Django" scheme="http://liuyang1.club/tags/Django/"/>
+      <category term="Django" scheme="https://liuyang0001.github.io/tags/Django/"/>
     
-      <category term="Web" scheme="http://liuyang1.club/tags/Web/"/>
+      <category term="Web" scheme="https://liuyang0001.github.io/tags/Web/"/>
     
-      <category term="数据库" scheme="http://liuyang1.club/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="数据库" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
-      <category term="Restful-Api" scheme="http://liuyang1.club/tags/Restful-Api/"/>
+      <category term="Restful-Api" scheme="https://liuyang0001.github.io/tags/Restful-Api/"/>
     
   </entry>
   
   <entry>
     <title>Django编写Restful-Api：类视图</title>
-    <link href="http://liuyang1.club/2018/04/06/Django%E7%BC%96%E5%86%99Restful-Api%EF%BC%9A%E7%B1%BB%E8%A7%86%E5%9B%BE/"/>
-    <id>http://liuyang1.club/2018/04/06/Django编写Restful-Api：类视图/</id>
+    <link href="https://liuyang0001.github.io/2018/04/06/Django%E7%BC%96%E5%86%99Restful-Api%EF%BC%9A%E7%B1%BB%E8%A7%86%E5%9B%BE/"/>
+    <id>https://liuyang0001.github.io/2018/04/06/Django编写Restful-Api：类视图/</id>
     <published>2018-04-06T13:05:28.000Z</published>
     <updated>2018-04-06T13:23:41.351Z</updated>
     
@@ -328,25 +328,25 @@
     
     </summary>
     
-      <category term="Web Study Notes" scheme="http://liuyang1.club/categories/Web-Study-Notes/"/>
+      <category term="Web Study Notes" scheme="https://liuyang0001.github.io/categories/Web-Study-Notes/"/>
     
     
-      <category term="Python" scheme="http://liuyang1.club/tags/Python/"/>
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
     
-      <category term="Django" scheme="http://liuyang1.club/tags/Django/"/>
+      <category term="Django" scheme="https://liuyang0001.github.io/tags/Django/"/>
     
-      <category term="Web" scheme="http://liuyang1.club/tags/Web/"/>
+      <category term="Web" scheme="https://liuyang0001.github.io/tags/Web/"/>
     
-      <category term="数据库" scheme="http://liuyang1.club/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="数据库" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
-      <category term="Restful-Api" scheme="http://liuyang1.club/tags/Restful-Api/"/>
+      <category term="Restful-Api" scheme="https://liuyang0001.github.io/tags/Restful-Api/"/>
     
   </entry>
   
   <entry>
     <title>Django编写Restful-Api：请求与响应</title>
-    <link href="http://liuyang1.club/2018/04/06/Django%E7%BC%96%E5%86%99Restful-Api%EF%BC%9A%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94/"/>
-    <id>http://liuyang1.club/2018/04/06/Django编写Restful-Api：请求与响应/</id>
+    <link href="https://liuyang0001.github.io/2018/04/06/Django%E7%BC%96%E5%86%99Restful-Api%EF%BC%9A%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94/"/>
+    <id>https://liuyang0001.github.io/2018/04/06/Django编写Restful-Api：请求与响应/</id>
     <published>2018-04-06T03:50:28.000Z</published>
     <updated>2018-04-06T05:34:09.631Z</updated>
     
@@ -358,25 +358,25 @@
     
     </summary>
     
-      <category term="Web Study Notes" scheme="http://liuyang1.club/categories/Web-Study-Notes/"/>
+      <category term="Web Study Notes" scheme="https://liuyang0001.github.io/categories/Web-Study-Notes/"/>
     
     
-      <category term="Python" scheme="http://liuyang1.club/tags/Python/"/>
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
     
-      <category term="Django" scheme="http://liuyang1.club/tags/Django/"/>
+      <category term="Django" scheme="https://liuyang0001.github.io/tags/Django/"/>
     
-      <category term="Web" scheme="http://liuyang1.club/tags/Web/"/>
+      <category term="Web" scheme="https://liuyang0001.github.io/tags/Web/"/>
     
-      <category term="数据库" scheme="http://liuyang1.club/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="数据库" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
-      <category term="Restful-Api" scheme="http://liuyang1.club/tags/Restful-Api/"/>
+      <category term="Restful-Api" scheme="https://liuyang0001.github.io/tags/Restful-Api/"/>
     
   </entry>
   
   <entry>
     <title>Django编写Restful-Api：序列化</title>
-    <link href="http://liuyang1.club/2018/04/06/Django%E7%BC%96%E5%86%99Restful-Api%EF%BC%9A%E5%BA%8F%E5%88%97%E5%8C%96/"/>
-    <id>http://liuyang1.club/2018/04/06/Django编写Restful-Api：序列化/</id>
+    <link href="https://liuyang0001.github.io/2018/04/06/Django%E7%BC%96%E5%86%99Restful-Api%EF%BC%9A%E5%BA%8F%E5%88%97%E5%8C%96/"/>
+    <id>https://liuyang0001.github.io/2018/04/06/Django编写Restful-Api：序列化/</id>
     <published>2018-04-05T16:00:31.000Z</published>
     <updated>2018-04-06T05:35:10.722Z</updated>
     
@@ -388,27 +388,27 @@
     
     </summary>
     
-      <category term="Web Study Notes" scheme="http://liuyang1.club/categories/Web-Study-Notes/"/>
+      <category term="Web Study Notes" scheme="https://liuyang0001.github.io/categories/Web-Study-Notes/"/>
     
     
-      <category term="Python" scheme="http://liuyang1.club/tags/Python/"/>
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
     
-      <category term="Django" scheme="http://liuyang1.club/tags/Django/"/>
+      <category term="Django" scheme="https://liuyang0001.github.io/tags/Django/"/>
     
-      <category term="Web" scheme="http://liuyang1.club/tags/Web/"/>
+      <category term="Web" scheme="https://liuyang0001.github.io/tags/Web/"/>
     
-      <category term="数据库" scheme="http://liuyang1.club/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="数据库" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
-      <category term="Restful-Api" scheme="http://liuyang1.club/tags/Restful-Api/"/>
+      <category term="Restful-Api" scheme="https://liuyang0001.github.io/tags/Restful-Api/"/>
     
-      <category term="序列化" scheme="http://liuyang1.club/tags/%E5%BA%8F%E5%88%97%E5%8C%96/"/>
+      <category term="序列化" scheme="https://liuyang0001.github.io/tags/%E5%BA%8F%E5%88%97%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title>Restful-Api介绍</title>
-    <link href="http://liuyang1.club/2018/04/04/Restful-Api%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://liuyang1.club/2018/04/04/Restful-Api介绍/</id>
+    <link href="https://liuyang0001.github.io/2018/04/04/Restful-Api%E4%BB%8B%E7%BB%8D/"/>
+    <id>https://liuyang0001.github.io/2018/04/04/Restful-Api介绍/</id>
     <published>2018-04-04T13:36:11.000Z</published>
     <updated>2018-04-04T14:08:45.514Z</updated>
     
@@ -420,23 +420,23 @@
     
     </summary>
     
-      <category term="Web Study Notes" scheme="http://liuyang1.club/categories/Web-Study-Notes/"/>
+      <category term="Web Study Notes" scheme="https://liuyang0001.github.io/categories/Web-Study-Notes/"/>
     
     
-      <category term="Python" scheme="http://liuyang1.club/tags/Python/"/>
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
     
-      <category term="Web" scheme="http://liuyang1.club/tags/Web/"/>
+      <category term="Web" scheme="https://liuyang0001.github.io/tags/Web/"/>
     
-      <category term="数据库" scheme="http://liuyang1.club/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="数据库" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
-      <category term="Restful-Api" scheme="http://liuyang1.club/tags/Restful-Api/"/>
+      <category term="Restful-Api" scheme="https://liuyang0001.github.io/tags/Restful-Api/"/>
     
   </entry>
   
   <entry>
     <title>Ajax的介绍与实现方法</title>
-    <link href="http://liuyang1.club/2018/04/02/Ajax%E7%9A%84%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/"/>
-    <id>http://liuyang1.club/2018/04/02/Ajax的介绍与实现方法/</id>
+    <link href="https://liuyang0001.github.io/2018/04/02/Ajax%E7%9A%84%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/"/>
+    <id>https://liuyang0001.github.io/2018/04/02/Ajax的介绍与实现方法/</id>
     <published>2018-04-02T06:28:03.000Z</published>
     <updated>2018-04-02T09:06:28.353Z</updated>
     
@@ -448,25 +448,25 @@
     
     </summary>
     
-      <category term="Web Study Notes" scheme="http://liuyang1.club/categories/Web-Study-Notes/"/>
+      <category term="Web Study Notes" scheme="https://liuyang0001.github.io/categories/Web-Study-Notes/"/>
     
     
-      <category term="Python" scheme="http://liuyang1.club/tags/Python/"/>
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
     
-      <category term="Django" scheme="http://liuyang1.club/tags/Django/"/>
+      <category term="Django" scheme="https://liuyang0001.github.io/tags/Django/"/>
     
-      <category term="Web" scheme="http://liuyang1.club/tags/Web/"/>
+      <category term="Web" scheme="https://liuyang0001.github.io/tags/Web/"/>
     
-      <category term="数据库" scheme="http://liuyang1.club/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="数据库" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
-      <category term="Ajax" scheme="http://liuyang1.club/tags/Ajax/"/>
+      <category term="Ajax" scheme="https://liuyang0001.github.io/tags/Ajax/"/>
     
   </entry>
   
   <entry>
     <title>时间复杂度</title>
-    <link href="http://liuyang1.club/2018/04/01/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/"/>
-    <id>http://liuyang1.club/2018/04/01/时间复杂度/</id>
+    <link href="https://liuyang0001.github.io/2018/04/01/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/"/>
+    <id>https://liuyang0001.github.io/2018/04/01/时间复杂度/</id>
     <published>2018-04-01T14:15:49.000Z</published>
     <updated>2018-04-02T06:26:42.926Z</updated>
     
@@ -478,23 +478,23 @@
     
     </summary>
     
-      <category term="Algorithm Study Notes" scheme="http://liuyang1.club/categories/Algorithm-Study-Notes/"/>
+      <category term="Algorithm Study Notes" scheme="https://liuyang0001.github.io/categories/Algorithm-Study-Notes/"/>
     
     
-      <category term="Python" scheme="http://liuyang1.club/tags/Python/"/>
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
     
-      <category term="算法" scheme="http://liuyang1.club/tags/%E7%AE%97%E6%B3%95/"/>
+      <category term="算法" scheme="https://liuyang0001.github.io/tags/%E7%AE%97%E6%B3%95/"/>
     
-      <category term="时间复杂度" scheme="http://liuyang1.club/tags/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/"/>
+      <category term="时间复杂度" scheme="https://liuyang0001.github.io/tags/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/"/>
     
-      <category term="空间复杂度" scheme="http://liuyang1.club/tags/%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/"/>
+      <category term="空间复杂度" scheme="https://liuyang0001.github.io/tags/%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/"/>
     
   </entry>
   
   <entry>
     <title>Redis初识及使用</title>
-    <link href="http://liuyang1.club/2018/03/30/Redis%E5%88%9D%E8%AF%86%E5%8F%8A%E4%BD%BF%E7%94%A8/"/>
-    <id>http://liuyang1.club/2018/03/30/Redis初识及使用/</id>
+    <link href="https://liuyang0001.github.io/2018/03/30/Redis%E5%88%9D%E8%AF%86%E5%8F%8A%E4%BD%BF%E7%94%A8/"/>
+    <id>https://liuyang0001.github.io/2018/03/30/Redis初识及使用/</id>
     <published>2018-03-30T14:34:38.000Z</published>
     <updated>2018-03-30T15:19:23.366Z</updated>
     
@@ -506,21 +506,21 @@
     
     </summary>
     
-      <category term="Python Study Notes" scheme="http://liuyang1.club/categories/Python-Study-Notes/"/>
+      <category term="Python Study Notes" scheme="https://liuyang0001.github.io/categories/Python-Study-Notes/"/>
     
     
-      <category term="Python" scheme="http://liuyang1.club/tags/Python/"/>
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
     
-      <category term="数据库" scheme="http://liuyang1.club/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="数据库" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
-      <category term="Redis" scheme="http://liuyang1.club/tags/Redis/"/>
+      <category term="Redis" scheme="https://liuyang0001.github.io/tags/Redis/"/>
     
   </entry>
   
   <entry>
     <title>Django中Admin的使用</title>
-    <link href="http://liuyang1.club/2018/03/29/Django%E4%B8%ADAdmin%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
-    <id>http://liuyang1.club/2018/03/29/Django中Admin的使用/</id>
+    <link href="https://liuyang0001.github.io/2018/03/29/Django%E4%B8%ADAdmin%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    <id>https://liuyang0001.github.io/2018/03/29/Django中Admin的使用/</id>
     <published>2018-03-29T12:15:07.000Z</published>
     <updated>2018-03-30T17:19:41.643Z</updated>
     
@@ -532,23 +532,23 @@
     
     </summary>
     
-      <category term="Web Study Notes" scheme="http://liuyang1.club/categories/Web-Study-Notes/"/>
+      <category term="Web Study Notes" scheme="https://liuyang0001.github.io/categories/Web-Study-Notes/"/>
     
     
-      <category term="Python" scheme="http://liuyang1.club/tags/Python/"/>
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
     
-      <category term="Django" scheme="http://liuyang1.club/tags/Django/"/>
+      <category term="Django" scheme="https://liuyang0001.github.io/tags/Django/"/>
     
-      <category term="Web" scheme="http://liuyang1.club/tags/Web/"/>
+      <category term="Web" scheme="https://liuyang0001.github.io/tags/Web/"/>
     
-      <category term="数据库" scheme="http://liuyang1.club/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+      <category term="数据库" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
   </entry>
   
   <entry>
     <title>调用CMD方法</title>
-    <link href="http://liuyang1.club/2018/03/28/%E8%B0%83%E7%94%A8CMD%E6%96%B9%E6%B3%95/"/>
-    <id>http://liuyang1.club/2018/03/28/调用CMD方法/</id>
+    <link href="https://liuyang0001.github.io/2018/03/28/%E8%B0%83%E7%94%A8CMD%E6%96%B9%E6%B3%95/"/>
+    <id>https://liuyang0001.github.io/2018/03/28/调用CMD方法/</id>
     <published>2018-03-28T14:25:25.000Z</published>
     <updated>2018-03-28T15:30:06.071Z</updated>
     
@@ -560,12 +560,12 @@
     
     </summary>
     
-      <category term="Python Study Notes" scheme="http://liuyang1.club/categories/Python-Study-Notes/"/>
+      <category term="Python Study Notes" scheme="https://liuyang0001.github.io/categories/Python-Study-Notes/"/>
     
     
-      <category term="Python" scheme="http://liuyang1.club/tags/Python/"/>
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
     
-      <category term="CMD" scheme="http://liuyang1.club/tags/CMD/"/>
+      <category term="CMD" scheme="https://liuyang0001.github.io/tags/CMD/"/>
     
   </entry>
   
