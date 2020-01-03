@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[两数相加]]></title>
+    <url>%2F2020%2F01%2F03%2F2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0%2F</url>
+    <content type="text"><![CDATA[给出两个非空的链表用来表示两个非负的整数。其中，它们各自的位数是按照逆序的方式存储的，并且它们的每个节点只能存储一位数字。如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。 您可以假设除了数字 0 之外，这两个数都不会以 0 开头。 示例输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4) 输出：7 -&gt; 0 -&gt; 8 原因：342 + 465 = 807 解法1将链表转换成字符串，方便进行逆置操作；最后再讲字符串转换成链表。 1234567891011121314151617181920212223242526# Definition for singly-linked list.# class ListNode:# def __init__(self, x):# self.val = x# self.next = Noneclass Solution: def addTwoNumbers(self, l1: ListNode, l2: ListNode) -&gt; ListNode: def ln2str(ln: ListNode):#链表转换为字符串 if ln.next == None: return str(ln.val) else: return str(ln.val) + str(ln2str(ln.next)) def str2ln(str_res: str):#字符串转换成链表 if len(str_res)==1: return ListNode(int(str_res)) else: ln_temp = ListNode(int(str_res[0])) ln_temp.next = str2ln(str_res[1:]) return ln_temp str1 = ln2str(l1)[::-1] #将链表1转换为字符串并逆置 str2 = ln2str(l2)[::-1] #将链表2转换为字符串并逆置 str_res = str(int(str1)+int(str2))[::-1] #相加后转换为字符串，逆置 return str2ln(str_res) #返回转换成的链表 解法2把两个数按位相加，并存到一个新的链表中，使用carry保存是否需要进位。 1234567891011121314151617181920# 官方解法class Solution: def addTwoNumbers(self, l1: ListNode, l2: ListNode) -&gt; ListNode: dummyHead = ListNode(0) # 建立一个头结点 curr, carry = dummyHead, 0 #curr表当前结点；carry表进位 while l1 or l2: # 不全为空 sum = 0 if l1: # l1非空 sum += l1.val l1 = l1.next if l2: # l2非空 sum += l2.val l2 = l2.next sum += carry carry = sum // 10 curr.next = ListNode(sum % 10) curr = curr.next if carry &gt; 0: # 需要进位，使得链表加长 curr.next = ListNode(1) return dummyHead.next; #返回除头结点之后链表 来源LeetCode中该题地址，Click here!]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数学</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[1.两数之和]]></title>
     <url>%2F2020%2F01%2F02%2F1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C%2F</url>
     <content type="text"><![CDATA[给定一个整数数组nums和一个目标值target，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。 你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。 示例1给定 nums = [2, 7, 11, 15], target = 9 12因为 nums[0] + nums[1] = 2 + 7 = 9所以返回 [0, 1] 解法通过哈希来求解，这里通过字典来模拟哈希查询的过程。 1234567class Solution: def twoSum(self, nums: List[int], target: int) -&gt; List[int]: hashmap=&#123;&#125; for i,num in enumerate(nums): if hashmap.get(target - num) is not None: # 当前字典中找到对应key return [i,hashmap.get(target - num)] hashmap[num] = i # 未找到则将其加入字典中 来源LeetCode中该题地址，Click here!]]></content>
@@ -405,8 +419,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>内置函数</tag>
         <tag>eval</tag>
+        <tag>内置函数</tag>
       </tags>
   </entry>
   <entry>
