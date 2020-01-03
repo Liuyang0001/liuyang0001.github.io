@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[3-无重复字符的最长子串]]></title>
+    <url>%2F2020%2F01%2F03%2F3-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2%2F</url>
+    <content type="text"><![CDATA[给定一个字符串，请你找出其中不含有重复字符的最长子串的长度。 示例示例 1:123输入: &quot;abcabcbb&quot;输出: 3 解释: 因为无重复字符的最长子串是 &quot;abc&quot;，所以其长度为 3。 示例 2:123输入: &quot;bbbbb&quot;输出: 1解释: 因为无重复字符的最长子串是 &quot;b&quot;，所以其长度为 1。 示例 3:1234输入: &quot;pwwkew&quot;输出: 3解释: 因为无重复字符的最长子串是 &quot;wke&quot;，所以其长度为 3。 请注意，你的答案必须是 子串 的长度，&quot;pwke&quot; 是一个子序列，不是子串。 解法这道题主要用到思路是：滑动窗口 什么是滑动窗口？ 其实就是一个队列,比如例题中的 abcabcbb，进入这个队列（窗口）为 abc 满足题目要求，当再进入 a，队列变成了 abca，这时候不满足要求。所以，我们要移动这个队列！ 如何移动？ 我们只要找到那个相同元素的位置，把队列中它左边的元素移出就行了，直到满足题目要求！ 一直维持这样的队列，找出队列出现最长的长度时候，求出解！ 12345678910111213141516171819202122class Solution: def lengthOfLongestSubstring(self, s: str) -&gt; int: if not s:return 0 # 如果字符串s为空，返回0 lookup = [] # 初始化窗口 max_len = 0 # 窗口长度 cur_len = 0 # 当前子串长度 for i in range(len(s)): # 遍历字符串s val = s[i] if not val in lookup: # 如果该值不在窗口中 lookup.append(val) # 添加到窗口内 cur_len += 1 # 当前长度+1 else:# 如果该值在窗口中已存在 index = lookup.index(val) # 获取其在窗口中的位置 lookup = lookup[index+1:] # 移除该位置及之前的字符 lookup.append(val) cur_len = len(lookup) # 当前长度更新为窗口长度 if cur_len &gt; max_len: # 看是否需要更新最大长度值 max_len = cur_len return max_len # 返回最大子串长度 来源LeetCode中该题地址，Click here!]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>字符串</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[2.两数相加]]></title>
     <url>%2F2020%2F01%2F03%2F2-%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0%2F</url>
     <content type="text"><![CDATA[给出两个非空的链表用来表示两个非负的整数。其中，它们各自的位数是按照逆序的方式存储的，并且它们的每个节点只能存储一位数字。如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。 您可以假设除了数字 0 之外，这两个数都不会以 0 开头。 示例输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4) 输出：7 -&gt; 0 -&gt; 8 原因：342 + 465 = 807 解法1将链表转换成字符串，方便进行逆置操作；最后再讲字符串转换成链表。 1234567891011121314151617181920212223242526# Definition for singly-linked list.# class ListNode:# def __init__(self, x):# self.val = x# self.next = Noneclass Solution: def addTwoNumbers(self, l1: ListNode, l2: ListNode) -&gt; ListNode: def ln2str(ln: ListNode):#链表转换为字符串 if ln.next == None: return str(ln.val) else: return str(ln.val) + str(ln2str(ln.next)) def str2ln(str_res: str):#字符串转换成链表 if len(str_res)==1: return ListNode(int(str_res)) else: ln_temp = ListNode(int(str_res[0])) ln_temp.next = str2ln(str_res[1:]) return ln_temp str1 = ln2str(l1)[::-1] #将链表1转换为字符串并逆置 str2 = ln2str(l2)[::-1] #将链表2转换为字符串并逆置 str_res = str(int(str1)+int(str2))[::-1] #相加后转换为字符串，逆置 return str2ln(str_res) #返回转换成的链表 解法2把两个数按位相加，并存到一个新的链表中，使用carry保存是否需要进位。 1234567891011121314151617181920# 官方解法class Solution: def addTwoNumbers(self, l1: ListNode, l2: ListNode) -&gt; ListNode: dummyHead = ListNode(0) # 建立一个头结点 curr, carry = dummyHead, 0 #curr表当前结点；carry表进位 while l1 or l2: # 不全为空 sum = 0 if l1: # l1非空 sum += l1.val l1 = l1.next if l2: # l2非空 sum += l2.val l2 = l2.next sum += carry carry = sum // 10 curr.next = ListNode(sum % 10) curr = curr.next if carry &gt; 0: # 需要进位，使得链表加长 curr.next = ListNode(1) return dummyHead.next; #返回除头结点之后链表 来源LeetCode中该题地址，Click here!]]></content>
@@ -419,8 +432,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>内置函数</tag>
         <tag>eval</tag>
+        <tag>内置函数</tag>
       </tags>
   </entry>
   <entry>

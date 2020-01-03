@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Python,内置函数,eval," />
+  <meta name="keywords" content="Python,eval,内置函数," />
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="在Python中有个神级函数，没错，神级函数，就是eval，它可以实现一些非常牛逼的操作。">
-<meta name="keywords" content="Python,内置函数,eval">
+<meta name="keywords" content="Python,eval,内置函数">
 <meta property="og:type" content="article">
 <meta property="og:title" content="eval函数">
 <meta property="og:url" content="https://liuyang0001.github.io/2018/03/17/eval函数/index.html">
@@ -452,7 +452,7 @@
 <h4 id="用于计算"><a href="#用于计算" class="headerlink" title="用于计算"></a>用于计算</h4><p>可以直接输入计算的表达式，就可以直接返回结果，所以用这个函数来写计算器函数是非常好写的，仅仅几行就可以写一个计算器的基本功能。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span> :</span><br><span class="line">        result = eval(input(<span class="string">"请输入计算式："</span>))</span><br><span class="line">        print(type(result))</span><br><span class="line">        print(result)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">请输入计算式：<span class="number">3</span>*<span class="number">7</span>+<span class="number">9</span></span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">int</span>'&gt;</span></span><br><span class="line"><span class="class">30</span></span><br></pre></td></tr></table></figure>
-<p>使用eval实现完整功能的计算器，<a href="http://liuyang1.club/2018/03/19/eval%E5%AE%9E%E7%8E%B0%E8%AE%A1%E7%AE%97%E5%99%A8/">请点击这里</a></p>
+<p>使用eval实现完整功能的计算器，<a href="http://liuyang1.club/2018/03/19/eval%E5%AE%9E%E7%8E%B0%E8%AE%A1%E7%AE%97%E5%99%A8/" target="_blank" rel="noopener">请点击这里</a></p>
 <h3 id="插曲-变量寻址"><a href="#插曲-变量寻址" class="headerlink" title="插曲-变量寻址"></a>插曲-变量寻址</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">1</span></span><br><span class="line">y = <span class="number">1</span></span><br><span class="line">num1 = eval(<span class="string">"x+y"</span>)</span><br><span class="line">print(num1)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">    x = <span class="number">2</span></span><br><span class="line">    y = <span class="number">2</span></span><br><span class="line">    num2 = eval(<span class="string">"x+y"</span>)</span><br><span class="line">    print(num2)</span><br><span class="line">    num3 = eval(<span class="string">"x+y"</span>, globals())</span><br><span class="line">    <span class="comment"># num3 = eval("x+y", locals())</span></span><br><span class="line">    print(num3)</span><br></pre></td></tr></table></figure>
 <p>上面的x，y为全局变量，函数func内的为局部变量。在使用eval函数是可以定义要寻找变量的类型。<br>重点看下上面代码的num3的值，如果是设定找的是全局变量，那么会返回2，设定局部变量表达式会返回4.<br>如果并没有设定，默认先寻找local(),</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 搜索变量的优先级顺序是：L &gt; E &gt; G &gt; B</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># L：local 局部作用域，即函数中的变量</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># E：enclosing，嵌套的父级函数的作用域，即，此函数的上级函数的局部作用域，但不是全聚德</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># G：global：全局变量，就是米会计别定义的变量</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># B：build-in 系统固定模块里面的变量，如int byte等</span></span><br></pre></td></tr></table></figure>
@@ -523,9 +523,9 @@
           
             <a href="/tags/Python/" rel="tag"># Python</a>
           
-            <a href="/tags/内置函数/" rel="tag"># 内置函数</a>
-          
             <a href="/tags/eval/" rel="tag"># eval</a>
+          
+            <a href="/tags/内置函数/" rel="tag"># 内置函数</a>
           
         </div>
       
@@ -637,7 +637,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -659,7 +659,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
