@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title><![CDATA[6.Z字形变换]]></title>
-    <url>%2F2020%2F01%2F06%2F6-%E5%AD%97%E5%BD%A2%E5%8F%98%E6%8D%A2%2F</url>
+    <url>%2F2020%2F01%2F06%2F6-Z%E5%AD%97%E5%BD%A2%E5%8F%98%E6%8D%A2%2F</url>
     <content type="text"><![CDATA[将一个给定字符串根据给定的行数，以从上往下、从左到右进行 Z 字形排列。 比如输入字符串为 “LEETCODEISHIRING” 行数为 3 时，排列如下： 123L C I RE T O E S I I GE D H N 之后，你的输出需要从左往右逐行读取，产生出一个新的字符串，比如：&quot;LCIRETOESIIGEDHN&quot;。 示例1234示例 1:输入: s = &quot;LEETCODEISHIRING&quot;, numRows = 3输出: &quot;LCIRETOESIIGEDHN&quot; 1234示例 2:输入: s = &quot;LEETCODEISHIRING&quot;, numRows = 4输出: &quot;LDREOEIIECIHNTSG&quot; 123456解释:L D RE O E I IE C I H NT S G 解法 Key Point：巧妙利用flag实现触碰到边界时进行“回弹”的效果 1234567891011121314class Solution: def convert(self, s: str, numRows: int) -&gt; str: if numRows&lt;2: # 该算法在小于2时，直接返回即可 return s # 初始化一个长度为numRows的列表 ls = ["" for _ in range(numRows)] flag, i = -1, 0 for string in s: ls[i] += string # i等于0或者numRows-1时，改变方向 if i % (numRows-1) == 0: flag = -flag i += flag return "".join(ls) 来源LeetCode中该题地址，Click here!]]></content>
       <categories>
         <category>LeetCode</category>
