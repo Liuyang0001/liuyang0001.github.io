@@ -1,6 +1,6 @@
 <hr>
 
-Personal Blog：liuyang0001@github.io
+Personal Blog：liuyang0001.github.io
 
 <hr>
 
