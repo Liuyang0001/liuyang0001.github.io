@@ -298,9 +298,9 @@
       </categories>
       <tags>
         <tag>Python</tag>
+        <tag>算法</tag>
         <tag>时间复杂度</tag>
         <tag>空间复杂度</tag>
-        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -485,8 +485,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>内置函数</tag>
         <tag>eval</tag>
+        <tag>内置函数</tag>
       </tags>
   </entry>
   <entry>
