@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[9-回文数]]></title>
+    <url>%2F2020%2F01%2F09%2F9-%E5%9B%9E%E6%96%87%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。 示例1234示例 1:输入: 121输出: true 12345示例 2:输入: -121输出: false解释: 从左向右读, 为 -121 。 从右向左读, 为 121- 。因此它不是一个回文数。 12345示例 3:输入: 10输出: false解释: 从右向左读, 为 01 。因此它不是一个回文数。 解法直接转换成字符串对比即可。 123class Solution: def isPalindrome(self, x: int) -&gt; bool: return True if str(x)==str(x)[::-1] else False 来源LeetCode中该题地址，Click here!]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[8-字符串转换整数]]></title>
     <url>%2F2020%2F01%2F08%2F8-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E6%95%B4%E6%95%B0%2F</url>
     <content type="text"><![CDATA[请你来实现一个 atoi 函数，使其能将字符串转换成整数。 首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。 当我们寻找到的第一个非空字符为正或者负号时，则将该符号与之后面尽可能多的连续数字组合起来，作为该整数的正负号；假如第一个非空字符是数字，则直接将其与之后连续的数字字符组合起来，形成整数。 该字符串除了有效的整数部分之后也可能会存在多余的字符，这些字符可以被忽略，它们对于函数不应该造成影响。 注意：假如该字符串中的第一个非空格字符不是一个有效整数字符、字符串为空或字符串仅包含空白字符时，则你的函数不需要进行转换。 在任何情况下，若函数不能进行有效的转换时，请返回 0。 说明： 假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为 [−2^31, 2^31 − 1]。如果数值超过这个范围，请返回 INT_MAX (2^31 − 1) 或 INT_MIN (−2^31) 。 示例1234示例 1:输入: &quot;42&quot;输出: 42 1234567示例 2:输入: &quot; -42&quot;输出: -42解释: 第一个非空白字符为 &apos;-&apos;, 它是一个负号。我们尽可能将负号与后面所有连续出现的数字组合起来，最后得到 -42 。 123456示例 3:输入: &quot;4193 with words&quot;输出: 4193解释: 转换截止于数字 &apos;3&apos; ，因为它的下一个字符不为数字。 123456示例 4:输入: &quot;words and 987&quot;输出: 0解释: 第一个非空字符是 &apos;w&apos;, 但它不是数字或正、负号。因此无法执行有效的转换。 123456示例 5:输入: &quot;-91283472332&quot;输出: -2147483648解释: 数字 &quot;-91283472332&quot; 超过 32 位有符号整数范围。 因此返回 INT_MIN (−231) 。 解法-常规该题解法很容易想到，只是有很多小细节需要注意。 123456789101112131415161718192021222324252627282930class Solution: def myAtoi(self, s: str) -&gt; int: str_ = s.strip() # 去掉字符串的空白 if len(str_) == 0: # 空字符串 return 0 nums_ls = [str(i) for i in range(10)] symbols_ls = ["-", "+"] # 判断首个字符 if str_[0]not in nums_ls and str_[0] not in symbols_ls: return 0 else: res = str_[0] # 判断后面的字符 for i in str_[1:]: if i in nums_ls: res += i else: break try: # 只有正负号时，返回0 res = int(res) except: return 0 # if res &gt; 2147483647: # return 2147483647 # elif res &lt; -2147483648: # return -2147483648 # else: # return res # 功能同上面注释部分，不过更加优雅 return min(max(res, -2147483648), 2147483647) 解法-正则利用正则表达式，来提取有效字符串。 正则 含义 ^ 匹配字符串开头 [+-] 代表一个+字符或-字符 ? 前面一个字符可有可无 \d 一个数字 + 前面一个字符的一个或多个 * 前面一个字符的零个或多个 123class Solution: def myAtoi(self, s: str) -&gt; int: return max(min(int(*re.findall('^[\+\-]?\d+', s.lstrip())), 2**31 - 1), -2**31) 来源LeetCode中该题地址，Click here!]]></content>

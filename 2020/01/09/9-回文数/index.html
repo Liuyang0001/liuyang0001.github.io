@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Python,Algorithms,数学,链表," />
+  <meta name="keywords" content="Python,Algorithms,数学," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="给出两个非空的链表用来表示两个非负的整数。其中，它们各自的位数是按照逆序的方式存储的，并且它们的每个节点只能存储一位数字。如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。 您可以假设除了数字 0 之外，这两个数都不会以 0 开头。">
-<meta name="keywords" content="Python,Algorithms,数学,链表">
+<meta name="description" content="判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。">
+<meta name="keywords" content="Python,Algorithms,数学">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2.两数相加">
-<meta property="og:url" content="https://liuyang0001.github.io/2020/01/03/2-两数相加/index.html">
+<meta property="og:title" content="9-回文数">
+<meta property="og:url" content="https://liuyang0001.github.io/2020/01/09/9-回文数/index.html">
 <meta property="og:site_name" content="Mr. Liu&#39;s Tech Blog">
-<meta property="og:description" content="给出两个非空的链表用来表示两个非负的整数。其中，它们各自的位数是按照逆序的方式存储的，并且它们的每个节点只能存储一位数字。如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。 您可以假设除了数字 0 之外，这两个数都不会以 0 开头。">
+<meta property="og:description" content="判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-01-03T06:27:19.252Z">
+<meta property="og:updated_time" content="2020-01-09T02:36:40.402Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2.两数相加">
-<meta name="twitter:description" content="给出两个非空的链表用来表示两个非负的整数。其中，它们各自的位数是按照逆序的方式存储的，并且它们的每个节点只能存储一位数字。如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。 您可以假设除了数字 0 之外，这两个数都不会以 0 开头。">
+<meta name="twitter:title" content="9-回文数">
+<meta name="twitter:description" content="判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://liuyang0001.github.io/2020/01/03/2-两数相加/"/>
+  <link rel="canonical" href="https://liuyang0001.github.io/2020/01/09/9-回文数/"/>
 
 
 
 
 
-  <title>2.两数相加 | Mr. Liu's Tech Blog</title>
+  <title>9-回文数 | Mr. Liu's Tech Blog</title>
   
 
 
@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2020/01/03/2-两数相加/">
+    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2020/01/09/9-回文数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Liu Yang">
@@ -324,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">2.两数相加</h1>
+          <h1 class="post-title" itemprop="name headline">9-回文数</h1>
         
 
         <div class="post-meta">
@@ -336,8 +336,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-03T14:04:18+08:00">
-                2020-01-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-09T10:25:44+08:00">
+                2020-01-09
               </time>
             
 
@@ -377,9 +377,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/01/03/2-两数相加/#comments" itemprop="discussionUrl">
+                <a href="/2020/01/09/9-回文数/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/01/03/2-两数相加/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2020/01/09/9-回文数/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -387,7 +387,7 @@
 
           
           
-             <span id="/2020/01/03/2-两数相加/" class="leancloud_visitors" data-flag-title="2.两数相加">
+             <span id="/2020/01/09/9-回文数/" class="leancloud_visitors" data-flag-title="9-回文数">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -418,16 +418,16 @@
       
 
       
-        <p>给出两个非空的链表用来表示两个非负的整数。其中，它们各自的位数是按照逆序的方式存储的，并且它们的每个节点只能存储一位数字。如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。 您可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p>
+        <p>判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。</p>
 <a id="more"></a>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><code>输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)</code></p>
-<p><code>输出：7 -&gt; 0 -&gt; 8</code></p>
-<p><code>原因：342 + 465 = 807</code></p>
-<h2 id="解法1"><a href="#解法1" class="headerlink" title="解法1"></a>解法1</h2><p>将链表转换成字符串，方便进行逆置操作；最后再讲字符串转换成链表。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addTwoNumbers</span><span class="params">(self, l1: ListNode, l2: ListNode)</span> -&gt; ListNode:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">ln2str</span><span class="params">(ln: ListNode)</span>:</span><span class="comment">#链表转换为字符串</span></span><br><span class="line">            <span class="keyword">if</span> ln.next == <span class="keyword">None</span>:</span><br><span class="line">                <span class="keyword">return</span> str(ln.val)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> str(ln.val) + str(ln2str(ln.next))</span><br><span class="line">                </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">str2ln</span><span class="params">(str_res: str)</span>:</span><span class="comment">#字符串转换成链表</span></span><br><span class="line">            <span class="keyword">if</span> len(str_res)==<span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> ListNode(int(str_res))</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                ln_temp = ListNode(int(str_res[<span class="number">0</span>]))</span><br><span class="line">                ln_temp.next = str2ln(str_res[<span class="number">1</span>:])</span><br><span class="line">                <span class="keyword">return</span> ln_temp</span><br><span class="line"></span><br><span class="line">        str1 = ln2str(l1)[::<span class="number">-1</span>] <span class="comment">#将链表1转换为字符串并逆置</span></span><br><span class="line">        str2 = ln2str(l2)[::<span class="number">-1</span>] <span class="comment">#将链表2转换为字符串并逆置</span></span><br><span class="line">        str_res = str(int(str1)+int(str2))[::<span class="number">-1</span>] <span class="comment">#相加后转换为字符串，逆置</span></span><br><span class="line">        <span class="keyword">return</span> str2ln(str_res)  <span class="comment">#返回转换成的链表</span></span><br></pre></td></tr></table></figure>
-<h2 id="解法2"><a href="#解法2" class="headerlink" title="解法2"></a>解法2</h2><p>把两个数按位相加，并存到一个新的链表中，使用carry保存是否需要进位。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 官方解法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addTwoNumbers</span><span class="params">(self, l1: ListNode, l2: ListNode)</span> -&gt; ListNode:</span></span><br><span class="line">        dummyHead = ListNode(<span class="number">0</span>) <span class="comment"># 建立一个头结点</span></span><br><span class="line">        curr, carry = dummyHead, <span class="number">0</span> <span class="comment">#curr表当前结点；carry表进位</span></span><br><span class="line">        <span class="keyword">while</span> l1 <span class="keyword">or</span> l2: <span class="comment"># 不全为空</span></span><br><span class="line">            sum = <span class="number">0</span></span><br><span class="line">            <span class="keyword">if</span> l1: <span class="comment"># l1非空</span></span><br><span class="line">                sum += l1.val</span><br><span class="line">                l1 = l1.next</span><br><span class="line">            <span class="keyword">if</span> l2: <span class="comment"># l2非空</span></span><br><span class="line">                sum += l2.val</span><br><span class="line">                l2 = l2.next</span><br><span class="line">            sum += carry</span><br><span class="line">            carry = sum // <span class="number">10</span></span><br><span class="line">            curr.next = ListNode(sum % <span class="number">10</span>)</span><br><span class="line">            curr = curr.next</span><br><span class="line">        <span class="keyword">if</span> carry &gt; <span class="number">0</span>: <span class="comment"># 需要进位，使得链表加长</span></span><br><span class="line">            curr.next = ListNode(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> dummyHead.next; <span class="comment">#返回除头结点之后链表</span></span><br></pre></td></tr></table></figure>
-<h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p><a href="https://leetcode-cn.com/problems/add-two-numbers" target="_blank" rel="noopener">LeetCode中该题地址，Click here!</a></p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">示例 1:</span><br><span class="line"></span><br><span class="line">输入: 121</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">示例 2:</span><br><span class="line"></span><br><span class="line">输入: -121</span><br><span class="line">输出: false</span><br><span class="line">解释: 从左向右读, 为 -121 。 从右向左读, 为 121- 。因此它不是一个回文数。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">示例 3:</span><br><span class="line"></span><br><span class="line">输入: 10</span><br><span class="line">输出: false</span><br><span class="line">解释: 从右向左读, 为 01 。因此它不是一个回文数。</span><br></pre></td></tr></table></figure>
+<hr>
+
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>直接转换成字符串对比即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isPalindrome</span><span class="params">(self, x: int)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span> <span class="keyword">if</span> str(x)==str(x)[::<span class="number">-1</span>] <span class="keyword">else</span> <span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+<h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p><a href="https://leetcode-cn.com/problems/palindrome-number/" target="_blank" rel="noopener">LeetCode中该题地址，Click here!</a></p>
 
       
     </div>
@@ -488,8 +488,6 @@
           
             <a href="/tags/数学/" rel="tag"># 数学</a>
           
-            <a href="/tags/链表/" rel="tag"># 链表</a>
-          
         </div>
       
 
@@ -501,8 +499,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/01/02/1-两数之和/" rel="next" title="1.两数之和">
-                <i class="fa fa-chevron-left"></i> 1.两数之和
+              <a href="/2020/01/08/8-字符串转换整数/" rel="next" title="8-字符串转换整数">
+                <i class="fa fa-chevron-left"></i> 8-字符串转换整数
               </a>
             
           </div>
@@ -510,10 +508,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/01/03/3-无重复字符的最长子串/" rel="prev" title="3.无重复字符的最长子串">
-                3.无重复字符的最长子串 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -683,7 +677,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-number">1.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法1"><span class="nav-number">2.</span> <span class="nav-text">解法1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法2"><span class="nav-number">3.</span> <span class="nav-text">解法2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#来源"><span class="nav-number">4.</span> <span class="nav-text">来源</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-number">1.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">2.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#来源"><span class="nav-number">3.</span> <span class="nav-text">来源</span></a></li></ol></div>
             
 
           </div>
@@ -842,9 +836,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://liuyang0001.github.io/2020/01/03/2-两数相加/';
-          this.page.identifier = '2020/01/03/2-两数相加/';
-          this.page.title = '2.两数相加';
+          this.page.url = 'https://liuyang0001.github.io/2020/01/09/9-回文数/';
+          this.page.identifier = '2020/01/09/9-回文数/';
+          this.page.title = '9-回文数';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
