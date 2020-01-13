@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[13-罗马数字转整数]]></title>
+    <url>%2F2020%2F01%2F13%2F13-%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97%E8%BD%AC%E6%95%B4%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[给定一个罗马数字，将其转换成整数。输入确保在 1 到 3999 的范围内。 罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。 字符 数值 I 1 V 5 X 10 L 50 C 100 D 500 M 1000 例如， 罗马数字 2 写做 II ，即为两个并列的 1。12 写做 XII ，即为 X + II 。 27 写做 XXVII, 即为 XX + V + II 。 |通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 4 不写做 IIII，而是 IV。数字 1 在数字 5 的左边，所表示的数等于大数 5 减小数 1 得到的数值 4 。同样地，数字 9 表示为 IX。这个特殊的规则只适用于以下六种情况： I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。 X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。 C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。 示例1234示例 1:输入: &quot;III&quot;输出: 3 1234示例 2:输入: &quot;IV&quot;输出: 4 1234示例 3:输入: &quot;IX&quot;输出: 9 12345示例 4:输入: &quot;LVIII&quot;输出: 58解释: L = 50, V= 5, III = 3. 12345示例 5:输入: &quot;MCMXCIV&quot;输出: 1994解释: M = 1000, CM = 900, XC = 90, IV = 4. 解法 核心思想：查找字典，当前value值小于右侧的value值时减去， 否则加上该值 注意点 ：边界情况的处理 123456789101112class Solution: def romanToInt(self, s: str) -&gt; int: hash_map = &#123;'I':1, 'V':5, 'X':10, 'L':50, 'C':100, 'D':500, 'M':1000&#125; res = 0 for i in range(len(s)): # 右侧的value大于当前value,减去当前值 if (i &lt; len(s)-1) and (hash_map[s[i]] &lt; hash_map[s[i+1]]): res -= hash_map[s[i]] # 否则，则加上当前值 else: res += hash_map[s[i]] return res 来源LeetCode中该题地址，Click here!]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数学</tag>
+        <tag>字符串</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[12-整数转罗马数字]]></title>
     <url>%2F2020%2F01%2F12%2F12-%E6%95%B4%E6%95%B0%E8%BD%AC%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97%2F</url>
     <content type="text"><![CDATA[给定一个整数，将其转为罗马数字。输入确保在 1 到 3999 的范围内。 罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。 字符 数值 I 1 V 5 X 10 L 50 C 100 D 500 M 1000 例如， 罗马数字 2 写做 II ，即为两个并列的 1。12 写做 XII ，即为 X + II 。 27 写做 XXVII, 即为 XX + V + II 。 |通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 4 不写做 IIII，而是 IV。数字 1 在数字 5 的左边，所表示的数等于大数 5 减小数 1 得到的数值 4 。同样地，数字 9 表示为 IX。这个特殊的规则只适用于以下六种情况： I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。 X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。 C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。 示例1234示例 1:输入: 3输出: &quot;III&quot; 1234示例 2:输入: 4输出: &quot;IV&quot; 1234示例 3:输入: 9输出: &quot;IX&quot; 12345示例 4:输入: 58输出: &quot;LVIII&quot;解释: L = 50, V = 5, III = 3. 12345示例 5:输入: 1994输出: &quot;MCMXCIV&quot;解释: M = 1000, CM = 900, XC = 90, IV = 4. 解法 核心思想：使用贪心算法 123456789101112131415161718192021222324252627class Solution: def intToRoman(self, num: int) -&gt; str: num_dict = &#123;1: 'I', 4: 'IV', 5: 'V', 9: 'IX', 10: 'X', 40: 'XL', 50: 'L', 90: 'XC', 100: 'C', 400: 'CD', 500: 'D', 900: 'CM', 1000: 'M'&#125; res = "" # 贪心算法，将字典逆置，从大的开始除 for key in sorted(num_dict.keys())[::-1]: if(num == 0): break tmp = num//key if(tmp == 0): continue res += num_dict[key] * (tmp) # 更新num值 num -= key*(tmp) return res 来源LeetCode中该题地址，Click here!]]></content>
@@ -659,8 +673,8 @@
       <tags>
         <tag>BMC</tag>
         <tag>IPMI</tag>
-        <tag>IPMITOOL</tag>
         <tag>Linux</tag>
+        <tag>IPMITOOL</tag>
       </tags>
   </entry>
   <entry>
@@ -699,8 +713,8 @@
       <tags>
         <tag>BMC</tag>
         <tag>IPMI</tag>
-        <tag>IPMITOOL</tag>
         <tag>Linux</tag>
+        <tag>IPMITOOL</tag>
       </tags>
   </entry>
   <entry>
