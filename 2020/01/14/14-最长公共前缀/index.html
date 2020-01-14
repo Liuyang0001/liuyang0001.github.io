@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Python,算法," />
+  <meta name="keywords" content="Python,Algorithms,字符串," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="基于python实现了冒泡排序、希尔排序、插入排序、快速排序、直接选择排序、堆排序、归并排序、基数排序。">
-<meta name="keywords" content="Python,算法">
+<meta name="description" content="编写一个函数来查找字符串数组中的最长公共前缀。如果不存在公共前缀，返回空字符串 “”。">
+<meta name="keywords" content="Python,Algorithms,字符串">
 <meta property="og:type" content="article">
-<meta property="og:title" content="八种常用排序算法">
-<meta property="og:url" content="https://liuyang0001.github.io/2018/03/26/八种常用排序算法/index.html">
+<meta property="og:title" content="14-最长公共前缀">
+<meta property="og:url" content="https://liuyang0001.github.io/2020/01/14/14-最长公共前缀/index.html">
 <meta property="og:site_name" content="Mr. Liu&#39;s Tech Blog">
-<meta property="og:description" content="基于python实现了冒泡排序、希尔排序、插入排序、快速排序、直接选择排序、堆排序、归并排序、基数排序。">
+<meta property="og:description" content="编写一个函数来查找字符串数组中的最长公共前缀。如果不存在公共前缀，返回空字符串 “”。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-26T12:04:27.836Z">
+<meta property="og:updated_time" content="2020-01-14T10:01:36.893Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="八种常用排序算法">
-<meta name="twitter:description" content="基于python实现了冒泡排序、希尔排序、插入排序、快速排序、直接选择排序、堆排序、归并排序、基数排序。">
+<meta name="twitter:title" content="14-最长公共前缀">
+<meta name="twitter:description" content="编写一个函数来查找字符串数组中的最长公共前缀。如果不存在公共前缀，返回空字符串 “”。">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://liuyang0001.github.io/2018/03/26/八种常用排序算法/"/>
+  <link rel="canonical" href="https://liuyang0001.github.io/2020/01/14/14-最长公共前缀/"/>
 
 
 
 
 
-  <title>八种常用排序算法 | Mr. Liu's Tech Blog</title>
+  <title>14-最长公共前缀 | Mr. Liu's Tech Blog</title>
   
 
 
@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2018/03/26/八种常用排序算法/">
+    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2020/01/14/14-最长公共前缀/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Liu Yang">
@@ -324,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">八种常用排序算法</h1>
+          <h1 class="post-title" itemprop="name headline">14-最长公共前缀</h1>
         
 
         <div class="post-meta">
@@ -336,8 +336,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T19:20:56+08:00">
-                2018-03-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-14T17:32:28+08:00">
+                2020-01-14
               </time>
             
 
@@ -359,8 +359,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python-Study-Notes/" itemprop="url" rel="index">
-                    <span itemprop="name">Python Study Notes</span>
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
                   </a>
                 </span>
 
@@ -377,9 +377,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/03/26/八种常用排序算法/#comments" itemprop="discussionUrl">
+                <a href="/2020/01/14/14-最长公共前缀/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/03/26/八种常用排序算法/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2020/01/14/14-最长公共前缀/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -387,7 +387,7 @@
 
           
           
-             <span id="/2018/03/26/八种常用排序算法/" class="leancloud_visitors" data-flag-title="八种常用排序算法">
+             <span id="/2020/01/14/14-最长公共前缀/" class="leancloud_visitors" data-flag-title="14-最长公共前缀">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -418,45 +418,29 @@
       
 
       
-        <p>基于python实现了冒泡排序、希尔排序、插入排序、快速排序、直接选择排序、堆排序、归并排序、基数排序。<br><a id="more"></a></p>
+        <p>编写一个函数来查找字符串数组中的最长公共前缀。如果不存在公共前缀，返回空字符串 “”。</p>
+<a id="more"></a>
 <hr>
 
-<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><h4 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h4><p>重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。</p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 冒泡排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(lists)</span>:</span></span><br><span class="line">    count = len(lists)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, count):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, count):</span><br><span class="line">            <span class="keyword">if</span> lists[i] &gt; lists[j]:</span><br><span class="line">                lists[i], lists[j] = lists[j], lists[i]</span><br><span class="line">    <span class="keyword">return</span> lists</span><br></pre></td></tr></table></figure>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">示例 1:</span><br><span class="line"></span><br><span class="line">输入: [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]</span><br><span class="line">输出: &quot;fl&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">示例 2:</span><br><span class="line"></span><br><span class="line">输入: [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;]</span><br><span class="line">输出: &quot;&quot;</span><br><span class="line">解释: 输入不存在公共前缀。</span><br></pre></td></tr></table></figure>
 <hr>
 
-<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><h4 id="描述-1"><a href="#描述-1" class="headerlink" title="描述"></a>描述</h4><p>插入排序的基本操作就是将一个数据插入到已经排好序的有序数据中，从而得到一个新的、个数加一的有序数据，算法适用于少量数据的排序，时间复杂度为O(n^2)。是稳定的排序方法。插入算法把要排序的数组分成两部分：第一部分包含了这个数组的所有元素，但将最后一个元素除外（让数组多一个空间才有插入的位置），而第二部分就只包含这一个元素（即待插入元素）。在第一部分排序完成后，再将这个最后元素插入到已排好序的第一部分中。</p>
-<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 插入排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert_sort</span><span class="params">(lists)</span>:</span></span><br><span class="line">    count = len(lists)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, count):</span><br><span class="line">        key = lists[i]</span><br><span class="line">        j = i - <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> j &gt;= <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">if</span> lists[j] &gt; key:</span><br><span class="line">                lists[j + <span class="number">1</span>] = lists[j]</span><br><span class="line">                lists[j] = key</span><br><span class="line">            j -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> lists</span><br></pre></td></tr></table></figure>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><h3 id="暴力法-双重循环"><a href="#暴力法-双重循环" class="headerlink" title="暴力法-双重循环"></a>暴力法-双重循环</h3><blockquote>
+<p>核心思想：分别对比每个元素的每个相同位置的字母，不同即返回结果</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestCommonPrefix</span><span class="params">(self, strs: List[str])</span> -&gt; str:</span></span><br><span class="line">        res = <span class="string">""</span></span><br><span class="line">        <span class="keyword">if</span> len(strs)==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line">        <span class="comment">#i的范围：[0,最短的字符串长度]</span></span><br><span class="line">        <span class="comment">#j的范围：[0,字符串的数量-1]</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(min(strs, key=len))):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(len(strs)<span class="number">-1</span>):</span><br><span class="line">                <span class="keyword">if</span> strs[j][i] != strs[j+<span class="number">1</span>][i]:</span><br><span class="line">                    <span class="keyword">return</span> res</span><br><span class="line">            res += strs[<span class="number">0</span>][i]</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<h4 id="利用特殊函数-zip和set"><a href="#利用特殊函数-zip和set" class="headerlink" title="利用特殊函数-zip和set"></a>利用特殊函数-zip和set</h4><blockquote>
+<p><strong>keypoint：</strong></p>
+<p><strong>1.*进行解包；</strong></p>
+<p><strong>2.zip打包成列表；</strong></p>
+<p><strong>3.set列表去重</strong></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestCommonPrefix</span><span class="params">(self, strs: List[str])</span> -&gt; str:</span>     </span><br><span class="line">        res = <span class="string">""</span></span><br><span class="line">        <span class="comment"># 使用*解包将每一位的字符分别打包成一个列表</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> zip(*strs):</span><br><span class="line">            <span class="comment"># 去重后列表只剩一个元素</span></span><br><span class="line">            <span class="keyword">if</span> len(set(i)) == <span class="number">1</span>:</span><br><span class="line">                res += i[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
 <hr>
 
-<h3 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h3><h4 id="描述-2"><a href="#描述-2" class="headerlink" title="描述"></a>描述</h4><p>希尔排序(Shell Sort)是插入排序的一种。也称缩小增量排序，是直接插入排序算法的一种更高效的改进版本。希尔排序是非稳定排序算法。该方法因DL．Shell于1959年提出而得名。 希尔排序是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 希尔排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">shell_sort</span><span class="params">(lists)</span>:</span></span><br><span class="line">    count = len(lists)</span><br><span class="line">    step = <span class="number">2</span></span><br><span class="line">    group = count / step</span><br><span class="line">    <span class="keyword">while</span> group &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, group):</span><br><span class="line">            j = i + group</span><br><span class="line">            <span class="keyword">while</span> j &lt; count:</span><br><span class="line">                k = j - group</span><br><span class="line">                key = lists[j]</span><br><span class="line">                <span class="keyword">while</span> k &gt;= <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">if</span> lists[k] &gt; key:</span><br><span class="line">                        lists[k + group] = lists[k]</span><br><span class="line">                        lists[k] = key</span><br><span class="line">                    k -= group</span><br><span class="line">                j += group</span><br><span class="line">        group /= step</span><br><span class="line">    <span class="keyword">return</span> lists</span><br></pre></td></tr></table></figure>
-<hr>
+<h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p><a href="https://leetcode-cn.com/problems/longest-common-prefix/" target="_blank" rel="noopener">LeetCode中该题地址，Click here!</a></p>
 
-<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><h4 id="描述-3"><a href="#描述-3" class="headerlink" title="描述"></a>描述</h4><p>通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。</p>
-<h4 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 快速排序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(lists, left, right)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> left &gt;= right:</span><br><span class="line">        <span class="keyword">return</span> lists</span><br><span class="line">    key = lists[left]</span><br><span class="line">    low = left</span><br><span class="line">    high = right</span><br><span class="line">    <span class="keyword">while</span> left &lt; right:</span><br><span class="line">        <span class="keyword">while</span> left &lt; right <span class="keyword">and</span> lists[right] &gt;= key:</span><br><span class="line">            right -= <span class="number">1</span></span><br><span class="line">        lists[left] = lists[right]</span><br><span class="line">        <span class="keyword">while</span> left &lt; right <span class="keyword">and</span> lists[left] &lt;= key:</span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">        lists[right] = lists[left]</span><br><span class="line">    lists[right] = key</span><br><span class="line">    quick_sort(lists, low, left - <span class="number">1</span>)</span><br><span class="line">    quick_sort(lists, left + <span class="number">1</span>, high)</span><br><span class="line">    <span class="keyword">return</span> lists</span><br></pre></td></tr></table></figure>
-<hr>
-
-<h3 id="直接选择排序"><a href="#直接选择排序" class="headerlink" title="直接选择排序"></a>直接选择排序</h3><h4 id="描述-4"><a href="#描述-4" class="headerlink" title="描述"></a>描述</h4><p>基本思想：第1趟，在待排序记录r1 ~ r[n]中选出最小的记录，将它与r1交换；第2趟，在待排序记录r2 ~ r[n]中选出最小的记录，将它与r2交换；以此类推，第i趟在待排序记录r[i] ~ r[n]中选出最小的记录，将它与r[i]交换，使有序序列不断增长直到全部排序完毕。</p>
-<h4 id="代码实现-3"><a href="#代码实现-3" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">select_sort</span><span class="params">(lists)</span>:</span></span><br><span class="line">    <span class="comment"># 选择排序</span></span><br><span class="line">    count = len(lists)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, count):</span><br><span class="line">        min = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i + <span class="number">1</span>, count):</span><br><span class="line">            <span class="keyword">if</span> lists[min] &gt; lists[j]:</span><br><span class="line">                min = j</span><br><span class="line">        lists[min], lists[i] = lists[i], lists[min]</span><br><span class="line">    <span class="keyword">return</span> lists</span><br></pre></td></tr></table></figure>
-<hr>
-
-<h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><h4 id="描述-5"><a href="#描述-5" class="headerlink" title="描述"></a>描述</h4><p>堆排序(Heapsort)是指利用堆积树（堆）这种数据结构所设计的一种排序算法，它是选择排序的一种。可以利用数组的特点快速定位指定索引的元素。堆分为大根堆和小根堆，是完全二叉树。大根堆的要求是每个节点的值都不大于其父节点的值，即A[PARENT[i]] &gt;= A[i]。在数组的非降序排序中，需要使用的就是大根堆，因为根据大根堆的要求可知，最大的值一定在堆顶。</p>
-<h4 id="代码实现-4"><a href="#代码实现-4" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">adjust_heap</span><span class="params">(lists, i, size)</span>:</span></span><br><span class="line">    lchild = <span class="number">2</span> * i + <span class="number">1</span></span><br><span class="line">    rchild = <span class="number">2</span> * i + <span class="number">2</span></span><br><span class="line">    max = i</span><br><span class="line">    <span class="keyword">if</span> i &lt; size / <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">if</span> lchild &lt; size <span class="keyword">and</span> lists[lchild] &gt; lists[max]:</span><br><span class="line">            max = lchild</span><br><span class="line">        <span class="keyword">if</span> rchild &lt; size <span class="keyword">and</span> lists[rchild] &gt; lists[max]:</span><br><span class="line">            max = rchild</span><br><span class="line">        <span class="keyword">if</span> max != i:</span><br><span class="line">            lists[max], lists[i] = lists[i], lists[max]</span><br><span class="line">            adjust_heap(lists, max, size)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">build_heap</span><span class="params">(lists, size)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, (size/<span class="number">2</span>))[::<span class="number">-1</span>]:</span><br><span class="line">        adjust_heap(lists, i, size)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">heap_sort</span><span class="params">(lists)</span>:</span></span><br><span class="line">    size = len(lists)</span><br><span class="line">    build_heap(lists, size)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, size)[::<span class="number">-1</span>]:</span><br><span class="line">        lists[<span class="number">0</span>], lists[i] = lists[i], lists[<span class="number">0</span>]</span><br><span class="line">        adjust_heap(lists, <span class="number">0</span>, i)</span><br></pre></td></tr></table></figure>
-<hr>
-
-<h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><h4 id="描述-6"><a href="#描述-6" class="headerlink" title="描述"></a>描述</h4><p>归并排序是建立在归并操作上的一种有效的排序算法,该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为二路归并。</p>
-<p>归并过程为：比较a[i]和a[j]的大小，若a[i]≤a[j]，则将第一个有序表中的元素a[i]复制到r[k]中，并令i和k分别加上1；否则将第二个有序表中的元素a[j]复制到r[k]中，并令j和k分别加上1，如此循环下去，直到其中一个有序表取完，然后再将另一个有序表中剩余的元素复制到r中从下标k到下标t的单元。归并排序的算法我们通常用递归实现，先把待排序区间[s,t]以中点二分，接着把左边子区间排序，再把右边子区间排序，最后把左区间和右区间用一次归并操作合并成有序的区间[s,t]。</p>
-<h4 id="代码实现-5"><a href="#代码实现-5" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(left, right)</span>:</span></span><br><span class="line">    i, j = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    result = []</span><br><span class="line">    <span class="keyword">while</span> i &lt; len(left) <span class="keyword">and</span> j &lt; len(right):</span><br><span class="line">        <span class="keyword">if</span> left[i] &lt;= right[j]:</span><br><span class="line">            result.append(left[i])</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            result.append(right[j])</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">    result += left[i:]</span><br><span class="line">    result += right[j:]</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_sort</span><span class="params">(lists)</span>:</span></span><br><span class="line">    <span class="comment"># 归并排序</span></span><br><span class="line">    <span class="keyword">if</span> len(lists) &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> lists</span><br><span class="line">    num = len(lists) / <span class="number">2</span></span><br><span class="line">    left = merge_sort(lists[:num])</span><br><span class="line">    right = merge_sort(lists[num:])</span><br><span class="line">    <span class="keyword">return</span> merge(left, right)</span><br></pre></td></tr></table></figure>
-<hr>
-
-<h3 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h3><h4 id="描述-7"><a href="#描述-7" class="headerlink" title="描述"></a>描述</h4><p>基数排序（radix sort）属于“分配式排序”（distribution sort），又称“桶子法”（bucket sort）或bin sort，顾名思义，它是透过键值的部份资讯，将要排序的元素分配至某些“桶”中，藉以达到排序的作用，基数排序法是属于稳定性的排序，其时间复杂度为O (nlog(r)m)，其中r为所采取的基数，而m为堆数，在某些时候，基数排序法的效率高于其它的稳定性排序法。</p>
-<h4 id="代码实现-6"><a href="#代码实现-6" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">radix_sort</span><span class="params">(lists, radix=<span class="number">10</span>)</span>:</span></span><br><span class="line">    k = int(math.ceil(math.log(max(lists), radix)))</span><br><span class="line">    bucket = [[] <span class="keyword">for</span> i <span class="keyword">in</span> range(radix)]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, k+<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> lists:</span><br><span class="line">            bucket[j/(radix**(i<span class="number">-1</span>)) % (radix**i)].append(j)</span><br><span class="line">        <span class="keyword">del</span> lists[:]</span><br><span class="line">        <span class="keyword">for</span> z <span class="keyword">in</span> bucket:</span><br><span class="line">            lists += z</span><br><span class="line">            <span class="keyword">del</span> z[:]</span><br><span class="line">    <span class="keyword">return</span> lists</span><br></pre></td></tr></table></figure>
-<hr>
-
-<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><p>本文来自<strong>十三号线上的蝼蚁</strong>，仅作整理学习，后续会添加每一种排序的详解。</p>
-<p>访问原文请<a href="http://python.jobbole.com/82270/" target="_blank" rel="noopener">点击这里</a>。</p>
-<hr>
       
     </div>
     
@@ -512,7 +496,9 @@
           
             <a href="/tags/Python/" rel="tag"># Python</a>
           
-            <a href="/tags/算法/" rel="tag"># 算法</a>
+            <a href="/tags/Algorithms/" rel="tag"># Algorithms</a>
+          
+            <a href="/tags/字符串/" rel="tag"># 字符串</a>
           
         </div>
       
@@ -525,8 +511,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/25/Django数据库操作/" rel="next" title="Django数据库操作">
-                <i class="fa fa-chevron-left"></i> Django数据库操作
+              <a href="/2020/01/13/13-罗马数字转整数/" rel="next" title="13-罗马数字转整数">
+                <i class="fa fa-chevron-left"></i> 13-罗马数字转整数
               </a>
             
           </div>
@@ -534,10 +520,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/27/ORM分组与聚合查询/" rel="prev" title="ORM分组与聚合查询">
-                ORM分组与聚合查询 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -707,7 +689,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#冒泡排序"><span class="nav-number">1.</span> <span class="nav-text">冒泡排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述"><span class="nav-number">1.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现"><span class="nav-number">1.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入排序"><span class="nav-number">2.</span> <span class="nav-text">插入排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-1"><span class="nav-number">2.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现-1"><span class="nav-number">2.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#希尔排序"><span class="nav-number">3.</span> <span class="nav-text">希尔排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-2"><span class="nav-number">3.1.</span> <span class="nav-text">描述</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速排序"><span class="nav-number">4.</span> <span class="nav-text">快速排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-3"><span class="nav-number">4.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现-2"><span class="nav-number">4.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接选择排序"><span class="nav-number">5.</span> <span class="nav-text">直接选择排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-4"><span class="nav-number">5.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现-3"><span class="nav-number">5.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#堆排序"><span class="nav-number">6.</span> <span class="nav-text">堆排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-5"><span class="nav-number">6.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现-4"><span class="nav-number">6.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#归并排序"><span class="nav-number">7.</span> <span class="nav-text">归并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-6"><span class="nav-number">7.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现-5"><span class="nav-number">7.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基数排序"><span class="nav-number">8.</span> <span class="nav-text">基数排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述-7"><span class="nav-number">8.1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现-6"><span class="nav-number">8.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#声明"><span class="nav-number">9.</span> <span class="nav-text">声明</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-number">1.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法"><span class="nav-number">2.</span> <span class="nav-text">解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#暴力法-双重循环"><span class="nav-number">2.1.</span> <span class="nav-text">暴力法-双重循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#利用特殊函数-zip和set"><span class="nav-number">2.1.1.</span> <span class="nav-text">利用特殊函数-zip和set</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#来源"><span class="nav-number">3.</span> <span class="nav-text">来源</span></a></li></ol></div>
             
 
           </div>
@@ -866,9 +848,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://liuyang0001.github.io/2018/03/26/八种常用排序算法/';
-          this.page.identifier = '2018/03/26/八种常用排序算法/';
-          this.page.title = '八种常用排序算法';
+          this.page.url = 'https://liuyang0001.github.io/2020/01/14/14-最长公共前缀/';
+          this.page.identifier = '2020/01/14/14-最长公共前缀/';
+          this.page.title = '14-最长公共前缀';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
