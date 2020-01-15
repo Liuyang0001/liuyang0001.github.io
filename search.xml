@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[16-最接近的三数之和]]></title>
+    <url>%2F2020%2F01%2F15%2F16-%E6%9C%80%E6%8E%A5%E8%BF%91%E7%9A%84%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C%2F</url>
+    <content type="text"><![CDATA[给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。 示例123输入：nums = [-1，2，1，-4], target = 1输出：2解释：与target最接近的三个数的和为2. (-1 + 2 + 1 = 2). 解法 核心思想：采用双指针， 若target-sum&gt;0，说明sum太小，low向高移动若target-sum&lt;0，说明sum太大，high向低移动 123456789101112131415161718192021222324class Solution: def threeSumClosest(self, nums: List[int], target: int) -&gt; int: # 只有三个数字，直接相加返回 if len(nums) == 3: return sum(nums) # 对nums进行排序 nums.sort() # 初始差值为最大值 d_value = sys.maxsize for i in range(len(nums)): # low=i+1为去除之前判断过得操作 low, high = i+1, len(nums)-1 while(low &lt; high): x = target - nums[low] - nums[high] - nums[i] # 进行差值 if abs(x) &lt; abs(d_value): d_value = x if x &gt; 0: low += 1 elif x &lt; 0: high -= 1 elif x = 0: return target return target - d_value 来源LeetCode中该题地址，Click here!]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数组</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[14-最长公共前缀]]></title>
     <url>%2F2020%2F01%2F14%2F14-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80%2F</url>
     <content type="text"><![CDATA[编写一个函数来查找字符串数组中的最长公共前缀。如果不存在公共前缀，返回空字符串 “”。 示例1234示例 1:输入: [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]输出: &quot;fl&quot; 12345示例 2:输入: [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;]输出: &quot;&quot;解释: 输入不存在公共前缀。 解法暴力法-双重循环 核心思想：分别对比每个元素的每个相同位置的字母，不同即返回结果 12345678910111213class Solution: def longestCommonPrefix(self, strs: List[str]) -&gt; str: res = "" if len(strs)==0: return res #i的范围：[0,最短的字符串长度] #j的范围：[0,字符串的数量-1] for i in range(len(min(strs, key=len))): for j in range(len(strs)-1): if strs[j][i] != strs[j+1][i]: return res res += strs[0][i] return res 利用特殊函数-zip和set keypoint： 1.*进行解包； 2.zip打包成列表； 3.set列表去重 1234567891011class Solution: def longestCommonPrefix(self, strs: List[str]) -&gt; str: res = "" # 使用*解包将每一位的字符分别打包成一个列表 for i in zip(*strs): # 去重后列表只剩一个元素 if len(set(i)) == 1: res += i[0] else: break return res 来源LeetCode中该题地址，Click here!]]></content>
@@ -23,8 +37,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>字符串</tag>
         <tag>数学</tag>
+        <tag>字符串</tag>
       </tags>
   </entry>
   <entry>
@@ -37,8 +51,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>字符串</tag>
         <tag>数学</tag>
+        <tag>字符串</tag>
         <tag>贪心算法</tag>
       </tags>
   </entry>
@@ -91,8 +105,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>字符串</tag>
         <tag>数学</tag>
+        <tag>字符串</tag>
       </tags>
   </entry>
   <entry>
@@ -592,8 +606,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>eval</tag>
         <tag>内置函数</tag>
+        <tag>eval</tag>
       </tags>
   </entry>
   <entry>
