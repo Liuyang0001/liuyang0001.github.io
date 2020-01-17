@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[19-删除链表的倒数第N个结点]]></title>
+    <url>%2F2020%2F01%2F17%2F19-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E7%BB%93%E7%82%B9%2F</url>
+    <content type="text"><![CDATA[给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。 示例123给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 n = 2.当删除了倒数第二个节点后，链表变为 1-&gt;2-&gt;3-&gt;5. 解法 核心思想：采用双指针，使他们相差n个位置，则后面的指针到达最后一个元素时，前面的指针刚好指向要删除元素的前一个元素。 123456789101112131415161718192021class Solution: def removeNthFromEnd(self, head: ListNode, n: int) -&gt; ListNode: # 设置双指针 pre, p = head,head # 只有一个结点的情况 if head.next==None: return None # p先向后移动n个位置 for i in range(n): p=p.next # 此时p为空，说明要删除的为头结点 if not p: return head.next # 删除位置不为首尾结点，同步向后移动，直到p指向最后一结点 while p.next: p=p.next pre=pre.next # 删除结点 pre.next = pre.next.next # 返回头结点 return head 来源LeetCode中该题地址，Click here!]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>双指针</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[18-四数之和]]></title>
+    <url>%2F2020%2F01%2F17%2F18-%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C%2F</url>
+    <content type="text"><![CDATA[给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。 注意：答案中不可以包含重复的四元组。 示例给定数组 nums = [1, 0, -1, 0, -2, 2]，和 target = 0。 满足要求的四元组集合为：[ [-1, 0, 0, 1], [-2, -1, 1, 2], [-2, 0, 0, 2]] 解法 核心思想：采用双指针，每次固定两个数，剩下两个数字采用双指针遍历 12345678910111213141516171819202122232425class Solution: def fourSum(self, nums: List[int], target: int) -&gt; List[List[int]]: if len(nums) &lt; 4: # 不足四个数 return [] if len(nums) == 4: # 正好四个数 return [nums] if sum(nums) == target else [] nums.sort() # 排序 # 最大的四个数和小于target，最小的四个数和大于target if sum(nums[:4]) &gt; target or sum(nums[-4:]) &lt; target: return [] res = [] for i in range(len(nums)-2): for j in range(i+1, len(nums)-1): low = j+1 # 双指针遍历 high = len(nums)-1 while low &lt; high: sum_four = nums[i]+nums[j]+nums[low]+nums[high] cur_list = [nums[i], nums[j], nums[low], nums[high]] if sum_four == target and cur_list not in res: res.append(cur_list) if sum_four &lt;= target: low += 1 elif sum_four &gt; target: high -= 1 return res 来源LeetCode中该题地址，Click here!]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数组</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[17-电话号码的字母组合]]></title>
     <url>%2F2020%2F01%2F16%2F17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E5%AD%97%E6%AF%8D%E7%BB%84%E5%90%88%2F</url>
     <content type="text"><![CDATA[给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。 示例12输入：&quot;23&quot;输出：[&quot;ad&quot;, &quot;ae&quot;, &quot;af&quot;, &quot;bd&quot;, &quot;be&quot;, &quot;bf&quot;, &quot;cd&quot;, &quot;ce&quot;, &quot;cf&quot;]. 解法 核心思想：回溯算法（可当成深度优先的算法） 12345678910111213141516171819202122232425262728class Solution: def letterCombinations(self, digits: str) -&gt; List[str]: # 电话号与九宫格字母相对应 phone_dict = &#123;'2': ['a', 'b', 'c'], '3': ['d', 'e', 'f'], '4': ['g', 'h', 'i'], '5': ['j', 'k', 'l'], '6': ['m', 'n', 'o'], '7': ['p', 'q', 'r', 's'], '8': ['t', 'u', 'v'], '9': ['w', 'x', 'y', 'z']&#125; # 空字符串 if not digits: return [] res = [] # 回溯函数:实现效果是类似深度优先 def dfs(digits_cut, tmp): # 遍历到最后一个字母，返回上一层 if(digits_cut == ""): res.append(tmp) return for c in phone_dict[digits_cut[0]]: # 递归下一位字母 dfs(digits_cut=digits_cut[1:], tmp=tmp + c) # 调用回溯函数 dfs(digits, "") return res 来源LeetCode中该题地址，Click here!]]></content>
@@ -714,8 +742,8 @@
       <tags>
         <tag>BMC</tag>
         <tag>IPMI</tag>
-        <tag>IPMITOOL</tag>
         <tag>Linux</tag>
+        <tag>IPMITOOL</tag>
       </tags>
   </entry>
   <entry>
@@ -754,8 +782,8 @@
       <tags>
         <tag>BMC</tag>
         <tag>IPMI</tag>
-        <tag>IPMITOOL</tag>
         <tag>Linux</tag>
+        <tag>IPMITOOL</tag>
       </tags>
   </entry>
   <entry>
