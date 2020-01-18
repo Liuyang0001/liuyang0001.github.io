@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[22-括号生成]]></title>
+    <url>%2F2020%2F01%2F18%2F22-%E6%8B%AC%E5%8F%B7%E7%94%9F%E6%88%90%2F</url>
+    <content type="text"><![CDATA[给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。 示例12输入： n = 3输出：[ &quot;((()))&quot;, &quot;(()())&quot;,&quot;(())()&quot;, &quot;()(())&quot;,&quot;()()()&quot;] 解法解法-动态规划 核心思想：分治算法/动态规划 在求N个括号的排列组合时，把第N种情况（也就是N个括号排列组合）视为单独拿一个括号E出来，剩下的N-1个括号分为两部分，P个括号和Q个括号，P+Q=N-1，然后这两部分分别处于括号E内和括号E的右边，各自进行括号的排列组合。 12345678910111213class Solution: def generateParenthesis(self, n: int) -&gt; List[str]: if n == 0: return [''] res = [] for i in range(n): for left in self.generateParenthesis(i): for right in self.generateParenthesis(n - 1 - i): # 先拿出一对括号 # 剩下的括号要么在这一组新增的括号内部， # 要么在这一组新增括号的外部（右侧）。 res.append('(&#123;&#125;)&#123;&#125;'.format(left, right)) return res 解法-回溯算法 核心思想：类似深度优先，第一个结果，会是 ((())) ,最后一个结果是 ()()() 。 123456789101112131415# 回溯法class Solution: def generateParenthesis(self, N: int) -&gt; List[str]: ans = [] def backtrack(S = '', left = 0, right = 0): if len(S) == 2 * N: ans.append(S) return if left &lt; N: backtrack(S+'(', left+1, right) if right &lt; left: backtrack(S+')', left, right+1) backtrack() return ans 来源LeetCode中该题地址，Click here!]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>字符串</tag>
+        <tag>回溯算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[21-合并两个有序链表]]></title>
     <url>%2F2020%2F01%2F18%2F21-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8%2F</url>
     <content type="text"><![CDATA[将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例12输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4 解法 核心思想：每次将较小的接到新表的尾端 非递归1234567891011121314151617181920212223242526# Definition for singly-linked list.class ListNode: def __init__(self, x): self.val = x self.next = Noneclass Solution: def mergeTwoLists(self, l1: ListNode, l2: ListNode) -&gt; ListNode: l3 = ListNode(None) #合并后的新的头结点 # 分别创建三个链表的指针 l1_p, l2_p, l3_p = l1, l2, l3 # 两指针所指不完全为空 while l1_p and l2_p: # 将较小的那个结点接到l3的尾端 if l1_p.val &lt; l2_p.val: l3_p.next=l1_p l1_p= l1_p.next else: l3_p.next=l2_p l2_p=l2_p.next l3_p = l3_p.next # 将剩余的部分复制给l_others，均为空则为None l_others = l1_p if l1_p else l2_p l3_p.next = l_others # 返回除了头指针之外的结点 return l3.next 递归解法123456789101112131415# 递归解法class Solution2: def mergeTwoLists(self, l1: ListNode, l2: ListNode) -&gt; ListNode: # 先考虑递归边界问题 if l1 == None: return l2 elif l2==None: return l1 # 最后会返回l1，l2中较小的为头结点 elif l1.val &lt; l2.val: l1.next = self.mergeTwoLists(l1.next, l2) return l1 elif l1.val&gt;=l2.val: l2.next = self.mergeTwoLists(l1,l2.next) return l2 来源LeetCode中该题地址，Click here!]]></content>
@@ -675,8 +689,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>内置函数</tag>
         <tag>eval</tag>
+        <tag>内置函数</tag>
       </tags>
   </entry>
   <entry>
