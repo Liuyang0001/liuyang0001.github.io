@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[21-合并两个有序链表]]></title>
+    <url>%2F2020%2F01%2F18%2F21-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8%2F</url>
+    <content type="text"><![CDATA[将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例12输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4 解法 核心思想：每次将较小的接到新表的尾端 非递归1234567891011121314151617181920212223242526# Definition for singly-linked list.class ListNode: def __init__(self, x): self.val = x self.next = Noneclass Solution: def mergeTwoLists(self, l1: ListNode, l2: ListNode) -&gt; ListNode: l3 = ListNode(None) #合并后的新的头结点 # 分别创建三个链表的指针 l1_p, l2_p, l3_p = l1, l2, l3 # 两指针所指不完全为空 while l1_p and l2_p: # 将较小的那个结点接到l3的尾端 if l1_p.val &lt; l2_p.val: l3_p.next=l1_p l1_p= l1_p.next else: l3_p.next=l2_p l2_p=l2_p.next l3_p = l3_p.next # 将剩余的部分复制给l_others，均为空则为None l_others = l1_p if l1_p else l2_p l3_p.next = l_others # 返回除了头指针之外的结点 return l3.next 递归解法123456789101112131415# 递归解法class Solution2: def mergeTwoLists(self, l1: ListNode, l2: ListNode) -&gt; ListNode: # 先考虑递归边界问题 if l1 == None: return l2 elif l2==None: return l1 # 最后会返回l1，l2中较小的为头结点 elif l1.val &lt; l2.val: l1.next = self.mergeTwoLists(l1.next, l2) return l1 elif l1.val&gt;=l2.val: l2.next = self.mergeTwoLists(l1,l2.next) return l2 来源LeetCode中该题地址，Click here!]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[20-有效的括号]]></title>
+    <url>%2F2020%2F01%2F18%2F20-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7%2F</url>
+    <content type="text"><![CDATA[给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串，判断字符串是否有效。 有效字符串需满足： 左括号必须用相同类型的右括号闭合。 左括号必须以正确的顺序闭合。 注意空字符串可被认为是有效字符串。 示例1234示例 1:输入: &quot;()&quot;输出: true 1234示例 2:输入: &quot;()[]&#123;&#125;&quot;输出: true 1234示例 3:输入: &quot;(]&quot;输出: false 1234示例 4:输入: &quot;([)]&quot;输出: false 1234示例 5:输入: &quot;&#123;[]&#125;&quot;输出: true 解法 核心思想：利用栈的先进后出的特性 1234567891011121314class Solution: def isValid(self, s: str) -&gt; bool: dic = &#123;'&#123;': '&#125;', '[': ']', '(': ')'&#125; stack_ = [] for c in s: try: # 异常处理 if c in dic: stack_.append(c) elif dic[stack_.pop()] != c: return False # 空栈进行pop()会返回IndexError except IndexError: return False return len(stack_) == 0 来源LeetCode中该题地址，Click here!]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>字符串</tag>
+        <tag>栈</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[19-删除链表的倒数第N个结点]]></title>
     <url>%2F2020%2F01%2F17%2F19-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E7%BB%93%E7%82%B9%2F</url>
     <content type="text"><![CDATA[给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。 示例123给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 n = 2.当删除了倒数第二个节点后，链表变为 1-&gt;2-&gt;3-&gt;5. 解法 核心思想：采用双指针，使他们相差n个位置，则后面的指针到达最后一个元素时，前面的指针刚好指向要删除元素的前一个元素。 123456789101112131415161718192021class Solution: def removeNthFromEnd(self, head: ListNode, n: int) -&gt; ListNode: # 设置双指针 pre, p = head,head # 只有一个结点的情况 if head.next==None: return None # p先向后移动n个位置 for i in range(n): p=p.next # 此时p为空，说明要删除的为头结点 if not p: return head.next # 删除位置不为首尾结点，同步向后移动，直到p指向最后一结点 while p.next: p=p.next pre=pre.next # 删除结点 pre.next = pre.next.next # 返回头结点 return head 来源LeetCode中该题地址，Click here!]]></content>
@@ -742,8 +769,8 @@
       <tags>
         <tag>BMC</tag>
         <tag>IPMI</tag>
-        <tag>Linux</tag>
         <tag>IPMITOOL</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -782,8 +809,8 @@
       <tags>
         <tag>BMC</tag>
         <tag>IPMI</tag>
-        <tag>Linux</tag>
         <tag>IPMITOOL</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
