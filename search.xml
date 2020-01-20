@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[24-两两交换链表中的结点]]></title>
+    <url>%2F2020%2F01%2F20%2F24-%E4%B8%A4%E4%B8%A4%E4%BA%A4%E6%8D%A2%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E7%BB%93%E7%82%B9%2F</url>
+    <content type="text"><![CDATA[给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。 示例1给定 1-&gt;2-&gt;3-&gt;4, 你应该返回 2-&gt;1-&gt;4-&gt;3. 解法非递归 设立新的头结点H的好处是：使得交换前两个结点时的操作和后面的完全一致，不用分开处理。 指针pre和p：分别指向要交换的两个结点，每次向后移动两个结点 指针rear：指向已经排好顺序的部分的尾端，初始指向头结点 结束条件：p指向位置为空 1234567891011121314151617181920212223242526# 非递归解法# Definition for singly-linked list.class ListNode: def __init__(self, x): self.val = x self.next = Noneclass Solution: def swapPairs(self, head: ListNode) -&gt; ListNode: if head==None or head.next==None: return head # 创建一个不含任何信息的头结点，并添加到原链表的前面 H = ListNode(None) H.next = head rear =H #指向已完成交换部分的尾结点，初始为头结点H pre,p = head,head.next #分别指向要交换的两个结点 while p: # 重新调整结点位置 pre.next = p.next p.next = pre rear.next = p # 更新指针 rear = pre pre = pre.next p = pre.next if pre else None return H.next 递归法123456789101112131415# 递归解法class Solution: def swapPairs(self, head: ListNode) -&gt; ListNode: # 结点数为0或1时 if head == None or head.next == None: return head # 每次处理两个结点，head和N N = head.next # head处理后变为后面的结点， # 需要和后面递归的首元素连接起来 head.next = self.swapPairs(N.next) # 原来后面的元素放到前面 N.next = head # 最后返回的是N（后面的变到了前面） return N 来源LeetCode中该题地址，Click here!]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[23-合并K个排序链表]]></title>
     <url>%2F2020%2F01%2F19%2F23-%E5%90%88%E5%B9%B6K%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%2F</url>
-    <content type="text"><![CDATA[合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。 示例1234567输入:[ 1-&gt;4-&gt;5, 1-&gt;3-&gt;4, 2-&gt;6]输出: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6 解法暴力法 核心思想：将所有结点的数据域val加入列表中，在对其排序，生成结点加入新链表 1234567891011121314151617181920class ListNode: def __init__(self, x): self.val = x self.next = Noneclass Solution: def mergeKLists(self, lists: List[ListNode]) -&gt; ListNode: new_List = ListNode(None) p = new_List nodes = [] # 将每个结点的值都加入列表中 for l in lists: while l != None: nodes.append(l.val) l = l.next # 对列表进行排序，依次生成结点加入新链表 for node in sorted(nodes): p.next=ListNode(node) p=p.next return new_List.next 优先级队列 核心思想：利用以数据域为优先级的队列，将每个未访问过得最前面的结点加入队列。这样出队的一定是当前数据域最小的结点，将其加入新链表中，并该节点的后继结点加入队列（如果存在的话）。 123456789101112131415161718192021# 解法2:利用优先级队列from Queue import PriorityQueueclass Solution2: def mergeKLists(self, lists: List[ListNode]) -&gt; ListNode: head = point = ListNode(0) q = PriorityQueue() for l in lists: if l: # 根据结点的数据域val为优先级加入队列 q.put((l.val, l)) # 每次取出最小的数据域的结点， # 再将取出的结点后继加入队列。 while not q.empty(): val, node = q.get() point.next = ListNode(val) point = point.next node = node.next if node: q.put((node.val, node)) return head.next 来源LeetCode中该题地址，Click here!]]></content>
+    <content type="text"><![CDATA[合并 k 个排序链表，返回合并后的排序链表。 示例1234567输入:[ 1-&gt;4-&gt;5, 1-&gt;3-&gt;4, 2-&gt;6]输出: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6 解法暴力法 核心思想：将所有结点的数据域val加入列表中，在对其排序，生成结点加入新链表 1234567891011121314151617181920class ListNode: def __init__(self, x): self.val = x self.next = Noneclass Solution: def mergeKLists(self, lists: List[ListNode]) -&gt; ListNode: new_List = ListNode(None) p = new_List nodes = [] # 将每个结点的值都加入列表中 for l in lists: while l != None: nodes.append(l.val) l = l.next # 对列表进行排序，依次生成结点加入新链表 for node in sorted(nodes): p.next=ListNode(node) p=p.next return new_List.next 优先级队列 核心思想：利用以数据域为优先级的队列，将每个未访问过得最前面的结点加入队列。这样出队的一定是当前数据域最小的结点，将其加入新链表中，并该节点的后继结点加入队列（如果存在的话）。 123456789101112131415161718192021# 解法2:利用优先级队列from Queue import PriorityQueueclass Solution2: def mergeKLists(self, lists: List[ListNode]) -&gt; ListNode: head = point = ListNode(0) q = PriorityQueue() for l in lists: if l: # 根据结点的数据域val为优先级加入队列 q.put((l.val, l)) # 每次取出最小的数据域的结点， # 再将取出的结点后继加入队列。 while not q.empty(): val, node = q.get() point.next = ListNode(val) point = point.next node = node.next if node: q.put((node.val, node)) return head.next 来源LeetCode中该题地址，Click here!]]></content>
       <categories>
         <category>LeetCode</category>
       </categories>
@@ -703,8 +716,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>eval</tag>
         <tag>内置函数</tag>
+        <tag>eval</tag>
       </tags>
   </entry>
   <entry>

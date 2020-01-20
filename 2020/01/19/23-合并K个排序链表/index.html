@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。">
+<meta name="description" content="合并 k 个排序链表，返回合并后的排序链表。">
 <meta name="keywords" content="Python,Algorithms,链表,队列">
 <meta property="og:type" content="article">
 <meta property="og:title" content="23-合并K个排序链表">
 <meta property="og:url" content="https://liuyang0001.github.io/2020/01/19/23-合并K个排序链表/index.html">
 <meta property="og:site_name" content="Mr. Liu&#39;s Tech Blog">
-<meta property="og:description" content="合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。">
+<meta property="og:description" content="合并 k 个排序链表，返回合并后的排序链表。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-01-19T15:39:02.695Z">
+<meta property="og:updated_time" content="2020-01-19T15:57:43.018Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="23-合并K个排序链表">
-<meta name="twitter:description" content="合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。">
+<meta name="twitter:description" content="合并 k 个排序链表，返回合并后的排序链表。">
 
 
 
@@ -418,7 +418,7 @@
       
 
       
-        <p>合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。</p>
+        <p>合并 k 个排序链表，返回合并后的排序链表。</p>
 <a id="more"></a>
 <hr>
 
@@ -434,8 +434,6 @@
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解法2:利用优先级队列</span></span><br><span class="line"><span class="keyword">from</span> Queue <span class="keyword">import</span> PriorityQueue</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution2</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeKLists</span><span class="params">(self, lists: List[ListNode])</span> -&gt; ListNode:</span></span><br><span class="line">        head = point = ListNode(<span class="number">0</span>)</span><br><span class="line">        q = PriorityQueue()</span><br><span class="line">        <span class="keyword">for</span> l <span class="keyword">in</span> lists:</span><br><span class="line">            <span class="keyword">if</span> l:</span><br><span class="line">                <span class="comment"># 根据结点的数据域val为优先级加入队列</span></span><br><span class="line">                q.put((l.val, l))</span><br><span class="line">        <span class="comment"># 每次取出最小的数据域的结点，</span></span><br><span class="line">        <span class="comment"># 再将取出的结点后继加入队列。</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">not</span> q.empty():</span><br><span class="line">            val, node = q.get()</span><br><span class="line">            point.next = ListNode(val)</span><br><span class="line">            point = point.next</span><br><span class="line">            node = node.next</span><br><span class="line">            <span class="keyword">if</span> node:</span><br><span class="line">                q.put((node.val, node))</span><br><span class="line">        <span class="keyword">return</span> head.next</span><br></pre></td></tr></table></figure>
 <hr>
-
-
 
 <h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p><a href="https://leetcode-cn.com/problems/merge-k-sorted-lists" target="_blank" rel="noopener">LeetCode中该题地址，Click here!</a></p>
 
@@ -520,6 +518,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/20/24-两两交换链表中的结点/" rel="prev" title="24-两两交换链表中的结点">
+                24-两两交换链表中的结点 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -606,7 +608,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-count">72</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
