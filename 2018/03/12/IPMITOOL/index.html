@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="BMC,IPMI,IPMITOOL,Linux," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="IPMITOOL是一种可用在 Linux/Unix 系统下的基于命令行方式的 ipmi 平台管理工具。利用它可以实现获取传感器的信息、显示系统日志内容、网络远程开关机等功能。其主要功能包括读取和显示传感器数据（SDR），显示System Evernt Log（SEL）的内容，显示打印Field Replaceable Unit（FRU）信息，读取和设置BMC模块的LAN配置，远程控制服务器主机的电">
+<meta name="keywords" content="BMC,IPMI,IPMITOOL,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IPMITOOL指令">
+<meta property="og:url" content="https://liuyang0001.github.io/2018/03/12/IPMITOOL/index.html">
+<meta property="og:site_name" content="Mr. Liu&#39;s Tech Blog">
+<meta property="og:description" content="IPMITOOL是一种可用在 Linux/Unix 系统下的基于命令行方式的 ipmi 平台管理工具。利用它可以实现获取传感器的信息、显示系统日志内容、网络远程开关机等功能。其主要功能包括读取和显示传感器数据（SDR），显示System Evernt Log（SEL）的内容，显示打印Field Replaceable Unit（FRU）信息，读取和设置BMC模块的LAN配置，远程控制服务器主机的电">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-12T13:59:32.054Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IPMITOOL指令">
+<meta name="twitter:description" content="IPMITOOL是一种可用在 Linux/Unix 系统下的基于命令行方式的 ipmi 平台管理工具。利用它可以实现获取传感器的信息、显示系统日志内容、网络远程开关机等功能。其主要功能包括读取和显示传感器数据（SDR），显示System Evernt Log（SEL）的内容，显示打印Field Replaceable Unit（FRU）信息，读取和设置BMC模块的LAN配置，远程控制服务器主机的电">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://liuyang0001.github.io/2018/03/12/IPMITOOL/"/>
+
+
+
+
+
+  <title>IPMITOOL指令 | Mr. Liu's Tech Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?68f734d169c016c392f5a197215aaa80";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr. Liu's Tech Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Python技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2018/03/12/IPMITOOL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liu Yang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr. Liu's Tech Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">IPMITOOL指令</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-12T13:28:00+08:00">
+                2018-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/BMC-Study-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">BMC Study Notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/12/IPMITOOL/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/12/IPMITOOL/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/03/12/IPMITOOL/" class="leancloud_visitors" data-flag-title="IPMITOOL指令">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>IPMITOOL是一种可用在 Linux/Unix 系统下的基于命令行方式的 ipmi 平台管理工具。利用它可以实现获取传感器的信息、显示系统日志内容、网络远程开关机等功能。其主要功能包括读取和显示传感器数据（SDR），显示System Evernt Log（SEL）的内容，显示打印Field Replaceable Unit（FRU）信息，读取和设置BMC模块的LAN配置，远程控制服务器主机的电源。<br><a id="more"></a></p>
+<h3 id="开关机，重启"><a href="#开关机，重启" class="headerlink" title="开关机，重启"></a>开关机，重启</h3><h4 id="1-查看开关机状态："><a href="#1-查看开关机状态：" class="headerlink" title="1. 查看开关机状态："></a>1. 查看开关机状态：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) power status</span><br></pre></td></tr></table></figure>
+<h4 id="2-开机："><a href="#2-开机：" class="headerlink" title="2. 开机："></a>2. 开机：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) power on</span><br></pre></td></tr></table></figure>
+<h4 id="3-关机："><a href="#3-关机：" class="headerlink" title="3. 关机："></a>3. 关机：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) power off</span><br></pre></td></tr></table></figure>
+<h4 id="4-重启："><a href="#4-重启：" class="headerlink" title="4. 重启："></a>4. 重启：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) power reset</span><br></pre></td></tr></table></figure>
+<h3 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h3><blockquote>
+<p>[ChannelNo] 字段是可选的，ChannoNo为1或者8；<br>BMC默认有2个用户：user id为1的匿名用户，user id为2的ADMIN用户；<br>&lt;&gt;字段为必选内容；<code>&lt;privilege level&gt;</code> 2为user权限，3为Operator权限，4为Administrator权限；</p>
+</blockquote>
+<h4 id="1-查看用户信息"><a href="#1-查看用户信息" class="headerlink" title="1. 查看用户信息"></a>1. 查看用户信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) user list [ChannelNo]</span><br></pre></td></tr></table></figure>
+<h4 id="2-增加用户"><a href="#2-增加用户" class="headerlink" title="2. 增加用户"></a>2. 增加用户</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) user set name &lt;user id&gt; &lt;username&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="3-设置密码"><a href="#3-设置密码" class="headerlink" title="3. 设置密码"></a>3. 设置密码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) user set password &lt;user id&gt; &lt;password&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="4-设置用户权限"><a href="#4-设置用户权限" class="headerlink" title="4. 设置用户权限"></a>4. 设置用户权限</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) user priv &lt;user id&gt; &lt;privilege level&gt; [ChannelNo]</span><br></pre></td></tr></table></figure>
+<h4 id="5-启用-禁用用户"><a href="#5-启用-禁用用户" class="headerlink" title="5. 启用/禁用用户"></a>5. 启用/禁用用户</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) user enable/disable &lt;user id&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Watchdog配置"><a href="#Watchdog配置" class="headerlink" title="Watchdog配置"></a>Watchdog配置</h3><h4 id="1-查看当前的watchdog信息"><a href="#1-查看当前的watchdog信息" class="headerlink" title="1. 查看当前的watchdog信息"></a>1. 查看当前的watchdog信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) mc watchdog get</span><br></pre></td></tr></table></figure>
+<h4 id="2-设置，开启watchdog"><a href="#2-设置，开启watchdog" class="headerlink" title="2. 设置，开启watchdog"></a>2. 设置，开启watchdog</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) mc watchdog get</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>设置一个OS WDT的watchdog, 超时时间为60秒（自己看IPMI 2.0手册,351页的27.6 Set Watchdog Timer Command）(60x10=600 = 0x258)</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) raw 0x06 0x24 0x04 0x01 0x00 0x10 0x58 0x2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) mc watchdog get</span><br></pre></td></tr></table></figure>
+<p><strong>开启该watchdog</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) mc watchdog reset</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) mc watchdog get</span><br></pre></td></tr></table></figure>
+<h4 id="禁止watchdog动作-Hard-reset-gt-no-action"><a href="#禁止watchdog动作-Hard-reset-gt-no-action" class="headerlink" title="禁止watchdog动作(Hard reset-&gt; no action)"></a>禁止watchdog动作(Hard reset-&gt; no action)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) raw 0x06 0x24 0x04 0x00 0x00 0x10 0x58 0xFF</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面的命令把时间改为非常大，提示第1个0x00表示没有动作，0x04表示是SMS/OS的watchdog, 0xFF58是超时的时间，单位为100ms。</p>
+</blockquote>
+<h3 id="IP网络设置"><a href="#IP网络设置" class="headerlink" title="IP网络设置"></a>IP网络设置</h3><blockquote>
+<p>[ChannelNo] 字段是可选的，ChannoNo为1(Share Nic网络)或者8（BMC独立管理网络）；<br>设置网络参数，必须首先设置IP为静态，然后再进行其他设置；</p>
+</blockquote>
+<h4 id="1-查看网络信息"><a href="#1-查看网络信息" class="headerlink" title="1. 查看网络信息"></a>1. 查看网络信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) lan print [ChannelNo]</span><br></pre></td></tr></table></figure>
+<h4 id="2-修改IP为静态还是DHCP模式"><a href="#2-修改IP为静态还是DHCP模式" class="headerlink" title="2. 修改IP为静态还是DHCP模式"></a>2. 修改IP为静态还是DHCP模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) lan set &lt;ChannelNo&gt; ipsrc &lt;static/dhcp&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="3-修改IP"><a href="#3-修改IP" class="headerlink" title="3. 修改IP"></a>3. 修改IP</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) lan set &lt;ChannelNo&gt; ipaddr &lt;IPAddress&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="4-修改子网掩码"><a href="#4-修改子网掩码" class="headerlink" title="4. 修改子网掩码"></a>4. 修改子网掩码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) lan set &lt;ChannelNo&gt; netmask &lt;NetMask&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="5-修改默认网关"><a href="#5-修改默认网关" class="headerlink" title="5. 修改默认网关"></a>5. 修改默认网关</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) lan set &lt;ChannelNo&gt; defgw ipaddr &lt;默认网关&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="SOL功能"><a href="#SOL功能" class="headerlink" title="SOL功能"></a>SOL功能</h3><blockquote>
+<p>&lt;9.6/19.2/38.4/57.6/115.2&gt;其中115.2代表115200，即*1000是表示的波特率。</p>
+</blockquote>
+<h4 id="1-设置SOL串口波特率"><a href="#1-设置SOL串口波特率" class="headerlink" title="1. 设置SOL串口波特率"></a>1. 设置SOL串口波特率</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) sol set volatile-bit-rate &lt;9.6/19.2/38.4/57.6/115.2&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="2-打开SOL功能"><a href="#2-打开SOL功能" class="headerlink" title="2. 打开SOL功能"></a>2. 打开SOL功能</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) sol activate</span><br></pre></td></tr></table></figure>
+<h4 id="3-关闭SOL功能"><a href="#3-关闭SOL功能" class="headerlink" title="3. 关闭SOL功能"></a>3. 关闭SOL功能</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) sol deactivate</span><br></pre></td></tr></table></figure>
+<h3 id="SEL日志查看"><a href="#SEL日志查看" class="headerlink" title="SEL日志查看"></a>SEL日志查看</h3><h4 id="1-查看当前的SEL-summary信息"><a href="#1-查看当前的SEL-summary信息" class="headerlink" title="1. 查看当前的SEL summary信息"></a>1. 查看当前的SEL summary信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) sel</span><br><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) sel info</span><br></pre></td></tr></table></figure>
+<h4 id="2-列示所有SEL记录详细信息"><a href="#2-列示所有SEL记录详细信息" class="headerlink" title="2. 列示所有SEL记录详细信息"></a>2. 列示所有SEL记录详细信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) sel list</span><br><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) sel list 10</span><br></pre></td></tr></table></figure>
+<h4 id="3-删除指定的SEL记录"><a href="#3-删除指定的SEL记录" class="headerlink" title="3. 删除指定的SEL记录"></a>3. 删除指定的SEL记录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) sel delete 1</span><br></pre></td></tr></table></figure>
+<h4 id="4-清除所有的SEL记录"><a href="#4-清除所有的SEL记录" class="headerlink" title="4. 清除所有的SEL记录"></a>4. 清除所有的SEL记录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) sel clear</span><br></pre></td></tr></table></figure>
+<h4 id="5-获取和修改SEL当前时钟"><a href="#5-获取和修改SEL当前时钟" class="headerlink" title="5. 获取和修改SEL当前时钟"></a>5. 获取和修改SEL当前时钟</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) sel time get</span><br><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) sel time set &quot;04/24/2018 18:44:44&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="6-以RAW方式查看制定的SEL数据"><a href="#6-以RAW方式查看制定的SEL数据" class="headerlink" title="6. 以RAW方式查看制定的SEL数据"></a>6. 以RAW方式查看制定的SEL数据</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码)  raw 0xa 0x43 0 0 111 0 0 0xFF</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>0xa 0x43为Get SEL Entry Command； 0 0 保留值，111 0 表示取第112条记录（从0开始），0 为offset，保留；0xFF为读取的字节数，FF表示取整条记录</p>
+</blockquote>
+<h3 id="FRU信息查看"><a href="#FRU信息查看" class="headerlink" title="FRU信息查看"></a>FRU信息查看</h3><h4 id="1-查看FRU信息"><a href="#1-查看FRU信息" class="headerlink" title="1. 查看FRU信息"></a>1. 查看FRU信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) fru list</span><br></pre></td></tr></table></figure>
+<h3 id="SDR，Sensor信息查看"><a href="#SDR，Sensor信息查看" class="headerlink" title="SDR，Sensor信息查看"></a>SDR，Sensor信息查看</h3><h4 id="1-查看SDR-Sensor信息"><a href="#1-查看SDR-Sensor信息" class="headerlink" title="1. 查看SDR Sensor信息"></a>1. 查看SDR Sensor信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) sdr</span><br></pre></td></tr></table></figure>
+<h4 id="2-查看Sensor信息"><a href="#2-查看Sensor信息" class="headerlink" title="2. 查看Sensor信息"></a>2. 查看Sensor信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) sensor list</span><br></pre></td></tr></table></figure>
+<h3 id="mc状态和控制"><a href="#mc状态和控制" class="headerlink" title="mc状态和控制"></a>mc状态和控制</h3><h4 id="1-重启动BMC"><a href="#1-重启动BMC" class="headerlink" title="1. 重启动BMC"></a>1. 重启动BMC</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) mc reset &lt;warm/cold&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="设置BMC的iptables防火墙"><a href="#设置BMC的iptables防火墙" class="headerlink" title="设置BMC的iptables防火墙"></a>设置BMC的iptables防火墙</h3><h4 id="1-设置某一段IP可以访问BMC"><a href="#1-设置某一段IP可以访问BMC" class="headerlink" title="1. 设置某一段IP可以访问BMC"></a>1. 设置某一段IP可以访问BMC</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) raw 0x32 0x76 0x01 0x01 ip1(0xa 0xa 0xa 0xa) ip2(0xb 0xb 0xb 0xb)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) raw 0x32 0x76 0x09</span><br></pre></td></tr></table></figure>
+<h4 id="2-设置某个IP可以访问BMC"><a href="#2-设置某个IP可以访问BMC" class="headerlink" title="2. 设置某个IP可以访问BMC"></a>2. 设置某个IP可以访问BMC</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) raw 0x32 0x76 0x00 0x01 ip1(0xa 0xa 0xa 0xa)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) raw 0x32 0x76 0x09</span><br></pre></td></tr></table></figure>
+<h4 id="3-取消设置"><a href="#3-取消设置" class="headerlink" title="3. 取消设置"></a>3. 取消设置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) raw 0x32 0x76 0x08</span><br></pre></td></tr></table></figure>
+<h4 id="4．获取防火墙设置"><a href="#4．获取防火墙设置" class="headerlink" title="4．获取防火墙设置"></a>4．获取防火墙设置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) raw 0x32 0x77 0x01 0x00</span><br></pre></td></tr></table></figure>
+<h4 id="5-阻止-开启某个端口"><a href="#5-阻止-开启某个端口" class="headerlink" title="5. 阻止/开启某个端口"></a>5. 阻止/开启某个端口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) raw 0x32 0x76 0x02 0x00/0x01 0x00 (portno)0x22 0x00</span><br></pre></td></tr></table></figure>
+<h4 id="6-取消某个端口的设置（6是5的对应取消操作）"><a href="#6-取消某个端口的设置（6是5的对应取消操作）" class="headerlink" title="6. 取消某个端口的设置（6是5的对应取消操作）"></a>6. 取消某个端口的设置（6是5的对应取消操作）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool -H (IP) -I lanplus -U (用户) -P (密码) raw 0x32 0x76 0x06 0x00/0x01 0x00 (portno)0x22 0x00</span><br></pre></td></tr></table></figure>
+<h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><p>ipimitool 使用规则：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipmitool [options...] &lt;command&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-h</td>
+<td>帮助</td>
+</tr>
+<tr>
+<td>-V</td>
+<td>显示版本信息</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>详细（可以使用多次）</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>以逗号分隔格式显示输出</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>指定要使用的/ dev / ipmiN设备（默认值= 0）</td>
+</tr>
+<tr>
+<td>-I</td>
+<td>要使用的接口</td>
+</tr>
+<tr>
+<td>-H</td>
+<td>LAN接口的远程主机名</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>远程RMCP端口[默认= 623]</td>
+</tr>
+<tr>
+<td>-U</td>
+<td>远程会话用户</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>从文件读取远程会话密码</td>
+</tr>
+<tr>
+<td>-z</td>
+<td>通信通道（OEM）的尺寸更改大小</td>
+</tr>
+<tr>
+<td>-S</td>
+<td>使用本地文件进行远程SDR缓存</td>
+</tr>
+<tr>
+<td>-D</td>
+<td>ttyb[:s]指定要使用的串行设备，波特率并且可选地指定该接口是系统接口</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>提示输入远程密码</td>
+</tr>
+<tr>
+<td>-Y</td>
+<td>提示用于IPMIv2身份验证的Kg密钥</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>设置SOL转义字符</td>
+</tr>
+<tr>
+<td>-C</td>
+<td>加密套件将被lanplus接口使用</td>
+</tr>
+<tr>
+<td>-k</td>
+<td>使用Kg键进行IPMIv2身份验证</td>
+</tr>
+<tr>
+<td>-y</td>
+<td>使用十六进制编码的Kg密钥进行IPMIv2身份验证</td>
+</tr>
+<tr>
+<td>-L</td>
+<td>远程会话权限[默认=管理员] 附加一个’+’以在RAKP1中使用名称/特权查找</td>
+</tr>
+<tr>
+<td>-A</td>
+<td>强制使用auth type NONE，PASSWORD，MD2，MD5或OEM</td>
+</tr>
+<tr>
+<td>-P</td>
+<td>远程会话密码</td>
+</tr>
+<tr>
+<td>-E</td>
+<td>从IPMI_PASSWORD环境变量读取密码</td>
+</tr>
+<tr>
+<td>-K</td>
+<td>从IPMI_KGKEY环境变量中读取kgkey</td>
+</tr>
+<tr>
+<td>-m</td>
+<td>设置本地IPMB地址</td>
+</tr>
+<tr>
+<td>-b</td>
+<td>通道为桥接请求设置目标通道</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>将桥接请求发送到远程目标地址</td>
+</tr>
+<tr>
+<td>-B</td>
+<td>为桥接请求设置传输通道（双桥）</td>
+</tr>
+<tr>
+<td>-T</td>
+<td>设置桥接请求的传输地址（双桥）</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>设置原始命令的目的地lun</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>OEM设置（使用’list’查看可用的OEM类型）</td>
+</tr>
+<tr>
+<td>-O</td>
+<td>将文件用于OEM SEL事件描述</td>
+</tr>
+<tr>
+<td>-N</td>
+<td>指定lan [default = 2] / lanplus [default = 1]接口的超时时间</td>
+</tr>
+<tr>
+<td>-R</td>
+<td>设置lan / lanplus接口的重试次数[默认= 4]</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Interfaces"><a href="#Interfaces" class="headerlink" title="Interfaces"></a>Interfaces</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">接口</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">open</td>
+<td style="text-align:left">Linux OpenIPMI Interface [default]</td>
+</tr>
+<tr>
+<td style="text-align:left">imb</td>
+<td style="text-align:left">Intel IMB Interface </td>
+</tr>
+<tr>
+<td style="text-align:left">lan</td>
+<td style="text-align:left">IPMI v1.5 LAN Interface </td>
+</tr>
+<tr>
+<td style="text-align:left">lanplus</td>
+<td style="text-align:left">IPMI v2.0 RMCP+ LAN Interface </td>
+</tr>
+<tr>
+<td style="text-align:left">serial-terminal</td>
+<td style="text-align:left">Serial Interface, Terminal Mode </td>
+</tr>
+<tr>
+<td style="text-align:left">serial-basic</td>
+<td style="text-align:left">Serial Interface, Basic Mode </td>
+</tr>
+</tbody>
+</table>
+<h4 id="Commands"><a href="#Commands" class="headerlink" title="Commands"></a>Commands</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">命令</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">raw</td>
+<td style="text-align:left">Send a RAW IPMI request and print response</td>
+</tr>
+<tr>
+<td style="text-align:left">i2c</td>
+<td style="text-align:left">Send an I2C Master Write-Read command and print response</td>
+</tr>
+<tr>
+<td style="text-align:left">spd</td>
+<td style="text-align:left">Print SPD info from remote I2C device</td>
+</tr>
+<tr>
+<td style="text-align:left">lan</td>
+<td style="text-align:left">Configure LAN Channels</td>
+</tr>
+<tr>
+<td style="text-align:left">chassis</td>
+<td style="text-align:left">Get chassis status and set power state</td>
+</tr>
+<tr>
+<td style="text-align:left">power</td>
+<td style="text-align:left">Shortcut to chassis power commands</td>
+</tr>
+<tr>
+<td style="text-align:left">event</td>
+<td style="text-align:left">Send pre-defined events to MC</td>
+</tr>
+<tr>
+<td style="text-align:left">mc</td>
+<td style="text-align:left">Management Controller status and global enables</td>
+</tr>
+<tr>
+<td style="text-align:left">sdr</td>
+<td style="text-align:left">Print Sensor Data Repository entries and readings</td>
+</tr>
+<tr>
+<td style="text-align:left">sensor</td>
+<td style="text-align:left">Print detailed sensor information</td>
+</tr>
+<tr>
+<td style="text-align:left">fru</td>
+<td style="text-align:left">Print built-in FRU and scan SDR for FRU locators</td>
+</tr>
+<tr>
+<td style="text-align:left">gendev</td>
+<td style="text-align:left">Read/Write Device associated with Generic Device locators sdr</td>
+</tr>
+<tr>
+<td style="text-align:left">sel</td>
+<td style="text-align:left">Print System Event Log (SEL)</td>
+</tr>
+<tr>
+<td style="text-align:left">pef</td>
+<td style="text-align:left">Configure Platform Event Filtering (PEF)</td>
+</tr>
+<tr>
+<td style="text-align:left">sol</td>
+<td style="text-align:left">Configure and connect IPMIv2.0 Serial-over-LAN</td>
+</tr>
+<tr>
+<td style="text-align:left">tsol</td>
+<td style="text-align:left">Configure and connect with Tyan IPMIv1.5 Serial-over-LAN</td>
+</tr>
+<tr>
+<td style="text-align:left">isol</td>
+<td style="text-align:left">Configure IPMIv1.5 Serial-over-LAN</td>
+</tr>
+<tr>
+<td style="text-align:left">user</td>
+<td style="text-align:left">Configure Management Controller users</td>
+</tr>
+<tr>
+<td style="text-align:left">channel</td>
+<td style="text-align:left">Configure Management Controller channels</td>
+</tr>
+<tr>
+<td style="text-align:left">session</td>
+<td style="text-align:left">Print session information</td>
+</tr>
+<tr>
+<td style="text-align:left">dcmi</td>
+<td style="text-align:left">Data Center Management Interface</td>
+</tr>
+<tr>
+<td style="text-align:left">sunoem</td>
+<td style="text-align:left">OEM Commands for Sun servers</td>
+</tr>
+<tr>
+<td style="text-align:left">kontronoem</td>
+<td style="text-align:left">OEM Commands for Kontron devices</td>
+</tr>
+<tr>
+<td style="text-align:left">picmg</td>
+<td style="text-align:left">Run a PICMG/ATCA extended cmd</td>
+</tr>
+<tr>
+<td style="text-align:left">fwum</td>
+<td style="text-align:left">Update IPMC using Kontron OEM Firmware Update Manager</td>
+</tr>
+<tr>
+<td style="text-align:left">firewall</td>
+<td style="text-align:left">Configure Firmware Firewall</td>
+</tr>
+<tr>
+<td style="text-align:left">delloem</td>
+<td style="text-align:left">OEM Commands for Dell systems</td>
+</tr>
+<tr>
+<td style="text-align:left">exec</td>
+<td style="text-align:left">Run list of commands from file</td>
+</tr>
+<tr>
+<td style="text-align:left">set</td>
+<td style="text-align:left">Set runtime variable for shell and exec</td>
+</tr>
+<tr>
+<td style="text-align:left">hpm</td>
+<td style="text-align:left">Update HPM components using PICMG HPM.1 file</td>
+</tr>
+<tr>
+<td style="text-align:left">ekanalyzer</td>
+<td style="text-align:left">run FRU-Ekeying analyzer using FRU files</td>
+</tr>
+<tr>
+<td style="text-align:left">ime</td>
+<td style="text-align:left">Update Intel Manageability Engine Firmware</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    
+    
+    
+    <div>
+
+    <div>
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wx.jpg" alt="Liu Yang 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zfb.jpg" alt="Liu Yang 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/BMC/" rel="tag"># BMC</a>
+          
+            <a href="/tags/IPMI/" rel="tag"># IPMI</a>
+          
+            <a href="/tags/IPMITOOL/" rel="tag"># IPMITOOL</a>
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/12/IPMI笔记/" rel="next" title="IPMI笔记">
+                <i class="fa fa-chevron-left"></i> IPMI笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/12/多线程/" rel="prev" title="多线程">
+                多线程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Liu Yang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/22127372" target="_blank" title="新浪微博">
+                      
+                        <i class="fa fa-fw fa-globe"></i>新浪微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Other Informations
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://github.com/Liuyang0001/" title="Github" target="_blank">Github</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="/about" title="获取联系方式" target="_blank">获取联系方式</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#开关机，重启"><span class="nav-number">1.</span> <span class="nav-text">开关机，重启</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-查看开关机状态："><span class="nav-number">1.1.</span> <span class="nav-text">1. 查看开关机状态：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-开机："><span class="nav-number">1.2.</span> <span class="nav-text">2. 开机：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-关机："><span class="nav-number">1.3.</span> <span class="nav-text">3. 关机：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-重启："><span class="nav-number">1.4.</span> <span class="nav-text">4. 重启：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户管理"><span class="nav-number">2.</span> <span class="nav-text">用户管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-查看用户信息"><span class="nav-number">2.1.</span> <span class="nav-text">1. 查看用户信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-增加用户"><span class="nav-number">2.2.</span> <span class="nav-text">2. 增加用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-设置密码"><span class="nav-number">2.3.</span> <span class="nav-text">3. 设置密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-设置用户权限"><span class="nav-number">2.4.</span> <span class="nav-text">4. 设置用户权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-启用-禁用用户"><span class="nav-number">2.5.</span> <span class="nav-text">5. 启用/禁用用户</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Watchdog配置"><span class="nav-number">3.</span> <span class="nav-text">Watchdog配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-查看当前的watchdog信息"><span class="nav-number">3.1.</span> <span class="nav-text">1. 查看当前的watchdog信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-设置，开启watchdog"><span class="nav-number">3.2.</span> <span class="nav-text">2. 设置，开启watchdog</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#禁止watchdog动作-Hard-reset-gt-no-action"><span class="nav-number">3.3.</span> <span class="nav-text">禁止watchdog动作(Hard reset-&gt; no action)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP网络设置"><span class="nav-number">4.</span> <span class="nav-text">IP网络设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-查看网络信息"><span class="nav-number">4.1.</span> <span class="nav-text">1. 查看网络信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-修改IP为静态还是DHCP模式"><span class="nav-number">4.2.</span> <span class="nav-text">2. 修改IP为静态还是DHCP模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-修改IP"><span class="nav-number">4.3.</span> <span class="nav-text">3. 修改IP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-修改子网掩码"><span class="nav-number">4.4.</span> <span class="nav-text">4. 修改子网掩码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-修改默认网关"><span class="nav-number">4.5.</span> <span class="nav-text">5. 修改默认网关</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SOL功能"><span class="nav-number">5.</span> <span class="nav-text">SOL功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-设置SOL串口波特率"><span class="nav-number">5.1.</span> <span class="nav-text">1. 设置SOL串口波特率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-打开SOL功能"><span class="nav-number">5.2.</span> <span class="nav-text">2. 打开SOL功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-关闭SOL功能"><span class="nav-number">5.3.</span> <span class="nav-text">3. 关闭SOL功能</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SEL日志查看"><span class="nav-number">6.</span> <span class="nav-text">SEL日志查看</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-查看当前的SEL-summary信息"><span class="nav-number">6.1.</span> <span class="nav-text">1. 查看当前的SEL summary信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-列示所有SEL记录详细信息"><span class="nav-number">6.2.</span> <span class="nav-text">2. 列示所有SEL记录详细信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-删除指定的SEL记录"><span class="nav-number">6.3.</span> <span class="nav-text">3. 删除指定的SEL记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-清除所有的SEL记录"><span class="nav-number">6.4.</span> <span class="nav-text">4. 清除所有的SEL记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-获取和修改SEL当前时钟"><span class="nav-number">6.5.</span> <span class="nav-text">5. 获取和修改SEL当前时钟</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-以RAW方式查看制定的SEL数据"><span class="nav-number">6.6.</span> <span class="nav-text">6. 以RAW方式查看制定的SEL数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FRU信息查看"><span class="nav-number">7.</span> <span class="nav-text">FRU信息查看</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-查看FRU信息"><span class="nav-number">7.1.</span> <span class="nav-text">1. 查看FRU信息</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SDR，Sensor信息查看"><span class="nav-number">8.</span> <span class="nav-text">SDR，Sensor信息查看</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-查看SDR-Sensor信息"><span class="nav-number">8.1.</span> <span class="nav-text">1. 查看SDR Sensor信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-查看Sensor信息"><span class="nav-number">8.2.</span> <span class="nav-text">2. 查看Sensor信息</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mc状态和控制"><span class="nav-number">9.</span> <span class="nav-text">mc状态和控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-重启动BMC"><span class="nav-number">9.1.</span> <span class="nav-text">1. 重启动BMC</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置BMC的iptables防火墙"><span class="nav-number">10.</span> <span class="nav-text">设置BMC的iptables防火墙</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-设置某一段IP可以访问BMC"><span class="nav-number">10.1.</span> <span class="nav-text">1. 设置某一段IP可以访问BMC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-设置某个IP可以访问BMC"><span class="nav-number">10.2.</span> <span class="nav-text">2. 设置某个IP可以访问BMC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-取消设置"><span class="nav-number">10.3.</span> <span class="nav-text">3. 取消设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4．获取防火墙设置"><span class="nav-number">10.4.</span> <span class="nav-text">4．获取防火墙设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-阻止-开启某个端口"><span class="nav-number">10.5.</span> <span class="nav-text">5. 阻止/开启某个端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-取消某个端口的设置（6是5的对应取消操作）"><span class="nav-number">10.6.</span> <span class="nav-text">6. 取消某个端口的设置（6是5的对应取消操作）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附录"><span class="nav-number">11.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参数"><span class="nav-number">11.1.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Interfaces"><span class="nav-number">11.2.</span> <span class="nav-text">Interfaces</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Commands"><span class="nav-number">11.3.</span> <span class="nav-text">Commands</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Liu Yang</span>
+
+  
+</div>
+
+
+  <div class="powered-by"> 最有用的语言是英语，其次可能是Python —— <a class="theme-link" target="_blank" href="http://liuyang1.club">Liu Yang</a></div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://liuyang0001.github.io/2018/03/12/IPMITOOL/';
+          this.page.identifier = '2018/03/12/IPMITOOL/';
+          this.page.title = 'IPMITOOL指令';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'OtzDKBRPsFTPKT2Kbv1EHRnl-gzGzoHsz',
+        appKey: 'yQUEvYQK1Iw0zNF9dRmYIKfg',
+        placeholder: '有什么不对的地方，欢迎各位指正。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("tpdwrsQcdMUwTm9vgSCd5Wpf-gzGzoHsz", "3MWIUKDkcbClEyPwkiccRq31");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
