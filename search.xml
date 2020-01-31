@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[33-搜索旋转排序数组]]></title>
+    <url>%2F2020%2F01%2F31%2F33-%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%2F</url>
+    <content type="text"><![CDATA[假设按照升序排序的数组在预先未知的某个点上进行了旋转。( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。 搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。 你可以假设数组中不存在重复的元素。 你的算法时间复杂度必须是 O(log n) 级别。 示例1234示例 1:输入: nums = [4,5,6,7,0,1,2], target = 0输出: 4 1234示例 2:输入: nums = [4,5,6,7,0,1,2], target = 3输出: -1 解法 核心思路：使用二分法。关键点在与找到转折点T与mid点的关系，判断target是否在升序的那一部分中来更新left和right的值。 12345678910111213141516171819202122232425262728293031class Solution: def search(self, nums: List[int], target: int) -&gt; int: mid, left, right = 0, 0, len(nums)-1 while left &lt;= right: # 二分法 mid = (left + right) // 2 # 判断mid点是否为所求点 if nums[mid] == target: return mid # 旋转点T在mid右区间 # [left......mid....T....right] if nums[left] &lt;= nums[mid]: # target在[left,mid)的升序空间中 if nums[left] &lt;= target &lt; nums[mid]: right = mid # target在(mid,T]或者[T,right]中 else: left = mid + 1 # 旋转点T在mid左区间 # [left...T...mid........right] elif nums[left] &gt; nums[mid]: # target在(mid,right]的升序空间中 if nums[mid] &lt; target &lt;= nums[right]: left = mid + 1 # target在[left,T]或者[T，mid) else: right = mid # 未找到该点 return -1 来源LeetCode中该题地址，Click here!]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数组</tag>
+        <tag>二分查找</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[32-最长有效括号]]></title>
     <url>%2F2020%2F01%2F23%2F32-%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7%2F</url>
     <content type="text"><![CDATA[给定一个只包含 ‘(‘ 和 ‘)’ 的字符串，找出最长的包含有效括号的子串的长度。 示例12345示例 1:输入: &quot;(()&quot;输出: 2解释: 最长有效括号子串为 &quot;()&quot; 12345示例 2:输入: &quot;)()())&quot;输出: 4解释: 最长有效括号子串为 &quot;()()&quot; 解法利用栈思路： 特判，若s为空，返回0 初试化栈stack=[-1]，和结果res=0。栈中元素表示上一不匹配位置索引。 遍历s： 若s[i]==&quot;(&quot;，将当前位置索引加入stack。表示将当前左括号需要匹配，为不匹配索引。 若s[i]==&quot;)&quot;：出栈，stack.pop()。表示将对应左括号索引出栈，或者当栈中只有 ) 时，将上一 ) 索引出栈。若栈为空，表示之前的所有的 ( 匹配成功，上一步出栈的是栈底的-1或者是前一个不匹配的 ) 。则更新栈底为当前 ) 的索引，表示不匹配的位置。 否则，说明和栈中的 ( 匹配上了，此时更新最长序列res=max(res,i−stack[−1])。表示当前位置索引减去上一不匹配位置索引 和之前res中的较大值。 更新res 1234567891011121314151617181920class Solution: def longestValidParentheses(self, s: str) -&gt; int: if not s: return 0 res = 0 stack = [-1] # -1占位 for i in range(len(s)): if s[i] == "(": stack.append(i) elif s[i] == ")": stack.pop() # 弹出对应的左括号索引 # 空栈表示已经出现不合法的括号， # 把索引值压进栈中 if not stack: stack.append(i) else: # i-stack中倒数第一个的索引值 # 为当前合法的长度大小 res = max(res, i - stack[-1]) return res 动态规划思路： 特判，若s为空，返回0 初试化dp=[0,...,0]，长度为n。dp[i]表示到i位置的最长有效括号的长度。显然，当s[i]==(时，dp[i]=0 遍历字符串，遍历区间[1,n)： 当s[i]==)时，若s[i−1]==(，说明这两个有效。则dp[i]=dp[i-2]+2否则s[i-1]==)，此时找到上一匹配字符串的上一位i−dp[i−1]−1： 若s[i-dp[i-1]-1]==(，说明s[i]s[i]可以和s[i-dp[i-1]-1]匹配：则dp[i]=dp[i-1]+dp[i-dp[i-1]-2]+2，表示当前位置的最长有效括号长度等于上一位有效括号的长度加上自身匹配的上一位的有效括号的长度加上2。 更新res，res=max(res,dp[i]) 12345678910111213141516# 动态规划class Solution: def longestValidParentheses(self, s: str) -&gt; int: if(not s): return 0 res = 0 n = len(s) dp = [0]*n for i in range(1, len(s)): if(s[i] == ")"): if(s[i-1] == "("): dp[i] = dp[i-2]+2 if(s[i-1] == ")" and i-dp[i-1]-1 &gt;= 0 and s[i-dp[i-1]-1] == "("): dp[i] = dp[i-1]+dp[i-dp[i-1]-2]+2 res = max(res, dp[i]) return res 来源LeetCode中该题地址，Click here!]]></content>
@@ -814,8 +828,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>eval</tag>
         <tag>内置函数</tag>
+        <tag>eval</tag>
       </tags>
   </entry>
   <entry>
