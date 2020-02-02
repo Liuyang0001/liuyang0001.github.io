@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[38-外观数列]]></title>
+    <url>%2F2020%2F02%2F02%2F38-%E5%A4%96%E8%A7%82%E6%95%B0%E5%88%97%2F</url>
+    <content type="text"><![CDATA[外观数列是一个整数序列，从数字 1 开始，序列中的每一项都是对前一项的描述。给定一个正整数 n（1 ≤ n ≤ 30），输出外观数列的第 n 项。 1234567891011前五项如下： 1. 1 2. 11 3. 21 4. 1211 5. 111221 1 被读作 (&quot;一个一&quot;) , 即 11。11 被读作 (&quot;两个一&quot;）, 即 21。21 被读作（&quot;一个二&quot; , &quot;一个一&quot;) , 即 1211。 注意：整数序列中的每一项将表示为一个字符串。 示例1234示例 1:输入: 1输出: &quot;1&quot; 12345示例 2:输入: 4输出: &quot;1211&quot;解释：当 n = 3 时，序列是 &quot;21&quot;，其中我们有 &quot;2&quot; 和 &quot;1&quot; 两组，&quot;2&quot; 可以读作 &quot;12&quot;，也就是出现频次 = 1 而 值 = 2；类似 &quot;1&quot; 可以读作 &quot;11&quot;。所以答案是 &quot;12&quot; 和 &quot;11&quot; 组合在一起，也就是 &quot;1211&quot;。 解法 核心思想：后一个序列是由前一个序列确定的，故采用递归法。 123456789101112131415161718class Solution: def countAndSay(self, n: int) -&gt; str: if(n == 1): return '1' # 加上*，可以防止数组越界,不用考虑边界问题 num = self.countAndSay(n-1)+"*" nums_ls = list(num) # print(nums_ls) count, res = 1, "" for i in range(len(nums_ls) - 1): # 计数重复的数值 if nums_ls[i] == nums_ls[i+1]: count += 1 elif nums_ls[i] != nums_ls[i+1]: res += str(count) + nums_ls[i] # print(res) count = 1 return res 来源LeetCode中该题地址，Click here!]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>字符串</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[36-有效的数独]]></title>
+    <url>%2F2020%2F02%2F02%2F36-%E6%9C%89%E6%95%88%E7%9A%84%E6%95%B0%E7%8B%AC%2F</url>
+    <content type="text"><![CDATA[判断一个 9x9 的数独是否有效。只需要根据以下规则，验证已经填入的数字是否有效即可。 数字 1-9 在每一行只能出现一次。 数字 1-9 在每一列只能出现一次。 数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。 上图是一个部分填充的有效的数独。 数独部分空格内已填入了数字，空白格用 ‘.’ 表示。 说明: 一个有效的数独（部分已被填充）不一定是可解的。 只需要根据以上规则，验证已经填入的数字是否有效即可。 给定数独序列只包含数字 1-9 和字符 ‘.’ 。 给定数独永远是 9x9 形式的。 示例123456789101112131415示例 1:输入:[ [&quot;5&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;], [&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;,&quot;9&quot;,&quot;5&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;], [&quot;.&quot;,&quot;9&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;], [&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;3&quot;], [&quot;4&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;], [&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;], [&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;8&quot;,&quot;.&quot;], [&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;4&quot;,&quot;1&quot;,&quot;9&quot;,&quot;.&quot;,&quot;.&quot;,&quot;5&quot;], [&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;9&quot;]]输出: true 1234567891011121314151617示例 2:输入:[ [&quot;8&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;], [&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;,&quot;9&quot;,&quot;5&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;], [&quot;.&quot;,&quot;9&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;], [&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;3&quot;], [&quot;4&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;3&quot;,&quot;.&quot;,&quot;.&quot;,&quot;1&quot;], [&quot;7&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;6&quot;], [&quot;.&quot;,&quot;6&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;2&quot;,&quot;8&quot;,&quot;.&quot;], [&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;4&quot;,&quot;1&quot;,&quot;9&quot;,&quot;.&quot;,&quot;.&quot;,&quot;5&quot;], [&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;8&quot;,&quot;.&quot;,&quot;.&quot;,&quot;7&quot;,&quot;9&quot;]]输出: false解释: 除了第一行的第一个数字从 5 改为 8 以外，空格内其他数字均与 示例1 相同。 但由于位于左上角的 3x3 宫内有两个 8 存在, 因此这个数独是无效的。 解法 核心思想：使用三个哈希表进行计数，三个表中所有的value均不大于1时，返回True。 如何计算Box的索引值? 按照上图将9x9的数独分成0-8共九个3x3：则索引值为： 1box_index = row//3*3+column//3 完整代码： 1234567891011121314151617181920class Solution: def isValidSudoku(self, board: List[List[str]]) -&gt; bool: rows_ls = [&#123;&#125; for i in range(9)] columns_ls = [&#123;&#125; for i in range(9)] boxes_ls = [&#123;&#125; for i in range(9)] for row in range(9): for column in range(9): num = board[row][column] if num != ".": num = int(num) box_index = row//3*3+column//3 rows_ls[row][num] = rows_ls[row].get(num, 0) + 1 columns_ls[column][num] = columns_ls[column].get( num, 0) + 1 boxes_ls[box_index][num] = boxes_ls[box_index].get( num, 0) + 1 # check valid if rows_ls[row][num] &gt; 1 or columns_ls[column][num] &gt; 1 or boxes_ls[box_index][num] &gt; 1: return False return True 来源LeetCode中该题地址，Click here!]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>哈希表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[35-搜索插入位置]]></title>
+    <url>%2F2020%2F02%2F02%2F35-%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。 你可以假设数组中无重复元素。 示例1234示例 1:输入: [1,3,5,6], 5输出: 2 1234示例 2:输入: [1,3,5,6], 2输出: 1 1234示例 3:输入: [1,3,5,6], 7输出: 4 1234示例 4:输入: [1,3,5,6], 0输出: 0 解法一行解法 核心思想：将小于target的元素生成一个列表，计算长度即可 1234class Solution: def searchInsert(self, nums: List[int], target: int) -&gt; int: # 一行解法 return len([ i for i in nums if i&lt;target ]) 二分查找 核心思想：找到最大的不大于target的索引位置 123456789101112131415class Solution: def searchInsert(self, nums: List[int], target: int) -&gt; int: nums_len = len(nums) if nums_len == 0: return 0 left, right = 0, nums_len-1 while left &lt;= right: mid = (left+right)//2 if nums[mid] == target and nums[mid-1] &lt; target: return mid if nums[mid] &gt;= target: right = mid-1 else: left = mid+1 return left 来源LeetCode中该题地址，Click here!]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数组</tag>
+        <tag>二分查找</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[34-排序数组中查找元素的第一和最后一个位置]]></title>
+    <url>%2F2020%2F02%2F02%2F34-%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。 你的算法时间复杂度必须是 O(log n) 级别。 如果数组中不存在目标值，返回 [-1, -1]。 示例1234示例 1:输入: nums = [5,7,7,8,8,10], target = 8输出: [3,4] 1234示例 2:输入: nums = [5,7,7,8,8,10], target = 6输出: [-1,-1] 解法 核心思想：采用两次二分查找，一次确定左边界，一次确定右边界。 为何要分两次？ 因为有重复的target值，当mid==target时，需要判定向左递归还是向右递归。 12345678910111213141516171819202122232425262728293031323334353637class Solution: def searchRange(self, nums: List[int], target: int) -&gt; List[int]: nums_len = len(nums) if nums_len == 0: return [-1, -1] return [self.getLeft(nums, 0, nums_len-1, target), self.getRight(nums, 0, nums_len-1, target)] # 寻找左边界 def getLeft(self, nums: List[int], left: int, right: int, target: int) -&gt; int: # 递归出口 if left &gt;= right: return left if nums[left] == target else - 1 mid = (left + right) // 2 if nums[mid] == target and nums[mid-1] != target: return mid # 递归入口 if nums[mid] &lt; target: return self.getLeft(nums, mid+1, right, target) elif nums[mid] &gt;= target: # mid==target时取左侧，向左递归 return self.getLeft(nums, left, mid-1, target) # 寻找右边界 def getRight(self, nums: List[int], left: int, right: int, target: int) -&gt; int: if left &gt;= right: return left if nums[left] == target else - 1 mid = (left + right) // 2 if nums[mid] == target and nums[mid+1] != target: return mid if nums[mid] &gt; target: return self.getRight(nums, left, mid-1, target) elif nums[mid] &lt;= target: # mid==target时取右侧，向右递归 return self.getRight(nums, mid+1, right, target) 来源LeetCode中该题地址，Click here!]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数组</tag>
+        <tag>二分查找</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Leetcode刷题笔记整理]]></title>
     <url>%2F2020%2F01%2F31%2F%E7%BD%AE%E9%A1%B6-Leetcode%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0%E6%95%B4%E7%90%86%2F</url>
     <content type="text"><![CDATA[所有刷题笔记内容的汇总分类，与个人总结。【不间断更新】 按照问题分类 字符串 数组问题 链表问题 按照解法分类 栈 队列 双指针 哈希算法 二分查找 动态规划 贪心算法 回溯思想 按题号顺序分类 # 题目 难度 标签 博客文章 001 两数之和 简单 数组；哈希表 :memo: 002 两数相加 中等 链表；数学 :memo: 003 无重复字符的最长子串 中等 字符串；滑动窗口 :memo: 004 寻找两个有序数组的中位数 困难 数组；分治算法 :memo: 005 最长回文子串 中等 字符串；动态规划；中心扩展 :memo: 006 Z字形变换 中等 字符串 :memo: 007 整数反转 简单 数学 :memo: 008 字符串转换整数 中等 数学；字符串 :memo: 009 回文数 简单 数学 :memo: 010 正则表达式匹配 困难 字符串；动态规划；回溯算法 :memo: 011 盛最多水的容器 中等 数组；双指针 :memo: 012 整数转罗马数字 中等 数学；字符串；贪心算法 :memo: 013 罗马数字转整数 简单 数学；字符串 :memo: 014 最长公共前缀 简单 字符串 :memo: 015 三数之和 中等 数组；双指针 :memo: 016 最接近的三数之和 中等 数组；双指针 :memo: 017 电话号码的字母组合 中等 字符串；回溯算法 :memo: 018 四数之和 中等 数组；哈希表；双指针 :memo: 019 删除链表的倒数第N个结点 中等 链表；双指针 :memo: 020 有效的括号 简单 栈；字符串 :memo: 021 合并两个有序链表 简单 链表 :memo: 022 括号生成 中等 字符串；回溯算法 :memo: 023 合并K个排序链表 困难 队列；链表 :memo: 024 两两交换链表中的结点 中等 链表 :memo: 025 K个一组翻转链表 困难 链表 026 删除排序数组中的重复项 简单 数组；双指针 :memo: 027 移除元素 简单 数组；双指针 :memo: 028 实现strStr 简单 字符串；双指针 :memo: 029 两数相除 中等 数学；二分查找 :memo: 030 串联所有单词的子串 困难 字符串；哈希表；双指针 031 下一个排列 中等 数组 :memo: 032 最长有效括号 困难 字符串；栈；动态规划 :memo: 033 搜索旋转排序数组 中等 数组；二分查找 :memo: 034 在排序数组中查找元素的第一个和最后一个位置 中等 数组；二分查找 035 搜索插入位置 简单 数组；二分查找]]></content>
