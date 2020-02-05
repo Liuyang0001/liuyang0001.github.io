@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://liuyang0001.github.io/"/>
-  <updated>2020-02-04T14:21:02.501Z</updated>
+  <updated>2020-02-05T14:17:27.122Z</updated>
   <id>https://liuyang0001.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>42-接雨水</title>
+    <link href="https://liuyang0001.github.io/2020/02/05/42-%E6%8E%A5%E9%9B%A8%E6%B0%B4/"/>
+    <id>https://liuyang0001.github.io/2020/02/05/42-接雨水/</id>
+    <published>2020-02-05T14:08:49.000Z</published>
+    <updated>2020-02-05T14:17:27.122Z</updated>
+    
+    <content type="html"><![CDATA[<p>给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。</p><a id="more"></a><p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/22/rainwatertrap.png" alt=""></p><p>上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。</p><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [0,1,0,2,1,0,1,3,2,1,2,1]</span><br><span class="line">输出: 6</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>核心思路：使用双指针从两侧遍历,与当前的最大左右值相比，判断当前格子装了多少水。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">trap</span><span class="params">(self, height: [int])</span> -&gt; int:</span></span><br><span class="line">        size = len(height)</span><br><span class="line">        <span class="keyword">if</span> size &lt; <span class="number">3</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        left, right = <span class="number">0</span>, size - <span class="number">1</span></span><br><span class="line">        left_max, right_max = height[left], height[right]</span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> left &lt; right:</span><br><span class="line">            <span class="keyword">if</span> height[left] &lt;= height[right]:</span><br><span class="line">                <span class="keyword">if</span> height[left] &gt; left_max:</span><br><span class="line">                    left_max = height[left]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    res += left_max - height[left]</span><br><span class="line">                left += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> height[right] &gt; right_max:</span><br><span class="line">                    right_max = height[right]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    res += right_max - height[right]</span><br><span class="line">                right -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure><hr><h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p><a href="https://leetcode-cn.com/problems/trapping-rain-water" target="_blank" rel="noopener">LeetCode中该题地址，Click here!</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
+    
+    
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
+    
+      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
+    
+      <category term="数组" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="双指针" scheme="https://liuyang0001.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
+    
+  </entry>
   
   <entry>
     <title>41-缺失的第一个正数</title>
@@ -397,9 +425,9 @@
     
       <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
     
-      <category term="字符串" scheme="https://liuyang0001.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
       <category term="双指针" scheme="https://liuyang0001.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
+    
+      <category term="字符串" scheme="https://liuyang0001.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
   </entry>
   
@@ -538,32 +566,6 @@
       <category term="字符串" scheme="https://liuyang0001.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
       <category term="回溯算法" scheme="https://liuyang0001.github.io/tags/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>21-合并两个有序链表</title>
-    <link href="https://liuyang0001.github.io/2020/01/18/21-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/"/>
-    <id>https://liuyang0001.github.io/2020/01/18/21-合并两个有序链表/</id>
-    <published>2020-01-18T06:01:01.000Z</published>
-    <updated>2020-01-18T06:39:20.796Z</updated>
-    
-    <content type="html"><![CDATA[<p>将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 </p><a id="more"></a><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4</span><br><span class="line">输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4</span><br></pre></td></tr></table></figure><p><hr></p><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：每次将较小的接到新表的尾端</strong></p></blockquote><h3 id="非递归"><a href="#非递归" class="headerlink" title="非递归"></a>非递归</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        self.val = x</span><br><span class="line">        self.next = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeTwoLists</span><span class="params">(self, l1: ListNode, l2: ListNode)</span> -&gt; ListNode:</span></span><br><span class="line">        l3 = ListNode(<span class="keyword">None</span>)  <span class="comment">#合并后的新的头结点</span></span><br><span class="line">        <span class="comment"># 分别创建三个链表的指针</span></span><br><span class="line">        l1_p, l2_p, l3_p = l1, l2, l3</span><br><span class="line">        <span class="comment"># 两指针所指不完全为空</span></span><br><span class="line">        <span class="keyword">while</span> l1_p <span class="keyword">and</span> l2_p:</span><br><span class="line">            <span class="comment"># 将较小的那个结点接到l3的尾端</span></span><br><span class="line">            <span class="keyword">if</span> l1_p.val &lt; l2_p.val:</span><br><span class="line">                l3_p.next=l1_p</span><br><span class="line">                l1_p= l1_p.next</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                l3_p.next=l2_p</span><br><span class="line">                l2_p=l2_p.next</span><br><span class="line">            l3_p = l3_p.next</span><br><span class="line">        <span class="comment"># 将剩余的部分复制给l_others，均为空则为None</span></span><br><span class="line">        l_others = l1_p <span class="keyword">if</span> l1_p <span class="keyword">else</span> l2_p</span><br><span class="line">        l3_p.next = l_others</span><br><span class="line">        <span class="comment"># 返回除了头指针之外的结点</span></span><br><span class="line">        <span class="keyword">return</span> l3.next</span><br></pre></td></tr></table></figure><h3 id="递归解法"><a href="#递归解法" class="headerlink" title="递归解法"></a>递归解法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 递归解法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution2</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeTwoLists</span><span class="params">(self, l1: ListNode, l2: ListNode)</span> -&gt; ListNode:</span></span><br><span class="line">        <span class="comment"># 先考虑递归边界问题</span></span><br><span class="line">        <span class="keyword">if</span> l1 == <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">return</span> l2</span><br><span class="line">        <span class="keyword">elif</span> l2==<span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">return</span> l1</span><br><span class="line">        <span class="comment"># 最后会返回l1，l2中较小的为头结点</span></span><br><span class="line">        <span class="keyword">elif</span> l1.val &lt; l2.val:</span><br><span class="line">            l1.next = self.mergeTwoLists(l1.next, l2)</span><br><span class="line">            <span class="keyword">return</span> l1 </span><br><span class="line">        <span class="keyword">elif</span> l1.val&gt;=l2.val:</span><br><span class="line">            l2.next = self.mergeTwoLists(l1,l2.next)</span><br><span class="line">            <span class="keyword">return</span> l2</span><br></pre></td></tr></table></figure><hr><h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p><a href="https://leetcode-cn.com/problems/merge-two-sorted-lists" target="_blank" rel="noopener">LeetCode中该题地址，Click here!</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 &lt;/p&gt;
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
-    
-    
-      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
-    
-      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
-    
-      <category term="链表" scheme="https://liuyang0001.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
     
   </entry>
   
