@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[63-不同路径II]]></title>
+    <url>%2F2020%2F03%2F14%2F63-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84II%2F</url>
+    <content type="text"><![CDATA[一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。 现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？ 网格中的障碍物和空位置分别用 1 和 0 来表示。 说明：*m 和 n* 的值均不超过 100。 示例123456789101112输入:[ [0,0,0], [0,1,0], [0,0,0]]输出: 2解释:3x3 网格的正中间有一个障碍物。从左上角到右下角一共有 2 条不同的路径：1. 向右 -&gt; 向右 -&gt; 向下 -&gt; 向下2. 向下 -&gt; 向下 -&gt; 向右 -&gt; 向右 解法 核心思想：和上题类似，只需考虑障碍的问题，所以dp的第一行和第一列不能直接初始化为1，更新dp时也需要考虑当前点是否为障碍点，剩下的就和上题的dp公式相同 123456789101112131415161718192021222324class Solution: def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -&gt; int: if not obstacleGrid: # 空 return 0 # 起点或者终点存在障碍 if obstacleGrid[0][0] or obstacleGrid[-1][-1]: return 0 m = len(obstacleGrid) n = len(obstacleGrid[0]) dp = [[0]*n for _ in range(m)] dp[0][0] = 1 # 重新初始第一行与第一列 for i in range(1, n): if(obstacleGrid[0][i] != 1): dp[0][i] = dp[0][i - 1] for j in range(1, m): if(obstacleGrid[j][0] != 1): dp[j][0] = dp[j - 1][0] # 动态规划 for x in range(1, m): for y in range(1, n): if(obstacleGrid[x][y] != 1): dp[x][y] = dp[x-1][y]+dp[x][y-1] return dp[-1][-1] 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[62-不同路径]]></title>
+    <url>%2F2020%2F03%2F14%2F62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84%2F</url>
+    <content type="text"><![CDATA[一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。 问总共有多少条不同的路径？ 例如，上图是一个7 x 3 的网格。有多少可能的路径？ 说明： m 和 n 的值均不超过 100。 示例示例 1: 1234567输入: m = 3, n = 2输出: 3解释:从左上角开始，总共有 3 条路径可以到达右下角。1. 向右 -&gt; 向右 -&gt; 向下2. 向右 -&gt; 向下 -&gt; 向右3. 向下 -&gt; 向右 -&gt; 向右 示例 2: 12输入: m = 7, n = 3输出: 28 解法 核心思想：维护一个二维的dp数组，到达该点的路径数=到达该点上方的路径数+到达该点左方的路径数 12345678class Solution: def uniquePaths(self, m: int, n: int) -&gt; int: # 初始化DP数组为第一行第一列均为1，其余为0 dp=[[1]*n]+[[1]+[0]*(n-1) for _ in range(m-1)] for i in range(1,m): for j in range(1,n): dp[i][j]=dp[i-1][j]+dp[i][j-1] return dp[-1][-1] 优化Dp数组为按行更新，故使用一行或者一列进行更新维护即可。 1234567class Solution: def uniquePaths(self, m: int, n: int) -&gt; int: cur=[1]*n for i in range(1,m): for j in range(1,n): cur[j]+=cur[j-1] return cur[-1] 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[61-旋转链表]]></title>
+    <url>%2F2020%2F03%2F14%2F61-%E6%97%8B%E8%BD%AC%E9%93%BE%E8%A1%A8%2F</url>
+    <content type="text"><![CDATA[给定一个链表，旋转链表，将链表每个节点向右移动 k 个位置，其中 k 是非负数。 示例示例 1: 12345输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, k = 2输出: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL解释:向右旋转 1 步: 5-&gt;1-&gt;2-&gt;3-&gt;4-&gt;NULL向右旋转 2 步: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL 示例 2: 1234567输入: 0-&gt;1-&gt;2-&gt;NULL, k = 4输出: 2-&gt;0-&gt;1-&gt;NULL解释:向右旋转 1 步: 2-&gt;0-&gt;1-&gt;NULL向右旋转 2 步: 1-&gt;2-&gt;0-&gt;NULL向右旋转 3 步: 0-&gt;1-&gt;2-&gt;NULL向右旋转 4 步: 2-&gt;0-&gt;1-&gt;NULL 解法 核心思想：根据规律找出旋转点，再重新构建链表。 1234567891011121314151617181920212223242526class Solution: def rotateRight(self, head: ListNode, k: int) -&gt; ListNode: if head == None or head.next == None or k == 0: return head p = head # 指针 len_ListLink = 1 # 遍历计算链表长度 while p.next: len_ListLink += 1 p = p.next # 找到原表尾的位置 rear = p # 转折点位置 t = len_ListLink - (k % len_ListLink) if t == len_ListLink: return head p = head # 第二次遍历指针 while t &gt; 1: t -= 1 p = p.next newRear = p newHead = p.next # 重新构建链表 newRear.next = None rear.next = head return newHead 另外解的思想：将链表转换为list，排列后在生成链表 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>双指针</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[60-第k个排列]]></title>
     <url>%2F2020%2F02%2F25%2F60-%E7%AC%ACk%E4%B8%AA%E6%8E%92%E5%88%97%2F</url>
     <content type="text"><![CDATA[给出集合 [1,2,3,…,*n*]，其所有元素共有 n! 种排列。 按大小顺序列出所有排列情况，并一一标记，给定 n 和 k，返回第 k 个排列。 当 n = 3 时, 所有排列如下： &quot;123&quot; &quot;132&quot; &quot;213&quot; &quot;231&quot; &quot;312&quot; `”321” 说明： 给定 n 的范围是 [1, 9]。 给定 k 的范围是[1, n!]。 示例示例 1: 12输入: n = 3, k = 3输出: &quot;213&quot; 示例 2: 12输入: n = 4, k = 9输出: &quot;2314&quot; 解法 核心思想：回溯算法+剪枝 123456789101112131415class Solution: def getPermutation(self, n: int, k: int) -&gt; str: # 阶乘表 fac = [1,1,2,6,24,120,720,5040,40320,362880] nums = [i for i in range(1, n + 1)] # 回溯函数 def backTrack(nums,tmp, k): if not nums: return tmp for i in range(len(nums)): if fac[len(nums)-1] &lt; k: k -= fac[len(nums)-1] continue return backTrack(nums[:i]+nums[i+1:], tmp+str(nums[i]), k) return backTrack(nums,"", k) 相关信息LeetCode：Discussion | Solution]]></content>
@@ -130,8 +168,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>字符串</tag>
         <tag>哈希表</tag>
+        <tag>字符串</tag>
       </tags>
   </entry>
   <entry>
@@ -817,8 +855,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Web</tag>
         <tag>Django</tag>
+        <tag>Web</tag>
         <tag>数据库</tag>
         <tag>Restful-Api</tag>
       </tags>
@@ -832,8 +870,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Web</tag>
         <tag>Django</tag>
+        <tag>Web</tag>
         <tag>数据库</tag>
         <tag>Restful-Api</tag>
       </tags>
@@ -847,8 +885,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Web</tag>
         <tag>Django</tag>
+        <tag>Web</tag>
         <tag>数据库</tag>
         <tag>Restful-Api</tag>
       </tags>
@@ -862,8 +900,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Web</tag>
         <tag>Django</tag>
+        <tag>Web</tag>
         <tag>数据库</tag>
         <tag>Restful-Api</tag>
       </tags>
@@ -877,8 +915,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Web</tag>
         <tag>Django</tag>
+        <tag>Web</tag>
         <tag>数据库</tag>
         <tag>Restful-Api</tag>
       </tags>
@@ -892,8 +930,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Web</tag>
         <tag>Django</tag>
+        <tag>Web</tag>
         <tag>数据库</tag>
         <tag>Restful-Api</tag>
         <tag>序列化</tag>
@@ -922,8 +960,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Web</tag>
         <tag>Django</tag>
+        <tag>Web</tag>
         <tag>数据库</tag>
         <tag>Ajax</tag>
       </tags>
@@ -964,8 +1002,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Web</tag>
         <tag>Django</tag>
+        <tag>Web</tag>
         <tag>数据库</tag>
       </tags>
   </entry>
@@ -990,8 +1028,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Web</tag>
         <tag>Django</tag>
+        <tag>Web</tag>
         <tag>数据库</tag>
         <tag>ORM</tag>
       </tags>
@@ -1005,8 +1043,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Web</tag>
         <tag>Django</tag>
+        <tag>Web</tag>
         <tag>数据库</tag>
         <tag>ORM</tag>
       </tags>
@@ -1032,8 +1070,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Web</tag>
         <tag>Django</tag>
+        <tag>Web</tag>
         <tag>数据库</tag>
         <tag>ORM</tag>
       </tags>
@@ -1047,8 +1085,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Web</tag>
         <tag>Django</tag>
+        <tag>Web</tag>
         <tag>数据库</tag>
       </tags>
   </entry>
@@ -1061,8 +1099,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Web</tag>
         <tag>Django</tag>
+        <tag>Web</tag>
       </tags>
   </entry>
   <entry>
@@ -1086,8 +1124,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Web</tag>
         <tag>Django</tag>
+        <tag>Web</tag>
       </tags>
   </entry>
   <entry>
@@ -1124,8 +1162,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>内置函数</tag>
         <tag>eval</tag>
+        <tag>内置函数</tag>
       </tags>
   </entry>
   <entry>
@@ -1177,8 +1215,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Web</tag>
         <tag>Django</tag>
+        <tag>Web</tag>
       </tags>
   </entry>
   <entry>
