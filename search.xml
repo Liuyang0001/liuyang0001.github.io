@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[75-颜色分类]]></title>
+    <url>%2F2020%2F03%2F23%2F75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB%2F</url>
+    <content type="text"><![CDATA[给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。 此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。 注意:不能使用代码库中的排序函数来解决这道题。 示例12输入: [2,0,2,1,1,0]输出: [0,0,1,1,2,2] 进阶： 一个直观的解决方案是使用计数排序的两趟扫描算法。首先，迭代计算出0、1 和 2 元素的个数，然后按照0、1、2的排序，重写当前数组。 你能想出一个仅使用常数空间的一趟扫描算法吗？ 解法 核心思想：使用Counter进行对012进行计数，再依次进行替换原数组即可 12345678910111213class Solution: def sortColors(self, nums: List[int]) -&gt; None: """ Do not return anything, modify nums in-place instead. """ # 调用Counter()进行统计每个数字的个数 c_nums = Counter(nums) index = 0 # 重新对原数组进行覆盖 for i in range(3): for _ in range(c_nums[i]): nums[index] = i index += 1 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数组</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[74-搜索二维矩阵]]></title>
+    <url>%2F2020%2F03%2F23%2F74-%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5%2F</url>
+    <content type="text"><![CDATA[编写一个高效的算法来判断 m x n 矩阵中，是否存在一个目标值。 该矩阵具有如下特性： 每行中的整数从左到右按升序排列。 每行的第一个整数大于前一行的最后一个整数。 示例示例 1: 12345678输入:matrix = [ [1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 50]]target = 3输出: true 示例 2: 12345678输入:matrix = [ [1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 50]]target = 13输出: false 解法 核心思想：将二维数组转为字符串，使用正则表达式匹配 12345678class Solution: def searchMatrix(self, matrix: List[List[int]], target: int) -&gt; bool: s = str(matrix) # 利用正则去掉target前后均有数字的匹配项 if re.findall("[^0-9\-]"+str(target)+"[^0-9]", s): return True else: return False 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>二分查找</tag>
+        <tag>矩阵</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[73-矩阵置零]]></title>
+    <url>%2F2020%2F03%2F23%2F73-%E7%9F%A9%E9%98%B5%E7%BD%AE%E9%9B%B6%2F</url>
+    <content type="text"><![CDATA[给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。 进阶: 一个直接的解决方案是使用 O(mn) 的额外空间，但这并不是一个好的解决方案。 一个简单的改进方案是使用 O(m + n) 的额外空间，但这仍然不是最好的解决方案。 你能想出一个常数空间的解决方案吗？ 示例示例 1: 123456789101112输入: [ [1,1,1], [1,0,1], [1,1,1]]输出: [ [1,0,1], [0,0,0], [1,0,1]] 示例 2: 123456789101112输入: [ [0,1,2,0], [3,4,5,2], [1,3,1,5]]输出: [ [0,0,0,0], [0,4,5,0], [0,3,1,0]] 解法 核心思想：第一次遍历，将需要置零的行列找出来；第二次遍历，将需要的位置置零 1234567891011121314151617class Solution: def setZeroes(self, matrix: List[List[int]]) -&gt; None: """ Do not return anything, modify matrix in-place instead. """ zero_x, zero_y = [], [] # 遍历矩阵找到需要变0的行和列 for x in range(len(matrix)): for y in range(len(matrix[0])): if matrix[x][y] == 0: zero_x.append(x) zero_y.append(y) # 对应位置变零 for x in range(len(matrix)): for y in range(len(matrix[0])): if x in zero_x or y in zero_y: matrix[x][y] = 0 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数组</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[70-爬楼梯]]></title>
+    <url>%2F2020%2F03%2F23%2F70-%E7%88%AC%E6%A5%BC%E6%A2%AF%2F</url>
+    <content type="text"><![CDATA[假设你正在爬楼梯。需要 n 阶你才能到达楼顶。 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？ 注意：给定 n 是一个正整数。 示例示例 1： 12345输入： 2输出： 2解释： 有两种方法可以爬到楼顶。1. 1 阶 + 1 阶2. 2 阶 示例 2： 123456输入： 3输出： 3解释： 有三种方法可以爬到楼顶。1. 1 阶 + 1 阶 + 1 阶2. 1 阶 + 2 阶3. 2 阶 + 1 阶 解法 核心思想：使用dp，维护dp[n+1]数组 1234567891011121314class Solution: def climbStairs(self, n: int) -&gt; int: # 特判 if n &lt; 3: return n # 初始化dp数组 dp_list = [0] * (n + 1) dp_list[1] = 1 dp_list[2] = 2 # 开始dp for i in range(3, n + 1): # dp公式：当前项=前两项之和 dp_list[i] = dp_list[i - 1] + dp_list[i - 2] return dp_list[n] 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[69-x的平方根]]></title>
     <url>%2F2020%2F03%2F23%2F69-x%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9%2F</url>
     <content type="text"><![CDATA[实现 int sqrt(int x) 函数。 计算并返回 x 的平方根，其中 x 是非负整数。 由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。 示例示例 1: 12输入: 4输出: 2 示例 2: 1234输入: 8输出: 2说明: 8 的平方根是 2.82842..., 由于返回类型是整数，小数部分将被舍去。 解法 核心思想：二分查找法。 12345678910111213141516class Solution: def mySqrt(self, x: int) -&gt; int: if x == 1 or x==0: return x left = 0 right = x//2 while left &lt;= right: mid = left + (right - left) // 2 tmp = mid * mid if tmp == x: return mid elif tmp &lt; x: left = mid + 1 else: right = mid - 1 return right 相关信息LeetCode：Discussion | Solution]]></content>
@@ -1229,8 +1283,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>内置函数</tag>
         <tag>eval</tag>
+        <tag>内置函数</tag>
       </tags>
   </entry>
   <entry>
