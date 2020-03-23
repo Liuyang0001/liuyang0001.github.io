@@ -1,6 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[69-x的平方根]]></title>
+    <url>%2F2020%2F03%2F23%2F69-x%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9%2F</url>
+    <content type="text"><![CDATA[实现 int sqrt(int x) 函数。 计算并返回 x 的平方根，其中 x 是非负整数。 由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。 示例示例 1: 12输入: 4输出: 2 示例 2: 1234输入: 8输出: 2说明: 8 的平方根是 2.82842..., 由于返回类型是整数，小数部分将被舍去。 解法 核心思想：二分查找法。 12345678910111213141516class Solution: def mySqrt(self, x: int) -&gt; int: if x == 1 or x==0: return x left = 0 right = x//2 while left &lt;= right: mid = left + (right - left) // 2 tmp = mid * mid if tmp == x: return mid elif tmp &lt; x: left = mid + 1 else: right = mid - 1 return right 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[67-二进制求和]]></title>
+    <url>%2F2020%2F03%2F23%2F67-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B1%82%E5%92%8C%2F</url>
+    <content type="text"><![CDATA[给定两个二进制字符串，返回他们的和（用二进制表示）。 输入为非空字符串且只包含数字 1 和 0。 示例示例 1: 12输入: a = &quot;11&quot;, b = &quot;1&quot;输出: &quot;100&quot; 示例 2: 12输入: a = &quot;1010&quot;, b = &quot;1011&quot;输出: &quot;10101&quot; 解法 核心思想：转换成整形相加，再转为二进制即可 1234class Solution: def addBinary(self, a: str, b: str) -&gt; str: res = int(a, base=2) + int(b, base=2) return bin(res)[2:] 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数学</tag>
+        <tag>字符串</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[66-加一]]></title>
+    <url>%2F2020%2F03%2F23%2F66-%E5%8A%A0%E4%B8%80%2F</url>
+    <content type="text"><![CDATA[给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。 最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。 你可以假设除了整数 0 之外，这个整数不会以零开头。 示例示例 1: 123输入: [1,2,3]输出: [1,2,4]解释: 输入数组表示数字 123。 示例 2: 123输入: [4,3,2,1]输出: [4,3,2,2]解释: 输入数组表示数字 4321。 解法 核心思想：分情况讨论： 最后一位为9：转换成整形加一再转成数组（可能会有进位） 最后一位不为9：直接将其加一即可 123456789class Solution: def plusOne(self, digits: List[int]) -&gt; List[int]: if digits[-1] != 9: digits[-1] += 1 else: num = "".join(str(item) for item in digits) num = int(num) + 1 digits = [int(x) for x in str(num)] return digits 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数组</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[65-有效数字]]></title>
+    <url>%2F2020%2F03%2F23%2F65-%E6%9C%89%E6%95%88%E6%95%B0%E5%AD%97%2F</url>
+    <content type="text"><![CDATA[验证给定的字符串是否可以解释为十进制数字。 说明: 我们有意将问题陈述地比较模糊。在实现代码之前，你应当事先思考所有可能的情况。这里给出一份可能存在于有效十进制数字中的字符列表： 数字 0-9 指数 - “e” 正/负号 - “+”/“-“ 小数点 - “.” 当然，在输入中，这些字符的上下文也很重要。 更新于 2015-02-10:C++函数的形式已经更新了。如果你仍然看见你的函数接收 const char * 类型的参数，请点击重载按钮重置你的代码。 示例1234567891011121314&quot;0&quot;` =&gt; `true``&quot; 0.1 &quot;` =&gt; `true``&quot;abc&quot;` =&gt; `false``&quot;1 a&quot;` =&gt; `false``&quot;2e10&quot;` =&gt; `true``&quot; -90e3 &quot;` =&gt; `true``&quot; 1e&quot;` =&gt; `false``&quot;e3&quot;` =&gt; `false``&quot; 6e-1&quot;` =&gt; `true``&quot; 99e2.5 &quot;` =&gt; `false``&quot;53.5e93&quot;` =&gt; `true``&quot; --6 &quot;` =&gt; `false``&quot;-+3&quot;` =&gt; `false``&quot;95a54e53&quot;` =&gt; `false 解法 核心思想：使用float()函数进行尝试转换，出现异常则为False，否则为True 1234567class Solution: def isNumber(self, s: str) -&gt; bool: try: float(s.strip()) return True except: return False 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数学</tag>
+        <tag>字符串</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[64-最小路径和]]></title>
+    <url>%2F2020%2F03%2F23%2F64-%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C%2F</url>
+    <content type="text"><![CDATA[给定一个包含非负整数的 m x n 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。 说明：每次只能向下或者向右移动一步。 示例12345678输入:[ [1,3,1], [1,5,1], [4,2,1]]输出: 7解释: 因为路径 1→3→1→1→1 的总和最小。 解法 核心思想：使用动态规划的思想 第一行的情况：当前值更新为当前值➕左侧值 第一列的情况：当前值更新为当前值➕上侧值 不是首行首列：当前值更新为当前值➕min{左侧，上侧} 1234567891011121314151617181920class Solution: def minPathSum(self, grid: List[List[int]]) -&gt; int: if not grid: return 0 m, n = len(grid), len(grid[0]) if m == 1: # 只有一行 return sum(grid[0]) if n == 1: # 只有一列 return sum(list(*zip(*grid))) for i in range(m): for j in range(n): if i == j == 0: continue elif i == 0: grid[i][j] = grid[0][j-1] + grid[0][j] elif j == 0: grid[i][j] = grid[i-1][0] + grid[i][0] else: grid[i][j] = min(grid[i-1][j],grid[i][j-1]) + grid[i][j] return grid[-1][-1] 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数组</tag>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[63-不同路径II]]></title>
     <url>%2F2020%2F03%2F14%2F63-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84II%2F</url>
     <content type="text"><![CDATA[一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。 现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？ 网格中的障碍物和空位置分别用 1 和 0 来表示。 说明：*m 和 n* 的值均不超过 100。 示例123456789101112输入:[ [0,0,0], [0,1,0], [0,0,0]]输出: 2解释:3x3 网格的正中间有一个障碍物。从左上角到右下角一共有 2 条不同的路径：1. 向右 -&gt; 向右 -&gt; 向下 -&gt; 向下2. 向下 -&gt; 向下 -&gt; 向右 -&gt; 向右 解法 核心思想：和上题类似，只需考虑障碍的问题，所以dp的第一行和第一列不能直接初始化为1，更新dp时也需要考虑当前点是否为障碍点，剩下的就和上题的dp公式相同 123456789101112131415161718192021222324class Solution: def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -&gt; int: if not obstacleGrid: # 空 return 0 # 起点或者终点存在障碍 if obstacleGrid[0][0] or obstacleGrid[-1][-1]: return 0 m = len(obstacleGrid) n = len(obstacleGrid[0]) dp = [[0]*n for _ in range(m)] dp[0][0] = 1 # 重新初始第一行与第一列 for i in range(1, n): if(obstacleGrid[0][i] != 1): dp[0][i] = dp[0][i - 1] for j in range(1, m): if(obstacleGrid[j][0] != 1): dp[j][0] = dp[j - 1][0] # 动态规划 for x in range(1, m): for y in range(1, n): if(obstacleGrid[x][y] != 1): dp[x][y] = dp[x-1][y]+dp[x][y-1] return dp[-1][-1] 相关信息LeetCode：Discussion | Solution]]></content>
@@ -426,8 +493,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>字符串</tag>
         <tag>双指针</tag>
+        <tag>字符串</tag>
       </tags>
   </entry>
   <entry>
@@ -1162,8 +1229,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>eval</tag>
         <tag>内置函数</tag>
+        <tag>eval</tag>
       </tags>
   </entry>
   <entry>
