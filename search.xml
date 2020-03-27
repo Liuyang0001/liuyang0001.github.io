@@ -1,6 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[80-删除排序数组中的重复项II]]></title>
+    <url>%2F2020%2F03%2F27%2F80-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9II%2F</url>
+    <content type="text"><![CDATA[给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素最多出现两次，返回移除后数组的新长度。 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。 说明: 为什么返回数值是整数，但输出的答案是数组呢? 请注意，输入数组是以“引用”方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。 你可以想象内部操作如下: 12345678// nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝int len = removeDuplicates(nums);// 在函数里修改输入数组对于调用者是可见的。// 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。for (int i = 0; i &lt; len; i++) &#123; print(nums[i]);&#125; 示例示例 1: 12345给定 nums = [1,1,1,2,2,3],函数应返回新长度 length = 5, 并且原数组的前五个元素被修改为 1, 1, 2, 2, 3 。你不需要考虑数组中超出新长度后面的元素。 示例 2: 12345给定 nums = [0,0,1,1,1,1,2,3,3],函数应返回新长度 length = 7, 并且原数组的前五个元素被修改为 0, 0, 1, 1, 2, 3, 3 。你不需要考虑数组中超出新长度后面的元素。 解法 核心思想：利用双指针，一快一慢，快指针用于遍历，慢指针用于确定新数组的尾端。 12345678910111213141516class Solution: def removeDuplicates(self, nums: List[int]) -&gt; int: # 双指针+计数器 count = 1 # 元素出现的次数 n = len(nums) L, R = 1, 1 while R &lt; n: if nums[R] == nums[R-1]: # 出现重复元素，记录出现的次数 count += 1 else: count = 1 # 若不是重复元素，重置计数器 if count &lt;= 2: # 若只有2个及以下的重复元素，移动L nums[L] = nums[R] L += 1 R += 1 return L 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数组</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[79-单词搜索]]></title>
+    <url>%2F2020%2F03%2F27%2F79-%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2%2F</url>
+    <content type="text"><![CDATA[给定一个二维网格和一个单词，找出该单词是否存在于网格中。 单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。 提示： board 和 word 中只包含大写和小写英文字母。 1 &lt;= board.length &lt;= 200 1 &lt;= board[i].length &lt;= 200 1 &lt;= word.length &lt;= 10^3 示例12345678910board =[ [&apos;A&apos;,&apos;B&apos;,&apos;C&apos;,&apos;E&apos;], [&apos;S&apos;,&apos;F&apos;,&apos;C&apos;,&apos;S&apos;], [&apos;A&apos;,&apos;D&apos;,&apos;E&apos;,&apos;E&apos;]]给定 word = &quot;ABCCED&quot;, 返回 true给定 word = &quot;SEE&quot;, 返回 true给定 word = &quot;ABCB&quot;, 返回 false 解法 核心思想：使用回溯算法（dfs），寻找当前字母的上下左右是否存在符合条件的单词，找不到就返回上一层 12345678910111213141516171819202122232425class Solution: def exist(self, board: List[List[str]], word: str) -&gt; bool: row = len(board) col = len(board[0]) def __dfs(i, j, wd_len, visited): if wd_len == len(word): return True for x, y in [(-1, 0), (1, 0), (0, 1), (0, -1)]: tem_i = x + i tem_j = y + j if 0 &lt;= tem_i &lt; row and 0 &lt;= tem_j &lt; col \ and board[tem_i][tem_j] == word[wd_len] \ and (tem_i, tem_j) not in visited: visited.add((tem_i, tem_j)) if __dfs(tem_i, tem_j, wd_len+1, visited): return True visited.remove((tem_i, tem_j)) return False for i in range(row): for j in range(col): if board[i][j] == word[0] and __dfs(i, j, 1, &#123;(i, j)&#125;): return True return False 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数组</tag>
+        <tag>回溯算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[78-子集]]></title>
+    <url>%2F2020%2F03%2F27%2F78-%E5%AD%90%E9%9B%86%2F</url>
+    <content type="text"><![CDATA[给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。 说明：解集不能包含重复的子集。 示例123456789101112输入: nums = [1,2,3]输出:[ [3], [1], [2], [1,2,3], [1,3], [2,3], [1,2], []] 解法 核心思想：利用回溯算法，每添加一个数字，加到res一次 123456789101112class Solution: def subsets(self, nums: List[int]) -&gt; List[List[int]]: res = [] n = len(nums) # 回溯函数 def backtrack(index, tem): res.append(tem) for i in range(index,n): backtrack(i+1, tem+[nums[i]]) backtrack(0, []) return res 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数组</tag>
+        <tag>回溯算法</tag>
+        <tag>位操作</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[77-组合]]></title>
+    <url>%2F2020%2F03%2F27%2F77-%E7%BB%84%E5%90%88%2F</url>
+    <content type="text"><![CDATA[给定两个整数 n 和 k，返回 1 … n 中所有可能的 k 个数的组合。 示例12345678910输入: n = 4, k = 2输出:[ [2,4], [3,4], [2,3], [1,2], [1,3], [1,4],] 解法1 核心思想：使用库函数combinations，直接生成。 1234from itertools import combinationsclass Solution: def combine(self, n: int, k: int) -&gt; List[List[int]]: return list(combinations(range(1,n+1),k)) 解法2 核心思想：利用回溯算法，每到列表中的长度=k时，添加到res一次 123456789101112class Solution: def combine(self, n: int, k: int) -&gt; List[List[int]]: res = [] def backtrack(i, k, tem): if k == 0: res.append(tem) return for j in range(i, n+1): backtrack(j + 1, k - 1, tem+[j]) backtrack(1, k, []) return res 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>回溯算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[75-颜色分类]]></title>
     <url>%2F2020%2F03%2F23%2F75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB%2F</url>
     <content type="text"><![CDATA[给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。 此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。 注意:不能使用代码库中的排序函数来解决这道题。 示例12输入: [2,0,2,1,1,0]输出: [0,0,1,1,2,2] 进阶： 一个直观的解决方案是使用计数排序的两趟扫描算法。首先，迭代计算出0、1 和 2 元素的个数，然后按照0、1、2的排序，重写当前数组。 你能想出一个仅使用常数空间的一趟扫描算法吗？ 解法 核心思想：使用Counter进行对012进行计数，再依次进行替换原数组即可 12345678910111213class Solution: def sortColors(self, nums: List[int]) -&gt; None: """ Do not return anything, modify nums in-place instead. """ # 调用Counter()进行统计每个数字的个数 c_nums = Counter(nums) index = 0 # 重新对原数组进行覆盖 for i in range(3): for _ in range(c_nums[i]): nums[index] = i index += 1 相关信息LeetCode：Discussion | Solution]]></content>
@@ -547,8 +603,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>双指针</tag>
         <tag>字符串</tag>
+        <tag>双指针</tag>
       </tags>
   </entry>
   <entry>
@@ -1283,8 +1339,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>eval</tag>
         <tag>内置函数</tag>
+        <tag>eval</tag>
       </tags>
   </entry>
   <entry>
