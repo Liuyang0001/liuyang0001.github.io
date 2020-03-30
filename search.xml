@@ -1,6 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[90-子集II]]></title>
+    <url>%2F2020%2F03%2F30%2F90-%E5%AD%90%E9%9B%86II%2F</url>
+    <content type="text"><![CDATA[给定一个可能包含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。 说明：解集不能包含重复的子集。 示例12345678910输入: [1,2,2]输出:[ [2], [1], [1,2,2], [2,2], [1,2], []] 解法 核心思想：利用回溯算法， 关键点：去重—-&gt;【排序+当前值与上一个值判断】 12345678910111213class Solution: def subsetsWithDup(self, nums: List[int]) -&gt; List[List[int]]: res = [] n = len(nums) nums.sort() def backtrack(index, tem): res.append(tem) for i in range(index, n): if i &gt; index and nums[i] == nums[i-1]: continue backtrack(i + 1, tem + [nums[i]]) backtrack(0, []) return res 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数组</tag>
+        <tag>回溯算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[89-格雷编码]]></title>
+    <url>%2F2020%2F03%2F30%2F89-%E6%A0%BC%E9%9B%B7%E7%BC%96%E7%A0%81%2F</url>
+    <content type="text"><![CDATA[格雷编码是一个二进制数字系统，在该系统中，两个连续的数值仅有一个位数的差异。 给定一个代表编码总位数的非负整数 n，打印其格雷编码序列。格雷编码序列必须以 0 开头。 示例示例 1: 123456789101112131415输入: 2输出: [0,1,3,2]解释:00 - 001 - 111 - 310 - 2对于给定的 n，其格雷编码序列并不唯一。例如，[0,2,3,1] 也是一个有效的格雷编码序列。00 - 010 - 211 - 301 - 1 示例 2: 12345输入: 0输出: [0]解释: 我们定义格雷编码序列必须以 0 开头。 给定编码总位数为 n 的格雷编码序列，其长度为 2n。当 n = 0 时，长度为 20 = 1。 因此，当 n = 0 时，其格雷编码序列为 [0]。 解法 核心思想：第n个格雷码：G(n) = (n&gt;&gt;1) OXR n，即最高位保留，其他位相异或 1234567class Solution: def grayCode(self, n: int) -&gt; List[int]: res = [] for i in range(2 ** n): # 最高位保留，其他位异或操作 res.append(i ^ (i &gt;&gt; 1)) return res 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>回溯算法</tag>
+        <tag>位运算</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[88-合并两个有序数组]]></title>
+    <url>%2F2020%2F03%2F30%2F88-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%2F</url>
+    <content type="text"><![CDATA[给你两个有序整数数组 nums1 和 nums2，请你将 nums2 合并到 nums1 中，使 num1 成为一个有序数组。 说明: 初始化 nums1 和 nums2 的元素数量分别为 m 和 n 。 你可以假设 nums1 有足够的空间（空间大小大于或等于 m + n）来保存 nums2 中的元素。 示例12345输入:nums1 = [1,2,3,0,0,0], m = 3nums2 = [2,5,6], n = 3输出: [1,2,2,3,5,6] 解法 核心思想：先合并，在排序。 坑：有的0有效有的0无效，所以第一个列表有效部分直接取[:-m] 12345678910class Solution: def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -&gt; None: """ Do not return anything, modify nums1 in-place instead. """ n = len(nums2) if n == 0: return nums =nums1[:-n] + nums2 nums1[:] = sorted(nums) 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数组</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[86-分隔链表]]></title>
+    <url>%2F2020%2F03%2F30%2F86-%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8%2F</url>
+    <content type="text"><![CDATA[给定一个链表和一个特定值 x，对链表进行分隔，使得所有小于 x 的节点都在大于或等于 x 的节点之前。 你应当保留两个分区中每个节点的初始相对位置。 示例12输入: head = 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;2, x = 3输出: 1-&gt;2-&gt;2-&gt;4-&gt;3-&gt;5 解法 核心思想：x为边界，拆分成两个链表处理，最后在合在一起即可。 1234567891011121314151617class Solution: def partition(self, head: ListNode, x: int) -&gt; ListNode: p = head p1 = head1 = ListNode(-1) p2 = head2 = ListNode(-1) while p != None: if p.val &lt; x: p1.next = p p1 = p1.next else: p2.next = p p2 = p2.next p = p.next p1.next = head2.next p2.next = None # 尾边界 del head2 return head1.next 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>双指针</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[84-柱状图中的最大矩形]]></title>
+    <url>%2F2020%2F03%2F30%2F84-%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2%2F</url>
+    <content type="text"><![CDATA[给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。 求在该柱状图中，能够勾勒出来的矩形的最大面积。 示例 以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 [2,1,5,6,2,3]。 图中阴影部分为所能勾勒出的最大矩形面积，其面积为 10 个单位。 12输入: [2,1,5,6,2,3]输出: 10 解法 核心思想：遍历寻找以第i根柱子为最高柱子所能延伸的最大面积 即 找栈顶左右两边第一个比栈顶小的元素，【利用“单调栈”】 巧妙地点：在两侧加上0柱子便于处理边界 1234567891011121314151617class Solution: def largestRectangleArea(self, heights: List[int]) -&gt; int: stack = [] # 在原柱子两端加上两个高度为0的柱子，便于计算边界 heights = [0] + heights + [0] res = 0 # 遍历：以第i根柱子为最高柱子所能延伸的最大面积 # 即 找栈顶左右两边第一个比栈顶小的元素 for i in range(len(heights)): # print(stack) # 调整位置 while stack and heights[stack[-1]] &gt; heights[i]: tmp = stack.pop() res = max(res, (i - stack[-1] - 1) * heights[tmp]) # 当前元素无论如何也要放进去，不同的只是需不需要pop来调整位置 stack.append(i) return res 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数组</tag>
+        <tag>栈</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[83-删除排序链表中的重复元素]]></title>
+    <url>%2F2020%2F03%2F30%2F83-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%2F</url>
+    <content type="text"><![CDATA[给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。 示例示例 1: 12输入: 1-&gt;1-&gt;2输出: 1-&gt;2 示例 2: 12输入: 1-&gt;1-&gt;2-&gt;3-&gt;3输出: 1-&gt;2-&gt;3 解法 核心思想：利用双指针，跳过重复的结点 123456789101112131415class Solution: def deleteDuplicates(self, head: ListNode) -&gt; ListNode: if head and head.next: pre = head p = head.next else: return head while p: if pre.val == p.val: pre.next = p.next p = p.next else: pre = pre.next p = p.next return head 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[82-删除排序链表中的重复元素II]]></title>
+    <url>%2F2020%2F03%2F30%2F82-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0II%2F</url>
+    <content type="text"><![CDATA[给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 没有重复出现 的数字。 示例示例 1: 12输入: 1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5输出: 1-&gt;2-&gt;5 示例 2: 12输入: 1-&gt;1-&gt;1-&gt;2-&gt;3输出: 2-&gt;3 解法 核心思想：1.转换成列表 2.利用counter()计数3.将计数为1的重新构建链表 12345678910111213141516171819from collections import Counterclass Solution: def deleteDuplicates(self, head: ListNode) -&gt; ListNode: ls = [] p = head # 先将所有结点值扫描进列表 while p: ls.append(p.val) p = p.next # 利用Counter进行计数 nums_dict = Counter(ls) H = ListNode(-1) p = H # 将所有value值为1的重新建立结点 for i in nums_dict.keys(): if nums_dict[i] == 1: p.next = ListNode(i) p = p.next return H.next 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[81-搜索旋转排序数组II]]></title>
+    <url>%2F2020%2F03%2F30%2F81-%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84II%2F</url>
+    <content type="text"><![CDATA[假设按照升序排序的数组在预先未知的某个点上进行了旋转。 ( 例如，数组 [0,0,1,2,2,5,6] 可能变为 [2,5,6,0,0,1,2] )。 编写一个函数来判断给定的目标值是否存在于数组中。若存在返回 true，否则返回 false。 进阶: 这是 搜索旋转排序数组 的延伸题目，本题中的 nums 可能包含重复元素。 这会影响到程序的时间复杂度吗？会有怎样的影响，为什么？ 示例示例 1: 12输入: nums = [2,5,6,0,0,1,2], target = 0输出: true 示例 2: 12输入: nums = [2,5,6,0,0,1,2], target = 3输出: false 解法 核心思想：采用二分查找的思想，判断在那一部分出现完整的升序序列， 需要注意的点：可能存在l=r=mid的情况 123456789101112131415161718192021222324252627282930313233class Solution: def search(self, nums: List[int], target: int) -&gt; int: mid, left, right = 0, 0, len(nums)-1 while left &lt;= right: # 二分法 mid = (left + right) // 2 # 找到该点索引值 if nums[mid] == target: return True # 出现重复值，如[1,2,1,1,1]情况 if nums[left] == nums[mid] == nums[right]: left += 1 right -= 1 continue # 旋转点T在mid右区间 # [left......mid....T....right] if nums[left] &lt;= nums[mid]: # target在[left,mid)的升序空间中 if nums[left] &lt;= target &lt; nums[mid]: right = mid # target在(mid,T]或者[T,right]中 else: left = mid + 1 # 旋转点T在mid左区间 # [left...T...mid........right] elif nums[left] &gt; nums[mid]: # target在(mid,right]的升序空间中 if nums[mid] &lt; target &lt;= nums[right]: left = mid + 1 # target在[left,T]或者[T，mid) else: right = mid # 未找到该点 return False 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>数组</tag>
+        <tag>二分查找</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[80-删除排序数组中的重复项II]]></title>
     <url>%2F2020%2F03%2F27%2F80-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9II%2F</url>
     <content type="text"><![CDATA[给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素最多出现两次，返回移除后数组的新长度。 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。 说明: 为什么返回数值是整数，但输出的答案是数组呢? 请注意，输入数组是以“引用”方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。 你可以想象内部操作如下: 12345678// nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝int len = removeDuplicates(nums);// 在函数里修改输入数组对于调用者是可见的。// 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。for (int i = 0; i &lt; len; i++) &#123; print(nums[i]);&#125; 示例示例 1: 12345给定 nums = [1,1,1,2,2,3],函数应返回新长度 length = 5, 并且原数组的前五个元素被修改为 1, 1, 2, 2, 3 。你不需要考虑数组中超出新长度后面的元素。 示例 2: 12345给定 nums = [0,0,1,1,1,1,2,3,3],函数应返回新长度 length = 7, 并且原数组的前五个元素被修改为 0, 0, 1, 1, 2, 3, 3 。你不需要考虑数组中超出新长度后面的元素。 解法 核心思想：利用双指针，一快一慢，快指针用于遍历，慢指针用于确定新数组的尾端。 12345678910111213141516class Solution: def removeDuplicates(self, nums: List[int]) -&gt; int: # 双指针+计数器 count = 1 # 元素出现的次数 n = len(nums) L, R = 1, 1 while R &lt; n: if nums[R] == nums[R-1]: # 出现重复元素，记录出现的次数 count += 1 else: count = 1 # 若不是重复元素，重置计数器 if count &lt;= 2: # 若只有2个及以下的重复元素，移动L nums[L] = nums[R] L += 1 R += 1 return L 相关信息LeetCode：Discussion | Solution]]></content>

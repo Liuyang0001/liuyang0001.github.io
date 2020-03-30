@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://liuyang0001.github.io/"/>
-  <updated>2020-03-27T09:16:19.586Z</updated>
+  <updated>2020-03-30T15:37:01.540Z</updated>
   <id>https://liuyang0001.github.io/</id>
   
   <author>
@@ -15,6 +15,231 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>90-子集II</title>
+    <link href="https://liuyang0001.github.io/2020/03/30/90-%E5%AD%90%E9%9B%86II/"/>
+    <id>https://liuyang0001.github.io/2020/03/30/90-子集II/</id>
+    <published>2020-03-30T10:45:31.000Z</published>
+    <updated>2020-03-30T15:37:01.540Z</updated>
+    
+    <content type="html"><![CDATA[<p>给定一个可能包含重复元素的整数数组 <strong><em>nums</em></strong>，返回该数组所有可能的子集（幂集）。</p><a id="more"></a><p><strong>说明：</strong>解集不能包含重复的子集。</p><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,2,2]</span><br><span class="line">输出:</span><br><span class="line">[</span><br><span class="line">  [2],</span><br><span class="line">  [1],</span><br><span class="line">  [1,2,2],</span><br><span class="line">  [2,2],</span><br><span class="line">  [1,2],</span><br><span class="line">  []</span><br><span class="line">]</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：利用回溯算法，</strong></p><p><strong>关键点：去重—-&gt;【排序+当前值与上一个值判断】</strong></p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subsetsWithDup</span><span class="params">(self, nums: List[int])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        res = []</span><br><span class="line">        n = len(nums)</span><br><span class="line">        nums.sort()</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">backtrack</span><span class="params">(index, tem)</span>:</span></span><br><span class="line">            res.append(tem)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(index, n):</span><br><span class="line">                <span class="keyword">if</span> i &gt; index <span class="keyword">and</span> nums[i] == nums[i<span class="number">-1</span>]:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                backtrack(i + <span class="number">1</span>, tem + [nums[i]])</span><br><span class="line">        backtrack(<span class="number">0</span>, [])</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/subsets-ii/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/subsets-ii/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;给定一个可能包含重复元素的整数数组 &lt;strong&gt;&lt;em&gt;nums&lt;/em&gt;&lt;/strong&gt;，返回该数组所有可能的子集（幂集）。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
+    
+    
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
+    
+      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
+    
+      <category term="数组" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="回溯算法" scheme="https://liuyang0001.github.io/tags/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>89-格雷编码</title>
+    <link href="https://liuyang0001.github.io/2020/03/30/89-%E6%A0%BC%E9%9B%B7%E7%BC%96%E7%A0%81/"/>
+    <id>https://liuyang0001.github.io/2020/03/30/89-格雷编码/</id>
+    <published>2020-03-30T10:43:52.000Z</published>
+    <updated>2020-03-30T15:33:22.782Z</updated>
+    
+    <content type="html"><![CDATA[<p>格雷编码是一个二进制数字系统，在该系统中，两个连续的数值仅有一个位数的差异。</p><p>给定一个代表编码总位数的非负整数 <em>n</em>，打印其格雷编码序列。格雷编码序列必须以 0 开头。</p><a id="more"></a><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">输入: 2</span><br><span class="line">输出: [0,1,3,2]</span><br><span class="line">解释:</span><br><span class="line">00 - 0</span><br><span class="line">01 - 1</span><br><span class="line">11 - 3</span><br><span class="line">10 - 2</span><br><span class="line"></span><br><span class="line">对于给定的 n，其格雷编码序列并不唯一。</span><br><span class="line">例如，[0,2,3,1] 也是一个有效的格雷编码序列。</span><br><span class="line"></span><br><span class="line">00 - 0</span><br><span class="line">10 - 2</span><br><span class="line">11 - 3</span><br><span class="line">01 - 1</span><br></pre></td></tr></table></figure><p><strong>示例 2:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: 0</span><br><span class="line">输出: [0]</span><br><span class="line">解释: 我们定义格雷编码序列必须以 0 开头。</span><br><span class="line">     给定编码总位数为 n 的格雷编码序列，其长度为 2n。当 n = 0 时，长度为 20 = 1。</span><br><span class="line">     因此，当 n = 0 时，其格雷编码序列为 [0]。</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：第n个格雷码：G(n) = (n&gt;&gt;1) OXR n，即最高位保留，其他位相异或</strong></p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">grayCode</span><span class="params">(self, n: int)</span> -&gt; List[int]:</span></span><br><span class="line">        res = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span> ** n):</span><br><span class="line">            <span class="comment"># 最高位保留，其他位异或操作</span></span><br><span class="line">            res.append(i ^ (i &gt;&gt; <span class="number">1</span>))</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/gray-code/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/gray-code/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;格雷编码是一个二进制数字系统，在该系统中，两个连续的数值仅有一个位数的差异。&lt;/p&gt;
+&lt;p&gt;给定一个代表编码总位数的非负整数 &lt;em&gt;n&lt;/em&gt;，打印其格雷编码序列。格雷编码序列必须以 0 开头。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
+    
+    
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
+    
+      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
+    
+      <category term="回溯算法" scheme="https://liuyang0001.github.io/tags/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="位运算" scheme="https://liuyang0001.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>88-合并两个有序数组</title>
+    <link href="https://liuyang0001.github.io/2020/03/30/88-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/"/>
+    <id>https://liuyang0001.github.io/2020/03/30/88-合并两个有序数组/</id>
+    <published>2020-03-30T10:41:42.000Z</published>
+    <updated>2020-03-30T12:29:49.129Z</updated>
+    
+    <content type="html"><![CDATA[<p>给你两个有序整数数组 <em>nums1</em> 和 <em>nums2</em>，请你将 <em>nums2</em> 合并到 <em>nums1</em> 中<em>，</em>使 <em>num1</em> 成为一个有序数组。</p><a id="more"></a><p><strong>说明:</strong></p><ul><li>初始化 <em>nums1</em> 和 <em>nums2</em> 的元素数量分别为 <em>m</em> 和 <em>n</em> 。</li><li>你可以假设 <em>nums1</em> 有足够的空间（空间大小大于或等于 <em>m + n</em>）来保存 <em>nums2</em> 中的元素。</li></ul><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">nums1 = [1,2,3,0,0,0], m = 3</span><br><span class="line">nums2 = [2,5,6],       n = 3</span><br><span class="line"></span><br><span class="line">输出: [1,2,2,3,5,6]</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：先合并，在排序。</strong></p><p><strong>坑：有的0有效有的0无效，所以第一个列表有效部分直接取[:-m]</strong></p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(self, nums1: List[int], m: int, nums2: List[int], n: int)</span> -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Do not return anything, modify nums1 in-place instead.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        n = len(nums2)</span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        nums =nums1[:-n] + nums2</span><br><span class="line">        nums1[:] = sorted(nums)</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/merge-sorted-array/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/merge-sorted-array/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;给你两个有序整数数组 &lt;em&gt;nums1&lt;/em&gt; 和 &lt;em&gt;nums2&lt;/em&gt;，请你将 &lt;em&gt;nums2&lt;/em&gt; 合并到 &lt;em&gt;nums1&lt;/em&gt; 中&lt;em&gt;，&lt;/em&gt;使 &lt;em&gt;num1&lt;/em&gt; 成为一个有序数组。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
+    
+    
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
+    
+      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
+    
+      <category term="数组" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="双指针" scheme="https://liuyang0001.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>86-分隔链表</title>
+    <link href="https://liuyang0001.github.io/2020/03/30/86-%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8/"/>
+    <id>https://liuyang0001.github.io/2020/03/30/86-分隔链表/</id>
+    <published>2020-03-30T10:38:20.000Z</published>
+    <updated>2020-03-30T11:23:05.084Z</updated>
+    
+    <content type="html"><![CDATA[<p>给定一个链表和一个特定值 <em>x</em>，对链表进行分隔，使得所有小于 <em>x</em> 的节点都在大于或等于 <em>x</em> 的节点之前。</p><p>你应当保留两个分区中每个节点的初始相对位置。</p><a id="more"></a><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: head = 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;2, x = 3</span><br><span class="line">输出: 1-&gt;2-&gt;2-&gt;4-&gt;3-&gt;5</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：x为边界，拆分成两个链表处理，最后在合在一起即可。</strong></p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">partition</span><span class="params">(self, head: ListNode, x: int)</span> -&gt; ListNode:</span></span><br><span class="line">        p = head</span><br><span class="line">        p1 = head1 = ListNode(<span class="number">-1</span>)</span><br><span class="line">        p2 = head2 = ListNode(<span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">while</span> p != <span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">if</span> p.val &lt; x:</span><br><span class="line">                p1.next = p</span><br><span class="line">                p1 = p1.next</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                p2.next = p</span><br><span class="line">                p2 = p2.next</span><br><span class="line">            p = p.next</span><br><span class="line">        p1.next = head2.next</span><br><span class="line">        p2.next = <span class="keyword">None</span> <span class="comment"># 尾边界</span></span><br><span class="line">        <span class="keyword">del</span> head2</span><br><span class="line">        <span class="keyword">return</span> head1.next</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/partition-list/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/partition-list/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;给定一个链表和一个特定值 &lt;em&gt;x&lt;/em&gt;，对链表进行分隔，使得所有小于 &lt;em&gt;x&lt;/em&gt; 的节点都在大于或等于 &lt;em&gt;x&lt;/em&gt; 的节点之前。&lt;/p&gt;
+&lt;p&gt;你应当保留两个分区中每个节点的初始相对位置。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
+    
+    
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
+    
+      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
+    
+      <category term="双指针" scheme="https://liuyang0001.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
+    
+      <category term="链表" scheme="https://liuyang0001.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>84-柱状图中的最大矩形</title>
+    <link href="https://liuyang0001.github.io/2020/03/30/84-%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2/"/>
+    <id>https://liuyang0001.github.io/2020/03/30/84-柱状图中的最大矩形/</id>
+    <published>2020-03-30T10:33:48.000Z</published>
+    <updated>2020-03-30T11:21:35.307Z</updated>
+    
+    <content type="html"><![CDATA[<p>给定 <em>n</em> 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。</p><p>求在该柱状图中，能够勾勒出来的矩形的最大面积。</p><a id="more"></a><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram.png" alt="img"></p><p>以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 <code>[2,1,5,6,2,3]</code>。</p><p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram_area.png" alt="img"></p><p>图中阴影部分为所能勾勒出的最大矩形面积，其面积为 <code>10</code> 个单位。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,1,5,6,2,3]</span><br><span class="line">输出: 10</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：遍历寻找以第i根柱子为最高柱子所能延伸的最大面积</strong></p><p><strong>即   找栈顶左右两边第一个比栈顶小的元素，【利用“单调栈”】</strong></p><p><strong>巧妙地点：在两侧加上0柱子便于处理边界</strong></p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">largestRectangleArea</span><span class="params">(self, heights: List[int])</span> -&gt; int:</span></span><br><span class="line">        stack = []</span><br><span class="line">        <span class="comment"># 在原柱子两端加上两个高度为0的柱子，便于计算边界</span></span><br><span class="line">        heights = [<span class="number">0</span>] + heights + [<span class="number">0</span>]</span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        <span class="comment"># 遍历：以第i根柱子为最高柱子所能延伸的最大面积</span></span><br><span class="line">        <span class="comment"># 即   找栈顶左右两边第一个比栈顶小的元素</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(heights)):</span><br><span class="line">            <span class="comment"># print(stack)</span></span><br><span class="line">            <span class="comment"># 调整位置</span></span><br><span class="line">            <span class="keyword">while</span> stack <span class="keyword">and</span> heights[stack[<span class="number">-1</span>]] &gt; heights[i]:</span><br><span class="line">                tmp = stack.pop()</span><br><span class="line">                res = max(res, (i - stack[<span class="number">-1</span>] - <span class="number">1</span>) * heights[tmp])</span><br><span class="line">            <span class="comment"># 当前元素无论如何也要放进去，不同的只是需不需要pop来调整位置</span></span><br><span class="line">            stack.append(i)</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;给定 &lt;em&gt;n&lt;/em&gt; 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。&lt;/p&gt;
+&lt;p&gt;求在该柱状图中，能够勾勒出来的矩形的最大面积。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
+    
+    
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
+    
+      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
+    
+      <category term="数组" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="栈" scheme="https://liuyang0001.github.io/tags/%E6%A0%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>83-删除排序链表中的重复元素</title>
+    <link href="https://liuyang0001.github.io/2020/03/30/83-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0/"/>
+    <id>https://liuyang0001.github.io/2020/03/30/83-删除排序链表中的重复元素/</id>
+    <published>2020-03-30T10:30:35.000Z</published>
+    <updated>2020-03-30T11:17:49.963Z</updated>
+    
+    <content type="html"><![CDATA[<p>给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。</p><a id="more"></a><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 1-&gt;1-&gt;2</span><br><span class="line">输出: 1-&gt;2</span><br></pre></td></tr></table></figure><p><strong>示例 2:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 1-&gt;1-&gt;2-&gt;3-&gt;3</span><br><span class="line">输出: 1-&gt;2-&gt;3</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：利用双指针，跳过重复的结点</strong></p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">deleteDuplicates</span><span class="params">(self, head: ListNode)</span> -&gt; ListNode:</span></span><br><span class="line">        <span class="keyword">if</span> head <span class="keyword">and</span> head.next:</span><br><span class="line">            pre = head</span><br><span class="line">            p = head.next</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> head</span><br><span class="line">        <span class="keyword">while</span> p:</span><br><span class="line">            <span class="keyword">if</span> pre.val == p.val:</span><br><span class="line">                pre.next = p.next</span><br><span class="line">                p = p.next</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                pre = pre.next</span><br><span class="line">                p = p.next</span><br><span class="line">        <span class="keyword">return</span> head</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
+    
+    
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
+    
+      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
+    
+      <category term="链表" scheme="https://liuyang0001.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>82-删除排序链表中的重复元素II</title>
+    <link href="https://liuyang0001.github.io/2020/03/30/82-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0II/"/>
+    <id>https://liuyang0001.github.io/2020/03/30/82-删除排序链表中的重复元素II/</id>
+    <published>2020-03-30T10:24:14.000Z</published>
+    <updated>2020-03-30T11:16:31.747Z</updated>
+    
+    <content type="html"><![CDATA[<p>给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 <em>没有重复出现</em> 的数字。</p><a id="more"></a><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5</span><br><span class="line">输出: 1-&gt;2-&gt;5</span><br></pre></td></tr></table></figure><p><strong>示例 2:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 1-&gt;1-&gt;1-&gt;2-&gt;3</span><br><span class="line">输出: 2-&gt;3</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：1.转换成列表 2.利用counter()计数3.将计数为1的重新构建链表</strong></p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">deleteDuplicates</span><span class="params">(self, head: ListNode)</span> -&gt; ListNode:</span></span><br><span class="line">        ls = []</span><br><span class="line">        p = head</span><br><span class="line">        <span class="comment"># 先将所有结点值扫描进列表</span></span><br><span class="line">        <span class="keyword">while</span> p:</span><br><span class="line">            ls.append(p.val)</span><br><span class="line">            p = p.next</span><br><span class="line">        <span class="comment"># 利用Counter进行计数</span></span><br><span class="line">        nums_dict = Counter(ls)</span><br><span class="line">        H = ListNode(<span class="number">-1</span>)</span><br><span class="line">        p = H</span><br><span class="line">        <span class="comment"># 将所有value值为1的重新建立结点</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> nums_dict.keys():</span><br><span class="line">            <span class="keyword">if</span> nums_dict[i] == <span class="number">1</span>:</span><br><span class="line">                p.next = ListNode(i)</span><br><span class="line">                p = p.next</span><br><span class="line">        <span class="keyword">return</span> H.next</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 &lt;em&gt;没有重复出现&lt;/em&gt; 的数字。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
+    
+    
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
+    
+      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
+    
+      <category term="链表" scheme="https://liuyang0001.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>81-搜索旋转排序数组II</title>
+    <link href="https://liuyang0001.github.io/2020/03/30/81-%E6%90%9C%E7%B4%A2%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84II/"/>
+    <id>https://liuyang0001.github.io/2020/03/30/81-搜索旋转排序数组II/</id>
+    <published>2020-03-30T10:22:15.000Z</published>
+    <updated>2020-03-30T10:51:40.374Z</updated>
+    
+    <content type="html"><![CDATA[<p>假设按照升序排序的数组在预先未知的某个点上进行了旋转。</p><p>( 例如，数组 <code>[0,0,1,2,2,5,6]</code> 可能变为 <code>[2,5,6,0,0,1,2]</code> )。</p><p>编写一个函数来判断给定的目标值是否存在于数组中。若存在返回 <code>true</code>，否则返回 <code>false</code>。</p><a id="more"></a><p><strong>进阶:</strong></p><ul><li>这是 <a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array/description/" target="_blank" rel="noopener">搜索旋转排序数组</a> 的延伸题目，本题中的 <code>nums</code> 可能包含重复元素。</li><li>这会影响到程序的时间复杂度吗？会有怎样的影响，为什么？</li></ul><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [2,5,6,0,0,1,2], target = 0</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure><p><strong>示例 2:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [2,5,6,0,0,1,2], target = 3</span><br><span class="line">输出: false</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：采用二分查找的思想，判断在那一部分出现完整的升序序列，</strong></p><p><strong>需要注意的点：可能存在l=r=mid的情况</strong></p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; int:</span></span><br><span class="line">        mid, left, right = <span class="number">0</span>, <span class="number">0</span>, len(nums)<span class="number">-1</span></span><br><span class="line">        <span class="keyword">while</span> left &lt;= right:  <span class="comment"># 二分法</span></span><br><span class="line">            mid = (left + right) // <span class="number">2</span></span><br><span class="line">            <span class="comment"># 找到该点索引值</span></span><br><span class="line">            <span class="keyword">if</span> nums[mid] == target:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">            <span class="comment"># 出现重复值，如[1,2,1,1,1]情况</span></span><br><span class="line">            <span class="keyword">if</span> nums[left] == nums[mid] == nums[right]:</span><br><span class="line">                left += <span class="number">1</span></span><br><span class="line">                right -= <span class="number">1</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="comment"># 旋转点T在mid右区间</span></span><br><span class="line">            <span class="comment"># [left......mid....T....right]</span></span><br><span class="line">            <span class="keyword">if</span> nums[left] &lt;= nums[mid]:</span><br><span class="line">                <span class="comment"># target在[left,mid)的升序空间中</span></span><br><span class="line">                <span class="keyword">if</span> nums[left] &lt;= target &lt; nums[mid]:</span><br><span class="line">                    right = mid</span><br><span class="line">                <span class="comment"># target在(mid,T]或者[T,right]中</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    left = mid + <span class="number">1</span></span><br><span class="line">            <span class="comment"># 旋转点T在mid左区间</span></span><br><span class="line">            <span class="comment"># [left...T...mid........right]</span></span><br><span class="line">            <span class="keyword">elif</span> nums[left] &gt; nums[mid]:</span><br><span class="line">                <span class="comment"># target在(mid,right]的升序空间中</span></span><br><span class="line">                <span class="keyword">if</span> nums[mid] &lt; target &lt;= nums[right]:</span><br><span class="line">                    left = mid + <span class="number">1</span></span><br><span class="line">                <span class="comment"># target在[left,T]或者[T，mid)</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    right = mid</span><br><span class="line">        <span class="comment"># 未找到该点</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">False</span></span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;假设按照升序排序的数组在预先未知的某个点上进行了旋转。&lt;/p&gt;
+&lt;p&gt;( 例如，数组 &lt;code&gt;[0,0,1,2,2,5,6]&lt;/code&gt; 可能变为 &lt;code&gt;[2,5,6,0,0,1,2]&lt;/code&gt; )。&lt;/p&gt;
+&lt;p&gt;编写一个函数来判断给定的目标值是否存在于数组中。若存在返回 &lt;code&gt;true&lt;/code&gt;，否则返回 &lt;code&gt;false&lt;/code&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
+    
+    
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
+    
+      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
+    
+      <category term="数组" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="二分查找" scheme="https://liuyang0001.github.io/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
+    
+  </entry>
   
   <entry>
     <title>80-删除排序数组中的重复项II</title>
@@ -348,220 +573,6 @@
       <category term="数学" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
     
       <category term="字符串" scheme="https://liuyang0001.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>64-最小路径和</title>
-    <link href="https://liuyang0001.github.io/2020/03/23/64-%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C/"/>
-    <id>https://liuyang0001.github.io/2020/03/23/64-最小路径和/</id>
-    <published>2020-03-23T06:49:24.000Z</published>
-    <updated>2020-03-23T07:00:17.518Z</updated>
-    
-    <content type="html"><![CDATA[<p>给定一个包含非负整数的 <em>m</em> x <em>n</em> 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。</p><a id="more"></a><p><strong>说明：</strong>每次只能向下或者向右移动一步。</p><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">[</span><br><span class="line">  [1,3,1],</span><br><span class="line">  [1,5,1],</span><br><span class="line">  [4,2,1]</span><br><span class="line">]</span><br><span class="line">输出: 7</span><br><span class="line">解释: 因为路径 1→3→1→1→1 的总和最小。</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：使用动态规划的思想</strong></p><ol><li><strong>第一行的情况：当前值更新为当前值➕左侧值</strong></li><li><strong>第一列的情况：当前值更新为当前值➕上侧值</strong></li><li><strong>不是首行首列：当前值更新为当前值➕min{左侧，上侧}</strong></li></ol></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minPathSum</span><span class="params">(self, grid: List[List[int]])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> grid:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        m, n = len(grid), len(grid[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">if</span> m == <span class="number">1</span>:  <span class="comment"># 只有一行</span></span><br><span class="line">            <span class="keyword">return</span> sum(grid[<span class="number">0</span>])</span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>:  <span class="comment"># 只有一列</span></span><br><span class="line">            <span class="keyword">return</span> sum(list(*zip(*grid)))</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</span><br><span class="line">                <span class="keyword">if</span> i == j == <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="keyword">elif</span> i == <span class="number">0</span>:</span><br><span class="line">                    grid[i][j] = grid[<span class="number">0</span>][j<span class="number">-1</span>] + grid[<span class="number">0</span>][j]</span><br><span class="line">                <span class="keyword">elif</span> j == <span class="number">0</span>:</span><br><span class="line">                    grid[i][j] = grid[i<span class="number">-1</span>][<span class="number">0</span>] + grid[i][<span class="number">0</span>]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    grid[i][j] = min(grid[i<span class="number">-1</span>][j],grid[i][j<span class="number">-1</span>]) + grid[i][j]</span><br><span class="line">        <span class="keyword">return</span> grid[<span class="number">-1</span>][<span class="number">-1</span>]</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/minimum-path-sum/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/minimum-path-sum/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;给定一个包含非负整数的 &lt;em&gt;m&lt;/em&gt; x &lt;em&gt;n&lt;/em&gt; 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
-    
-    
-      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
-    
-      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
-    
-      <category term="数组" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="动态规划" scheme="https://liuyang0001.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>63-不同路径II</title>
-    <link href="https://liuyang0001.github.io/2020/03/14/63-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84II/"/>
-    <id>https://liuyang0001.github.io/2020/03/14/63-不同路径II/</id>
-    <published>2020-03-14T06:46:59.000Z</published>
-    <updated>2020-03-14T07:41:02.820Z</updated>
-    
-    <content type="html"><![CDATA[<p>一个机器人位于一个 <em>m x n</em> 网格的左上角 （起始点在下图中标记为“Start” ）。</p><p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p><p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？</p><a id="more"></a><p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/22/robot_maze.png" alt="img"></p><p>网格中的障碍物和空位置分别用 <code>1</code> 和 <code>0</code> 来表示。</p><p><strong>说明：*</strong>m<em> 和 </em>n* 的值均不超过 100。</p><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">[</span><br><span class="line">  [0,0,0],</span><br><span class="line">  [0,1,0],</span><br><span class="line">  [0,0,0]</span><br><span class="line">]</span><br><span class="line">输出: 2</span><br><span class="line">解释:</span><br><span class="line">3x3 网格的正中间有一个障碍物。</span><br><span class="line">从左上角到右下角一共有 2 条不同的路径：</span><br><span class="line">1. 向右 -&gt; 向右 -&gt; 向下 -&gt; 向下</span><br><span class="line">2. 向下 -&gt; 向下 -&gt; 向右 -&gt; 向右</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：和上题类似，只需考虑障碍的问题，所以dp的第一行和第一列不能直接初始化为1，更新dp时也需要考虑当前点是否为障碍点，剩下的就和上题的dp公式相同</strong></p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">uniquePathsWithObstacles</span><span class="params">(self, obstacleGrid: List[List[int]])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> obstacleGrid:  <span class="comment"># 空</span></span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="comment"># 起点或者终点存在障碍</span></span><br><span class="line">        <span class="keyword">if</span> obstacleGrid[<span class="number">0</span>][<span class="number">0</span>] <span class="keyword">or</span> obstacleGrid[<span class="number">-1</span>][<span class="number">-1</span>]:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        m = len(obstacleGrid)</span><br><span class="line">        n = len(obstacleGrid[<span class="number">0</span>])</span><br><span class="line">        dp = [[<span class="number">0</span>]*n <span class="keyword">for</span> _ <span class="keyword">in</span> range(m)]</span><br><span class="line">        dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">        <span class="comment"># 重新初始第一行与第一列</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n):</span><br><span class="line">            <span class="keyword">if</span>(obstacleGrid[<span class="number">0</span>][i] != <span class="number">1</span>):</span><br><span class="line">                dp[<span class="number">0</span>][i] = dp[<span class="number">0</span>][i - <span class="number">1</span>]</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, m):</span><br><span class="line">            <span class="keyword">if</span>(obstacleGrid[j][<span class="number">0</span>] != <span class="number">1</span>):</span><br><span class="line">                dp[j][<span class="number">0</span>] = dp[j - <span class="number">1</span>][<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># 动态规划</span></span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">1</span>, m):</span><br><span class="line">            <span class="keyword">for</span> y <span class="keyword">in</span> range(<span class="number">1</span>, n):</span><br><span class="line">                <span class="keyword">if</span>(obstacleGrid[x][y] != <span class="number">1</span>):</span><br><span class="line">                    dp[x][y] = dp[x<span class="number">-1</span>][y]+dp[x][y<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">return</span> dp[<span class="number">-1</span>][<span class="number">-1</span>]</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/unique-paths-ii/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/unique-paths-ii/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;一个机器人位于一个 &lt;em&gt;m x n&lt;/em&gt; 网格的左上角 （起始点在下图中标记为“Start” ）。&lt;/p&gt;
-&lt;p&gt;机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。&lt;/p&gt;
-&lt;p&gt;现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
-    
-    
-      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
-    
-      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>62-不同路径</title>
-    <link href="https://liuyang0001.github.io/2020/03/14/62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84/"/>
-    <id>https://liuyang0001.github.io/2020/03/14/62-不同路径/</id>
-    <published>2020-03-14T06:32:08.000Z</published>
-    <updated>2020-03-14T06:43:06.997Z</updated>
-    
-    <content type="html"><![CDATA[<p>一个机器人位于一个 <em>m x n</em> 网格的左上角 （起始点在下图中标记为“Start” ）。</p><p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p><p>问总共有多少条不同的路径？</p><a id="more"></a><p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/22/robot_maze.png" alt="img"></p><p>例如，上图是一个7 x 3 的网格。有多少可能的路径？</p><p><strong>说明：</strong> <em>m</em> 和 <em>n</em> 的值均不超过 100。</p><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: m = 3, n = 2</span><br><span class="line">输出: 3</span><br><span class="line">解释:</span><br><span class="line">从左上角开始，总共有 3 条路径可以到达右下角。</span><br><span class="line">1. 向右 -&gt; 向右 -&gt; 向下</span><br><span class="line">2. 向右 -&gt; 向下 -&gt; 向右</span><br><span class="line">3. 向下 -&gt; 向右 -&gt; 向右</span><br></pre></td></tr></table></figure><p><strong>示例 2:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: m = 7, n = 3</span><br><span class="line">输出: 28</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：维护一个二维的dp数组，到达该点的路径数=到达该点上方的路径数+到达该点左方的路径数</strong></p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">uniquePaths</span><span class="params">(self, m: int, n: int)</span> -&gt; int:</span></span><br><span class="line">        <span class="comment"># 初始化DP数组为第一行第一列均为1，其余为0</span></span><br><span class="line">        dp=[[<span class="number">1</span>]*n]+[[<span class="number">1</span>]+[<span class="number">0</span>]*(n<span class="number">-1</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> range(m<span class="number">-1</span>)]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,m):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">                dp[i][j]=dp[i<span class="number">-1</span>][j]+dp[i][j<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">return</span> dp[<span class="number">-1</span>][<span class="number">-1</span>]</span><br></pre></td></tr></table></figure><h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p><strong>Dp数组为按行更新，故使用一行或者一列进行更新维护即可。</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">uniquePaths</span><span class="params">(self, m: int, n: int)</span> -&gt; int:</span></span><br><span class="line">        cur=[<span class="number">1</span>]*n</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,m):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">                cur[j]+=cur[j<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">return</span> cur[<span class="number">-1</span>]</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/unique-paths/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/unique-paths/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;一个机器人位于一个 &lt;em&gt;m x n&lt;/em&gt; 网格的左上角 （起始点在下图中标记为“Start” ）。&lt;/p&gt;
-&lt;p&gt;机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。&lt;/p&gt;
-&lt;p&gt;问总共有多少条不同的路径？&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
-    
-    
-      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
-    
-      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>61-旋转链表</title>
-    <link href="https://liuyang0001.github.io/2020/03/14/61-%E6%97%8B%E8%BD%AC%E9%93%BE%E8%A1%A8/"/>
-    <id>https://liuyang0001.github.io/2020/03/14/61-旋转链表/</id>
-    <published>2020-03-14T05:58:58.000Z</published>
-    <updated>2020-03-14T06:03:47.885Z</updated>
-    
-    <content type="html"><![CDATA[<p>给定一个链表，旋转链表，将链表每个节点向右移动 <em>k</em> 个位置，其中 <em>k</em> 是非负数。</p><a id="more"></a><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, k = 2</span><br><span class="line">输出: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL</span><br><span class="line">解释:</span><br><span class="line">向右旋转 1 步: 5-&gt;1-&gt;2-&gt;3-&gt;4-&gt;NULL</span><br><span class="line">向右旋转 2 步: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL</span><br></pre></td></tr></table></figure><p><strong>示例 2:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: 0-&gt;1-&gt;2-&gt;NULL, k = 4</span><br><span class="line">输出: 2-&gt;0-&gt;1-&gt;NULL</span><br><span class="line">解释:</span><br><span class="line">向右旋转 1 步: 2-&gt;0-&gt;1-&gt;NULL</span><br><span class="line">向右旋转 2 步: 1-&gt;2-&gt;0-&gt;NULL</span><br><span class="line">向右旋转 3 步: 0-&gt;1-&gt;2-&gt;NULL</span><br><span class="line">向右旋转 4 步: 2-&gt;0-&gt;1-&gt;NULL</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：根据规律找出旋转点，再重新构建链表。</strong></p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rotateRight</span><span class="params">(self, head: ListNode, k: int)</span> -&gt; ListNode:</span></span><br><span class="line">        <span class="keyword">if</span> head == <span class="keyword">None</span> <span class="keyword">or</span> head.next == <span class="keyword">None</span> <span class="keyword">or</span> k == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> head</span><br><span class="line">        p = head  <span class="comment"># 指针</span></span><br><span class="line">        len_ListLink = <span class="number">1</span></span><br><span class="line">        <span class="comment"># 遍历计算链表长度</span></span><br><span class="line">        <span class="keyword">while</span> p.next:</span><br><span class="line">            len_ListLink += <span class="number">1</span></span><br><span class="line">            p = p.next</span><br><span class="line">        <span class="comment"># 找到原表尾的位置</span></span><br><span class="line">        rear = p</span><br><span class="line">        <span class="comment"># 转折点位置</span></span><br><span class="line">        t = len_ListLink - (k % len_ListLink)</span><br><span class="line">        <span class="keyword">if</span> t == len_ListLink:</span><br><span class="line">            <span class="keyword">return</span> head</span><br><span class="line">        p = head  <span class="comment"># 第二次遍历指针</span></span><br><span class="line">        <span class="keyword">while</span> t &gt; <span class="number">1</span>:</span><br><span class="line">            t -= <span class="number">1</span></span><br><span class="line">            p = p.next</span><br><span class="line">        newRear = p</span><br><span class="line">        newHead = p.next</span><br><span class="line">        <span class="comment"># 重新构建链表</span></span><br><span class="line">        newRear.next = <span class="keyword">None</span></span><br><span class="line">        rear.next = head</span><br><span class="line">        <span class="keyword">return</span> newHead</span><br></pre></td></tr></table></figure><blockquote><p><strong>另外解的思想：将链表转换为list，排列后在生成链表</strong></p></blockquote><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/rotate-list/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/rotate-list/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;给定一个链表，旋转链表，将链表每个节点向右移动 &lt;em&gt;k&lt;/em&gt; 个位置，其中 &lt;em&gt;k&lt;/em&gt; 是非负数。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
-    
-    
-      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
-    
-      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
-    
-      <category term="双指针" scheme="https://liuyang0001.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
-    
-      <category term="链表" scheme="https://liuyang0001.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>60-第k个排列</title>
-    <link href="https://liuyang0001.github.io/2020/02/25/60-%E7%AC%ACk%E4%B8%AA%E6%8E%92%E5%88%97/"/>
-    <id>https://liuyang0001.github.io/2020/02/25/60-第k个排列/</id>
-    <published>2020-02-25T14:48:22.000Z</published>
-    <updated>2020-02-25T15:35:10.235Z</updated>
-    
-    <content type="html"><![CDATA[<p>给出集合 <code>[1,2,3,…,*n*]</code>，其所有元素共有 <em>n</em>! 种排列。</p><p>按大小顺序列出所有排列情况，并一一标记，给定 <em>n</em> 和 <em>k</em>，返回第 <em>k</em> 个排列。</p><a id="more"></a><blockquote><p>当 n = 3 时, 所有排列如下：</p><ol><li><code>&quot;123&quot;</code></li><li><code>&quot;132&quot;</code></li><li><code>&quot;213&quot;</code></li><li><code>&quot;231&quot;</code></li><li><code>&quot;312&quot;</code></li><li>`”321”</li></ol></blockquote><p><strong>说明：</strong></p><ul><li>给定 <em>n</em> 的范围是 [1, 9]。</li><li>给定 <em>k</em> 的范围是[1,  <em>n</em>!]。</li></ul><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: n = 3, k = 3</span><br><span class="line">输出: &quot;213&quot;</span><br></pre></td></tr></table></figure><p><strong>示例 2:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: n = 4, k = 9</span><br><span class="line">输出: &quot;2314&quot;</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：回溯算法+剪枝</strong></p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getPermutation</span><span class="params">(self, n: int, k: int)</span> -&gt; str:</span></span><br><span class="line">        <span class="comment"># 阶乘表</span></span><br><span class="line">        fac = [<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">6</span>,<span class="number">24</span>,<span class="number">120</span>,<span class="number">720</span>,<span class="number">5040</span>,<span class="number">40320</span>,<span class="number">362880</span>]</span><br><span class="line">        nums = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n + <span class="number">1</span>)]</span><br><span class="line">        <span class="comment"># 回溯函数</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">backTrack</span><span class="params">(nums,tmp, k)</span>:</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> nums:</span><br><span class="line">                <span class="keyword">return</span> tmp</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">                <span class="keyword">if</span> fac[len(nums)<span class="number">-1</span>] &lt; k:</span><br><span class="line">                    k -= fac[len(nums)<span class="number">-1</span>]</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="keyword">return</span> backTrack(nums[:i]+nums[i+<span class="number">1</span>:], tmp+str(nums[i]), k)</span><br><span class="line">        <span class="keyword">return</span> backTrack(nums,<span class="string">""</span>, k)</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/permutation-sequence/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/permutation-sequence/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;给出集合 &lt;code&gt;[1,2,3,…,*n*]&lt;/code&gt;，其所有元素共有 &lt;em&gt;n&lt;/em&gt;! 种排列。&lt;/p&gt;
-&lt;p&gt;按大小顺序列出所有排列情况，并一一标记，给定 &lt;em&gt;n&lt;/em&gt; 和 &lt;em&gt;k&lt;/em&gt;，返回第 &lt;em&gt;k&lt;/em&gt; 个排列。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
-    
-    
-      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
-    
-      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>59-螺旋矩阵II</title>
-    <link href="https://liuyang0001.github.io/2020/02/25/59-%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5II/"/>
-    <id>https://liuyang0001.github.io/2020/02/25/59-螺旋矩阵II/</id>
-    <published>2020-02-25T14:40:41.000Z</published>
-    <updated>2020-02-25T15:38:45.365Z</updated>
-    
-    <content type="html"><![CDATA[<p>给定一个正整数 <em>n</em>，生成一个包含 1 到 <em>n</em>2 所有元素，且元素按顺时针顺序螺旋排列的正方形矩阵。</p><a id="more"></a><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><strong>示例</strong></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: 3</span><br><span class="line">输出:</span><br><span class="line">[</span><br><span class="line"> [ 1, 2, 3 ],</span><br><span class="line"> [ 8, 9, 4 ],</span><br><span class="line"> [ 7, 6, 5 ]</span><br><span class="line">]</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a><strong>解法</strong></h2><blockquote><p><strong>核心思想：设立上下左右四个边界即可，先开辟等大的空数组，再依次填入数字</strong></p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">generateMatrix</span><span class="params">(self, n: int)</span> -&gt; List[List[int]]:</span></span><br><span class="line">        <span class="comment"># 设定四个边界值，并初始化要求大的数组，初始为0</span></span><br><span class="line">        l, r, t, b = <span class="number">0</span>, n - <span class="number">1</span>, <span class="number">0</span>, n - <span class="number">1</span></span><br><span class="line">        mat = [[<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(n)] <span class="keyword">for</span> _ <span class="keyword">in</span> range(n)]</span><br><span class="line">        num, tar = <span class="number">1</span>, n * n</span><br><span class="line">        <span class="keyword">while</span> num &lt;= tar:</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(l, r + <span class="number">1</span>):  <span class="comment"># left to right</span></span><br><span class="line">                mat[t][i] = num</span><br><span class="line">                num += <span class="number">1</span></span><br><span class="line">            t += <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(t, b + <span class="number">1</span>):  <span class="comment"># top to bottom</span></span><br><span class="line">                mat[i][r] = num</span><br><span class="line">                num += <span class="number">1</span></span><br><span class="line">            r -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(r, l - <span class="number">1</span>, <span class="number">-1</span>):  <span class="comment"># right to left</span></span><br><span class="line">                mat[b][i] = num</span><br><span class="line">                num += <span class="number">1</span></span><br><span class="line">            b -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(b, t - <span class="number">1</span>, <span class="number">-1</span>):  <span class="comment"># bottom to top</span></span><br><span class="line">                mat[i][l] = num</span><br><span class="line">                num += <span class="number">1</span></span><br><span class="line">            l += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> mat</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/spiral-matrix-ii/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/spiral-matrix-ii/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;给定一个正整数 &lt;em&gt;n&lt;/em&gt;，生成一个包含 1 到 &lt;em&gt;n&lt;/em&gt;2 所有元素，且元素按顺时针顺序螺旋排列的正方形矩阵。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
-    
-    
-      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
-    
-      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
-    
-      <category term="数组" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>58-最后一个单词的长度</title>
-    <link href="https://liuyang0001.github.io/2020/02/25/58-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%8D%95%E8%AF%8D%E7%9A%84%E9%95%BF%E5%BA%A6/"/>
-    <id>https://liuyang0001.github.io/2020/02/25/58-最后一个单词的长度/</id>
-    <published>2020-02-25T14:11:42.000Z</published>
-    <updated>2020-02-25T14:20:48.105Z</updated>
-    
-    <content type="html"><![CDATA[<p>给定一个仅包含大小写字母和空格 <code>&#39; &#39;</code> 的字符串 <code>s</code>，返回其最后一个单词的长度。</p><p>如果字符串从左向右滚动显示，那么最后一个单词就是最后出现的单词。</p><p>如果不存在最后一个单词，请返回 0 。</p><a id="more"></a><p><strong>说明：</strong>一个单词是指仅由字母组成、不包含任何空格的 <strong>最大子字符串</strong>。</p><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;Hello World&quot;</span><br><span class="line">输出: 5</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：去除首尾空格后，利用空格进行切片，返回最后一个元素的长度即可。</strong></p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLastWord</span><span class="params">(self, s: str)</span> -&gt; int:</span></span><br><span class="line">        res = s.strip().split(<span class="string">" "</span>)</span><br><span class="line">        <span class="keyword">return</span> len(res[<span class="number">-1</span>])</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/length-of-last-word/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/length-of-last-word/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;给定一个仅包含大小写字母和空格 &lt;code&gt;&amp;#39; &amp;#39;&lt;/code&gt; 的字符串 &lt;code&gt;s&lt;/code&gt;，返回其最后一个单词的长度。&lt;/p&gt;
-&lt;p&gt;如果字符串从左向右滚动显示，那么最后一个单词就是最后出现的单词。&lt;/p&gt;
-&lt;p&gt;如果不存在最后一个单词，请返回 0 。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
-    
-    
-      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
-    
-      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
-    
-      <category term="字符串" scheme="https://liuyang0001.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>57-插入区间</title>
-    <link href="https://liuyang0001.github.io/2020/02/16/57-%E6%8F%92%E5%85%A5%E5%8C%BA%E9%97%B4/"/>
-    <id>https://liuyang0001.github.io/2020/02/16/57-插入区间/</id>
-    <published>2020-02-16T11:07:42.000Z</published>
-    <updated>2020-02-25T14:11:55.281Z</updated>
-    
-    <content type="html"><![CDATA[<p>给出一个<em>无重叠的 ，</em>按照区间起始端点排序的区间列表。</p><p>在列表中插入一个新的区间，你需要确保列表中的区间仍然有序且不重叠（如果有必要的话，可以合并区间）。</p><a id="more"></a><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: intervals = [[1,3],[6,9]], newInterval = [2,5]</span><br><span class="line">输出: [[1,5],[6,9]]</span><br></pre></td></tr></table></figure><p><strong>示例 2:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]</span><br><span class="line">输出: [[1,2],[3,10],[12,16]]</span><br><span class="line">解释: 这是因为新的区间 [4,8] 与 [3,5],[6,7],[8,10] 重叠。</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：先添加到原数组中，按左端点排序后，判断后一个的起始点是否包含在前一个区间中。</strong></p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">insert</span><span class="params">(self, intervals: List[List[int]], newInterval: List[int])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        intervals.append(newInterval)</span><br><span class="line">        n = len(intervals)</span><br><span class="line">        <span class="keyword">if</span> n &lt; <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> intervals</span><br><span class="line">        intervals.sort()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n<span class="number">-1</span>):</span><br><span class="line">            <span class="comment"># 后一个区间中包含在前一个区间内的元素</span></span><br><span class="line">            <span class="keyword">if</span> intervals[i + <span class="number">1</span>][<span class="number">0</span>] <span class="keyword">in</span> range(intervals[i][<span class="number">0</span>], intervals[i][<span class="number">1</span>] + <span class="number">1</span>):</span><br><span class="line">                <span class="comment"># 新的区间范围</span></span><br><span class="line">                l1, l2 = intervals[i][<span class="number">0</span>], max(</span><br><span class="line">                    intervals[i][<span class="number">1</span>], intervals[i+<span class="number">1</span>][<span class="number">1</span>])</span><br><span class="line">                intervals[i+<span class="number">1</span>] = [l1, l2]</span><br><span class="line">                intervals[i] = <span class="string">"*"</span></span><br><span class="line">        res = [i <span class="keyword">for</span> i <span class="keyword">in</span> intervals <span class="keyword">if</span> i != <span class="string">"*"</span> ]</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/insert-interval/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/insert-interval/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p><hr>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;给出一个&lt;em&gt;无重叠的 ，&lt;/em&gt;按照区间起始端点排序的区间列表。&lt;/p&gt;
-&lt;p&gt;在列表中插入一个新的区间，你需要确保列表中的区间仍然有序且不重叠（如果有必要的话，可以合并区间）。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
-    
-    
-      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
-    
-      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
-    
-      <category term="数组" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
