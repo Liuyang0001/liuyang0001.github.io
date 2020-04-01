@@ -1,6 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[100-相同的树]]></title>
+    <url>%2F2020%2F04%2F01%2F100-%E7%9B%B8%E5%90%8C%E7%9A%84%E6%A0%91%2F</url>
+    <content type="text"><![CDATA[给定两个二叉树，编写一个函数来检验它们是否相同。 如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。 示例示例 1: 1234567输入: 1 1 / \ / \ 2 3 2 3 [1,2,3], [1,2,3]输出: true 示例 2: 1234567输入: 1 1 / \ 2 2 [1,2], [1,null,2]输出: false 示例 3: 1234567输入: 1 1 / \ / \ 2 1 1 2 [1,2,1], [1,1,2]输出: false 解法 核心思想：两棵树同步递归遍历相比较即可。 123456789class Solution: def isSameTree(self, p: TreeNode, q: TreeNode) -&gt; bool: # 两个空结点 if not p and not q: return True # 结点均非空且值相等 if p and q and p.val == q.val: return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right) return False 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>树</tag>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[99-恢复二叉搜索树]]></title>
+    <url>%2F2020%2F04%2F01%2F99-%E6%81%A2%E5%A4%8D%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%2F</url>
+    <content type="text"><![CDATA[二叉搜索树中的两个节点被错误地交换。请在不改变其结构的情况下，恢复这棵树。 示例示例 1: 123456789101112131415输入: [1,3,null,null,2] 1 / 3 \ 2输出: [3,1,null,null,2] 3 / 1 \ 2 示例 2: 123456789101112131415输入: [3,1,4,null,null,2] 3 / \1 4 / 2输出: [2,1,4,null,null,3] 2 / \1 4 / 3 进阶: 使用 O(n) 空间复杂度的解法很容易实现。 你能想出一个只使用常数空间的解决方案吗？ 解法 核心思想：两次利用中序遍历该树，第一次遍历为扫描结点值，第二次遍历为把排序后的结点值依次填入。 注意：取排序后的列表值，不能使用pop() 123456789101112131415161718192021222324class Solution: def recoverTree(self, root: TreeNode) -&gt; None: """ Do not return anything, modify root in-place instead. """ tree = [] def helper(root,flag): if not root: return helper(root.left,flag) if flag=="traverse": tree.append(root.val) elif flag == "modify": # 注意:这里不能使用pop() # 排序不会改变pop的顺序 root.val = tree[0] del tree[0] helper(root.right, flag) # 先遍历 helper(root, flag="traverse") # 排序 tree.sort() # 再替换 helper(root, flag="modify") 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>树</tag>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[98-验证二叉搜索树]]></title>
+    <url>%2F2020%2F04%2F01%2F98-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%2F</url>
+    <content type="text"><![CDATA[给定一个二叉树，判断其是否是一个有效的二叉搜索树。 假设一个二叉搜索树具有如下特征： 节点的左子树只包含小于当前节点的数。 节点的右子树只包含大于当前节点的数。 所有左子树和右子树自身必须也是二叉搜索树。 示例示例 1: 12345输入: 2 / \ 1 3输出: true 示例 2: 123456789输入: 5 / \ 1 4 / \ 3 6输出: false解释: 输入为: [5,1,4,null,null,3,6]。 根节点的值为 5 ，但是其右子节点值为 4 。 解法 核心思想：中序遍历该树，得到的数列有序即可证明是一颗二叉排序树 注意：得到的数列应该无重复字符 12345678910111213class Solution: def isValidBST(self, root: TreeNode) -&gt; bool: tree = [] def helper(root): if not root: return helper(root.left) tree.append(root.val) helper(root.right) helper(root) # print(tree,sorted(tree)) # 需判断是否存在重复结点 return tree==sorted(tree) and len(set(tree))==len(tree) 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>树</tag>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[96-不同的二叉搜索树]]></title>
+    <url>%2F2020%2F04%2F01%2F96-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%2F</url>
+    <content type="text"><![CDATA[给定一个整数 n，求以 1 … n 为节点组成的二叉搜索树有多少种？ 示例12345678910输入: 3输出: 5解释:给定 n = 3, 一共有 5 种不同结构的二叉搜索树: 1 3 3 2 1 \ / / / \ \ 3 2 1 1 3 2 / / \ \ 2 1 2 3 解法 核心思想：卡特兰数问题，典型的dp解决 1234567891011class Solution: def numTrees(self, n: int) -&gt; int: dp_list = [0] * (n + 1) dp_list[0] = 1 dp_list[1] = 1 # G(n) = G(0)*G(n-1)+G(1)*(n-2)+...+G(n-1)*G(0) for i in range(2, n + 1): for j in range(i): dp_list[i] += dp_list[j]*dp_list[i-j-1] return dp_list[-1] 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>树</tag>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[95-不同的二叉搜索树-ii]]></title>
+    <url>%2F2020%2F04%2F01%2F95-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-ii%2F</url>
+    <content type="text"><![CDATA[给定一个整数 n，生成所有由 1 … n 为节点所组成的二叉搜索树。 示例1234567891011121314151617输入: 3输出:[ [1,null,3,2], [3,2,null,1], [3,1,null,null,2], [2,1,3], [1,null,2,null,3]]解释:以上的输出对应以下 5 种不同结构的二叉搜索树： 1 3 3 2 1 \ / / / \ \ 3 2 1 1 3 2 / / \ \ 2 1 2 3 解法 核心思想：利用二叉搜索树的性质，左子树只能比当前结点小，右子树只能比当前结点大。每个结点均有可能做为根结点。 技巧点：利用lru_cache收集每一个返回的值 123456789101112131415161718192021import functoolsclass Solution: # Notice：返回值应为List[TreeNode] def generateTrees(self, n: int) -&gt; List[TreeNode]: if n == 0: return [] # 收集每次的返回值，组成缓存列表,None为动态调节大小 @functools.lru_cache(None) def helper(start, end): res = [] if start &gt; end: res.append(None) for val in range(start, end + 1): # 左子树均小于val for left in helper(start, val - 1): # 右子树均大于val for right in helper(val + 1, end): # 构建树节点 root = TreeNode(val,left,right) res.append(root) return res return helper(1, n) 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>树</tag>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[94-二叉树的中序遍历]]></title>
+    <url>%2F2020%2F04%2F01%2F94-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%2F</url>
+    <content type="text"><![CDATA[给定一个二叉树，返回它的中序 遍历。 示例12345678输入: [1,null,2,3] 1 \ 2 / 3输出: [1,3,2] 进阶: 递归算法很简单，你可以通过迭代算法完成吗？ 解法 核心思想：利用递归算法即可 12345678910class Solution: def inorderTraversal(self, root: TreeNode) -&gt; List[int]: res = [] def helper(root): if not root: return helper(root.left) res.append(root.val) helper(root.right) helper(root) return res 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>树</tag>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[93-复原ip地址]]></title>
+    <url>%2F2020%2F04%2F01%2F93-%E5%A4%8D%E5%8E%9Fip%E5%9C%B0%E5%9D%80%2F</url>
+    <content type="text"><![CDATA[给定一个只包含数字的字符串，复原它并返回所有可能的 IP 地址格式。 示例12输入: &quot;25525511135&quot;输出: [&quot;255.255.11.135&quot;, &quot;255.255.111.35&quot;] 解法 核心思想：回溯算法：利用分割4次之后剩余的字符串是否为空，来界定是不是有效的结果 count记录分割次数, ip记录当前的字符串, s记录剩余字符串 注意：分割一次加一个“.”，最后会多出一个点号 123456789101112131415161718class Solution: def restoreIpAddresses(self, s: str) -&gt; List[str]: res = [] # count记录分割次数, ip记录当前的字符串, s记录剩余字符串 def backtrack(count, ip, s): if count == 4: if s=="": # 最后面会有个点号 res.append(ip[:-1]) return if len(s) &gt; 0: # 需考虑[0.0.0.0]的情况 backtrack(count + 1, ip + s[:1] + ".", s[1:]) if len(s) &gt; 1 and s[0] != "0": backtrack(count + 1, ip + s[:2] + ".", s[2:]) if len(s) &gt; 2 and s[0] != "0" and int(s[:3]) &lt; 256: backtrack(count + 1, ip + s[:3] + ".", s[3:]) backtrack(0, "", s) return res 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>字符串</tag>
+        <tag>回溯算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[92-反转链表]]></title>
+    <url>%2F2020%2F04%2F01%2F92-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8%2F</url>
+    <content type="text"><![CDATA[反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。 说明:1 ≤ m ≤ n ≤ 链表长度。 示例12输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, m = 2, n = 4输出: 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;NULL 解法 核心思想：需要翻转的部分使用头插法即可 技巧：在原链表添加一个头部，更便于操作 12345678910111213141516171819202122232425class Solution(): def reverseBetween(self, head: ListNode, m: int, n: int) -&gt; ListNode: dummy = ListNode(-1) dummy.next = head pre = dummy # 找到翻转链表部分的前一个节点 for _ in range(m-1): pre = pre.next # print("pre:", pre.val) rear1 = pre # 翻转部分的前一个结点 rear2 = pre.next # 翻转部分的第一个结点，翻转后为尾结点 cur_node = pre.next # 翻转部分的头结点 dummy2 = ListNode(-1) for _ in range(n-m+1): # 头插法翻转链表 save_node = cur_node.next cur_node.next = dummy2.next dummy2.next = cur_node cur_node = save_node # 拼接 rear2.next = cur_node rear1.next = dummy2.next # head结点可能已经改变，返回头结点的下一节点 return dummy.next 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[91-解码方法]]></title>
+    <url>%2F2020%2F04%2F01%2F91-%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[给定一个只包含数字的非空字符串，请计算解码方法的总数。 一条包含字母 A-Z 的消息通过以下方式进行了编码： 1234&apos;A&apos; -&gt; 1&apos;B&apos; -&gt; 2...&apos;Z&apos; -&gt; 26 示例示例 1: 123输入: &quot;12&quot;输出: 2解释: 它可以解码为 &quot;AB&quot;（1 2）或者 &quot;L&quot;（12）。 示例 2: 123输入: &quot;226&quot;输出: 3解释: 它可以解码为 &quot;BZ&quot; (2 26), &quot;VF&quot; (22 6), 或者 &quot;BBF&quot; (2 2 6) 。 解法 核心思想：利用动态规划的思想，利用前两位来更新当前位置 算法设计如下： 特判，若s为空或者s[0]==”0”，返回0 初始化dp=[0,…,0]，长度为n+1，dp[0]=1,dp[1]=1。dp[1]=1表示第一位的解码方法，dp[0]的作用，在于两位时，如：”12”，dp[2]=dp[1]+dp[0]。 遍历s，遍历区间[1,n)： 若s[i]==”0”： 若s[i-1]==&quot;1&quot; or s[i-1]==&quot;2&quot;： 此时，到当前位置的解码方法dp[i+1]和上上一位的相同， 因为上一位和本位置结合在了一起。dp[i+1]=dp[i-1] 否则，返回0，表示无法解码 否则： 判断何时既可以自身解码也可以和前一位结合： 若上一位s[i-1]==”1”，则当前位既可以单独解码也可以和上一位结合。 或者上一位s[i]==”2”，则此时，若1”&lt;=s[i]&lt;=”6”，也是可以的。 综上，s[i-1]==&quot;1&quot; or (s[i-1]==&quot;2&quot; and &quot;1&quot;&lt;=s[i]&lt;=&quot;6&quot;)。 此时，dp[i+1]=dp[i]+dp[i-1]，等于上一位和上上位的解码方法之和。 否则，dp[i+1]=dp[i] 返回dp[n] 1234567891011121314151617181920class Solution: def numDecodings(self, s: str) -&gt; int: if not s or s[0] == "0": return 0 n = len(s) dp = [0] * (n + 1) dp[0] = 1 dp[1] = 1 for i in range(1,n): if s[i] == "0": if s[i - 1] == "1" or s[i - 1] == "2": dp[i + 1] = dp[i - 1] else: return 0 else: if s[i - 1] == "1" or (s[i - 1] == "2" and "1" &lt;= s[i] &lt;= "6"): dp[i + 1] = dp[i] + dp[i - 1] else: dp[i + 1] = dp[i] return dp[n] 相关信息LeetCode：Discussion | Solution]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>字符串</tag>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[90-子集II]]></title>
     <url>%2F2020%2F03%2F30%2F90-%E5%AD%90%E9%9B%86II%2F</url>
     <content type="text"><![CDATA[给定一个可能包含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。 说明：解集不能包含重复的子集。 示例12345678910输入: [1,2,2]输出:[ [2], [1], [1,2,2], [2,2], [1,2], []] 解法 核心思想：利用回溯算法， 关键点：去重—-&gt;【排序+当前值与上一个值判断】 12345678910111213class Solution: def subsetsWithDup(self, nums: List[int]) -&gt; List[List[int]]: res = [] n = len(nums) nums.sort() def backtrack(index, tem): res.append(tem) for i in range(index, n): if i &gt; index and nums[i] == nums[i-1]: continue backtrack(i + 1, tem + [nums[i]]) backtrack(0, []) return res 相关信息LeetCode：Discussion | Solution]]></content>
@@ -713,8 +838,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>双指针</tag>
         <tag>字符串</tag>
+        <tag>双指针</tag>
       </tags>
   </entry>
   <entry>

@@ -303,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2018/03/07/生成器/">
+    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2018/03/13/map实现并行/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Liu Yang">
@@ -322,7 +322,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/07/生成器/" itemprop="url">生成器</a></h1>
+                <a class="post-title-link" href="/2018/03/13/map实现并行/" itemprop="url">map实现并行</a></h1>
         
 
         <div class="post-meta">
@@ -334,8 +334,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-07T19:02:26+08:00">
-                2018-03-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-13T11:03:22+08:00">
+                2018-03-13
               </time>
             
 
@@ -375,9 +375,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/03/07/生成器/#comments" itemprop="discussionUrl">
+                <a href="/2018/03/13/map实现并行/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/03/07/生成器/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/03/13/map实现并行/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -385,7 +385,7 @@
 
           
           
-             <span id="/2018/03/07/生成器/" class="leancloud_visitors" data-flag-title="生成器">
+             <span id="/2018/03/13/map实现并行/" class="leancloud_visitors" data-flag-title="map实现并行">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -417,10 +417,10 @@
 
       
         
-          <p>生成器通过生成器函数产生，生成器函数可以通过常规的def语句来定义，但是不用return返回，而是用yield一次返回一个结果，在每个结果之间挂起和继续它们的状态，来自动实现迭代协议。也就是说，yield是一个语法糖，内部实现支持了迭代器协议，同时yield内部是一个状态机，维护着挂起和继续的状态。<br>
+          <p>在Python中有个两个库包含了map函数：multiprocessing和它鲜为人知的子库dummy。它是multiprocessing模块的完整克隆，唯一的不同在于multiprocessing作用于进程，而dummy模块作用于线程（因此也包括了Python所有常见的多线程限制）。所以选择使用这两个库异常容易。你可以针对IO密集型任务和CPU密集型任务来选择不同的库。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/07/生成器/#more" rel="contents">
+            <a class="btn" href="/2018/03/13/map实现并行/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -477,7 +477,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2018/03/07/迭代器/">
+    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2018/03/12/多线程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Liu Yang">
@@ -496,7 +496,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/07/迭代器/" itemprop="url">迭代器</a></h1>
+                <a class="post-title-link" href="/2018/03/12/多线程/" itemprop="url">多线程</a></h1>
         
 
         <div class="post-meta">
@@ -508,8 +508,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-07T14:34:10+08:00">
-                2018-03-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-12T22:07:32+08:00">
+                2018-03-12
               </time>
             
 
@@ -549,9 +549,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/03/07/迭代器/#comments" itemprop="discussionUrl">
+                <a href="/2018/03/12/多线程/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/03/07/迭代器/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/03/12/多线程/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -559,7 +559,7 @@
 
           
           
-             <span id="/2018/03/07/迭代器/" class="leancloud_visitors" data-flag-title="迭代器">
+             <span id="/2018/03/12/多线程/" class="leancloud_visitors" data-flag-title="多线程">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -591,10 +591,10 @@
 
       
         
-          <p>迭代器指能够被内置函数 next调用并不断返回下一个值，直到最后抛出 StopIteration错误表示无法继续返回下一个值的对象称为迭代器( Iterator)。这里主要讲一下迭代器的特性，和如何简单的实现一个迭代器。<br>
+          <p>虽然Python多线程有缺陷，总被人说成是鸡肋，但也不是一无用处，它很适合用在IO密集型任务中。I/O密集型执行期间大部分是时间都用在I/O上，如数据库I/O，较少时间用在CPU计算上。因此该应用场景可以使用Python多线程，当一个任务阻塞在IO操作上时，我们可以立即切换执行其他线程上执行其他IO操作请求。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/07/迭代器/#more" rel="contents">
+            <a class="btn" href="/2018/03/12/多线程/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -651,7 +651,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2018/03/06/markdown没告诉你的/">
+    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2018/03/12/IPMITOOL/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Liu Yang">
@@ -670,7 +670,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/06/markdown没告诉你的/" itemprop="url">markdown没告诉你的</a></h1>
+                <a class="post-title-link" href="/2018/03/12/IPMITOOL/" itemprop="url">IPMITOOL指令</a></h1>
         
 
         <div class="post-meta">
@@ -682,8 +682,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T11:51:32+08:00">
-                2018-03-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-12T13:28:00+08:00">
+                2018-03-12
               </time>
             
 
@@ -705,8 +705,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Markdown-Study-Notes/" itemprop="url" rel="index">
-                    <span itemprop="name">Markdown Study Notes</span>
+                  <a href="/categories/BMC-Study-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">BMC Study Notes</span>
                   </a>
                 </span>
 
@@ -723,9 +723,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/03/06/markdown没告诉你的/#comments" itemprop="discussionUrl">
+                <a href="/2018/03/12/IPMITOOL/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/03/06/markdown没告诉你的/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/03/12/IPMITOOL/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -733,7 +733,7 @@
 
           
           
-             <span id="/2018/03/06/markdown没告诉你的/" class="leancloud_visitors" data-flag-title="markdown没告诉你的">
+             <span id="/2018/03/12/IPMITOOL/" class="leancloud_visitors" data-flag-title="IPMITOOL指令">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -765,10 +765,10 @@
 
       
         
-          <p>刚接触markdown，一下就被它的美和大气所吸引，最基本的这里就不多介绍，网上一抓一大把。这里主要记录下在使用markdown过程中遇到的问题和总结的一些小技巧，将其记录下来作为以后的一个参考。这篇文章将会<strong>持续更新</strong>，将每次碰到的问题都更新在这里。<br>
+          <p>IPMITOOL是一种可用在 Linux/Unix 系统下的基于命令行方式的 ipmi 平台管理工具。利用它可以实现获取传感器的信息、显示系统日志内容、网络远程开关机等功能。其主要功能包括读取和显示传感器数据（SDR），显示System Evernt Log（SEL）的内容，显示打印Field Replaceable Unit（FRU）信息，读取和设置BMC模块的LAN配置，远程控制服务器主机的电源。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/06/markdown没告诉你的/#more" rel="contents">
+            <a class="btn" href="/2018/03/12/IPMITOOL/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -825,7 +825,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2018/03/05/matplotlib绘图/">
+    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2018/03/12/IPMI笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Liu Yang">
@@ -844,7 +844,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/05/matplotlib绘图/" itemprop="url">matplotlib绘图</a></h1>
+                <a class="post-title-link" href="/2018/03/12/IPMI笔记/" itemprop="url">IPMI笔记</a></h1>
         
 
         <div class="post-meta">
@@ -856,8 +856,182 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-05T17:21:56+08:00">
-                2018-03-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-12T10:11:54+08:00">
+                2018-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/BMC-Study-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">BMC Study Notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/12/IPMI笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/12/IPMI笔记/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/03/12/IPMI笔记/" class="leancloud_visitors" data-flag-title="IPMI笔记">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>IPMI是一种协议，也是一种对外的接口的标准 。IPMI协议被广泛用于服务器监控中，包括采集CPU温度、风扇转速、主板温度，以及远程开关机等等。而且IPMI独立于硬件和操作系统，无论是CPU、BIOS，还是OS出现故障，都不会影响IPMI的工作。因为IPMI的硬件设备BMC(Baseboard Management Controller)是一个独立的板卡，独立供电。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/12/IPMI笔记/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+    <div>
+
+    <div>
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2018/03/11/异常处理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liu Yang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr. Liu's Tech Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/11/异常处理/" itemprop="url">异常处理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-11T00:09:58+08:00">
+                2018-03-11
               </time>
             
 
@@ -897,9 +1071,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/03/05/matplotlib绘图/#comments" itemprop="discussionUrl">
+                <a href="/2018/03/11/异常处理/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/03/05/matplotlib绘图/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/03/11/异常处理/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -907,7 +1081,7 @@
 
           
           
-             <span id="/2018/03/05/matplotlib绘图/" class="leancloud_visitors" data-flag-title="matplotlib绘图">
+             <span id="/2018/03/11/异常处理/" class="leancloud_visitors" data-flag-title="异常处理">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -939,10 +1113,10 @@
 
       
         
-          <p>这篇文章主要介绍下如何使用matplotlib进行数据可视化绘图,解决了不能显示中文的问题.绘制了气泡散点图,七彩散点图,堆叠条形图,倒影条形图,水平条形图等.<br>
+          <p>异常即是一个事件，该事件会在程序执行过程中发生，影响了程序的正常执行。一般情况下，在Python无法正常处理程序时就会发生一个异常。异常是Python对象，表示一个错误。发生异常时我们需要捕获处理它，否则程序会终止执行。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/05/matplotlib绘图/#more" rel="contents">
+            <a class="btn" href="/2018/03/11/异常处理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -999,7 +1173,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2018/03/01/正则表达式/">
+    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2018/03/10/BMC测试/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Liu Yang">
@@ -1018,7 +1192,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/01/正则表达式/" itemprop="url">正则表达式</a></h1>
+                <a class="post-title-link" href="/2018/03/10/BMC测试/" itemprop="url">BMC测试</a></h1>
         
 
         <div class="post-meta">
@@ -1030,8 +1204,182 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-01T11:31:19+08:00">
-                2018-03-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-10T19:53:18+08:00">
+                2018-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/BMC-Study-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">BMC Study Notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/10/BMC测试/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/10/BMC测试/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/03/10/BMC测试/" class="leancloud_visitors" data-flag-title="BMC测试">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>BMC测试的主要内容。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/10/BMC测试/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+    <div>
+
+    <div>
+    <div>
+    
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2018/03/09/高阶函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liu Yang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr. Liu's Tech Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/09/高阶函数/" itemprop="url">高阶函数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T21:32:57+08:00">
+                2018-03-09
               </time>
             
 
@@ -1071,9 +1419,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/03/01/正则表达式/#comments" itemprop="discussionUrl">
+                <a href="/2018/03/09/高阶函数/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/03/01/正则表达式/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/03/09/高阶函数/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1081,7 +1429,7 @@
 
           
           
-             <span id="/2018/03/01/正则表达式/" class="leancloud_visitors" data-flag-title="正则表达式">
+             <span id="/2018/03/09/高阶函数/" class="leancloud_visitors" data-flag-title="高阶函数">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1113,10 +1461,10 @@
 
       
         
-          <p>正则表达式是一个特殊的字符序列，它能帮助你方便的检查一个字符串是否与某种模式匹配。本文简单讲述了re模块的六大匹配方法和一些匹配模式。<br>
+          <p>这篇博文主要介绍下python中特别重要的内置高阶函数filter()，map()，reduce()，以及它们的应用。其中也涉及了一些它们在python2与python3中的不同。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/01/正则表达式/#more" rel="contents">
+            <a class="btn" href="/2018/03/09/高阶函数/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1173,7 +1521,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2018/01/01/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2018/03/09/匿名函数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Liu Yang">
@@ -1192,7 +1540,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/01/hello-world/" itemprop="url">Hello World</a></h1>
+                <a class="post-title-link" href="/2018/03/09/匿名函数/" itemprop="url">匿名函数</a></h1>
         
 
         <div class="post-meta">
@@ -1204,8 +1552,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-01T00:00:00+08:00">
-                2018-01-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T20:19:46+08:00">
+                2018-03-09
               </time>
             
 
@@ -1227,8 +1575,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Others/" itemprop="url" rel="index">
-                    <span itemprop="name">Others</span>
+                  <a href="/categories/Python-Study-Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Python Study Notes</span>
                   </a>
                 </span>
 
@@ -1245,9 +1593,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/01/01/hello-world/#comments" itemprop="discussionUrl">
+                <a href="/2018/03/09/匿名函数/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/01/01/hello-world/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/03/09/匿名函数/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1255,7 +1603,7 @@
 
           
           
-             <span id="/2018/01/01/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
+             <span id="/2018/03/09/匿名函数/" class="leancloud_visitors" data-flag-title="匿名函数">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1287,10 +1635,10 @@
 
       
         
-          <p>这是我搭建博客的第一篇文章，很多的功能都是通过这篇文章进行测试，本想搭建完成就将其删除，仔细斟酌之后还是选择将其保留，仅当作留念。<br>
+          <p>在Python中，lambda作为一个关键字，作为引入表达式的语法。想比较def函数，lambda是单一的表达式，而不是语句块.<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/01/01/hello-world/#more" rel="contents">
+            <a class="btn" href="/2018/03/09/匿名函数/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1338,7 +1686,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span>
+    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1384,7 +1732,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">126</span>
+                  <span class="site-state-item-count">135</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1406,7 +1754,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-count">76</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
