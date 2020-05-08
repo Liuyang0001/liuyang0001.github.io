@@ -81,7 +81,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Mr. Liu&#39;s Tech Blog">
-<meta property="og:url" content="https://liuyang0001.github.io/tags/Re/index.html">
+<meta property="og:url" content="https://liuyang0001.github.io/tags/re/index.html">
 <meta property="og:site_name" content="Mr. Liu&#39;s Tech Blog">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
@@ -115,13 +115,13 @@
 
 
 
-  <link rel="canonical" href="https://liuyang0001.github.io/tags/Re/"/>
+  <link rel="canonical" href="https://liuyang0001.github.io/tags/re/"/>
 
 
 
 
 
-  <title>标签: Re | Mr. Liu's Tech Blog</title>
+  <title>标签: re | Mr. Liu's Tech Blog</title>
   
 
 
@@ -295,7 +295,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>Re<small>标签</small>
+        <h1>re<small>标签</small>
         </h1>
       </div>
 
@@ -307,37 +307,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2018/03/22/常用正则整理/" itemprop="url">
+            <a class="post-title-link" href="/2020/05/08/筛选复试名单/" itemprop="url">
               
-                <span itemprop="name">常用正则整理</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-03-22T12:36:04+08:00"
-              content="2018-03-22" >
-          03-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/03/01/正则表达式/" itemprop="url">
-              
-                <span itemprop="name">正则表达式</span>
+                <span itemprop="name">筛选复试名单</span>
               
             </a>
         
@@ -345,9 +317,9 @@
 
       <div class="post-meta">
         <time class="post-time" itemprop="dateCreated"
-              datetime="2018-03-01T11:31:19+08:00"
-              content="2018-03-01" >
-          03-01
+              datetime="2020-05-08T22:42:05+08:00"
+              content="2020-05-08" >
+          05-08
         </time>
       </div>
 
@@ -407,7 +379,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">136</span>
+                  <span class="site-state-item-count">137</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1089,6 +1061,47 @@
                 $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
               },
               error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+n(newcounter, error) {
                 console.log('Failed to create');
               }
             });
