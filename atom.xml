@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://liuyang0001.github.io/"/>
-  <updated>2020-04-01T09:46:56.381Z</updated>
+  <updated>2020-05-08T15:21:22.657Z</updated>
   <id>https://liuyang0001.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>筛选复试名单</title>
+    <link href="https://liuyang0001.github.io/2020/05/08/%E7%AD%9B%E9%80%89%E5%A4%8D%E8%AF%95%E5%90%8D%E5%8D%95/"/>
+    <id>https://liuyang0001.github.io/2020/05/08/筛选复试名单/</id>
+    <published>2020-05-08T14:42:05.000Z</published>
+    <updated>2020-05-08T15:21:22.657Z</updated>
+    
+    <content type="html"><![CDATA[<p>今天高高兴兴，因为复试名单公布了，但拿到名单的时候发现是乱序的，那么怎么样才能拿到本专业的真实名单呢？</p><p>所以打算利用所学，来筛选出符合条件的名单，轻松判断自己所处的位置及竞争力。</p><a id="more"></a><hr><h2 id="导入库函数"><a href="#导入库函数" class="headerlink" title="导入库函数"></a>导入库函数</h2><ul><li><code>os</code>  ——用来获取当前路径</li><li><code>re</code>  ——用来正则匹配考生编号</li><li><code>pandas</code> ——用来操作csv，读取和写入</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure><hr><h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><h3 id="写出对应的正则表达式"><a href="#写出对应的正则表达式" class="headerlink" title="写出对应的正则表达式"></a>写出对应的正则表达式</h3><ol><li>首先我们需要明确要匹配的字符的构成</li></ol><blockquote><p>考生编号：学校编号+地区号+学院号+方向+流水号</p></blockquote><ol><li>根据需要书写正则表达式</li></ol><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 【计算机专硕】匹配规则</span></span><br><span class="line">pat1 = <span class="string">"^10033[0-9]&#123;4&#125;16[123]0[0-9]&#123;2&#125;$"</span></span><br></pre></td></tr></table></figure><h3 id="读取csv文件"><a href="#读取csv文件" class="headerlink" title="读取csv文件"></a>读取csv文件</h3><p>这里我们是用pandas进行读取文件，将其格式化为df类型。</p><blockquote><p><strong>需要注意的是：windows默认的编码方式为gbk，而不是utf-8</strong></p></blockquote><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(read_path, encoding=<span class="string">"gbk"</span>) <span class="keyword">as</span> file:</span><br><span class="line">        data = pd.read_csv(file)</span><br></pre></td></tr></table></figure><h3 id="取得对应的考生编号，并匹配"><a href="#取得对应的考生编号，并匹配" class="headerlink" title="取得对应的考生编号，并匹配"></a>取得对应的考生编号，并匹配</h3><p>取得第i行的第一列元素，将其转换成字符串，便于后续对其进行正则匹配</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 取到15位准考证号</span></span><br><span class="line">number = data.iloc[[i], <span class="number">0</span>].to_string()[<span class="number">-15</span>:]</span><br></pre></td></tr></table></figure><h3 id="正则匹配"><a href="#正则匹配" class="headerlink" title="正则匹配"></a>正则匹配</h3><p>利用<code>re.match()</code>进行匹配，判断当前是否为我们所查找的。</p><p>如果匹配，则取到该行的所有元素。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> re.match(rule, number):</span><br><span class="line">df = data.iloc[[i], :]</span><br></pre></td></tr></table></figure><h3 id="输出到csv文件"><a href="#输出到csv文件" class="headerlink" title="输出到csv文件"></a>输出到csv文件</h3><p>pandas的df类型数据直接就有输出到csv文件的方法，直接调用输出即可。</p><blockquote><p>不过有几点需要注意：</p><ol><li>输出依旧要采用gbk编码</li><li>索引值要置为False，不然会多一列我们并不想要的原先数据的索引列</li><li>输出模式要选择附加模式，这样不会覆盖原数据</li></ol></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.to_csv(write_path, mode=<span class="string">"a"</span>, index=<span class="keyword">False</span>,header=<span class="keyword">None</span>, encoding=<span class="string">"gbk"</span>)</span><br></pre></td></tr></table></figure><hr><h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a><center>源码</center></h2><p><strong><center><a href="https://github.com/Liuyang0001/selcet_from_csv/" target="_blank" rel="noopener">Github项目源码地址</a></center></strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天高高兴兴，因为复试名单公布了，但拿到名单的时候发现是乱序的，那么怎么样才能拿到本专业的真实名单呢？&lt;/p&gt;
+&lt;p&gt;所以打算利用所学，来筛选出符合条件的名单，轻松判断自己所处的位置及竞争力。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Python Study Notes" scheme="https://liuyang0001.github.io/categories/Python-Study-Notes/"/>
+    
+    
+      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
+    
+      <category term="pandas" scheme="https://liuyang0001.github.io/tags/pandas/"/>
+    
+      <category term="re" scheme="https://liuyang0001.github.io/tags/re/"/>
+    
+      <category term="csv" scheme="https://liuyang0001.github.io/tags/csv/"/>
+    
+  </entry>
   
   <entry>
     <title>100-相同的树</title>
@@ -244,7 +273,7 @@
     <link href="https://liuyang0001.github.io/2020/04/01/91-%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95/"/>
     <id>https://liuyang0001.github.io/2020/04/01/91-解码方法/</id>
     <published>2020-04-01T07:31:17.000Z</published>
-    <updated>2020-04-01T09:10:53.293Z</updated>
+    <updated>2020-05-08T14:43:16.385Z</updated>
     
     <content type="html"><![CDATA[<p>给定一个只包含数字的<strong>非空</strong>字符串，请计算解码方法的总数。</p><a id="more"></a><p>一条包含字母 <code>A-Z</code> 的消息通过以下方式进行了编码：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&apos;A&apos; -&gt; 1</span><br><span class="line">&apos;B&apos; -&gt; 2</span><br><span class="line">...</span><br><span class="line">&apos;Z&apos; -&gt; 26</span><br></pre></td></tr></table></figure><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;12&quot;</span><br><span class="line">输出: 2</span><br><span class="line">解释: 它可以解码为 &quot;AB&quot;（1 2）或者 &quot;L&quot;（12）。</span><br></pre></td></tr></table></figure><p><strong>示例 2:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;226&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释: 它可以解码为 &quot;BZ&quot; (2 26), &quot;VF&quot; (22 6), 或者 &quot;BBF&quot; (2 2 6) 。</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：利用动态规划的思想，利用前两位来更新当前位置</strong></p></blockquote><p><strong>算法设计如下：</strong></p><ul><li><p>特判，若s为空或者s[0]==”0”，返回0</p></li><li><p>初始化dp=[0,…,0]，长度为n+1，dp[0]=1,dp[1]=1。dp[1]=1表示第一位的解码方法，dp[0]的作用，在于两位时，如：”12”，dp[2]=dp[1]+dp[0]。</p></li><li><p>遍历s，遍历区间[1,n)：</p><ul><li>若s[i]==”0”：<ul><li>若<code>s[i-1]==&quot;1&quot; or s[i-1]==&quot;2&quot;</code>：<ul><li>此时，到当前位置的解码方法dp[i+1]和上上一位的相同，</li><li>因为上一位和本位置结合在了一起。dp[i+1]=dp[i-1]</li></ul></li><li>否则，返回0，表示无法解码</li></ul></li><li>否则：<ul><li>判断何时既可以自身解码也可以和前一位结合：</li><li>若上一位s[i-1]==”1”，则当前位既可以单独解码也可以和上一位结合。</li><li>或者上一位s[i]==”2”，则此时，若1”&lt;=s[i]&lt;=”6”，也是可以的。</li><li>综上，<code>s[i-1]==&quot;1&quot; or (s[i-1]==&quot;2&quot; and &quot;1&quot;&lt;=s[i]&lt;=&quot;6&quot;)</code>。</li><li>此时，dp[i+1]=dp[i]+dp[i-1]，等于上一位和上上位的解码方法之和。</li><li>否则，dp[i+1]=dp[i]</li></ul></li></ul></li><li><p>返回dp[n]</p></li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">numDecodings</span><span class="params">(self, s: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s <span class="keyword">or</span> s[<span class="number">0</span>] == <span class="string">"0"</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        n = len(s)</span><br><span class="line">        dp = [<span class="number">0</span>] * (n + <span class="number">1</span>)</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">        dp[<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">            <span class="keyword">if</span> s[i] == <span class="string">"0"</span>:</span><br><span class="line">                <span class="keyword">if</span> s[i - <span class="number">1</span>] == <span class="string">"1"</span> <span class="keyword">or</span> s[i - <span class="number">1</span>] == <span class="string">"2"</span>:</span><br><span class="line">                    dp[i + <span class="number">1</span>] = dp[i - <span class="number">1</span>]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> s[i - <span class="number">1</span>] == <span class="string">"1"</span> <span class="keyword">or</span> (s[i - <span class="number">1</span>] == <span class="string">"2"</span> <span class="keyword">and</span> <span class="string">"1"</span> &lt;= s[i] &lt;= <span class="string">"6"</span>):</span><br><span class="line">                    dp[i + <span class="number">1</span>] = dp[i] + dp[i - <span class="number">1</span>]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    dp[i + <span class="number">1</span>] = dp[i]</span><br><span class="line">        <span class="keyword">return</span> dp[n]</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/decode-ways/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/decode-ways/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
     
@@ -547,36 +576,6 @@
       <category term="数组" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="回溯算法" scheme="https://liuyang0001.github.io/tags/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>78-子集</title>
-    <link href="https://liuyang0001.github.io/2020/03/27/78-%E5%AD%90%E9%9B%86/"/>
-    <id>https://liuyang0001.github.io/2020/03/27/78-子集/</id>
-    <published>2020-03-27T08:56:08.000Z</published>
-    <updated>2020-03-27T09:03:35.835Z</updated>
-    
-    <content type="html"><![CDATA[<p>给定一组<strong>不含重复元素</strong>的整数数组 <em>nums</em>，返回该数组所有可能的子集（幂集）。</p><a id="more"></a><p><strong>说明：</strong>解集不能包含重复的子集。</p><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [1,2,3]</span><br><span class="line">输出:</span><br><span class="line">[</span><br><span class="line">  [3],</span><br><span class="line">  [1],</span><br><span class="line">  [2],</span><br><span class="line">  [1,2,3],</span><br><span class="line">  [1,3],</span><br><span class="line">  [2,3],</span><br><span class="line">  [1,2],</span><br><span class="line">  []</span><br><span class="line">]</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：利用回溯算法，每添加一个数字，加到res一次</strong></p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subsets</span><span class="params">(self, nums: List[int])</span> -&gt; List[List[int]]:</span></span><br><span class="line">        res = []</span><br><span class="line">        n = len(nums)</span><br><span class="line">        <span class="comment"># 回溯函数</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">backtrack</span><span class="params">(index, tem)</span>:</span></span><br><span class="line">            res.append(tem)</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(index,n):</span><br><span class="line">                backtrack(i+<span class="number">1</span>, tem+[nums[i]])</span><br><span class="line">        </span><br><span class="line">        backtrack(<span class="number">0</span>, [])</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/subsets/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/subsets/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;给定一组&lt;strong&gt;不含重复元素&lt;/strong&gt;的整数数组 &lt;em&gt;nums&lt;/em&gt;，返回该数组所有可能的子集（幂集）。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
-    
-    
-      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
-    
-      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
-    
-      <category term="数组" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="回溯算法" scheme="https://liuyang0001.github.io/tags/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="位操作" scheme="https://liuyang0001.github.io/tags/%E4%BD%8D%E6%93%8D%E4%BD%9C/"/>
     
   </entry>
   

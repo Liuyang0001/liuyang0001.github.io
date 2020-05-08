@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[筛选复试名单]]></title>
+    <url>%2F2020%2F05%2F08%2F%E7%AD%9B%E9%80%89%E5%A4%8D%E8%AF%95%E5%90%8D%E5%8D%95%2F</url>
+    <content type="text"><![CDATA[今天高高兴兴，因为复试名单公布了，但拿到名单的时候发现是乱序的，那么怎么样才能拿到本专业的真实名单呢？ 所以打算利用所学，来筛选出符合条件的名单，轻松判断自己所处的位置及竞争力。 导入库函数 os ——用来获取当前路径 re ——用来正则匹配考生编号 pandas ——用来操作csv，读取和写入 123import reimport osimport pandas as pd 实现方法写出对应的正则表达式 首先我们需要明确要匹配的字符的构成 考生编号：学校编号+地区号+学院号+方向+流水号 根据需要书写正则表达式 12# 【计算机专硕】匹配规则pat1 = "^10033[0-9]&#123;4&#125;16[123]0[0-9]&#123;2&#125;$" 读取csv文件这里我们是用pandas进行读取文件，将其格式化为df类型。 需要注意的是：windows默认的编码方式为gbk，而不是utf-8 12with open(read_path, encoding="gbk") as file: data = pd.read_csv(file) 取得对应的考生编号，并匹配取得第i行的第一列元素，将其转换成字符串，便于后续对其进行正则匹配 12# 取到15位准考证号number = data.iloc[[i], 0].to_string()[-15:] 正则匹配利用re.match()进行匹配，判断当前是否为我们所查找的。 如果匹配，则取到该行的所有元素。 12if re.match(rule, number): df = data.iloc[[i], :] 输出到csv文件pandas的df类型数据直接就有输出到csv文件的方法，直接调用输出即可。 不过有几点需要注意： 输出依旧要采用gbk编码 索引值要置为False，不然会多一列我们并不想要的原先数据的索引列 输出模式要选择附加模式，这样不会覆盖原数据 1df.to_csv(write_path, mode="a", index=False,header=None, encoding="gbk") 源码Github项目源码地址]]></content>
+      <categories>
+        <category>Python Study Notes</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>pandas</tag>
+        <tag>re</tag>
+        <tag>csv</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[100-相同的树]]></title>
     <url>%2F2020%2F04%2F01%2F100-%E7%9B%B8%E5%90%8C%E7%9A%84%E6%A0%91%2F</url>
     <content type="text"><![CDATA[给定两个二叉树，编写一个函数来检验它们是否相同。 如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。 示例示例 1: 1234567输入: 1 1 / \ / \ 2 3 2 3 [1,2,3], [1,2,3]输出: true 示例 2: 1234567输入: 1 1 / \ 2 2 [1,2], [1,null,2]输出: false 示例 3: 1234567输入: 1 1 / \ / \ 2 1 1 2 [1,2,1], [1,1,2]输出: false 解法 核心思想：两棵树同步递归遍历相比较即可。 123456789class Solution: def isSameTree(self, p: TreeNode, q: TreeNode) -&gt; bool: # 两个空结点 if not p and not q: return True # 结点均非空且值相等 if p and q and p.val == q.val: return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right) return False 相关信息LeetCode：Discussion | Solution]]></content>
@@ -1574,8 +1588,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>内置函数</tag>
         <tag>eval</tag>
+        <tag>内置函数</tag>
       </tags>
   </entry>
   <entry>
