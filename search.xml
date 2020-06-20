@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[爬虫项目:Leetcode-Helper]]></title>
+    <url>%2F2020%2F06%2F20%2F%E7%88%AC%E8%99%AB%E9%A1%B9%E7%9B%AE-Leetcode-Helper%2F</url>
+    <content type="text"><![CDATA[哪个程序员😁不想一键下载写过的代码，自动上传Github，并且还能生成一份好看的README呢？ 真的有人会不点⭐吗? 不会吧，不会吧，不会吧。项目传送门 |🚪| 💕主要功能💕 🍉 模拟登陆力扣中国站(leetcode-cn) 🍉 爬取每题提交的ac代码，保存至本地。 🍉 自动生成优美的README文件至本地。 🍉 支持自动更新至Github仓库。 🆕 🍉 加入失败重试机制，减少延时，加快下载速度。🆕 少啰嗦，先看东西 😃 : 具体效果,点击这里 生成的README效果图： 生成的源码效果图： 使用说明 clone 该项目到你的本地。 1git clone https://github.com/Liuyang0001/Leetcode-Helper.git 配置你的cofig.json文件。 123456789&#123; "email": "xx账号xxxx", "password": "xxx密码xxx", "repo_path": "x:/xxxxxx/", "git_url": "https://github.com/xxxxx/xxx仓库名xx/tree/master/codes_auto/", "download_start_id": 1, "download_end_id": 10000, "refresh": false&#125; 安装依赖库 依赖库为retry ，pandas ，requests，gitpython可自行安装，或者使用： 1pip install -r requirement.txt 运行main.py文件 1python main.py 其他说明： 第一次运行比较慢，主要是需要建立本地数据库，请耐心等待。 题库后续会增加局部更新，就不用每次都全局更新，请持续关注。 如果发生异常，请尝试重新运行 。 已加入失败重试机制。 为了运行速度，已生成代码不会覆盖，相同题的代码仅保留一份ac的。 如果大家有需求的话，可能还会写个GUI界面，会更直观一点，没人的话就算了。 本人是一个准研一的小菜🐔，在家无事的练手项目，求轻喷。 万水千山总是情，给个⭐行不行，感谢大家。 Enjoy coding！]]></content>
+      <categories>
+        <category>爬虫项目</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>爬虫</tag>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[同时存在unicode-escape和utf-8的解码方法]]></title>
     <url>%2F2020%2F06%2F09%2F%E5%90%8C%E6%97%B6%E5%AD%98%E5%9C%A8unicode-escape%E5%92%8Cutf-8%E7%9A%84%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95%2F</url>
     <content type="text"><![CDATA[在爬取lc提交代码的时候遇到的一个问题，在爬取到的源码中，符号是采用unicode-escape编码的，而其中的中文是采用utf-8编码的，正常解码无论怎样都会出现乱码，本文记录下解决办法。 [TOC] 示例下面是lc第一题爬取的源码，编码为”utf-8”，中文可以正确显示，但是换行符等符号并不能正确显示，因此需要转换。 1code = "class Solution:\u000A def twoSum(self, nums: List[int], target: int) \u002D\u003E List[int]:\u000A dic \u003D defaultdict(int) # 哈希字典\u000A for i,num in enumerate(nums):\u000A if num in dic: return [dic[num],i]\u000A dic[target\u002Dnum]\u003Di" 正常我们的解码是这样的： 1code = code.encode(&quot;utf-8&quot;).decode(&quot;unicode-escape&quot;) 这样上面的换行符等就可以正确显示为\n等正确的编码，但是原本上面的中文就是utf-8了，解码为unicode-escape就会出现乱码，输出文件就会像下面的这样。 解决办法 其实很简单，就是局部解码就可以了： 首先利用正则表达式找到所有采用unicode-escape编码的字符， 然后将其解码再替换原字符串 1code = re.sub(r'(\\u[\s\S]&#123;4&#125;)',lambda x:x.group(1).encode("utf-8").decode("unicode-escape"),code) 再来查看一下我们写入的文件，就没有乱码的情况了。]]></content>
@@ -11,18 +24,6 @@
         <tag>Python</tag>
         <tag>爬虫</tag>
         <tag>编码</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Leetcode-Helper项目全记录1]]></title>
-    <url>%2F2020%2F06%2F08%2FLeetcode-Helper%E9%A1%B9%E7%9B%AE%E5%85%A8%E8%AE%B0%E5%BD%951%2F</url>
-    <content type="text"><![CDATA[LeetCode Helper简介：实现对LeetCode中文站的个人数据和提交源码进行爬取，将源码保存至本地，一键更新源码至github仓库，并且根据数据更新源码仓库的readme.md。 本章进展： 实现对Leetcode-cn的模拟登陆，并获取题目状态。 将个人做题情况保存到本地csv表格。 爬虫模拟登陆该部分实现的需求是：建立一个长期的会话，根据用户名和密码，进行模拟登陆，登陆成功后返回登陆成功的会话。 建立会话这里需要用到requests库建立一个会话。 12import requestssession = requests.Session() 发送post请求登陆网址1234# 源站leetcode_url = 'https://leetcode-cn.com/'# 登陆地址sign_in_url = leetcode_url + 'accounts/login/' 请求头参数设置这里我们需要模拟浏览器登陆，所以请求头中的user-agent需要设置成浏览器的 1user_agent = r"Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)" 其次，我们需要建立一个长期的会话，需要保持登陆的状态，目标站点为登陆站。 1headers = &#123;'User-Agent': user_agent, 'Connection': 'keep-alive', 'Referer': sign_in_url&#125; 请求数据这里我们要发送的数据就是我们的登陆信息，即账号和密码。 1login_data = &#123;'login': email, 'password': password &#125; 发送请求1session.post(sign_in_url, headers = headers, data = login_data, allow_redirects = False) 判别登陆状态这里我们通过cookies进行判断是否登陆成功。 12345is_login = session.cookies.get('LEETCODE_SESSION') != Noneif is_login: print("Login successfully!") return sessionelse: print("Login failed!") 爬取题目状态并保存至CSV爬取题目状态上面我们获取到了一个已经登陆的会话，之后我们直接使用该会话进行获取你个人的做题情况。 LeetCode本身就给我们提供了这样的一个api接口，我们直接访问即可。 123api_problems_url = "https://leetcode-cn.com/api/problems/all/"session = login() # 拿到登陆好会话rec = session.get(api_problems_url) 返回的是一个json格式字符串，我们使用json模块进行解析，就可以得到字典类型的键值对。 1rec_json = json.loads(rec.content.decode("utf-8")) 这样我们就可以很轻松的拿到自己的当前信息。 其中stat_status_pairs中包含了所有题目的信息，遍历该key对应的value就可以获取所有题目的详细状态。 12345678910# 遍历更新我们需要的信息进题库for question in rec_json['stat_status_pairs']: id = question['stat']['question_id'] # 题目编号 slug = question['stat']['question__title_slug'] # 题目名称 status = question['status'] # 题目状态 # 题目难度级别，1 为简单，2 为中等，3 为困难 level = question['difficulty']['level'] vip_only = question['paid_only'] # 是否为付费题目 # 写入本地csv中 write_to_csv(id, slug, status, level, vip_only) 保存至csv中这里我们使用pandas进行csv操作 1import pandas as pd 将要写入的信息转化为DataFrame类型，直接调用df.to_csv()写入即可。 123456789101112def write_to_csv(id, slug, status, level, vip_only): # 从配置文件读入输出数据路径 with open("config.json", "r") as f: temp = json.loads(f.read()) DATAFILE = temp['datafile'] # level_dic = &#123;1: "简单", 2: "中等", 3: "困难"&#125; columns = ["id", "slug", "status", "level", "vip_only"] cont_ls = [&#123;"id": id, "slug": slug, "status": status, "level": level, "vip_only": vip_only&#125;] df = pd.DataFrame(cont_ls, columns=columns) df.to_csv(DATAFILE, index=False, mode="a+", header=False) 写在后面这是我第一次尝试写一个项目，可能有点垃圾，还是想记录一下全过程，文中展示的仅仅是项目的关键部分代码，并不是全部，后面写到差不多就会放到github上开源。]]></content>
-      <categories>
-        <category>LeetCode</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>爬虫</tag>
       </tags>
   </entry>
   <entry>
@@ -614,8 +615,8 @@
         <tag>Python</tag>
         <tag>Algorithms</tag>
         <tag>数组</tag>
-        <tag>动态规划</tag>
         <tag>二分查找</tag>
+        <tag>动态规划</tag>
       </tags>
   </entry>
   <entry>
@@ -1635,8 +1636,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>eval</tag>
         <tag>内置函数</tag>
+        <tag>eval</tag>
       </tags>
   </entry>
   <entry>
