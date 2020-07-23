@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,WSL," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="这部分记录了如何安装wsl，以及如何升级到wsl2的心酸历程。">
+<meta name="keywords" content="Linux,WSL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WSL2的安装与初探">
+<meta property="og:url" content="https://liuyang0001.github.io/2020/07/23/WSL2的安装与初探/index.html">
+<meta property="og:site_name" content="Mr. Liu&#39;s Tech Blog">
+<meta property="og:description" content="这部分记录了如何安装wsl，以及如何升级到wsl2的心酸历程。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723224746.png">
+<meta property="og:image" content="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723224245.png">
+<meta property="og:image" content="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723224525.png">
+<meta property="og:image" content="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723225303.png">
+<meta property="og:image" content="https://docs.microsoft.com/zh-cn/windows/wsl/media/store.png">
+<meta property="og:image" content="https://docs.microsoft.com/zh-cn/windows/wsl/media/ubuntustore.png">
+<meta property="og:image" content="https://docs.microsoft.com/zh-cn/windows/wsl/media/ubuntuinstall.png">
+<meta property="og:image" content="https://docs.microsoft.com/zh-cn/windows/wsl/media/appstorage.png">
+<meta property="og:image" content="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723233623.png">
+<meta property="og:updated_time" content="2020-07-23T15:52:52.862Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WSL2的安装与初探">
+<meta name="twitter:description" content="这部分记录了如何安装wsl，以及如何升级到wsl2的心酸历程。">
+<meta name="twitter:image" content="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723224746.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://liuyang0001.github.io/2020/07/23/WSL2的安装与初探/"/>
+
+
+
+
+
+  <title>WSL2的安装与初探 | Mr. Liu's Tech Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?68f734d169c016c392f5a197215aaa80";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr. Liu's Tech Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Python技术博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2020/07/23/WSL2的安装与初探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Liu Yang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr. Liu's Tech Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">WSL2的安装与初探</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-23T22:04:39+08:00">
+                2020-07-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WSL使用笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">WSL使用笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/07/23/WSL2的安装与初探/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/07/23/WSL2的安装与初探/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/07/23/WSL2的安装与初探/" class="leancloud_visitors" data-flag-title="WSL2的安装与初探">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这部分记录了如何安装wsl，以及如何升级到wsl2的心酸历程。</p>
+<a id="more"></a>
+<hr>
+
+<h2 id="版本要求"><a href="#版本要求" class="headerlink" title="版本要求"></a>版本要求</h2><p><strong>安装wsl2对系统版本有硬性的要求：</strong></p>
+<ul>
+<li>运行 Windows 10（<a href="ms-settings:windowsupdate" target="_blank" rel="noopener">已更新到版本 2004</a> 的<strong>内部版本 19041</strong> 或更高版本）。</li>
+<li>通过按 Windows 徽标键 + R，检查你的 Windows 版本，然后键入 <strong>winver</strong>，选择“确定”。  如果内部版本低于 19041，请<a href="ms-settings:windowsupdate" target="_blank" rel="noopener">更新到最新的 Windows 版本</a>。 </li>
+</ul>
+<p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723224746.png" alt=""></p>
+<h2 id="升级windows"><a href="#升级windows" class="headerlink" title="升级windows"></a>升级windows</h2><blockquote>
+<p>如果版本达到了要求，则跳过此步骤。</p>
+</blockquote>
+<ul>
+<li><code>Win+S</code> 搜索<strong>预览体验计划</strong></li>
+</ul>
+<p>加入预览体验计划，获取更新版本。</p>
+<p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723224245.png" alt=""></p>
+<ul>
+<li>进行windows更新</li>
+</ul>
+<p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723224525.png" alt=""></p>
+<p>然后就是漫长的等待过程，无论是下载还是安装的过程都很漫长。</p>
+<hr>
+
+
+
+<h2 id="WSL的安装"><a href="#WSL的安装" class="headerlink" title="WSL的安装"></a>WSL的安装</h2><ul>
+<li><p>使用<strong>管理员</strong>权限打开powershell</p>
+</li>
+<li><p>启用“适用于 Linux 的 Windows 子系统”可选功能</p>
+</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这时候wsl其实已经启用了，重启就可以了，但还要更新到wsl2，就在后面一起重启了。</p>
+</blockquote>
+<h2 id="升级到WSL2"><a href="#升级到WSL2" class="headerlink" title="升级到WSL2"></a>升级到WSL2</h2><ul>
+<li>启用“虚拟机平台”可选组件</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>重启</strong>电脑。</li>
+<li>重新<strong>管理员</strong>身份打开powershell，用下面的命令将wsl2设置为默认。</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --set-default-version <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723225303.png" alt=""></p>
+<p>出现上面这行就是好了，如果<strong>有问题请参考后文</strong>中遇到的问题及解决办法。</p>
+<hr>
+
+
+
+<h2 id="安装linux分发版"><a href="#安装linux分发版" class="headerlink" title="安装linux分发版"></a>安装linux分发版</h2><p>选择一个你喜欢的就可以了，任君挑选。</p>
+<ul>
+<li><p>打开 <a href="https://aka.ms/wslstore" target="_blank" rel="noopener">Microsoft Store</a>，并选择你偏好的 Linux 分发版。</p>
+<p><img src="https://docs.microsoft.com/zh-cn/windows/wsl/media/store.png" alt="Microsoft Store 中的 Linux 分发版的视图"></p>
+<p>单击以下链接会打开每个分发版的 Microsoft Store 页面：</p>
+<ul>
+<li><a href="https://www.microsoft.com/store/apps/9pjn388hp8c9" target="_blank" rel="noopener">Ubuntu 16.04 LTS</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9N9TNGVNDL3Q" target="_blank" rel="noopener">Ubuntu 18.04 LTS</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9n6svws3rx71" target="_blank" rel="noopener">Ubuntu 20.04 LTS</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9NJFZK00FGKV" target="_blank" rel="noopener">openSUSE Leap 15.1</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9MZ3D1TRP8T1" target="_blank" rel="noopener">SUSE Linux Enterprise Server 12 SP5</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9PN498VPMF3Z" target="_blank" rel="noopener">SUSE Linux Enterprise Server 15 SP1</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9PKR34TNCV07" target="_blank" rel="noopener">Kali Linux</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9MSVKQC78PK6" target="_blank" rel="noopener">Debian GNU/Linux</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9n6gdm4k2hnc" target="_blank" rel="noopener">Fedora Remix for WSL</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9NV1GV1PXZ6P" target="_blank" rel="noopener">Pengwin</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9N8LP0X93VCP" target="_blank" rel="noopener">Pengwin Enterprise</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9p804crf0395" target="_blank" rel="noopener">Alpine WSL</a></li>
+</ul>
+</li>
+<li><p>在分发版的页面中，选择“获取”。</p>
+</li>
+</ul>
+<p><img src="https://docs.microsoft.com/zh-cn/windows/wsl/media/ubuntustore.png" alt="Microsoft Store 中的 Linux 分发版"></p>
+<p>安心等待片刻，就安装好了，这时你点击开始，就可以在最近安装看见你安装好的分发版了。</p>
+<p>初次启动它会进行一个初始化的过程，需要等待一段时间。完成之后会让你设置账号和密码。</p>
+<p><img src="https://docs.microsoft.com/zh-cn/windows/wsl/media/ubuntuinstall.png" alt="Windows 控制台中的 Ubuntu 解包"></p>
+<hr>
+
+
+
+<h2 id="排查安装问题"><a href="#排查安装问题" class="headerlink" title="排查安装问题"></a>排查安装问题</h2><p>下面是相关的错误和建议的修复措施。 有关其他常见错误及其解决方法，请参阅 <a href="https://docs.microsoft.com/zh-cn/windows/wsl/troubleshooting" target="_blank" rel="noopener">WSL 故障排除页</a>。</p>
+<ul>
+<li><strong>安装失败并出现错误 0x80070003</strong><ul>
+<li>适用于 Linux 的 Windows 子系统只能在系统驱动器（通常是 <code>C:</code> 驱动器）中运行。 请确保分发版存储在系统驱动器上：</li>
+<li>打开“设置”-&gt;“存储”-&gt;“更多存储设置： 更改新内容的保存位置” <img src="https://docs.microsoft.com/zh-cn/windows/wsl/media/appstorage.png" alt="用于在 C: 驱动器中安装应用的系统设置屏幕截图"></li>
+</ul>
+</li>
+<li><strong>WslRegisterDistribution 失败并出现错误 0x8007019e</strong><ul>
+<li>未启用“适用于 Linux 的 Windows 子系统”可选组件：</li>
+<li>打开“控制面板” -&gt; “程序和功能” -&gt; “打开或关闭 Windows 功能”-&gt; 选中“适用于 Linux 的 Windows 子系统”，或使用本文开头所述的 PowerShell cmdlet。</li>
+</ul>
+</li>
+<li><strong>安装失败，出现错误 0x80070003 或错误 0x80370102</strong><ul>
+<li>请确保在计算机的 BIOS 内已启用虚拟化。 有关如何执行此操作的说明因计算机而异，并且很可能在 CPU 相关选项下。</li>
+</ul>
+</li>
+<li><strong>尝试升级时出错：<code>Invalid command line option: wsl --set-version Ubuntu 2</code></strong><ul>
+<li>请确保已启用适用于 Linux 的 Windows 子系统，并且你使用的是 Windows 内部版本 19041 或更高版本。 若要启用 WSL，请在 PowerShell 提示符下以具有管理员权限的身份运行此命令：<code>Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux</code>。 可在<a href="https://docs.microsoft.com/zh-cn/windows/wsl/install-win10" target="_blank" rel="noopener">此处</a>找到完整的 WSL 安装说明。</li>
+</ul>
+</li>
+<li><strong>由于虚拟磁盘系统的某个限制，无法完成所请求的操作。虚拟硬盘文件必须是解压缩的且未加密的，并且不能是稀疏的。</strong><ul>
+<li>请检查 <a href="https://github.com/microsoft/WSL/issues/4103" target="_blank" rel="noopener">WSL GitHub 主题 #4103</a>，其中跟踪了此问题以提供更新的信息。</li>
+</ul>
+</li>
+<li><strong>无法将词语“wsl”识别为 cmdlet、函数、脚本文件或可运行程序的名称。</strong><ul>
+<li>请确保<a href="https://docs.microsoft.com/zh-cn/windows/wsl/install-win10#enable-the-virtual-machine-platform-optional-component" target="_blank" rel="noopener">已安装“适用于 Linux 的 Windows 子系统”可选组件</a>。 此外，如果你使用的是 ARM64 设备，并从 PowerShell 运行此命令，则会收到此错误。 请改为从 <a href="https://docs.microsoft.com/zh-cn/powershell/scripting/install/installing-powershell-core-on-windows?view=powershell-6" target="_blank" rel="noopener">PowerShell Core</a> 或从命令提示符运行 <code>wsl.exe</code>。</li>
+</ul>
+</li>
+</ul>
+<hr>
+
+
+
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><p><a href="https://docs.microsoft.com/zh-cn/windows/wsl/faq" target="_blank" rel="noopener">常见问题</a></p>
+<p><a href="https://docs.microsoft.com/zh-cn/windows/wsl/wsl2-faq" target="_blank" rel="noopener">WSL 2 常见问题解答</a></p>
+<p><a href="https://docs.microsoft.com/zh-cn/windows/wsl/troubleshooting" target="_blank" rel="noopener">疑难解答</a></p>
+<hr>
+
+
+
+<h2 id="记录所踩的坑"><a href="#记录所踩的坑" class="headerlink" title="记录所踩的坑"></a>记录所踩的坑</h2><blockquote>
+<p>上面的问题和解决办法，是官方的手册给的，下面说记录下安装的心酸历程，如果上面没找到你的问题，可以看看我的经历是不是能给你点帮助：</p>
+</blockquote>
+<ol>
+<li><p>首先是windows版本，我一直保持着最新的版本，想当然的以为版本足够，查了各种方法也装不上wsl2，后来在一个大佬的笔记里发现要打开预览版本更新。</p>
+</li>
+<li><p>之后就是安装WSL 2遇到了 <code>requires an update to its kernel component. For information please visit https://aka.ms/wsl2kernel</code>的问题，然后就下载了最新版本的内核。</p>
+</li>
+<li><p>然后又遇到内核无法安装的问题，这时我已经要炸了，冷静下来想起了解决之前问题时候尝试装过一次内核，随后找到应用卸载的界面卸载了之前装的内核，安装新内核成功。</p>
+</li>
+<li><p>之后也成功的切换到了wsl2，但是从应用商店下载的Ubuntu20,04第一次打开加载报错，不信邪的我切换回了wsl1，再打开Ubuntu成功运行，这时候我心态已经有点崩了，搞来搞去wsl2还是不能用。</p>
+</li>
+<li><p>我在应用商店下载了Ubuntu18.04，切换回了wsl2重新安装，还是失败，看了下报错<code>0xc03a001a</code>，找到一个大佬的解答说是因为开了<strong>压缩内容以便节省磁盘空间</strong>的原因，首先确定你的一些或者所有的文件夹右上角是否都有两个相对的蓝色箭头，然后找到路径:<code>C:\Users\user name\AppData\Local\Packages\CanonicalGroupLimited.xxxx  (xxx为你所下载的对应Linux发行版)</code>这个文件夹，若它确实是右上角带有<strong>两个相对箭头</strong>，那么：</p>
+</li>
+</ol>
+<blockquote>
+<p>右键 -&gt; 属性 -&gt; 常规 -&gt; 高级 -&gt; 取消勾选 <code>压缩内容以便节省磁盘空间</code> 这一项 -&gt; 确定<br>再次启动所安装的 <code>Linux</code> 发行版应该就可正常使用。</p>
+</blockquote>
+<ol>
+<li>随后我以为终于可以解决了，然而并没有。还是报错，具体是什么忘记了，也没查到答案。最后问题还是自己解决的。我灵机一动，既然wsl1环境可以正常安装，那我是不是在1环境下安装，再转换到2环境下呢？最后问题完美解决。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --set-version Ubuntu-20.04  2</span><br></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723233623.png" alt=""></p>
+<p>终于等到你，还好我没放弃！</p>
+
+      
+    </div>
+    
+    
+    
+    <div>
+
+    <div>
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wx.jpg" alt="Liu Yang 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zfb.jpg" alt="Liu Yang 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/WSL/" rel="tag"># WSL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/20/爬虫项目-Leetcode-Helper/" rel="next" title="爬虫项目:Leetcode-Helper">
+                <i class="fa fa-chevron-left"></i> 爬虫项目:Leetcode-Helper
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Liu Yang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">84</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/22127372" target="_blank" title="新浪微博">
+                      
+                        <i class="fa fa-fw fa-globe"></i>新浪微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Other Informations
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://github.com/Liuyang0001/" title="Github" target="_blank">Github</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="/about" title="获取联系方式" target="_blank">获取联系方式</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#版本要求"><span class="nav-number">1.</span> <span class="nav-text">版本要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级windows"><span class="nav-number">2.</span> <span class="nav-text">升级windows</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WSL的安装"><span class="nav-number">3.</span> <span class="nav-text">WSL的安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级到WSL2"><span class="nav-number">4.</span> <span class="nav-text">升级到WSL2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装linux分发版"><span class="nav-number">5.</span> <span class="nav-text">安装linux分发版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排查安装问题"><span class="nav-number">6.</span> <span class="nav-text">排查安装问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关链接"><span class="nav-number">7.</span> <span class="nav-text">相关链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#记录所踩的坑"><span class="nav-number">8.</span> <span class="nav-text">记录所踩的坑</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Liu Yang</span>
+
+  
+</div>
+
+
+  <div class="powered-by"> 最有用的语言是英语，其次可能是Python —— <a class="theme-link" target="_blank" href="http://liuyang1.club">Liu Yang</a></div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://liuyang0001.github.io/2020/07/23/WSL2的安装与初探/';
+          this.page.identifier = '2020/07/23/WSL2的安装与初探/';
+          this.page.title = 'WSL2的安装与初探';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'tpdwrsQcdMUwTm9vgSCd5Wpf-gzGzoHsz',
+        appKey: '3MWIUKDkcbClEyPwkiccRq31',
+        placeholder: '有什么不对的地方，欢迎各位指正。',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("tpdwrsQcdMUwTm9vgSCd5Wpf-gzGzoHsz", "3MWIUKDkcbClEyPwkiccRq31");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
