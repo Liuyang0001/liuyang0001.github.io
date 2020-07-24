@@ -82,8 +82,8 @@
 <meta name="description" content="这部分记录了如何安装wsl，以及如何升级到wsl2的心酸历程。">
 <meta name="keywords" content="Linux,WSL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WSL2的安装与初探">
-<meta property="og:url" content="https://liuyang0001.github.io/2020/07/23/WSL2的安装与初探/index.html">
+<meta property="og:title" content="WSL2的升级与安装笔记">
+<meta property="og:url" content="https://liuyang0001.github.io/2020/07/23/WSL2的安装笔记/index.html">
 <meta property="og:site_name" content="Mr. Liu&#39;s Tech Blog">
 <meta property="og:description" content="这部分记录了如何安装wsl，以及如何升级到wsl2的心酸历程。">
 <meta property="og:locale" content="zh-Hans">
@@ -96,9 +96,9 @@
 <meta property="og:image" content="https://docs.microsoft.com/zh-cn/windows/wsl/media/ubuntuinstall.png">
 <meta property="og:image" content="https://docs.microsoft.com/zh-cn/windows/wsl/media/appstorage.png">
 <meta property="og:image" content="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723233623.png">
-<meta property="og:updated_time" content="2020-07-23T16:04:53.610Z">
+<meta property="og:updated_time" content="2020-07-24T07:32:28.977Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="WSL2的安装与初探">
+<meta name="twitter:title" content="WSL2的升级与安装笔记">
 <meta name="twitter:description" content="这部分记录了如何安装wsl，以及如何升级到wsl2的心酸历程。">
 <meta name="twitter:image" content="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723224746.png">
 
@@ -130,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="https://liuyang0001.github.io/2020/07/23/WSL2的安装与初探/"/>
+  <link rel="canonical" href="https://liuyang0001.github.io/2020/07/23/WSL2的安装笔记/"/>
 
 
 
 
 
-  <title>WSL2的安装与初探 | Mr. Liu's Tech Blog</title>
+  <title>WSL2的升级与安装笔记 | Mr. Liu's Tech Blog</title>
   
 
 
@@ -317,7 +317,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2020/07/23/WSL2的安装与初探/">
+    <link itemprop="mainEntityOfPage" href="https://liuyang0001.github.io/2020/07/23/WSL2的安装笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Liu Yang">
@@ -334,7 +334,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">WSL2的安装与初探</h1>
+          <h1 class="post-title" itemprop="name headline">WSL2的升级与安装笔记</h1>
         
 
         <div class="post-meta">
@@ -387,9 +387,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/07/23/WSL2的安装与初探/#comments" itemprop="discussionUrl">
+                <a href="/2020/07/23/WSL2的安装笔记/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/07/23/WSL2的安装与初探/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2020/07/23/WSL2的安装笔记/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -397,7 +397,7 @@
 
           
           
-             <span id="/2020/07/23/WSL2的安装与初探/" class="leancloud_visitors" data-flag-title="WSL2的安装与初探">
+             <span id="/2020/07/23/WSL2的安装笔记/" class="leancloud_visitors" data-flag-title="WSL2的升级与安装笔记">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -563,18 +563,16 @@
 </li>
 <li><p>之后也成功的切换到了wsl2，但是从应用商店下载的Ubuntu20,04第一次打开加载报错，不信邪的我切换回了wsl1，再打开Ubuntu成功运行，这时候我心态已经有点崩了，搞来搞去wsl2还是不能用。</p>
 </li>
-<li><p>我在应用商店下载了Ubuntu18.04，切换回了wsl2重新安装，还是失败，看了下报错<code>0xc03a001a</code>，找到一个大佬的解答说是因为开了<strong>压缩内容以便节省磁盘空间</strong>的原因，首先确定你的一些或者所有的文件夹右上角是否都有两个相对的蓝色箭头，然后找到路径:<code>C:\Users\user name\AppData\Local\Packages\CanonicalGroupLimited.xxxx  (xxx为你所下载的对应Linux发行版)</code>这个文件夹，若它确实是右上角带有<strong>两个相对箭头</strong>，那么：</p>
+<li><p>我又在应用商店下载了Ubuntu18.04，切换回了wsl2重新安装，还是失败，看了下报错<code>0xc03a001a</code>，找到一个大佬的解答说是因为开了<strong>压缩内容以便节省磁盘空间</strong>的原因，首先确定你的一些或者所有的文件夹右上角是否都有两个相对的蓝色箭头，然后找到路径:<code>C:\Users\user name\AppData\Local\Packages\CanonicalGroupLimited.xxxx  (xxx为你所下载的对应Linux发行版)</code>这个文件夹，若它确实是右上角带有<strong>两个相对箭头</strong>，那么：</p>
 </li>
 </ol>
 <blockquote>
 <p>右键 -&gt; 属性 -&gt; 常规 -&gt; 高级 -&gt; 取消勾选 <code>压缩内容以便节省磁盘空间</code> 这一项 -&gt; 确定<br>再次启动所安装的 <code>Linux</code> 发行版应该就可正常使用。</p>
 </blockquote>
-<ol>
-<li>随后我以为终于可以解决了，然而并没有。还是报错，具体是什么忘记了，也没查到答案。最后问题还是自己解决的。我灵机一动，既然wsl1环境可以正常安装，那我是不是在1环境下安装，再转换到2环境下呢？最后问题完美解决。</li>
-</ol>
+<p>随后我以为终于可以解决了，然而并没有。还是报错，具体是什么忘记了，也没查到答案。最后问题还是自己解决的。我灵机一动，既然wsl1环境可以正常安装，那我是不是在1环境下安装，再转换到2环境下呢？最后问题完美解决。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --set-version Ubuntu-20.04  2</span><br></pre></td></tr></table></figure>
 <p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723233623.png" alt=""></p>
-<p>终于等到你，还好我没放弃！</p>
+<p><strong>终于等到你，还好我没放弃！</strong></p>
 
       
     </div>
@@ -981,9 +979,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://liuyang0001.github.io/2020/07/23/WSL2的安装与初探/';
-          this.page.identifier = '2020/07/23/WSL2的安装与初探/';
-          this.page.title = 'WSL2的安装与初探';
+          this.page.url = 'https://liuyang0001.github.io/2020/07/23/WSL2的安装笔记/';
+          this.page.identifier = '2020/07/23/WSL2的安装笔记/';
+          this.page.title = 'WSL2的升级与安装笔记';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
