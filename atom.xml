@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://liuyang0001.github.io/"/>
-  <updated>2020-07-24T07:32:28.977Z</updated>
+  <updated>2020-07-24T10:25:34.017Z</updated>
   <id>https://liuyang0001.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>wsl配置git环境</title>
+    <link href="https://liuyang0001.github.io/2020/07/24/wsl%E9%85%8D%E7%BD%AEgit%E7%8E%AF%E5%A2%83/"/>
+    <id>https://liuyang0001.github.io/2020/07/24/wsl配置git环境/</id>
+    <published>2020-07-24T08:12:02.000Z</published>
+    <updated>2020-07-24T10:25:34.017Z</updated>
+    
+    <content type="html"><![CDATA[<p>这篇记录下在WSL(Ubuntu-20.04)下如何配置git环境。</p><a id="more"></a><hr><h2 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h2><p>直接使用apt-get即可。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git</span><br></pre></td></tr></table></figure><p>随后使用<code>whereis git</code> 或者<code>git --version</code>检查是否安装完成。</p><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200724161810.png" alt=""></p><hr><h2 id="配置git"><a href="#配置git" class="headerlink" title="配置git"></a>配置git</h2><ul><li>配置你的用户名</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name xxx</span><br></pre></td></tr></table></figure><ul><li>配置你的邮箱地址</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email  xxx@xxx.com</span><br></pre></td></tr></table></figure><ul><li>查看是否配置成功</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200724162803.png" alt=""></p><hr><h2 id="配置SSH秘钥"><a href="#配置SSH秘钥" class="headerlink" title="配置SSH秘钥"></a>配置SSH秘钥</h2><ul><li>生成ssh秘钥，把xxx换成你上面填的邮箱</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa  -C <span class="string">"xxxx@xxx.com"</span></span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200724163252.png" alt=""></p><ul><li>找到我们生成秘钥并打开公钥</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.ssh/</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200724163802.png" alt=""></p><ul><li>复制公钥的内容并且打开你的<a href="https://github.com/settings/profile" target="_blank" rel="noopener">github设置界面</a></li><li>找到SSHkey设置，点击右上角的New SSH key</li></ul><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200724164244.png" alt=""></p><ul><li>把刚复制的公钥内容添加进去。</li><li>回到我们的linux命令行，使用ssh命令检查是否配置成功</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh git@github.com</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200724164606.png" alt=""></p><hr><p><strong>到这里就配置完成了，Enjoy it.</strong></p><hr><h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>很简单的步骤，万万没想到，我还是踩坑了。</p><p>总结起来一句话就是：<strong>ssh key配置好了也不代表能用https的方式免密码clone和push</strong>，其实已经配置好了，只是用了错误的clone方式。</p><p>顺便记录一下已经用https方式clone项目的解决办法：</p><ul><li>移除当前的源地址。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote remove origin</span><br></pre></td></tr></table></figure><ul><li>添加ssh格式的源地址</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:用户名/Repo名称.git</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这篇记录下在WSL(Ubuntu-20.04)下如何配置git环境。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="WSL使用笔记" scheme="https://liuyang0001.github.io/categories/WSL%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Linux" scheme="https://liuyang0001.github.io/tags/Linux/"/>
+    
+      <category term="WSL" scheme="https://liuyang0001.github.io/tags/WSL/"/>
+    
+  </entry>
   
   <entry>
     <title>WSL2的升级与安装笔记</title>
@@ -534,35 +558,6 @@
       <category term="双指针" scheme="https://liuyang0001.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
     
       <category term="链表" scheme="https://liuyang0001.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>84-柱状图中的最大矩形</title>
-    <link href="https://liuyang0001.github.io/2020/03/30/84-%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2/"/>
-    <id>https://liuyang0001.github.io/2020/03/30/84-柱状图中的最大矩形/</id>
-    <published>2020-03-30T10:33:48.000Z</published>
-    <updated>2020-03-30T11:21:35.307Z</updated>
-    
-    <content type="html"><![CDATA[<p>给定 <em>n</em> 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。</p><p>求在该柱状图中，能够勾勒出来的矩形的最大面积。</p><a id="more"></a><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram.png" alt="img"></p><p>以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 <code>[2,1,5,6,2,3]</code>。</p><p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/histogram_area.png" alt="img"></p><p>图中阴影部分为所能勾勒出的最大矩形面积，其面积为 <code>10</code> 个单位。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,1,5,6,2,3]</span><br><span class="line">输出: 10</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：遍历寻找以第i根柱子为最高柱子所能延伸的最大面积</strong></p><p><strong>即   找栈顶左右两边第一个比栈顶小的元素，【利用“单调栈”】</strong></p><p><strong>巧妙地点：在两侧加上0柱子便于处理边界</strong></p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">largestRectangleArea</span><span class="params">(self, heights: List[int])</span> -&gt; int:</span></span><br><span class="line">        stack = []</span><br><span class="line">        <span class="comment"># 在原柱子两端加上两个高度为0的柱子，便于计算边界</span></span><br><span class="line">        heights = [<span class="number">0</span>] + heights + [<span class="number">0</span>]</span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        <span class="comment"># 遍历：以第i根柱子为最高柱子所能延伸的最大面积</span></span><br><span class="line">        <span class="comment"># 即   找栈顶左右两边第一个比栈顶小的元素</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(heights)):</span><br><span class="line">            <span class="comment"># print(stack)</span></span><br><span class="line">            <span class="comment"># 调整位置</span></span><br><span class="line">            <span class="keyword">while</span> stack <span class="keyword">and</span> heights[stack[<span class="number">-1</span>]] &gt; heights[i]:</span><br><span class="line">                tmp = stack.pop()</span><br><span class="line">                res = max(res, (i - stack[<span class="number">-1</span>] - <span class="number">1</span>) * heights[tmp])</span><br><span class="line">            <span class="comment"># 当前元素无论如何也要放进去，不同的只是需不需要pop来调整位置</span></span><br><span class="line">            stack.append(i)</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;给定 &lt;em&gt;n&lt;/em&gt; 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。&lt;/p&gt;
-&lt;p&gt;求在该柱状图中，能够勾勒出来的矩形的最大面积。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
-    
-    
-      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
-    
-      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
-    
-      <category term="数组" scheme="https://liuyang0001.github.io/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="栈" scheme="https://liuyang0001.github.io/tags/%E6%A0%88/"/>
     
   </entry>
   

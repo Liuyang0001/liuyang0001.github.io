@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[wsl配置git环境]]></title>
+    <url>%2F2020%2F07%2F24%2Fwsl%E9%85%8D%E7%BD%AEgit%E7%8E%AF%E5%A2%83%2F</url>
+    <content type="text"><![CDATA[这篇记录下在WSL(Ubuntu-20.04)下如何配置git环境。 安装git直接使用apt-get即可。 1sudo apt-get install git 随后使用whereis git 或者git --version检查是否安装完成。 配置git 配置你的用户名 1git config --global user.name xxx 配置你的邮箱地址 1git config --global user.email xxx@xxx.com 查看是否配置成功 1git config --list 配置SSH秘钥 生成ssh秘钥，把xxx换成你上面填的邮箱 1ssh-keygen -t rsa -C "xxxx@xxx.com" 找到我们生成秘钥并打开公钥 1cd ~/.ssh/ 复制公钥的内容并且打开你的github设置界面 找到SSHkey设置，点击右上角的New SSH key 把刚复制的公钥内容添加进去。 回到我们的linux命令行，使用ssh命令检查是否配置成功 1ssh git@github.com 到这里就配置完成了，Enjoy it. 后记很简单的步骤，万万没想到，我还是踩坑了。 总结起来一句话就是：ssh key配置好了也不代表能用https的方式免密码clone和push，其实已经配置好了，只是用了错误的clone方式。 顺便记录一下已经用https方式clone项目的解决办法： 移除当前的源地址。 1git remote remove origin 添加ssh格式的源地址 1git remote add origin git@github.com:用户名/Repo名称.git]]></content>
+      <categories>
+        <category>WSL使用笔记</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>WSL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[WSL2的升级与安装笔记]]></title>
     <url>%2F2020%2F07%2F23%2FWSL2%E7%9A%84%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0%2F</url>
     <content type="text"><![CDATA[这部分记录了如何安装wsl，以及如何升级到wsl2的心酸历程。 版本要求安装wsl2对系统版本有硬性的要求： 运行 Windows 10（已更新到版本 2004 的内部版本 19041 或更高版本）。 通过按 Windows 徽标键 + R，检查你的 Windows 版本，然后键入 winver，选择“确定”。 如果内部版本低于 19041，请更新到最新的 Windows 版本。 升级windows 如果版本达到了要求，则跳过此步骤。 Win+S 搜索预览体验计划 加入预览体验计划，获取更新版本。 进行windows更新 然后就是漫长的等待过程，无论是下载还是安装的过程都很漫长。 WSL的安装 使用管理员权限打开powershell 启用“适用于 Linux 的 Windows 子系统”可选功能 1dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart 这时候wsl其实已经启用了，重启就可以了，但还要更新到wsl2，就在后面一起重启了。 升级到WSL2 启用“虚拟机平台”可选组件 1dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart 重启电脑。 重新管理员身份打开powershell，用下面的命令将wsl2设置为默认。 1wsl --set-default-version 2 出现上面这行就是好了，如果有问题请参考后文中遇到的问题及解决办法。 安装linux分发版选择一个你喜欢的就可以了，任君挑选。 打开 Microsoft Store，并选择你偏好的 Linux 分发版。 单击以下链接会打开每个分发版的 Microsoft Store 页面： Ubuntu 16.04 LTS Ubuntu 18.04 LTS Ubuntu 20.04 LTS openSUSE Leap 15.1 SUSE Linux Enterprise Server 12 SP5 SUSE Linux Enterprise Server 15 SP1 Kali Linux Debian GNU/Linux Fedora Remix for WSL Pengwin Pengwin Enterprise Alpine WSL 在分发版的页面中，选择“获取”。 安心等待片刻，就安装好了，这时你点击开始，就可以在最近安装看见你安装好的分发版了。 初次启动它会进行一个初始化的过程，需要等待一段时间。完成之后会让你设置账号和密码。 排查安装问题下面是相关的错误和建议的修复措施。 有关其他常见错误及其解决方法，请参阅 WSL 故障排除页。 安装失败并出现错误 0x80070003 适用于 Linux 的 Windows 子系统只能在系统驱动器（通常是 C: 驱动器）中运行。 请确保分发版存储在系统驱动器上： 打开“设置”-&gt;“存储”-&gt;“更多存储设置： 更改新内容的保存位置” WslRegisterDistribution 失败并出现错误 0x8007019e 未启用“适用于 Linux 的 Windows 子系统”可选组件： 打开“控制面板” -&gt; “程序和功能” -&gt; “打开或关闭 Windows 功能”-&gt; 选中“适用于 Linux 的 Windows 子系统”，或使用本文开头所述的 PowerShell cmdlet。 安装失败，出现错误 0x80070003 或错误 0x80370102 请确保在计算机的 BIOS 内已启用虚拟化。 有关如何执行此操作的说明因计算机而异，并且很可能在 CPU 相关选项下。 尝试升级时出错：Invalid command line option: wsl --set-version Ubuntu 2 请确保已启用适用于 Linux 的 Windows 子系统，并且你使用的是 Windows 内部版本 19041 或更高版本。 若要启用 WSL，请在 PowerShell 提示符下以具有管理员权限的身份运行此命令：Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux。 可在此处找到完整的 WSL 安装说明。 由于虚拟磁盘系统的某个限制，无法完成所请求的操作。虚拟硬盘文件必须是解压缩的且未加密的，并且不能是稀疏的。 请检查 WSL GitHub 主题 #4103，其中跟踪了此问题以提供更新的信息。 无法将词语“wsl”识别为 cmdlet、函数、脚本文件或可运行程序的名称。 请确保已安装“适用于 Linux 的 Windows 子系统”可选组件。 此外，如果你使用的是 ARM64 设备，并从 PowerShell 运行此命令，则会收到此错误。 请改为从 PowerShell Core 或从命令提示符运行 wsl.exe。 相关链接常见问题 WSL 2 常见问题解答 疑难解答 记录所踩的坑 上面的问题和解决办法，是官方的手册给的，下面说记录下安装的心酸历程，如果上面没找到你的问题，可以看看我的经历是不是能给你点帮助： 首先是windows版本，我一直保持着最新的版本，想当然的以为版本足够，查了各种方法也装不上wsl2，后来在一个大佬的笔记里发现要打开预览版本更新。 之后就是安装WSL 2遇到了 requires an update to its kernel component. For information please visit https://aka.ms/wsl2kernel的问题，然后就下载了最新版本的内核。 然后又遇到内核无法安装的问题，这时我已经要炸了，冷静下来想起了解决之前问题时候尝试装过一次内核，随后找到应用卸载的界面卸载了之前装的内核，安装新内核成功。 之后也成功的切换到了wsl2，但是从应用商店下载的Ubuntu20,04第一次打开加载报错，不信邪的我切换回了wsl1，再打开Ubuntu成功运行，这时候我心态已经有点崩了，搞来搞去wsl2还是不能用。 我又在应用商店下载了Ubuntu18.04，切换回了wsl2重新安装，还是失败，看了下报错0xc03a001a，找到一个大佬的解答说是因为开了压缩内容以便节省磁盘空间的原因，首先确定你的一些或者所有的文件夹右上角是否都有两个相对的蓝色箭头，然后找到路径:C:\Users\user name\AppData\Local\Packages\CanonicalGroupLimited.xxxx (xxx为你所下载的对应Linux发行版)这个文件夹，若它确实是右上角带有两个相对箭头，那么： 右键 -&gt; 属性 -&gt; 常规 -&gt; 高级 -&gt; 取消勾选 压缩内容以便节省磁盘空间 这一项 -&gt; 确定再次启动所安装的 Linux 发行版应该就可正常使用。 随后我以为终于可以解决了，然而并没有。还是报错，具体是什么忘记了，也没查到答案。最后问题还是自己解决的。我灵机一动，既然wsl1环境可以正常安装，那我是不是在1环境下安装，再转换到2环境下呢？最后问题完美解决。 1wsl --set-version Ubuntu-20.04 2 终于等到你，还好我没放弃！]]></content>
@@ -442,8 +454,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>数学</tag>
         <tag>字符串</tag>
+        <tag>数学</tag>
       </tags>
   </entry>
   <entry>
@@ -469,8 +481,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>数学</tag>
         <tag>字符串</tag>
+        <tag>数学</tag>
       </tags>
   </entry>
   <entry>
@@ -627,8 +639,8 @@
         <tag>Python</tag>
         <tag>Algorithms</tag>
         <tag>数组</tag>
-        <tag>二分查找</tag>
         <tag>动态规划</tag>
+        <tag>二分查找</tag>
       </tags>
   </entry>
   <entry>
@@ -708,8 +720,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>数学</tag>
         <tag>字符串</tag>
+        <tag>数学</tag>
       </tags>
   </entry>
   <entry>
@@ -1092,8 +1104,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>数学</tag>
         <tag>字符串</tag>
+        <tag>数学</tag>
       </tags>
   </entry>
   <entry>
@@ -1106,8 +1118,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>数学</tag>
         <tag>字符串</tag>
+        <tag>数学</tag>
         <tag>贪心算法</tag>
       </tags>
   </entry>
@@ -1160,8 +1172,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>数学</tag>
         <tag>字符串</tag>
+        <tag>数学</tag>
       </tags>
   </entry>
   <entry>
@@ -1648,8 +1660,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>内置函数</tag>
         <tag>eval</tag>
+        <tag>内置函数</tag>
       </tags>
   </entry>
   <entry>
