@@ -420,18 +420,18 @@
       
         <p>这篇博文主要介绍下python中特别重要的内置高阶函数filter()，map()，reduce()，以及它们的应用。其中也涉及了一些它们在python2与python3中的不同。<br><a id="more"></a></p>
 <h3 id="filter-函数"><a href="#filter-函数" class="headerlink" title="filter()函数"></a>filter()函数</h3><p>filter() 函数用于过滤序列，过滤掉不符合条件的元素，返回由符合条件元素组成的<strong>迭代器</strong>。注意，在python2.x返回的是列表，在python3中返回为迭代器，有惰性运算的特性, 相对python2提升了性能, 可以节约内存。</p>
-<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filter(function, iterable)</span><br></pre></td></tr></table></figure>
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">filter(function, iterable)</span><br></pre></td></tr></table></figure>
 <p>该函数接收两个参数，第一个为函数，第二个为序列，序列的每个元素作为参数传递给函数进行判，然后返回 True 或 False，最后将返回 True 的元素保留。</p>
 <h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><ul>
 <li>function – 判断函数。</li>
 <li>iterable – 可迭代对象。</li>
 </ul>
 <h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><p>返回迭代器。</p>
-<h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_odd</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> n % <span class="number">2</span> == <span class="number">1</span></span><br><span class="line"></span><br><span class="line">new = filter(is_odd, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>])</span><br><span class="line">print(new)</span><br><span class="line">print(new.__next__())</span><br><span class="line">print(list(new))  <span class="comment"># 列表化</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line">&lt;filter object at <span class="number">0x04EA22F0</span>&gt;</span><br><span class="line">[<span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>]</span><br></pre></td></tr></table></figure>
+<h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_odd</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> n % <span class="number">2</span> == <span class="number">1</span></span><br><span class="line"></span><br><span class="line">new = filter(is_odd, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>])</span><br><span class="line">print(new)</span><br><span class="line">print(new.__next__())</span><br><span class="line">print(list(new))  <span class="comment"># 列表化</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line">&lt;filter object at <span class="number">0x04EA22F0</span>&gt;</span><br><span class="line">[<span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>]</span><br></pre></td></tr></table></figure>
 <p>上面的例子很好的看出，filter函数将偶数过滤掉，返回了一个迭代器类型。</p>
 <h3 id="map-函数"><a href="#map-函数" class="headerlink" title="map()函数"></a>map()函数</h3><p>map() 会根据提供的函数对指定序列做映射。</p>
-<h4 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h4><p>第一个参数 function 以参数序列中的每一个元素调用 function 函数，返回包含每次 function 函数返回值的新列表。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map(function, iterable, ...)</span><br></pre></td></tr></table></figure></p>
+<h4 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h4><p>第一个参数 function 以参数序列中的每一个元素调用 function 函数，返回包含每次 function 函数返回值的新列表。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">map(function, iterable, ...)</span><br></pre></td></tr></table></figure></p>
 <h4 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h4><ul>
 <li>function  函数，有两个参数</li>
 <li>iterable   一个或多个序列</li>
@@ -440,27 +440,27 @@
 <li>Python 2.x 返回列表。</li>
 <li>Python 3.x 返回迭代器。</li>
 </ul>
-<h4 id="应用-1"><a href="#应用-1" class="headerlink" title="应用"></a>应用</h4><p>先定义一个函数，用来计算平方数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square</span><span class="params">(x)</span>:</span>  <span class="comment"># 计算平方数</span></span><br><span class="line">    <span class="keyword">return</span> x ** <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>使用map函数计算一个列表的每个元素的平方数，并返回对应迭代器。</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">m1=map(square, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">print(m1)</span><br><span class="line">print(m1.__next__())</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;map object at <span class="number">0x051922F0</span>&gt;</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p><strong>使用 lambda 匿名函数，实现上面的功能。</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">m2=map(<span class="keyword">lambda</span> x: x ** <span class="number">2</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">print(m2)</span><br><span class="line">print(m2.__next__())</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;map object at <span class="number">0x05209490</span>&gt;</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p><strong>提供了两个列表，对相同位置的列表数据进行相加</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">m3=map(<span class="keyword">lambda</span> x, y: x + y, [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>], [<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>])</span><br><span class="line">print(list(m3))</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">3</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">15</span>, <span class="number">19</span>]</span><br></pre></td></tr></table></figure>
+<h4 id="应用-1"><a href="#应用-1" class="headerlink" title="应用"></a>应用</h4><p>先定义一个函数，用来计算平方数<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square</span><span class="params">(x)</span>:</span>  <span class="comment"># 计算平方数</span></span><br><span class="line">    <span class="keyword">return</span> x ** <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>使用map函数计算一个列表的每个元素的平方数，并返回对应迭代器。</strong><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">m1=map(square, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">print(m1)</span><br><span class="line">print(m1.__next__())</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&lt;map object at <span class="number">0x051922F0</span>&gt;</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p><strong>使用 lambda 匿名函数，实现上面的功能。</strong><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">m2=map(<span class="keyword">lambda</span> x: x ** <span class="number">2</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">print(m2)</span><br><span class="line">print(m2.__next__())</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">&lt;map object at <span class="number">0x05209490</span>&gt;</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p><strong>提供了两个列表，对相同位置的列表数据进行相加</strong><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">m3=map(<span class="keyword">lambda</span> x, y: x + y, [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>], [<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>])</span><br><span class="line">print(list(m3))</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">[<span class="number">3</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">15</span>, <span class="number">19</span>]</span><br></pre></td></tr></table></figure>
 <p><strong>如果，两个列表长度不同，则返回长度为短的那个。</strong></p>
 <h4 id="reduce-函数"><a href="#reduce-函数" class="headerlink" title="reduce()函数"></a>reduce()函数</h4><p>reduce() 函数会对参数序列中元素进行累积。</p>
 <p>函数将一个数据集合（链表，元组等）中的所有数据进行下列操作：用传给reduce中的函数 function（有两个参数）先对集合中的第 1、2 个元素进行操作，得到的结果再与第三个数据用 function 函数运算，最后得到一个结果。</p>
 <p>在python3中不在内置，不可以直接调用，需要先进行导入。</p>
-<h4 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br></pre></td></tr></table></figure>
-<h4 id="语法-2"><a href="#语法-2" class="headerlink" title="语法"></a>语法</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reduce(function, iterable[, initializer])</span><br></pre></td></tr></table></figure>
+<h4 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> reduce</span><br></pre></td></tr></table></figure>
+<h4 id="语法-2"><a href="#语法-2" class="headerlink" title="语法"></a>语法</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">reduce(function, iterable[, initializer])</span><br></pre></td></tr></table></figure>
 <h4 id="参数-2"><a href="#参数-2" class="headerlink" title="参数"></a>参数</h4><ul>
 <li>function – 函数，有两个参数</li>
 <li>iterable – 可迭代对象</li>
 <li>initializer – 可选，初始参数</li>
 </ul>
-<h4 id="应用-2"><a href="#应用-2" class="headerlink" title="应用"></a>应用</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">先定义个函数</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span>   <span class="comment"># 两数相加</span></span><br><span class="line">     <span class="keyword">return</span> x + y</span><br></pre></td></tr></table></figure>
-<p>调用reduce计算累加和<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">reduce(add, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])   <span class="comment"># 计算列表和：1+2+3+4+5</span></span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="number">15</span></span><br></pre></td></tr></table></figure></p>
-<p>使用 lambda 匿名函数，计算累乘<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reduce(<span class="keyword">lambda</span> x, y: x*y, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br></pre></td></tr></table></figure></p>
+<h4 id="应用-2"><a href="#应用-2" class="headerlink" title="应用"></a>应用</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">先定义个函数</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span>   <span class="comment"># 两数相加</span></span><br><span class="line">     <span class="keyword">return</span> x + y</span><br></pre></td></tr></table></figure>
+<p>调用reduce计算累加和<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">reduce(add, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])   <span class="comment"># 计算列表和：1+2+3+4+5</span></span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="number">15</span></span><br></pre></td></tr></table></figure></p>
+<p>使用 lambda 匿名函数，计算累乘<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">reduce(<span class="keyword">lambda</span> x, y: x*y, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -1382,6 +1382,78 @@
   
 
   
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
 
 </body>
 </html>

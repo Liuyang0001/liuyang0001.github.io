@@ -423,13 +423,13 @@
 <p><strong>说明:</strong><br>1 ≤ <em>m</em> ≤ <em>n</em> ≤ 链表长度。</p>
 <hr>
 
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, m = 2, n = 4</span><br><span class="line">输出: 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;NULL</span><br></pre></td></tr></table></figure>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, m = 2, n = 4</span><br><span class="line">输出: 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;NULL</span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote>
 <p><strong>核心思想：需要翻转的部分使用头插法即可</strong></p>
 <p><strong>技巧：在原链表添加一个头部，更便于操作</strong></p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverseBetween</span><span class="params">(self, head: ListNode, m: int, n: int)</span> -&gt; ListNode:</span></span><br><span class="line">        dummy = ListNode(<span class="number">-1</span>)</span><br><span class="line">        dummy.next = head</span><br><span class="line">        pre = dummy</span><br><span class="line">        <span class="comment"># 找到翻转链表部分的前一个节点</span></span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> range(m<span class="number">-1</span>):</span><br><span class="line">            pre = pre.next</span><br><span class="line">        <span class="comment"># print("pre:", pre.val)</span></span><br><span class="line">        rear1 = pre <span class="comment"># 翻转部分的前一个结点</span></span><br><span class="line">        rear2 = pre.next <span class="comment"># 翻转部分的第一个结点，翻转后为尾结点</span></span><br><span class="line">        cur_node = pre.next</span><br><span class="line">        <span class="comment"># 翻转部分的头结点</span></span><br><span class="line">        dummy2 = ListNode(<span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> range(n-m+<span class="number">1</span>):</span><br><span class="line">            <span class="comment"># 头插法翻转链表</span></span><br><span class="line">            save_node = cur_node.next</span><br><span class="line">            cur_node.next = dummy2.next</span><br><span class="line">            dummy2.next = cur_node</span><br><span class="line">            cur_node = save_node</span><br><span class="line">        <span class="comment"># 拼接</span></span><br><span class="line">        rear2.next = cur_node</span><br><span class="line">        rear1.next = dummy2.next</span><br><span class="line">        <span class="comment"># head结点可能已经改变，返回头结点的下一节点</span></span><br><span class="line">        <span class="keyword">return</span> dummy.next</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reverseBetween</span><span class="params">(self, head: ListNode, m: int, n: int)</span> -&gt; ListNode:</span></span><br><span class="line">        dummy = ListNode(<span class="number">-1</span>)</span><br><span class="line">        dummy.next = head</span><br><span class="line">        pre = dummy</span><br><span class="line">        <span class="comment"># 找到翻转链表部分的前一个节点</span></span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> range(m<span class="number">-1</span>):</span><br><span class="line">            pre = pre.next</span><br><span class="line">        <span class="comment"># print("pre:", pre.val)</span></span><br><span class="line">        rear1 = pre <span class="comment"># 翻转部分的前一个结点</span></span><br><span class="line">        rear2 = pre.next <span class="comment"># 翻转部分的第一个结点，翻转后为尾结点</span></span><br><span class="line">        cur_node = pre.next</span><br><span class="line">        <span class="comment"># 翻转部分的头结点</span></span><br><span class="line">        dummy2 = ListNode(<span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> range(n-m+<span class="number">1</span>):</span><br><span class="line">            <span class="comment"># 头插法翻转链表</span></span><br><span class="line">            save_node = cur_node.next</span><br><span class="line">            cur_node.next = dummy2.next</span><br><span class="line">            dummy2.next = cur_node</span><br><span class="line">            cur_node = save_node</span><br><span class="line">        <span class="comment"># 拼接</span></span><br><span class="line">        rear2.next = cur_node</span><br><span class="line">        rear1.next = dummy2.next</span><br><span class="line">        <span class="comment"># head结点可能已经改变，返回头结点的下一节点</span></span><br><span class="line">        <span class="keyword">return</span> dummy.next</span><br></pre></td></tr></table></figure>
 <hr>
 
 <h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/reverse-linked-list-ii/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/reverse-linked-list-ii/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>
@@ -1352,6 +1352,78 @@
   
 
   
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
 
 </body>
 </html>

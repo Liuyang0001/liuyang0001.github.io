@@ -419,17 +419,17 @@
 
       
         <p>在Python中有个两个库包含了map函数：multiprocessing和它鲜为人知的子库dummy。它是multiprocessing模块的完整克隆，唯一的不同在于multiprocessing作用于进程，而dummy模块作用于线程（因此也包括了Python所有常见的多线程限制）。所以选择使用这两个库异常容易。你可以针对IO密集型任务和CPU密集型任务来选择不同的库。<br><a id="more"></a></p>
-<h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from multiprocessing import Pool</span><br><span class="line">from multiprocessing.dummy import Pool as ThreadPool</span><br></pre></td></tr></table></figure>
+<h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">from multiprocessing import Pool</span><br><span class="line">from multiprocessing.dummy import Pool as ThreadPool</span><br></pre></td></tr></table></figure>
 <h3 id="实例化"><a href="#实例化" class="headerlink" title="实例化"></a>实例化</h3><p>Pool 对象有一些参数，这里我所需要关注的只是它的第一个参数：processes. 这一参数用于设定线程池中的线程数。其默认值为当前机器 CPU 的核数。</p>
 <p>一般来说，执行 CPU 密集型任务时，调用越多的核速度就越快。但是当处理网络密集型任务时，事情有有些难以预计了，通过实验来确定线程池的大小才是明智的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pool = ThreadPool(4) # Sets the pool size to 4</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pool = ThreadPool(4) # Sets the pool size to 4</span><br></pre></td></tr></table></figure>
 <p>线程数过多时，切换线程所消耗的时间甚至会超过实际工作时间。对于不同的工作，通过尝试来找到线程池大小的最优值。<br>创建好 Pool 对象后，并行化的程序</p>
-<h3 id="多线程例子"><a href="#多线程例子" class="headerlink" title="多线程例子"></a>多线程例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import time</span><br><span class="line">import urllib.request</span><br><span class="line">from multiprocessing.dummy import Pool as ThreadPool</span><br><span class="line"></span><br><span class="line">urls = [</span><br><span class="line">    &apos;http://www.python.org&apos;,</span><br><span class="line">    &apos;http://www.python.org/about/&apos;,</span><br><span class="line">    &apos;http://www.python.org/doc/&apos;,</span><br><span class="line">    &apos;http://www.python.org/download/&apos;,</span><br><span class="line">    &apos;http://www.python.org/getit/&apos;,</span><br><span class="line">    &apos;http://www.python.org/community/&apos;,</span><br><span class="line">    &apos;https://wiki.python.org/moin/&apos;,</span><br><span class="line">    &apos;http://planet.python.org/&apos;,</span><br><span class="line">    &apos;https://wiki.python.org/moin/LocalUserGroups&apos;,</span><br><span class="line">    &apos;http://www.python.org/psf/&apos;,</span><br><span class="line">    &apos;http://docs.python.org/devguide/&apos;,</span><br><span class="line">    &apos;http://www.python.org/community/awards/&apos;</span><br><span class="line">    # etc..</span><br><span class="line">]</span><br><span class="line">pool_num = 4</span><br><span class="line">start_time = time.time()</span><br><span class="line"># 实例化线程池，并规定线程池大小</span><br><span class="line">pool = ThreadPool(pool_num)</span><br><span class="line"># 打开每个网站在线程中</span><br><span class="line">results = pool.map(urllib.request.urlopen, urls)</span><br><span class="line">pool.close()</span><br><span class="line">pool.join()  # 等待进程结束</span><br><span class="line">end_time = time.time()</span><br><span class="line">print(&quot;pool=%s总用时：&quot; % pool_num, end_time - start_time, &quot;s&quot;)</span><br></pre></td></tr></table></figure>
+<h3 id="多线程例子"><a href="#多线程例子" class="headerlink" title="多线程例子"></a>多线程例子</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import time</span><br><span class="line">import urllib.request</span><br><span class="line">from multiprocessing.dummy import Pool as ThreadPool</span><br><span class="line"></span><br><span class="line">urls = [</span><br><span class="line">    &apos;http://www.python.org&apos;,</span><br><span class="line">    &apos;http://www.python.org/about/&apos;,</span><br><span class="line">    &apos;http://www.python.org/doc/&apos;,</span><br><span class="line">    &apos;http://www.python.org/download/&apos;,</span><br><span class="line">    &apos;http://www.python.org/getit/&apos;,</span><br><span class="line">    &apos;http://www.python.org/community/&apos;,</span><br><span class="line">    &apos;https://wiki.python.org/moin/&apos;,</span><br><span class="line">    &apos;http://planet.python.org/&apos;,</span><br><span class="line">    &apos;https://wiki.python.org/moin/LocalUserGroups&apos;,</span><br><span class="line">    &apos;http://www.python.org/psf/&apos;,</span><br><span class="line">    &apos;http://docs.python.org/devguide/&apos;,</span><br><span class="line">    &apos;http://www.python.org/community/awards/&apos;</span><br><span class="line">    # etc..</span><br><span class="line">]</span><br><span class="line">pool_num = 4</span><br><span class="line">start_time = time.time()</span><br><span class="line"># 实例化线程池，并规定线程池大小</span><br><span class="line">pool = ThreadPool(pool_num)</span><br><span class="line"># 打开每个网站在线程中</span><br><span class="line">results = pool.map(urllib.request.urlopen, urls)</span><br><span class="line">pool.close()</span><br><span class="line">pool.join()  # 等待进程结束</span><br><span class="line">end_time = time.time()</span><br><span class="line">print(&quot;pool=%s总用时：&quot; % pool_num, end_time - start_time, &quot;s&quot;)</span><br></pre></td></tr></table></figure>
 <p>为了找到最优的线程池大小，通过修改<code>pool_num</code>大小得到的总时间对比，当然这种方法比较笨，需要每次修改，完全可以写进循环<code>for i in range(min=0,max=8):</code>，再将 i 赋值给pool_num<br>,当然这里就不改了，也比较简单。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pool=2总用时： 7.664671182632446 s</span><br><span class="line">pool=3总用时： 5.713357210159302 s</span><br><span class="line">pool=4总用时： 5.139662504196167 s</span><br><span class="line">pool=5总用时： 7.917045593261719 s</span><br><span class="line">pool=6总用时： 23.377182006835938 s</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pool=2总用时： 7.664671182632446 s</span><br><span class="line">pool=3总用时： 5.713357210159302 s</span><br><span class="line">pool=4总用时： 5.139662504196167 s</span><br><span class="line">pool=5总用时： 7.917045593261719 s</span><br><span class="line">pool=6总用时： 23.377182006835938 s</span><br></pre></td></tr></table></figure>
 <p>从数据上验证了，上面的说法，并不是线程池越大，用时最短。</p>
 <h3 id="多进程例子"><a href="#多进程例子" class="headerlink" title="多进程例子"></a>多进程例子</h3><p>生成图片的缩略图，这是一个 CPU 密集型的任务，并且十分适合进行并行化。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os, time</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Pool</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line">SIZE = (<span class="number">75</span>, <span class="number">75</span>)</span><br><span class="line">SAVE_DIRECTORY = <span class="string">'thumbs'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_image_paths</span><span class="params">(folder)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> (os.path.join(folder, f)</span><br><span class="line">            <span class="keyword">for</span> f <span class="keyword">in</span> os.listdir(folder)</span><br><span class="line">            <span class="keyword">if</span> <span class="string">'jpg'</span> <span class="keyword">in</span> f)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_thumbnail</span><span class="params">(filename)</span>:</span></span><br><span class="line">    im = Image.open(filename)</span><br><span class="line">    im.thumbnail(SIZE, Image.ANTIALIAS)</span><br><span class="line">    base,fname = os.path.split(filename)</span><br><span class="line">    print(fname)</span><br><span class="line">    save_path = os.path.join(base, SAVE_DIRECTORY, fname)</span><br><span class="line">    im.save(save_path)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    pool_num = <span class="number">4</span></span><br><span class="line">    start_time = time.time()</span><br><span class="line">    folder = os.path.realpath(<span class="string">r'C:\Users\Liu\Pictures\最近'</span>)</span><br><span class="line">    <span class="keyword">try</span>:  <span class="comment"># 查看是否已存在相同文件夹</span></span><br><span class="line">        os.mkdir(os.path.join(folder, SAVE_DIRECTORY))</span><br><span class="line">    <span class="keyword">except</span> FileExistsError:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="comment"># 注意这里返回的不再是列表,而是迭代器</span></span><br><span class="line">    images = get_image_paths(folder)</span><br><span class="line">    <span class="comment"># 列表化</span></span><br><span class="line">    images = list(images)</span><br><span class="line">    print(images)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        pool = Pool(pool_num)</span><br><span class="line">        pool.map(create_thumbnail, images)</span><br><span class="line">        pool.close()</span><br><span class="line">        pool.join()</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    end_time = time.time()</span><br><span class="line">    print(<span class="string">"pool=%s总用时："</span> % pool_num, end_time - start_time, <span class="string">"s"</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os, time</span><br><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Pool</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line">SIZE = (<span class="number">75</span>, <span class="number">75</span>)</span><br><span class="line">SAVE_DIRECTORY = <span class="string">'thumbs'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_image_paths</span><span class="params">(folder)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> (os.path.join(folder, f)</span><br><span class="line">            <span class="keyword">for</span> f <span class="keyword">in</span> os.listdir(folder)</span><br><span class="line">            <span class="keyword">if</span> <span class="string">'jpg'</span> <span class="keyword">in</span> f)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_thumbnail</span><span class="params">(filename)</span>:</span></span><br><span class="line">    im = Image.open(filename)</span><br><span class="line">    im.thumbnail(SIZE, Image.ANTIALIAS)</span><br><span class="line">    base,fname = os.path.split(filename)</span><br><span class="line">    print(fname)</span><br><span class="line">    save_path = os.path.join(base, SAVE_DIRECTORY, fname)</span><br><span class="line">    im.save(save_path)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    pool_num = <span class="number">4</span></span><br><span class="line">    start_time = time.time()</span><br><span class="line">    folder = os.path.realpath(<span class="string">r'C:\Users\Liu\Pictures\最近'</span>)</span><br><span class="line">    <span class="keyword">try</span>:  <span class="comment"># 查看是否已存在相同文件夹</span></span><br><span class="line">        os.mkdir(os.path.join(folder, SAVE_DIRECTORY))</span><br><span class="line">    <span class="keyword">except</span> FileExistsError:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="comment"># 注意这里返回的不再是列表,而是迭代器</span></span><br><span class="line">    images = get_image_paths(folder)</span><br><span class="line">    <span class="comment"># 列表化</span></span><br><span class="line">    images = list(images)</span><br><span class="line">    print(images)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        pool = Pool(pool_num)</span><br><span class="line">        pool.map(create_thumbnail, images)</span><br><span class="line">        pool.close()</span><br><span class="line">        pool.join()</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    end_time = time.time()</span><br><span class="line">    print(<span class="string">"pool=%s总用时："</span> % pool_num, end_time - start_time, <span class="string">"s"</span>)</span><br></pre></td></tr></table></figure>
 <p>这里同上面的例子一样可以进行寻找最优的<code>pool_num</code>,这里就不找了，想要实验的可以直接把代码copy过去，改个路径，python3直接可以运行。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在生产环境中，我们可以为 <strong>CPU 密集型任务和 IO 密集型任务分别选择多进程和多线程库</strong>来进一步提高执行速度——这也是解决死锁问题的良方。此外，由于 map 函数并不支持手动线程管理，反而使得相关的 debug 工作也变得异常简单。</p>
 <h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><p>本篇文章来自这里<a href="https://segmentfault.com/a/1190000000414339#fn:1" target="_blank" rel="noopener">(点击这里查看原文)</a>，并根据python3与python2的区别对代码做了适当修改，python2的代码请参考原文。<br>还有一点要注意的是python3中大多数原来返回列表的已经改为返回迭代器，查看网上资料的时候，一不小心就会被坑一下。</p>
@@ -1356,6 +1356,78 @@
   
 
   
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
 
 </body>
 </html>

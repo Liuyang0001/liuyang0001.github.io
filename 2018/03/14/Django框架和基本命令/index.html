@@ -429,7 +429,7 @@
 <p>正确的做法是底层代码由专门的服务器软件实现，我们用Python专注于生成HTML文档。因为我们不希望接触到TCP连接、HTTP原始请求和响应格式，所以，需要一个统一的接口，让我们专心用Python编写Web业务。</p>
 <p>这个接口就是<strong>WSGI</strong>：Web Server Gateway Interface。<br>下面是一个简单的框架，可以了解一下。</p>
 <div><div class="fold_hider"><div class="close hider_title">点击这里，查看代码</div></div><div class="fold">
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> wsgiref.simple_server <span class="keyword">import</span> make_server</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">(req)</span>:</span></span><br><span class="line">    print(req)</span><br><span class="line">    print(req[<span class="string">"QUERY_STRING"</span>])</span><br><span class="line"></span><br><span class="line">    f1 = open(<span class="string">"index1.html"</span>, <span class="string">"rb"</span>)</span><br><span class="line">    data1 = f1.read()</span><br><span class="line">    <span class="keyword">return</span> [data1]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">(req)</span>:</span></span><br><span class="line">    f2 = open(<span class="string">"index2.html"</span>, <span class="string">"rb"</span>)</span><br><span class="line">    data2 = f2.read()</span><br><span class="line">    <span class="keyword">return</span> [data2]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f3</span><span class="params">(req)</span>:</span>  <span class="comment"># 模版以及数据库</span></span><br><span class="line">    f3 = open(<span class="string">"index3.html"</span>, <span class="string">"rb"</span>)</span><br><span class="line">    data3 = f3.read()</span><br><span class="line">    times = time.strftime(<span class="string">"%Y-%m-%d %X"</span>, time.localtime())</span><br><span class="line">    data3 = str(data3, <span class="string">"utf8"</span>).replace(<span class="string">"!time!"</span>, str(times))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> [data3.encode(<span class="string">"utf8"</span>)]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">routers</span><span class="params">()</span>:</span></span><br><span class="line">    urlpatterns = (</span><br><span class="line">        (<span class="string">'/person1'</span>, f1),</span><br><span class="line">        (<span class="string">'/person2'</span>, f2),</span><br><span class="line">        (<span class="string">"/cur_time"</span>, f3)</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">return</span> urlpatterns</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">application</span><span class="params">(environ, start_response)</span>:</span></span><br><span class="line">    print(environ[<span class="string">'PATH_INFO'</span>])</span><br><span class="line">    path = environ[<span class="string">'PATH_INFO'</span>]</span><br><span class="line">    start_response(<span class="string">'200 OK'</span>, [(<span class="string">'Content-Type'</span>, <span class="string">'text/html'</span>)])</span><br><span class="line">    urlpatterns = routers()</span><br><span class="line">    func = <span class="keyword">None</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> urlpatterns:</span><br><span class="line">        <span class="keyword">if</span> item[<span class="number">0</span>] == path:</span><br><span class="line">            func = item[<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> func:</span><br><span class="line">        <span class="keyword">return</span> func(environ)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> [<span class="string">"&lt;h1&gt;404&lt;/h1&gt;"</span>.encode(<span class="string">"utf8"</span>)]</span><br><span class="line"></span><br><span class="line">httpd = make_server(<span class="string">''</span>, <span class="number">8518</span>, application)</span><br><span class="line">print(<span class="string">'Serving HTTP on port 8084...'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始监听HTTP请求:</span></span><br><span class="line">httpd.serve_forever()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> wsgiref.simple_server <span class="keyword">import</span> make_server</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">(req)</span>:</span></span><br><span class="line">    print(req)</span><br><span class="line">    print(req[<span class="string">"QUERY_STRING"</span>])</span><br><span class="line"></span><br><span class="line">    f1 = open(<span class="string">"index1.html"</span>, <span class="string">"rb"</span>)</span><br><span class="line">    data1 = f1.read()</span><br><span class="line">    <span class="keyword">return</span> [data1]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">(req)</span>:</span></span><br><span class="line">    f2 = open(<span class="string">"index2.html"</span>, <span class="string">"rb"</span>)</span><br><span class="line">    data2 = f2.read()</span><br><span class="line">    <span class="keyword">return</span> [data2]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f3</span><span class="params">(req)</span>:</span>  <span class="comment"># 模版以及数据库</span></span><br><span class="line">    f3 = open(<span class="string">"index3.html"</span>, <span class="string">"rb"</span>)</span><br><span class="line">    data3 = f3.read()</span><br><span class="line">    times = time.strftime(<span class="string">"%Y-%m-%d %X"</span>, time.localtime())</span><br><span class="line">    data3 = str(data3, <span class="string">"utf8"</span>).replace(<span class="string">"!time!"</span>, str(times))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> [data3.encode(<span class="string">"utf8"</span>)]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">routers</span><span class="params">()</span>:</span></span><br><span class="line">    urlpatterns = (</span><br><span class="line">        (<span class="string">'/person1'</span>, f1),</span><br><span class="line">        (<span class="string">'/person2'</span>, f2),</span><br><span class="line">        (<span class="string">"/cur_time"</span>, f3)</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">return</span> urlpatterns</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">application</span><span class="params">(environ, start_response)</span>:</span></span><br><span class="line">    print(environ[<span class="string">'PATH_INFO'</span>])</span><br><span class="line">    path = environ[<span class="string">'PATH_INFO'</span>]</span><br><span class="line">    start_response(<span class="string">'200 OK'</span>, [(<span class="string">'Content-Type'</span>, <span class="string">'text/html'</span>)])</span><br><span class="line">    urlpatterns = routers()</span><br><span class="line">    func = <span class="keyword">None</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> urlpatterns:</span><br><span class="line">        <span class="keyword">if</span> item[<span class="number">0</span>] == path:</span><br><span class="line">            func = item[<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> func:</span><br><span class="line">        <span class="keyword">return</span> func(environ)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> [<span class="string">"&lt;h1&gt;404&lt;/h1&gt;"</span>.encode(<span class="string">"utf8"</span>)]</span><br><span class="line"></span><br><span class="line">httpd = make_server(<span class="string">''</span>, <span class="number">8518</span>, application)</span><br><span class="line">print(<span class="string">'Serving HTTP on port 8084...'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始监听HTTP请求:</span></span><br><span class="line">httpd.serve_forever()</span><br></pre></td></tr></table></figure>
 
 </div></div>
 <h3 id="MVC和MTV模式"><a href="#MVC和MTV模式" class="headerlink" title="MVC和MTV模式"></a>MVC和MTV模式</h3><p>Django的MTV模式本质是各组件之间为了保持松耦合关系,Django的MTV分别代表：</p>
@@ -444,11 +444,11 @@
 <p>此外，Django还有一个url分发器，它的作用是将一个个URL的页面请求分发给不同的view处理，view再调用相应的Model和Template。</p>
 <p><img src="http://p53x1dszf.bkt.clouddn.com/blog/180314/i3A2gm3F4c.png?imageslim" alt="@图片来自Alex|center|mark"></p>
 <h3 id="Django命令"><a href="#Django命令" class="headerlink" title="Django命令"></a>Django命令</h3><p>有些坑要说在创建之前，你需要<strong>先安装sqlite</strong>，在创建应用，不然你会掉进坑里的，</p>
-<h4 id="创建django-project"><a href="#创建django-project" class="headerlink" title="创建django project"></a>创建django project</h4><p>在你想创建项目的路径下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django-admin.py startproject [project name]</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建django-project"><a href="#创建django-project" class="headerlink" title="创建django project"></a>创建django project</h4><p>在你想创建项目的路径下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">django-admin.py startproject [project name]</span><br></pre></td></tr></table></figure></p>
 <p>[project name] 填写你的项目名称</p>
 <p>当然这里可能会遇到一个问题，为什么我这里什么都没有啊，两个问题：<strong>一就是你没有将django的目录放进环境变量；二就是你的默认打开.py文件的不是python。</strong></p>
 <p>其实还有另一种解决方案：<br>如果你是Django 3.x，完全可以不加.py:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django-admin startproject [project name]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">django-admin startproject [project name]</span><br></pre></td></tr></table></figure>
 <p>以生成mysite为例，目录结构是这样的：<br><img src="http://p53x1dszf.bkt.clouddn.com/blog/180314/HmClgme0jh.png?imageslim" alt="mark"></p>
 <ul>
 <li>manage.py —– Django项目里面的工具，通过它可以调用django shell和数据库等。</li>
@@ -456,21 +456,21 @@
 <li>urls.py —– 负责把URL模式映射到应用程序。</li>
 </ul>
 <h4 id="创建应用"><a href="#创建应用" class="headerlink" title="创建应用"></a>创建应用</h4><p>在mysite目录下创建应用，比如blog:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py startapp blog</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python manage.py startapp blog</span><br></pre></td></tr></table></figure>
 <p><img src="http://p53x1dszf.bkt.clouddn.com/blog/180314/mGkIik2ChH.png?imageslim" alt="mark"></p>
-<h4 id="启动项目"><a href="#启动项目" class="headerlink" title="启动项目"></a>启动项目</h4><p>这样我们的django就启动起来了！当我们访问：<a href="http://127.0.0.1:4000/时就可以看到我们的效果。" target="_blank" rel="noopener">http://127.0.0.1:4000/时就可以看到我们的效果。</a><br>当然，你访问localhost:4000也是一样的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver 4000</span><br></pre></td></tr></table></figure></p>
-<h4 id="同步更改数据库表或字段"><a href="#同步更改数据库表或字段" class="headerlink" title="同步更改数据库表或字段"></a>同步更改数据库表或字段</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python manage.py makemigrations</span><br><span class="line">python manage.py migrate</span><br></pre></td></tr></table></figure>
+<h4 id="启动项目"><a href="#启动项目" class="headerlink" title="启动项目"></a>启动项目</h4><p>这样我们的django就启动起来了！当我们访问：<a href="http://127.0.0.1:4000/时就可以看到我们的效果。" target="_blank" rel="noopener">http://127.0.0.1:4000/时就可以看到我们的效果。</a><br>当然，你访问localhost:4000也是一样的。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python manage.py runserver 4000</span><br></pre></td></tr></table></figure></p>
+<h4 id="同步更改数据库表或字段"><a href="#同步更改数据库表或字段" class="headerlink" title="同步更改数据库表或字段"></a>同步更改数据库表或字段</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python manage.py makemigrations</span><br><span class="line">python manage.py migrate</span><br></pre></td></tr></table></figure>
 <p>这种方法可以创建表，当你在<code>models.py</code>中新增了类时，运行它就可以自动在数据库中创建表了，不用手动创建。</p>
-<h4 id="清空数据库"><a href="#清空数据库" class="headerlink" title="清空数据库"></a>清空数据库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py flush</span><br></pre></td></tr></table></figure>
+<h4 id="清空数据库"><a href="#清空数据库" class="headerlink" title="清空数据库"></a>清空数据库</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python manage.py flush</span><br></pre></td></tr></table></figure>
 <p>此命令会询问是 yes 还是 no, 选择 yes 会把数据全部清空掉，只留下空表。</p>
-<h4 id="创建超级管理员"><a href="#创建超级管理员" class="headerlink" title="创建超级管理员"></a>创建超级管理员</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python manage.py createsuperuser</span><br><span class="line">     <span class="comment"># 按照提示输入用户名和对应的密码就好了邮箱可以留空，用户名和密码必填</span></span><br></pre></td></tr></table></figure>
-<h4 id="修改用户密码"><a href="#修改用户密码" class="headerlink" title="修改用户密码"></a>修改用户密码</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py changepassword username</span><br></pre></td></tr></table></figure>
-<h4 id="环境终端"><a href="#环境终端" class="headerlink" title="环境终端"></a>环境终端</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py shell</span><br></pre></td></tr></table></figure>
+<h4 id="创建超级管理员"><a href="#创建超级管理员" class="headerlink" title="创建超级管理员"></a>创建超级管理员</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python manage.py createsuperuser</span><br><span class="line">     <span class="comment"># 按照提示输入用户名和对应的密码就好了邮箱可以留空，用户名和密码必填</span></span><br></pre></td></tr></table></figure>
+<h4 id="修改用户密码"><a href="#修改用户密码" class="headerlink" title="修改用户密码"></a>修改用户密码</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python manage.py changepassword username</span><br></pre></td></tr></table></figure>
+<h4 id="环境终端"><a href="#环境终端" class="headerlink" title="环境终端"></a>环境终端</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python manage.py shell</span><br></pre></td></tr></table></figure>
 <p>这个命令和 直接运行 python 进入 shell 的区别是：你可以在这个 shell 里面调用当前项目的 models.py 中的 API，对于操作数据的测试非常方便。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py dbshell</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python manage.py dbshell</span><br></pre></td></tr></table></figure>
 <p>Django 会自动进入在settings.py中设置的数据库，如果是 MySQL 或 postgreSQL,会要求输入数据库用户密码。</p>
 <p>在这个终端可以执行数据库的SQL语句</p>
-<h4 id="查看所有命令"><a href="#查看所有命令" class="headerlink" title="查看所有命令"></a>查看所有命令</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py</span><br></pre></td></tr></table></figure>
+<h4 id="查看所有命令"><a href="#查看所有命令" class="headerlink" title="查看所有命令"></a>查看所有命令</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python manage.py</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1390,6 +1390,78 @@
   
 
   
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
 
 </body>
 </html>

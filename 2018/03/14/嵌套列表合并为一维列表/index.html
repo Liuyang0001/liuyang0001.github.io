@@ -420,8 +420,8 @@
       
         <p>今天看到一个题，觉得很有意思，就是一个列表里面嵌套了几层列表，那么如何将他们全部转换到一个列表里？可能应用有限，但确实很有趣，实现方式也很多，适合用来拓展下思维。<br><a id="more"></a></p>
 <h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>我们有一个嵌套列表，他是这个样子的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = [[1, 2], 3, [4, 5], &apos;a&apos;, &apos;b&apos;, &apos;c&apos;]</span><br></pre></td></tr></table></figure>
-<p>然后需要将其转为一维列表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a_new = [1, 2, 3, 4, 5, &apos;a&apos;, &apos;b&apos;, &apos;c&apos;]</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a = [[1, 2], 3, [4, 5], &apos;a&apos;, &apos;b&apos;, &apos;c&apos;]</span><br></pre></td></tr></table></figure>
+<p>然后需要将其转为一维列表：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a_new = [1, 2, 3, 4, 5, &apos;a&apos;, &apos;b&apos;, &apos;c&apos;]</span><br></pre></td></tr></table></figure></p>
 <h3 id="方法一：递归"><a href="#方法一：递归" class="headerlink" title="方法一：递归"></a>方法一：递归</h3><p>最简单的办法，就是递归。</p>
 <ol>
 <li>把列表传进去</li>
@@ -429,18 +429,18 @@
 <li>开始循环遍历列表</li>
 <li>如果当前元素不是列表，就直接附到新列表后面</li>
 <li>如果当前元素为列表，进行递归操作</li>
-<li>遍历结束后，返回新列表<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">expand_list1</span><span class="params">(nested_list, em=[])</span>:</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> nested_list:</span><br><span class="line">        <span class="keyword">if</span> type(x) != list:</span><br><span class="line">            em.append(x)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            expand_list1(x)</span><br><span class="line">    <span class="keyword">return</span> em</span><br></pre></td></tr></table></figure>
+<li>遍历结束后，返回新列表<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">expand_list1</span><span class="params">(nested_list, em=[])</span>:</span></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> nested_list:</span><br><span class="line">        <span class="keyword">if</span> type(x) != list:</span><br><span class="line">            em.append(x)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            expand_list1(x)</span><br><span class="line">    <span class="keyword">return</span> em</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h3 id="方法二：生成器-递归"><a href="#方法二：生成器-递归" class="headerlink" title="方法二：生成器+递归"></a>方法二：生成器+递归</h3><p>在上面递归的思想下，在使用生成器的方法，不是列表和元组的直接使用<code>yield语法糖</code>，是列表或元组的直接递归即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">def expand_list2(nested_list):</span><br><span class="line">    for item in nested_list:</span><br><span class="line">        if isinstance(item, (list, tuple)):</span><br><span class="line">            for sub_item in expand_list1(item):</span><br><span class="line">                yield sub_item</span><br><span class="line">        else:</span><br><span class="line">            yield item</span><br></pre></td></tr></table></figure></p>
-<h3 id="方法三：字符串替换"><a href="#方法三：字符串替换" class="headerlink" title="方法三：字符串替换"></a>方法三：字符串替换</h3><p>可能这种是最好理解的，但不是最容易想到的。惯性思维下，都会先考虑列表的操作。<br>思路就是：先转成字符串，匹配两端的方括号，再替换里面的方括号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def expand_list2(nested_list):</span><br><span class="line">    return eval(&apos;[%s]&apos; % repr(nested_list).replace(&apos;[&apos;, &apos;&apos;).replace(&apos;]&apos;, &apos;&apos;))</span><br></pre></td></tr></table></figure></p>
+<h3 id="方法二：生成器-递归"><a href="#方法二：生成器-递归" class="headerlink" title="方法二：生成器+递归"></a>方法二：生成器+递归</h3><p>在上面递归的思想下，在使用生成器的方法，不是列表和元组的直接使用<code>yield语法糖</code>，是列表或元组的直接递归即可。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def expand_list2(nested_list):</span><br><span class="line">    for item in nested_list:</span><br><span class="line">        if isinstance(item, (list, tuple)):</span><br><span class="line">            for sub_item in expand_list1(item):</span><br><span class="line">                yield sub_item</span><br><span class="line">        else:</span><br><span class="line">            yield item</span><br></pre></td></tr></table></figure></p>
+<h3 id="方法三：字符串替换"><a href="#方法三：字符串替换" class="headerlink" title="方法三：字符串替换"></a>方法三：字符串替换</h3><p>可能这种是最好理解的，但不是最容易想到的。惯性思维下，都会先考虑列表的操作。<br>思路就是：先转成字符串，匹配两端的方括号，再替换里面的方括号<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def expand_list2(nested_list):</span><br><span class="line">    return eval(&apos;[%s]&apos; % repr(nested_list).replace(&apos;[&apos;, &apos;&apos;).replace(&apos;]&apos;, &apos;&apos;))</span><br></pre></td></tr></table></figure></p>
 <h3 id="方法四：列表推导式"><a href="#方法四：列表推导式" class="headerlink" title="方法四：列表推导式"></a>方法四：列表推导式</h3><p>说实话，这是第一种想到的办法，毕竟这个列表嵌套最多就有两层，<strong>但是失败了</strong>！看了报错，恍然大悟。我们的列表中，有个单独的int类型，他并<strong>不是一个可迭代对象</strong>。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = [[1, 2], 3, [4, 5], &apos;a&apos;, &apos;b&apos;, &apos;c&apos;]</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def expand_list4(nested_list):</span><br><span class="line">    return [i for item in nested_list for i in item]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a = [[1, 2], 3, [4, 5], &apos;a&apos;, &apos;b&apos;, &apos;c&apos;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def expand_list4(nested_list):</span><br><span class="line">    return [i for item in nested_list for i in item]</span><br></pre></td></tr></table></figure>
 <p>其实即使没有单独的int类型，还是可以实现需求的，<strong>但是</strong>，这样的话就会<strong>将字符串进行迭代</strong>，就是说如果有个单独的“abc”，也会被拆分成单独的字母。显然，这不是我们想要的效果。</p>
 <p>这个题其实限制还是有点多，如果是单纯的数字，没有字符串的话，其实解法话有很多。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import itertools</span><br><span class="line">a = [[1,2,3],[4,5,6], [7], [8,9]]</span><br><span class="line">out = list(itertools.chain.from_iterable(a))</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">a = [[1,2,3], [5, 2, 8], [7,8,9]]</span><br><span class="line">out = list(np.ravel(a))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import itertools</span><br><span class="line">a = [[1,2,3],[4,5,6], [7], [8,9]]</span><br><span class="line">out = list(itertools.chain.from_iterable(a))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">a = [[1,2,3], [5, 2, 8], [7,8,9]]</span><br><span class="line">out = list(np.ravel(a))</span><br></pre></td></tr></table></figure>
 <p><br></p>
 <p><center><a href="http://liuyang1.club/about/" target="_blank" rel="noopener">还有什么好方法，请猛戳这里告诉我</a></center><br><br></p>
 
@@ -1364,6 +1364,78 @@
   
 
   
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
 
 </body>
 </html>

@@ -435,19 +435,19 @@
 <h3 id="推导大O阶"><a href="#推导大O阶" class="headerlink" title="推导大O阶"></a>推导大O阶</h3><p>推导大O阶，我们可以按照如下的规则来进行推导，得到的结果就是大O表示法： </p>
 <p>1.用常数1来取代运行时间中所有加法常数。<br>2.修改后的运行次数函数中，只保留最高阶项<br>3.如果最高阶项存在且不是1，则去除与这个项相乘的常数。</p>
 <h4 id="常数阶"><a href="#常数阶" class="headerlink" title="常数阶"></a>常数阶</h4><p>先举了例子，如下所示。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sum ,n = <span class="number">0</span>, <span class="number">100</span>  <span class="comment"># 执行一次  </span></span><br><span class="line">sum = (<span class="number">1</span>+n)*n/<span class="number">2</span>  <span class="comment"># 执行一次  </span></span><br><span class="line">print(sum)       <span class="comment"># 执行一次</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sum ,n = <span class="number">0</span>, <span class="number">100</span>  <span class="comment"># 执行一次  </span></span><br><span class="line">sum = (<span class="number">1</span>+n)*n/<span class="number">2</span>  <span class="comment"># 执行一次  </span></span><br><span class="line">print(sum)       <span class="comment"># 执行一次</span></span><br></pre></td></tr></table></figure>
 <p>上面算法的运行的次数的函数为f(n)=3，根据推导大O阶的规则1，我们需要将常数3改为1，则这个算法的时间复杂度为O(1)。如果sum = （1+n）*n/2这条语句再执行10遍，因为这与问题大小n的值并没有关系，所以这个算法的时间复杂度仍旧是O(1)，我们可以称之为常数阶。</p>
 <h4 id="线性阶"><a href="#线性阶" class="headerlink" title="线性阶"></a>线性阶</h4><p>线性阶主要要分析循环结构的运行情况，如下所示。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, n):</span><br><span class="line">	...  <span class="comment"># 时间复杂度为O(1)的算法</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, n):</span><br><span class="line">	...  <span class="comment"># 时间复杂度为O(1)的算法</span></span><br></pre></td></tr></table></figure>
 <p>上面算法循环体中的代码执行了n次，因此时间复杂度为O(n)。</p>
 <h4 id="对数阶"><a href="#对数阶" class="headerlink" title="对数阶"></a>对数阶</h4><p>接着看如下代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">number=<span class="number">1</span></span><br><span class="line"><span class="keyword">while</span>(number&lt;n):</span><br><span class="line">	number=number*<span class="number">2</span></span><br><span class="line">	...  <span class="comment"># 时间复杂度为O(1)的算法</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">number=<span class="number">1</span></span><br><span class="line"><span class="keyword">while</span>(number&lt;n):</span><br><span class="line">	number=number*<span class="number">2</span></span><br><span class="line">	...  <span class="comment"># 时间复杂度为O(1)的算法</span></span><br></pre></td></tr></table></figure>
 <p>可以看出上面的代码，随着number每次乘以2后，都会越来越接近n，当number不小于n时就会退出循环。假设循环的次数为X，则由2^x=n得出x=log₂n，因此得出这个算法的时间复杂度为O(logn)。</p>
 <h4 id="平方阶"><a href="#平方阶" class="headerlink" title="平方阶"></a>平方阶</h4><p>下面的代码是循环嵌套：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, n):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0</span>, n):</span><br><span class="line">       ...  <span class="comment"># 时间复杂度为O(1)的算法</span></span><br></pre></td></tr></table></figure>
-<p>内层循环的时间复杂度在讲到线性阶时就已经得知是O(n)，现在经过外层循环n次，那么这段算法的时间复杂度则为O(n²)。<br>接下来我们来算一下下面算法的时间复杂度：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, n):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(i, n):</span><br><span class="line">       ...  <span class="comment"># 时间复杂度为O(1)的算法</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, n):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0</span>, n):</span><br><span class="line">       ...  <span class="comment"># 时间复杂度为O(1)的算法</span></span><br></pre></td></tr></table></figure>
+<p>内层循环的时间复杂度在讲到线性阶时就已经得知是O(n)，现在经过外层循环n次，那么这段算法的时间复杂度则为O(n²)。<br>接下来我们来算一下下面算法的时间复杂度：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, n):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(i, n):</span><br><span class="line">       ...  <span class="comment"># 时间复杂度为O(1)的算法</span></span><br></pre></td></tr></table></figure></p>
 <p>需要注意的是内循环中i到n，而不是0到n。当i=0时，内循环执行了n次；i=1时内循环执行了n-1次，当i=n-1时执行了1次，我们可以推算出总的执行次数为：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">n+(n<span class="number">-1</span>)+(n<span class="number">-2</span>)+(n<span class="number">-3</span>)+……+<span class="number">1</span> </span><br><span class="line">=(n+<span class="number">1</span>)+[(n<span class="number">-1</span>)+<span class="number">2</span>]+[(n<span class="number">-2</span>)+<span class="number">3</span>]+[(n<span class="number">-3</span>)+<span class="number">4</span>]+…… </span><br><span class="line">=(n+<span class="number">1</span>)+(n+<span class="number">1</span>)+(n+<span class="number">1</span>)+(n+<span class="number">1</span>)+…… </span><br><span class="line">=(n+<span class="number">1</span>)n/<span class="number">2</span> </span><br><span class="line">=n(n+<span class="number">1</span>)/<span class="number">2</span> </span><br><span class="line">=n²/<span class="number">2</span>+n/<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">n+(n<span class="number">-1</span>)+(n<span class="number">-2</span>)+(n<span class="number">-3</span>)+……+<span class="number">1</span> </span><br><span class="line">=(n+<span class="number">1</span>)+[(n<span class="number">-1</span>)+<span class="number">2</span>]+[(n<span class="number">-2</span>)+<span class="number">3</span>]+[(n<span class="number">-3</span>)+<span class="number">4</span>]+…… </span><br><span class="line">=(n+<span class="number">1</span>)+(n+<span class="number">1</span>)+(n+<span class="number">1</span>)+(n+<span class="number">1</span>)+…… </span><br><span class="line">=(n+<span class="number">1</span>)n/<span class="number">2</span> </span><br><span class="line">=n(n+<span class="number">1</span>)/<span class="number">2</span> </span><br><span class="line">=n²/<span class="number">2</span>+n/<span class="number">2</span></span><br></pre></td></tr></table></figure>
 <p>根据此前讲过的推导大O阶的规则的第二条：只保留最高阶，因此保留n²/2。根据第三条去掉和这个项的常数，则去掉1/2,最终这段代码的时间复杂度为O(n²)。</p>
 <h3 id="其他常见复杂度"><a href="#其他常见复杂度" class="headerlink" title="其他常见复杂度"></a>其他常见复杂度</h3><p>除了常数阶、线性阶、平方阶、对数阶，还有如下时间复杂度： </p>
 <table>
@@ -1482,6 +1482,78 @@
   
 
   
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
 
 </body>
 </html>

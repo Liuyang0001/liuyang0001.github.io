@@ -430,34 +430,34 @@
 <hr>
 
 <h2 id="创建超级用户"><a href="#创建超级用户" class="headerlink" title="创建超级用户"></a>创建超级用户</h2><p>在你所在的django项目路径下，输入代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py createsupersuer</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python manage.py createsupersuer</span><br></pre></td></tr></table></figure>
 <p>接下来，按照提示填写用户名，邮箱(可以为空)，密码，确认密码，这样我们就成功的创建好了一个超级用户。</p>
 <p>之后，我们运行我们的项目：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python mannage.py runserver <span class="number">4000</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python mannage.py runserver <span class="number">4000</span></span><br></pre></td></tr></table></figure>
 <p>这时在你的浏览器输入<code>localhost:4000/admin/</code>,就会弹出这样的界面。<br><img src="http://p53x1dszf.bkt.clouddn.com/blog/180329/89HehAAk3F.png?imageslim" alt="mark"><br>在里面输入你的账号密码，就可以进入django的管理界面：<br><img src="http://p53x1dszf.bkt.clouddn.com/blog/180329/2AgAGhE16a.png?imageslim" alt="mark"><br>我们发现django已经给我们写好了用户组和用户的数据库，在这个页面可以用来添加用户和用户组。</p>
 <h2 id="注册数据库到admin"><a href="#注册数据库到admin" class="headerlink" title="注册数据库到admin"></a>注册数据库到admin</h2><h3 id="使用register方法"><a href="#使用register方法" class="headerlink" title="使用register方法"></a>使用register方法</h3><p>首先，在admin.py下导入所有的数据库</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> blog.models <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> blog.models <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
 <p>接下来，将想要显示在admin中的数据库注册到admin</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">admin.site.register(UserInfo1)</span><br><span class="line">admin.site.register(UserType1)</span><br></pre></td></tr></table></figure>
-<h3 id="使用register装饰器"><a href="#使用register装饰器" class="headerlink" title="使用register装饰器"></a>使用register装饰器</h3><p>在你自定义的子类上面添加装饰器，表明这里的自定义内容时对应你的哪张表的。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@admin.register(UserInfo1)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyAdmin</span><span class="params">(admin.ModelAdmin)</span>:</span></span><br><span class="line">	<span class="keyword">pass</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">admin.site.register(UserInfo1)</span><br><span class="line">admin.site.register(UserType1)</span><br></pre></td></tr></table></figure>
+<h3 id="使用register装饰器"><a href="#使用register装饰器" class="headerlink" title="使用register装饰器"></a>使用register装饰器</h3><p>在你自定义的子类上面添加装饰器，表明这里的自定义内容时对应你的哪张表的。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@admin.register(UserInfo1)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyAdmin</span><span class="params">(admin.ModelAdmin)</span>:</span></span><br><span class="line">	<span class="keyword">pass</span></span><br></pre></td></tr></table></figure></p>
 <p>刷新我们的网页，就可以看到我们自己建的数据库了<br><img src="http://p53x1dszf.bkt.clouddn.com/blog/180329/FdmEc1c3g5.png?imageslim" alt="mark"></p>
 <h2 id="添加其他功能"><a href="#添加其他功能" class="headerlink" title="添加其他功能"></a>添加其他功能</h2><h3 id="修改表单显示"><a href="#修改表单显示" class="headerlink" title="修改表单显示"></a>修改表单显示</h3><p><img src="http://p53x1dszf.bkt.clouddn.com/blog/180329/j3mKi69mKm.png?imageslim" alt="mark"><br>默认这里显示的都是UserInfo1，根本看不出，更不谈管理，那么我们如何修改这里显示的内容呢</p>
 <p>很简单，在我们在models中创建表格的时候，自定义一个<code>__str__</code>函数，就可以自定义显示字段。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> self.username</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> self.username</span><br></pre></td></tr></table></figure>
 <p><img src="http://p53x1dszf.bkt.clouddn.com/blog/180329/jg8dheDg5G.png?imageslim" alt="mark"></p>
 <h3 id="修改表单显示多个字段"><a href="#修改表单显示多个字段" class="headerlink" title="修改表单显示多个字段"></a>修改表单显示多个字段</h3><p>这需要我们在admin中创建一个<code>admin.ModelAdmin</code>的子类，然后在注册表单的时候，将这个参数加上就可以了。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyAdmin</span><span class="params">(admin.ModelAdmin)</span>:</span></span><br><span class="line">    list_display = (<span class="string">"username"</span>, <span class="string">"age"</span>, <span class="string">"user_type"</span>)</span><br><span class="line"></span><br><span class="line">admin.site.register(UserInfo1, MyAdmin)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyAdmin</span><span class="params">(admin.ModelAdmin)</span>:</span></span><br><span class="line">    list_display = (<span class="string">"username"</span>, <span class="string">"age"</span>, <span class="string">"user_type"</span>)</span><br><span class="line"></span><br><span class="line">admin.site.register(UserInfo1, MyAdmin)</span><br></pre></td></tr></table></figure>
 <p>刷新页面，发现我们想要的已经显示出来了<br><img src="http://p53x1dszf.bkt.clouddn.com/blog/180329/GiAHK8jjH4.png?imageslim" alt="mark"></p>
 <h3 id="添加搜索功能"><a href="#添加搜索功能" class="headerlink" title="添加搜索功能"></a>添加搜索功能</h3><p>数据量不大的时候，找想要的很方便，但数据量增大的时候，查找功能就必不可少了。<br>添加方法，和上面一样在子类里面添加</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search_fields = (<span class="string">"username"</span>,<span class="string">"user_type"</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">search_fields = (<span class="string">"username"</span>,<span class="string">"user_type"</span>)</span><br></pre></td></tr></table></figure>
 <p>右侧的参数，则是添加查找内容的范围。</p>
-<h3 id="添加筛选功能"><a href="#添加筛选功能" class="headerlink" title="添加筛选功能"></a>添加筛选功能</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list_filter = (<span class="string">'username'</span>, )</span><br></pre></td></tr></table></figure>
+<h3 id="添加筛选功能"><a href="#添加筛选功能" class="headerlink" title="添加筛选功能"></a>添加筛选功能</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">list_filter = (<span class="string">'username'</span>, )</span><br></pre></td></tr></table></figure>
 <p><img src="http://p53x1dszf.bkt.clouddn.com/blog/180329/hF0mhI3d6B.png?imageslim" alt="mark"></p>
 <h2 id="其他需求"><a href="#其他需求" class="headerlink" title="其他需求"></a>其他需求</h2><h3 id="修改语言为中文"><a href="#修改语言为中文" class="headerlink" title="修改语言为中文"></a>修改语言为中文</h3><p>在settings里面将<code>LANGUAGE_CODE</code>字段的值改为<code>zh-hans</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LANGUAGE_CODE = <span class="string">'zh-hans'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">LANGUAGE_CODE = <span class="string">'zh-hans'</span></span><br></pre></td></tr></table></figure>
 <h3 id="用户权限控制"><a href="#用户权限控制" class="headerlink" title="用户权限控制"></a>用户权限控制</h3><p>定制加载的列表, 根据不同的人显示不同的内容列表。</p>
 <p>例如：如果是超级管理员就列出所有的，如果不是，就仅列出访问者自己相关的。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyModelAdmin</span><span class="params">(admin.ModelAdmin)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_queryset</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        qs = super(MyModelAdmin, self).get_queryset(request)</span><br><span class="line">        <span class="keyword">if</span> request.user.is_superuser:</span><br><span class="line">            <span class="keyword">return</span> qs</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> qs.filter(author=request.user)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyModelAdmin</span><span class="params">(admin.ModelAdmin)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_queryset</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        qs = super(MyModelAdmin, self).get_queryset(request)</span><br><span class="line">        <span class="keyword">if</span> request.user.is_superuser:</span><br><span class="line">            <span class="keyword">return</span> qs</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> qs.filter(author=request.user)</span><br></pre></td></tr></table></figure>
 <p><hr></p>
 <p><center>———    未完待续    ———</center></p>
 <hr>
@@ -1383,6 +1383,78 @@
   
 
   
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
 
 </body>
 </html>

@@ -424,9 +424,9 @@
 <p><code>输出：7 -&gt; 0 -&gt; 8</code></p>
 <p><code>原因：342 + 465 = 807</code></p>
 <h2 id="解法1"><a href="#解法1" class="headerlink" title="解法1"></a>解法1</h2><p>将链表转换成字符串，方便进行逆置操作；最后再讲字符串转换成链表。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addTwoNumbers</span><span class="params">(self, l1: ListNode, l2: ListNode)</span> -&gt; ListNode:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">ln2str</span><span class="params">(ln: ListNode)</span>:</span><span class="comment">#链表转换为字符串</span></span><br><span class="line">            <span class="keyword">if</span> ln.next == <span class="keyword">None</span>:</span><br><span class="line">                <span class="keyword">return</span> str(ln.val)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> str(ln.val) + str(ln2str(ln.next))</span><br><span class="line">                </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">str2ln</span><span class="params">(str_res: str)</span>:</span><span class="comment">#字符串转换成链表</span></span><br><span class="line">            <span class="keyword">if</span> len(str_res)==<span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> ListNode(int(str_res))</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                ln_temp = ListNode(int(str_res[<span class="number">0</span>]))</span><br><span class="line">                ln_temp.next = str2ln(str_res[<span class="number">1</span>:])</span><br><span class="line">                <span class="keyword">return</span> ln_temp</span><br><span class="line"></span><br><span class="line">        str1 = ln2str(l1)[::<span class="number">-1</span>] <span class="comment">#将链表1转换为字符串并逆置</span></span><br><span class="line">        str2 = ln2str(l2)[::<span class="number">-1</span>] <span class="comment">#将链表2转换为字符串并逆置</span></span><br><span class="line">        str_res = str(int(str1)+int(str2))[::<span class="number">-1</span>] <span class="comment">#相加后转换为字符串，逆置</span></span><br><span class="line">        <span class="keyword">return</span> str2ln(str_res)  <span class="comment">#返回转换成的链表</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addTwoNumbers</span><span class="params">(self, l1: ListNode, l2: ListNode)</span> -&gt; ListNode:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">ln2str</span><span class="params">(ln: ListNode)</span>:</span><span class="comment">#链表转换为字符串</span></span><br><span class="line">            <span class="keyword">if</span> ln.next == <span class="keyword">None</span>:</span><br><span class="line">                <span class="keyword">return</span> str(ln.val)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> str(ln.val) + str(ln2str(ln.next))</span><br><span class="line">                </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">str2ln</span><span class="params">(str_res: str)</span>:</span><span class="comment">#字符串转换成链表</span></span><br><span class="line">            <span class="keyword">if</span> len(str_res)==<span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> ListNode(int(str_res))</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                ln_temp = ListNode(int(str_res[<span class="number">0</span>]))</span><br><span class="line">                ln_temp.next = str2ln(str_res[<span class="number">1</span>:])</span><br><span class="line">                <span class="keyword">return</span> ln_temp</span><br><span class="line"></span><br><span class="line">        str1 = ln2str(l1)[::<span class="number">-1</span>] <span class="comment">#将链表1转换为字符串并逆置</span></span><br><span class="line">        str2 = ln2str(l2)[::<span class="number">-1</span>] <span class="comment">#将链表2转换为字符串并逆置</span></span><br><span class="line">        str_res = str(int(str1)+int(str2))[::<span class="number">-1</span>] <span class="comment">#相加后转换为字符串，逆置</span></span><br><span class="line">        <span class="keyword">return</span> str2ln(str_res)  <span class="comment">#返回转换成的链表</span></span><br></pre></td></tr></table></figure>
 <h2 id="解法2"><a href="#解法2" class="headerlink" title="解法2"></a>解法2</h2><p>把两个数按位相加，并存到一个新的链表中，使用carry保存是否需要进位。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 官方解法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addTwoNumbers</span><span class="params">(self, l1: ListNode, l2: ListNode)</span> -&gt; ListNode:</span></span><br><span class="line">        dummyHead = ListNode(<span class="number">0</span>) <span class="comment"># 建立一个头结点</span></span><br><span class="line">        curr, carry = dummyHead, <span class="number">0</span> <span class="comment">#curr表当前结点；carry表进位</span></span><br><span class="line">        <span class="keyword">while</span> l1 <span class="keyword">or</span> l2: <span class="comment"># 不全为空</span></span><br><span class="line">            sum = <span class="number">0</span></span><br><span class="line">            <span class="keyword">if</span> l1: <span class="comment"># l1非空</span></span><br><span class="line">                sum += l1.val</span><br><span class="line">                l1 = l1.next</span><br><span class="line">            <span class="keyword">if</span> l2: <span class="comment"># l2非空</span></span><br><span class="line">                sum += l2.val</span><br><span class="line">                l2 = l2.next</span><br><span class="line">            sum += carry</span><br><span class="line">            carry = sum // <span class="number">10</span></span><br><span class="line">            curr.next = ListNode(sum % <span class="number">10</span>)</span><br><span class="line">            curr = curr.next</span><br><span class="line">        <span class="keyword">if</span> carry &gt; <span class="number">0</span>: <span class="comment"># 需要进位，使得链表加长</span></span><br><span class="line">            curr.next = ListNode(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> dummyHead.next; <span class="comment">#返回除头结点之后链表</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 官方解法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addTwoNumbers</span><span class="params">(self, l1: ListNode, l2: ListNode)</span> -&gt; ListNode:</span></span><br><span class="line">        dummyHead = ListNode(<span class="number">0</span>) <span class="comment"># 建立一个头结点</span></span><br><span class="line">        curr, carry = dummyHead, <span class="number">0</span> <span class="comment">#curr表当前结点；carry表进位</span></span><br><span class="line">        <span class="keyword">while</span> l1 <span class="keyword">or</span> l2: <span class="comment"># 不全为空</span></span><br><span class="line">            sum = <span class="number">0</span></span><br><span class="line">            <span class="keyword">if</span> l1: <span class="comment"># l1非空</span></span><br><span class="line">                sum += l1.val</span><br><span class="line">                l1 = l1.next</span><br><span class="line">            <span class="keyword">if</span> l2: <span class="comment"># l2非空</span></span><br><span class="line">                sum += l2.val</span><br><span class="line">                l2 = l2.next</span><br><span class="line">            sum += carry</span><br><span class="line">            carry = sum // <span class="number">10</span></span><br><span class="line">            curr.next = ListNode(sum % <span class="number">10</span>)</span><br><span class="line">            curr = curr.next</span><br><span class="line">        <span class="keyword">if</span> carry &gt; <span class="number">0</span>: <span class="comment"># 需要进位，使得链表加长</span></span><br><span class="line">            curr.next = ListNode(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> dummyHead.next; <span class="comment">#返回除头结点之后链表</span></span><br></pre></td></tr></table></figure>
 <h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p><a href="https://leetcode-cn.com/problems/add-two-numbers" target="_blank" rel="noopener">LeetCode中该题地址，Click here!</a></p>
 
       
@@ -1349,6 +1349,78 @@
   
 
   
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
 
 </body>
 </html>

@@ -428,8 +428,8 @@
 </ul>
 <hr>
 
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">示例 1:</span><br><span class="line"></span><br><span class="line">输入: candidates = [10,1,2,7,6,1,5], target = 8,</span><br><span class="line">所求解集为:</span><br><span class="line">[</span><br><span class="line">  [1, 7],</span><br><span class="line">  [1, 2, 5],</span><br><span class="line">  [2, 6],</span><br><span class="line">  [1, 1, 6]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">示例 2:</span><br><span class="line"></span><br><span class="line">输入: candidates = [2,5,2,1,2], target = 5,</span><br><span class="line">所求解集为:</span><br><span class="line">[</span><br><span class="line">  [1,2,2],</span><br><span class="line">  [5]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">示例 1:</span><br><span class="line"></span><br><span class="line">输入: candidates = [10,1,2,7,6,1,5], target = 8,</span><br><span class="line">所求解集为:</span><br><span class="line">[</span><br><span class="line">  [1, 7],</span><br><span class="line">  [1, 2, 5],</span><br><span class="line">  [2, 6],</span><br><span class="line">  [1, 1, 6]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">示例 2:</span><br><span class="line"></span><br><span class="line">输入: candidates = [2,5,2,1,2], target = 5,</span><br><span class="line">所求解集为:</span><br><span class="line">[</span><br><span class="line">  [1,2,2],</span><br><span class="line">  [5]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 <p><hr></p>
 <h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote>
 <p><strong>核心思想：回溯算法</strong></p>
@@ -437,7 +437,7 @@
 <blockquote>
 <p><strong>关键点：去重，如果上一个数和当前数字相同，则跳过</strong></p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">combinationSum2</span><span class="params">(self, candidates: List[int], target: int)</span> -&gt; List[List[int]]:</span></span><br><span class="line">        begin, end = <span class="number">0</span>, len(candidates)</span><br><span class="line">        <span class="keyword">if</span> end == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        res, path = [], []</span><br><span class="line">        candidates.sort()</span><br><span class="line">        self.helper(candidates, begin, end, target, path, res)</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, candidates: List[int], begin: int, end: int, delta: int, path: List[int], res: List[int])</span>:</span></span><br><span class="line">        <span class="keyword">if</span> delta == <span class="number">0</span>:</span><br><span class="line">            res.append(path[:])</span><br><span class="line">        <span class="keyword">for</span> index <span class="keyword">in</span> range(begin, end):</span><br><span class="line">            delta_new = delta-candidates[index]</span><br><span class="line">            <span class="keyword">if</span> delta_new &lt; <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="comment"># 剪枝</span></span><br><span class="line">            <span class="keyword">if</span> index != begin <span class="keyword">and</span> candidates[index<span class="number">-1</span>] == candidates[index]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            path.append(candidates[index])</span><br><span class="line">            <span class="comment"># 与上题的不同在于每个元素不能重复使用</span></span><br><span class="line">            <span class="comment"># 所以下一个区间为[index+1,end)</span></span><br><span class="line">            self.helper(candidates, index+<span class="number">1</span>, end, delta_new, path, res)</span><br><span class="line">            path.pop()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">combinationSum2</span><span class="params">(self, candidates: List[int], target: int)</span> -&gt; List[List[int]]:</span></span><br><span class="line">        begin, end = <span class="number">0</span>, len(candidates)</span><br><span class="line">        <span class="keyword">if</span> end == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> []</span><br><span class="line">        res, path = [], []</span><br><span class="line">        candidates.sort()</span><br><span class="line">        self.helper(candidates, begin, end, target, path, res)</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(self, candidates: List[int], begin: int, end: int, delta: int, path: List[int], res: List[int])</span>:</span></span><br><span class="line">        <span class="keyword">if</span> delta == <span class="number">0</span>:</span><br><span class="line">            res.append(path[:])</span><br><span class="line">        <span class="keyword">for</span> index <span class="keyword">in</span> range(begin, end):</span><br><span class="line">            delta_new = delta-candidates[index]</span><br><span class="line">            <span class="keyword">if</span> delta_new &lt; <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="comment"># 剪枝</span></span><br><span class="line">            <span class="keyword">if</span> index != begin <span class="keyword">and</span> candidates[index<span class="number">-1</span>] == candidates[index]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            path.append(candidates[index])</span><br><span class="line">            <span class="comment"># 与上题的不同在于每个元素不能重复使用</span></span><br><span class="line">            <span class="comment"># 所以下一个区间为[index+1,end)</span></span><br><span class="line">            self.helper(candidates, index+<span class="number">1</span>, end, delta_new, path, res)</span><br><span class="line">            path.pop()</span><br></pre></td></tr></table></figure>
 <hr>
 
 <h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p><a href="https://leetcode-cn.com/problems/combination-sum-ii" target="_blank" rel="noopener">LeetCode中该题地址，Click here!</a></p>
@@ -1362,6 +1362,78 @@
   
 
   
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
 
 </body>
 </html>

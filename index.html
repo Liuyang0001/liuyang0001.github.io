@@ -1290,9 +1290,10 @@
       
         
           <p>近期对博客进行调整：</p>
-<p>🍉 <del>加入置顶权重，而不是仅仅依靠时间线来展示顺序。</del>【已完成】</p>
-<p>🍉 由于最近忙于复试，很多题解没更新也没时间进行整理，打算复试后抽出时间进行整理归纳。【在做了，进度1%】</p>
-<p>🍉 <del>之后应该还会写一个爬虫，用来辅助更新LeetCode的readme，应该不是很难得一个脚本，最近有点懒，抽空写完并把其过程记录下来。</del>【已完成】</p>
+<p><del>1.加入置顶权重，而不是仅仅依靠时间线来展示顺序。</del>【已完成】</p>
+<p>2.由于最近忙于复试，很多题解没更新也没时间进行整理，打算复试后抽出时间进行整理归纳。【在做了，进度1%】</p>
+<p><del>3.写一个爬虫，用来辅助更新LeetCode的readme，应该不是很难得一个脚本，最近有点懒，抽空写完并把其过程记录下来。</del>【已完成】</p>
+<p><del>4.改变代码块风格，使其不显示行号，同时增加一键复制功能。</del>【已完成】</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2020/05/08/博客更新计划/#more" rel="contents">
@@ -2455,6 +2456,78 @@
   
 
   
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
 
 </body>
 </html>

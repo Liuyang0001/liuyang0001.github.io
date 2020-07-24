@@ -422,9 +422,9 @@
 <h3 id="迭代器类型"><a href="#迭代器类型" class="headerlink" title="迭代器类型"></a>迭代器类型</h3><p>[TOC]</p>
 <p>其实在 python中，没有内置迭代器类型的对象，但是可以通过内置函数 iter()将 str、 tuple、 list、 dict、 set等类型转换成一个迭代器类型。</p>
 <p>简单的说，就是列表，字符串，元祖并不是迭代器类型，但可以转换成迭代器类型。</p>
-<p>我们来看下代码。可能会更好理解。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(s)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: <span class="string">'list'</span> object <span class="keyword">is</span> <span class="keyword">not</span> an iterator</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>n=<span class="string">"abc"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(n)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: <span class="string">'str'</span> object <span class="keyword">is</span> <span class="keyword">not</span> an iterator</span><br></pre></td></tr></table></figure></p>
-<p>从上面的报错可以很好地看出str和list并不是一个iterator,即迭代器.<br>我们尝试使用iter()函数去将其转换成iterator<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>it_n = iter(n)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(it_n)</span><br><span class="line"><span class="string">'a'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(it_n)</span><br><span class="line"><span class="string">'b'</span></span><br></pre></td></tr></table></figure></p>
-<p>很明显现在的字符串已经是一个迭代器对象了,我们使用type()函数来验证下我们的猜想.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(it_n)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">str_iterator</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">type</span><span class="params">(n)</span></span></span><br><span class="line"><span class="class">&lt;<span class="title">class</span> '<span class="title">str</span>'&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>我们来看下代码。可能会更好理解。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(s)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: <span class="string">'list'</span> object <span class="keyword">is</span> <span class="keyword">not</span> an iterator</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>n=<span class="string">"abc"</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(n)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: <span class="string">'str'</span> object <span class="keyword">is</span> <span class="keyword">not</span> an iterator</span><br></pre></td></tr></table></figure></p>
+<p>从上面的报错可以很好地看出str和list并不是一个iterator,即迭代器.<br>我们尝试使用iter()函数去将其转换成iterator<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>it_n = iter(n)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(it_n)</span><br><span class="line"><span class="string">'a'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>next(it_n)</span><br><span class="line"><span class="string">'b'</span></span><br></pre></td></tr></table></figure></p>
+<p>很明显现在的字符串已经是一个迭代器对象了,我们使用type()函数来验证下我们的猜想.<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(it_n)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">str_iterator</span>'&gt;</span></span><br><span class="line"><span class="class">&gt;&gt;&gt; <span class="title">type</span><span class="params">(n)</span></span></span><br><span class="line"><span class="class">&lt;<span class="title">class</span> '<span class="title">str</span>'&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>很好,python已经很明确的告诉我们它已经是个str_iterator了<br><br><br>已经弄懂了什么是迭代器,那么我们是否自己写一个迭代器呢?</p>
 <h3 id="实现一个迭代器"><a href="#实现一个迭代器" class="headerlink" title="实现一个迭代器"></a>实现一个迭代器</h3><p>思路:</p>
 <ul>
@@ -433,21 +433,21 @@
 <li>定义<strong>next</strong>()方法,用来实现迭代,如果没到最大迭代数就将当前次数加一,达到最大次数则抛出<code>StopIteration</code>停止迭代.</li>
 <li>实例化我们的迭代器</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">My_iterator</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,max_value)</span>:</span></span><br><span class="line">        self.current_value = <span class="number">0</span></span><br><span class="line">        self.max_value= max_value</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__next__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.current_value &lt; self.max_value:</span><br><span class="line">            result = self.current_value</span><br><span class="line">            self.current_value +=<span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> StopIteration</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">My_iterator</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,max_value)</span>:</span></span><br><span class="line">        self.current_value = <span class="number">0</span></span><br><span class="line">        self.max_value= max_value</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__next__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.current_value &lt; self.max_value:</span><br><span class="line">            result = self.current_value</span><br><span class="line">            self.current_value +=<span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> StopIteration</span><br></pre></td></tr></table></figure>
 <p>下面我们实例化我们的迭代器,来验证下是否成功实现了.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    my_iter = My_iterator(<span class="number">3</span>)</span><br><span class="line">    print(next(my_iter))</span><br><span class="line">    print(next(my_iter))</span><br><span class="line">    print(next(my_iter))</span><br><span class="line">    print(next(my_iter))</span><br><span class="line">    print(next(my_iter))</span><br></pre></td></tr></table></figure>
-<p>运行我们的代码<br><code>python K:/hexo/source/_posts/迭代器.py</code><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure></p>
-<p>看起来好像已经实现了我们的效果,我们尝试使用list()函数将其封装到一个列表里<br><code>l = list(my_iter)</code><br>然后可怕的事情发生了,解释器抛出了一个异常<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TypeError: <span class="string">'My_iterator'</span> object <span class="keyword">is</span> <span class="keyword">not</span> iterable</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    my_iter = My_iterator(<span class="number">3</span>)</span><br><span class="line">    print(next(my_iter))</span><br><span class="line">    print(next(my_iter))</span><br><span class="line">    print(next(my_iter))</span><br><span class="line">    print(next(my_iter))</span><br><span class="line">    print(next(my_iter))</span><br></pre></td></tr></table></figure>
+<p>运行我们的代码<br><code>python K:/hexo/source/_posts/迭代器.py</code><br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure></p>
+<p>看起来好像已经实现了我们的效果,我们尝试使用list()函数将其封装到一个列表里<br><code>l = list(my_iter)</code><br>然后可怕的事情发生了,解释器抛出了一个异常<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">TypeError: <span class="string">'My_iterator'</span> object <span class="keyword">is</span> <span class="keyword">not</span> iterable</span><br></pre></td></tr></table></figure></p>
 <p>它说我们所写的并不是iterable,这我也一脸懵逼啊<br>不过可以看出仅仅实现 <strong>next()</strong>方法的对象还不是迭代器，真正的迭代器还需要实现一个可迭代接口 Iterable。</p>
 <p>通过查找资料:</p>
 <blockquote>
 <p>迭代器类型 Iterator继承自可迭代类型 Iterable，可迭代 Iterable继承自 object基类，迭代器 Iterator类型包含 <strong>iter()</strong>和 <strong>next()</strong>方法，而可迭代类型 Iteratble仅仅包含 <strong>iter</strong>()。可迭代对象，通过 <strong>iter()</strong>返回一个迭代器对象，迭代器对象的 <strong>next()</strong>方法则实际用于被循环。</p>
 </blockquote>
 <p>所以,我们只需要在我们类里再定义一个iter(),用来返回迭代器对象即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def __iter__(self):</span><br><span class="line">	return self</span><br></pre></td></tr></table></figure>
-<p>导入模块检验下我们现在的my_iter是不是已经是迭代器类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from collections import Iterator,Iterable</span><br></pre></td></tr></table></figure></p>
-<p>调用isinstance()函数进行比较,如果跟返回True,说明已经是一个迭代器类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(isinstance(my_iter,Iterator))</span><br><span class="line">print(isinstance(my_iter,Iterable))</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">True</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def __iter__(self):</span><br><span class="line">	return self</span><br></pre></td></tr></table></figure>
+<p>导入模块检验下我们现在的my_iter是不是已经是迭代器类型<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">from collections import Iterator,Iterable</span><br></pre></td></tr></table></figure></p>
+<p>调用isinstance()函数进行比较,如果跟返回True,说明已经是一个迭代器类型<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print(isinstance(my_iter,Iterator))</span><br><span class="line">print(isinstance(my_iter,Iterable))</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">True</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
 <p>好了,我们已经完成了一个很基本的迭代器了.</p>
 <h3 id="总结笔记"><a href="#总结笔记" class="headerlink" title="总结笔记"></a>总结笔记</h3><blockquote>
 <p>凡是可作用于 for语句循环的对象都是 Iterable可迭代类型。</p>
@@ -1378,6 +1378,78 @@
   
 
   
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
 
 </body>
 </html>

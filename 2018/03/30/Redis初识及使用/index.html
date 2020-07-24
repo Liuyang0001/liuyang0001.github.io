@@ -425,14 +425,14 @@
 <p>Redis的出现，很大程度补偿了Memcached这类key/value存储的不足，在部分场合可以对关系数据库起到很好的补充作用。它提供了Python，Ruby，Erlang，PHP客户端，使用很方便,Redis支持主从同步。数据可以从主服务器向任意数量的从服务器上同步，从服务器可以是关联其他从服务器的主服务器。这使得Redis可执行单层树复制。从盘可以有意无意的对数据进行写操作。由于完全实现了发布/订阅机制，使得从数据库在任何地方同步树时，可订阅一个频道并接收主服务器完整的消息发布记录。</p>
 <hr>
 
-<h2 id="Redis操作"><a href="#Redis操作" class="headerlink" title="Redis操作"></a>Redis操作</h2><h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> redis</span><br></pre></td></tr></table></figure>
+<h2 id="Redis操作"><a href="#Redis操作" class="headerlink" title="Redis操作"></a>Redis操作</h2><h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> redis</span><br></pre></td></tr></table></figure>
 <h3 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式"></a>连接方式</h3><p><code>redis</code>模块提供两个类<code>Redis</code>和<code>StrictRedis</code>用于实现Redis的命令，<code>StrictRedis</code>用于实现大部分官方的命令，并使用官方的语法和命令，Redis是StrictRedis的子类</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">r = redis.Redis(host=<span class="string">'192.168.0.110'</span>, port=<span class="number">6379</span>,db=<span class="number">0</span>)</span><br><span class="line">r.set(<span class="string">'name'</span>, <span class="string">'zhangsan'</span>)   <span class="comment">#添加</span></span><br><span class="line"><span class="keyword">print</span> (r.get(<span class="string">'name'</span>))       <span class="comment">#获取</span></span><br></pre></td></tr></table></figure>
-<h3 id="连接池"><a href="#连接池" class="headerlink" title="连接池"></a>连接池</h3><p><code>redis</code>模块使用connection pool来管理对一个redis server的所有连接，避免每次建立、释放连接的开销。默认，每个Redis实例都会维护一个自己的连接池。可以直接建立一个连接池，然后作为参数 Redis，这样就可以实现多个Redis实例共享一个连接池。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pool = redis.ConnectionPool(host=<span class="string">'192.168.0.110'</span>, port=<span class="number">6379</span>)</span><br><span class="line">r = redis.Redis(connection_pool=pool)</span><br><span class="line">r.set(<span class="string">'name'</span>, <span class="string">'zhangsan'</span>)   <span class="comment">#添加</span></span><br><span class="line"><span class="keyword">print</span> (r.get(<span class="string">'name'</span>))   <span class="comment">#获取</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">r = redis.Redis(host=<span class="string">'192.168.0.110'</span>, port=<span class="number">6379</span>,db=<span class="number">0</span>)</span><br><span class="line">r.set(<span class="string">'name'</span>, <span class="string">'zhangsan'</span>)   <span class="comment">#添加</span></span><br><span class="line"><span class="keyword">print</span> (r.get(<span class="string">'name'</span>))       <span class="comment">#获取</span></span><br></pre></td></tr></table></figure>
+<h3 id="连接池"><a href="#连接池" class="headerlink" title="连接池"></a>连接池</h3><p><code>redis</code>模块使用connection pool来管理对一个redis server的所有连接，避免每次建立、释放连接的开销。默认，每个Redis实例都会维护一个自己的连接池。可以直接建立一个连接池，然后作为参数 Redis，这样就可以实现多个Redis实例共享一个连接池。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pool = redis.ConnectionPool(host=<span class="string">'192.168.0.110'</span>, port=<span class="number">6379</span>)</span><br><span class="line">r = redis.Redis(connection_pool=pool)</span><br><span class="line">r.set(<span class="string">'name'</span>, <span class="string">'zhangsan'</span>)   <span class="comment">#添加</span></span><br><span class="line"><span class="keyword">print</span> (r.get(<span class="string">'name'</span>))   <span class="comment">#获取</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="发布和订阅"><a href="#发布和订阅" class="headerlink" title="发布和订阅"></a>发布和订阅</h3><p>首先定义一个RedisHelper类，连接Redis，定义频道为monitor，定义发布(publish)及订阅(subscribe)方法。</p>
-<h4 id="定义类"><a href="#定义类" class="headerlink" title="定义类"></a>定义类</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RedisHelper</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.__conn = redis.Redis(host=<span class="string">'192.168.0.110'</span>,port=<span class="number">6379</span>)<span class="comment">#连接Redis</span></span><br><span class="line">        self.channel = <span class="string">'monitor'</span> <span class="comment">#定义名称</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">publish</span><span class="params">(self,msg)</span>:</span><span class="comment">#定义发布方法</span></span><br><span class="line">        self.__conn.publish(self.channel,msg)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subscribe</span><span class="params">(self)</span>:</span><span class="comment">#定义订阅方法</span></span><br><span class="line">        pub = self.__conn.pubsub()</span><br><span class="line">        pub.subscribe(self.channel)</span><br><span class="line">        pub.parse_response()</span><br><span class="line">        <span class="keyword">return</span> pub</span><br></pre></td></tr></table></figure>
-<h4 id="发布者"><a href="#发布者" class="headerlink" title="发布者"></a>发布者</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#发布</span></span><br><span class="line"><span class="keyword">from</span> RedisHelper <span class="keyword">import</span> RedisHelper</span><br><span class="line"> </span><br><span class="line">obj = RedisHelper()</span><br><span class="line">obj.publish(<span class="string">'hello'</span>)<span class="comment">#发布</span></span><br></pre></td></tr></table></figure>
-<h4 id="订阅者"><a href="#订阅者" class="headerlink" title="订阅者"></a>订阅者</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#订阅</span></span><br><span class="line"><span class="keyword">from</span> RedisHelper <span class="keyword">import</span> RedisHelper</span><br><span class="line"> </span><br><span class="line">obj = RedisHelper()</span><br><span class="line">redis_sub = obj.subscribe()<span class="comment">#调用订阅方法</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    msg= redis_sub.parse_response()</span><br><span class="line">    <span class="keyword">print</span> (msg)</span><br></pre></td></tr></table></figure>
+<h4 id="定义类"><a href="#定义类" class="headerlink" title="定义类"></a>定义类</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RedisHelper</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.__conn = redis.Redis(host=<span class="string">'192.168.0.110'</span>,port=<span class="number">6379</span>)<span class="comment">#连接Redis</span></span><br><span class="line">        self.channel = <span class="string">'monitor'</span> <span class="comment">#定义名称</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">publish</span><span class="params">(self,msg)</span>:</span><span class="comment">#定义发布方法</span></span><br><span class="line">        self.__conn.publish(self.channel,msg)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">subscribe</span><span class="params">(self)</span>:</span><span class="comment">#定义订阅方法</span></span><br><span class="line">        pub = self.__conn.pubsub()</span><br><span class="line">        pub.subscribe(self.channel)</span><br><span class="line">        pub.parse_response()</span><br><span class="line">        <span class="keyword">return</span> pub</span><br></pre></td></tr></table></figure>
+<h4 id="发布者"><a href="#发布者" class="headerlink" title="发布者"></a>发布者</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#发布</span></span><br><span class="line"><span class="keyword">from</span> RedisHelper <span class="keyword">import</span> RedisHelper</span><br><span class="line"> </span><br><span class="line">obj = RedisHelper()</span><br><span class="line">obj.publish(<span class="string">'hello'</span>)<span class="comment">#发布</span></span><br></pre></td></tr></table></figure>
+<h4 id="订阅者"><a href="#订阅者" class="headerlink" title="订阅者"></a>订阅者</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#订阅</span></span><br><span class="line"><span class="keyword">from</span> RedisHelper <span class="keyword">import</span> RedisHelper</span><br><span class="line"> </span><br><span class="line">obj = RedisHelper()</span><br><span class="line">redis_sub = obj.subscribe()<span class="comment">#调用订阅方法</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    msg= redis_sub.parse_response()</span><br><span class="line">    <span class="keyword">print</span> (msg)</span><br></pre></td></tr></table></figure>
 <hr>
 
 
@@ -1354,6 +1354,78 @@
   
 
   
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
 
 </body>
 </html>

@@ -428,7 +428,7 @@
 <li><code>re</code>  ——用来正则匹配考生编号</li>
 <li><code>pandas</code> ——用来操作csv，读取和写入</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
 <hr>
 
 <h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><h3 id="写出对应的正则表达式"><a href="#写出对应的正则表达式" class="headerlink" title="写出对应的正则表达式"></a>写出对应的正则表达式</h3><ol>
@@ -440,17 +440,17 @@
 <ol>
 <li>根据需要书写正则表达式</li>
 </ol>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 【计算机专硕】匹配规则</span></span><br><span class="line">pat1 = <span class="string">"^10033[0-9]&#123;4&#125;16[123]0[0-9]&#123;2&#125;$"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 【计算机专硕】匹配规则</span></span><br><span class="line">pat1 = <span class="string">"^10033[0-9]&#123;4&#125;16[123]0[0-9]&#123;2&#125;$"</span></span><br></pre></td></tr></table></figure>
 <h3 id="读取csv文件"><a href="#读取csv文件" class="headerlink" title="读取csv文件"></a>读取csv文件</h3><p>这里我们是用pandas进行读取文件，将其格式化为df类型。</p>
 <blockquote>
 <p><strong>需要注意的是：windows默认的编码方式为gbk，而不是utf-8</strong></p>
 </blockquote>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(read_path, encoding=<span class="string">"gbk"</span>) <span class="keyword">as</span> file:</span><br><span class="line">        data = pd.read_csv(file)</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> open(read_path, encoding=<span class="string">"gbk"</span>) <span class="keyword">as</span> file:</span><br><span class="line">        data = pd.read_csv(file)</span><br></pre></td></tr></table></figure>
 <h3 id="取得对应的考生编号，并匹配"><a href="#取得对应的考生编号，并匹配" class="headerlink" title="取得对应的考生编号，并匹配"></a>取得对应的考生编号，并匹配</h3><p>取得第i行的第一列元素，将其转换成字符串，便于后续对其进行正则匹配</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 取到15位准考证号</span></span><br><span class="line">number = data.iloc[[i], <span class="number">0</span>].to_string()[<span class="number">-15</span>:]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 取到15位准考证号</span></span><br><span class="line">number = data.iloc[[i], <span class="number">0</span>].to_string()[<span class="number">-15</span>:]</span><br></pre></td></tr></table></figure>
 <h3 id="正则匹配"><a href="#正则匹配" class="headerlink" title="正则匹配"></a>正则匹配</h3><p>利用<code>re.match()</code>进行匹配，判断当前是否为我们所查找的。</p>
 <p>如果匹配，则取到该行的所有元素。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> re.match(rule, number):</span><br><span class="line">		df = data.iloc[[i], :]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> re.match(rule, number):</span><br><span class="line">		df = data.iloc[[i], :]</span><br></pre></td></tr></table></figure>
 <h3 id="输出到csv文件"><a href="#输出到csv文件" class="headerlink" title="输出到csv文件"></a>输出到csv文件</h3><p>pandas的df类型数据直接就有输出到csv文件的方法，直接调用输出即可。</p>
 <blockquote>
 <p>不过有几点需要注意：</p>
@@ -460,7 +460,7 @@
 <li>输出模式要选择附加模式，这样不会覆盖原数据</li>
 </ol>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.to_csv(write_path, mode=<span class="string">"a"</span>, index=<span class="keyword">False</span>,header=<span class="keyword">None</span>, encoding=<span class="string">"gbk"</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">df.to_csv(write_path, mode=<span class="string">"a"</span>, index=<span class="keyword">False</span>,header=<span class="keyword">None</span>, encoding=<span class="string">"gbk"</span>)</span><br></pre></td></tr></table></figure>
 <hr>
 
 <h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a><center>源码</center></h2><p><strong><center><a href="https://github.com/Liuyang0001/selcet_from_csv/" target="_blank" rel="noopener">Github项目源码地址</a></center></strong></p>
@@ -1385,6 +1385,78 @@
   
 
   
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
 
 </body>
 </html>

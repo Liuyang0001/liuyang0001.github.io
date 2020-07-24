@@ -461,19 +461,19 @@
 <li><p>启用“适用于 Linux 的 Windows 子系统”可选功能</p>
 </li>
 </ul>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>这时候wsl其实已经启用了，重启就可以了，但还要更新到wsl2，就在后面一起重启了。</p>
 </blockquote>
 <h2 id="升级到WSL2"><a href="#升级到WSL2" class="headerlink" title="升级到WSL2"></a>升级到WSL2</h2><ul>
 <li>启用“虚拟机平台”可选组件</li>
 </ul>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</span><br></pre></td></tr></table></figure>
 <ul>
 <li><strong>重启</strong>电脑。</li>
 <li>重新<strong>管理员</strong>身份打开powershell，用下面的命令将wsl2设置为默认。</li>
 </ul>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --set-default-version <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">wsl --set-default-version <span class="number">2</span></span><br></pre></td></tr></table></figure>
 <p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723225303.png" alt=""></p>
 <p>出现上面这行就是好了，如果<strong>有问题请参考后文</strong>中遇到的问题及解决办法。</p>
 <hr>
@@ -570,7 +570,7 @@
 <p>右键 -&gt; 属性 -&gt; 常规 -&gt; 高级 -&gt; 取消勾选 <code>压缩内容以便节省磁盘空间</code> 这一项 -&gt; 确定<br>再次启动所安装的 <code>Linux</code> 发行版应该就可正常使用。</p>
 </blockquote>
 <p>随后我以为终于可以解决了，然而并没有。还是报错，具体是什么忘记了，也没查到答案。最后问题还是自己解决的。我灵机一动，既然wsl1环境可以正常安装，那我是不是在1环境下安装，再转换到2环境下呢？最后问题完美解决。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --set-version Ubuntu-20.04  2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wsl --set-version Ubuntu-20.04  2</span><br></pre></td></tr></table></figure>
 <p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723233623.png" alt=""></p>
 <p><strong>终于等到你，还好我没放弃！</strong></p>
 
@@ -1490,6 +1490,78 @@
   
 
   
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
 
 </body>
 </html>

@@ -429,14 +429,14 @@
 
 
 <h3 id="Request对象"><a href="#Request对象" class="headerlink" title="Request对象"></a>Request对象</h3><p>平时我们在写Django的视图函数的时候，都会带上一个request参数，这样就能处理平时搭建网站时，浏览器访问网页时发出的常规的<code>HttpRequest</code>。但是现在我们导入了<code>django-rest-framework</code>，它能够对<code>request</code>进行拓展，并且提供更灵活的请求解析。这个特性体现在哪呢？请看下面这个例子：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">request.POST  <span class="comment"># 只能处理表单数据.只能处理POST请求</span></span><br><span class="line">request.data  <span class="comment"># 能处理各种数据。  可以处理'POST', 'PUT' 和 'PATCH'模式的请求</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">request.POST  <span class="comment"># 只能处理表单数据.只能处理POST请求</span></span><br><span class="line">request.data  <span class="comment"># 能处理各种数据。  可以处理'POST', 'PUT' 和 'PATCH'模式的请求</span></span><br></pre></td></tr></table></figure>
 <p>这个例子里面的注释已经说得很清楚，拓展后的<code>request</code>使用<code>request.data</code>就可以处理各种各样的请求了，而原本的<code>request</code>在处理时需要指定请求模式。</p>
 <hr>
 
 <h3 id="Response对象"><a href="#Response对象" class="headerlink" title="Response对象"></a>Response对象</h3><p>和<code>request</code>对象一样，<strong><code>django-rest-framewor</code></strong>也对其进行了很实用的拓展，在我上一篇文章的<strong><code>snippets/views.py</code></strong>中，我们导入了<code>JsonResponse</code>用于返回<code>json</code>格式的响应，在视图函数中是这样的：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@csrf_exempt</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">snippet_list</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    列出所有已经存在的snippet或者创建一个新的snippet</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</span><br><span class="line">        snippets = Snippet.objects.all()</span><br><span class="line">        serializer = SnippetSerializer(snippets, many=<span class="keyword">True</span>)</span><br><span class="line">        <span class="keyword">return</span> JsonResponse(serializer.data, safe=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">        data = JSONParser().parse(request)</span><br><span class="line">        serializer = SnippetSerializer(data=data)</span><br><span class="line">        <span class="keyword">if</span> serializer.is_valid():</span><br><span class="line">            serializer.save()</span><br><span class="line">            <span class="keyword">return</span> JsonResponse(serializer.data, status=<span class="number">201</span>)</span><br><span class="line">        <span class="keyword">return</span> JsonResponse(serializer.errors, status=<span class="number">400</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@csrf_exempt</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">snippet_list</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    列出所有已经存在的snippet或者创建一个新的snippet</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</span><br><span class="line">        snippets = Snippet.objects.all()</span><br><span class="line">        serializer = SnippetSerializer(snippets, many=<span class="keyword">True</span>)</span><br><span class="line">        <span class="keyword">return</span> JsonResponse(serializer.data, safe=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">        data = JSONParser().parse(request)</span><br><span class="line">        serializer = SnippetSerializer(data=data)</span><br><span class="line">        <span class="keyword">if</span> serializer.is_valid():</span><br><span class="line">            serializer.save()</span><br><span class="line">            <span class="keyword">return</span> JsonResponse(serializer.data, status=<span class="number">201</span>)</span><br><span class="line">        <span class="keyword">return</span> JsonResponse(serializer.errors, status=<span class="number">400</span>)</span><br></pre></td></tr></table></figure>
 <p>也就是说，在<code>return</code>的时候就需要指明<strong>json格式</strong>，这样显得很不实用而且很单一，所以经过拓展后的<code>Reponse</code>对象就很方便了，<strong>它会根据客户端的请求头部信息来确定正确的内容类型以返回给客户端</strong>。只需如下代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> Response(data)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> Response(data)</span><br></pre></td></tr></table></figure>
 <hr>
 
 <h3 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h3><p>我们知道发送http请求时会返回各种各样的状态吗，但是都是简单的数字，比如200、404等，这些纯数字标识符有时候可能不够明确或者客户端在使用的时候不清楚错误信息甚至是没注意看不到，所以<code>django-rest-framework</code>也对此进行了优化，状态码会是<code>HTTP_400_BAD_REQUEST</code>、<code>HTTP_404_NOT_FOUND</code>这种，极大的提高可读性。</p>
@@ -454,19 +454,19 @@
 <hr>
 
 <h3 id="改进代码"><a href="#改进代码" class="headerlink" title="改进代码"></a>改进代码</h3><p>上面说了这么多拓展和优化，接下来就把它们都使用起来，改进一下原本的<strong><code>snippets/views.py</code></strong>，程序如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> status <span class="comment"># 导入HHTP状态</span></span><br><span class="line"><span class="keyword">from</span> rest_framework.decorators <span class="keyword">import</span> api_view <span class="comment">#导入装饰器</span></span><br><span class="line"><span class="keyword">from</span> rest_framework.response <span class="keyword">import</span> Response  <span class="comment">#导入应答</span></span><br><span class="line"><span class="keyword">from</span> snippets.models <span class="keyword">import</span> Snippet <span class="comment"># 导入数据库类</span></span><br><span class="line"><span class="keyword">from</span> snippets.serializers <span class="keyword">import</span> SnippetSerializer <span class="comment"># 导入之前写好的序列化函数</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@api_view(['GET', 'POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">snippet_list</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    列出所有已经存在的snippet或者创建一个新的snippet</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</span><br><span class="line">        snippets = Snippet.objects.all()</span><br><span class="line">        serializer = SnippetSerializer(snippets, many=<span class="keyword">True</span>)</span><br><span class="line">        <span class="keyword">return</span> Response(serializer.data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">        serializer = SnippetSerializer(data=request.data)</span><br><span class="line">        <span class="keyword">if</span> serializer.is_valid():</span><br><span class="line">            serializer.save()</span><br><span class="line">            <span class="keyword">return</span> Response(serializer.data, status=status.HTTP_201_CREATED)</span><br><span class="line">        <span class="keyword">return</span> Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> status <span class="comment"># 导入HHTP状态</span></span><br><span class="line"><span class="keyword">from</span> rest_framework.decorators <span class="keyword">import</span> api_view <span class="comment">#导入装饰器</span></span><br><span class="line"><span class="keyword">from</span> rest_framework.response <span class="keyword">import</span> Response  <span class="comment">#导入应答</span></span><br><span class="line"><span class="keyword">from</span> snippets.models <span class="keyword">import</span> Snippet <span class="comment"># 导入数据库类</span></span><br><span class="line"><span class="keyword">from</span> snippets.serializers <span class="keyword">import</span> SnippetSerializer <span class="comment"># 导入之前写好的序列化函数</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@api_view(['GET', 'POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">snippet_list</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    列出所有已经存在的snippet或者创建一个新的snippet</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</span><br><span class="line">        snippets = Snippet.objects.all()</span><br><span class="line">        serializer = SnippetSerializer(snippets, many=<span class="keyword">True</span>)</span><br><span class="line">        <span class="keyword">return</span> Response(serializer.data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">        serializer = SnippetSerializer(data=request.data)</span><br><span class="line">        <span class="keyword">if</span> serializer.is_valid():</span><br><span class="line">            serializer.save()</span><br><span class="line">            <span class="keyword">return</span> Response(serializer.data, status=status.HTTP_201_CREATED)</span><br><span class="line">        <span class="keyword">return</span> Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)</span><br></pre></td></tr></table></figure>
 <p>可以看出，经过改进的代码已经把上面所说的几个<code>django-rest-framework</code>带来的特性都应用起来了，我们可以看出程序代码量变少，并且能处理的情况更多了。 比如说，在原本的视图函数<code>snippet_detail</code>中，处理<code>&#39;PUT&#39;</code>请求的时候，需要先解析<code>json</code>格式的数据再进一步处理：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data = JSONParser().parse(request)</span><br><span class="line">serializer = SnippetSerializer(snippet, data=data)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data = JSONParser().parse(request)</span><br><span class="line">serializer = SnippetSerializer(snippet, data=data)</span><br></pre></td></tr></table></figure>
 <p>也就是说需要分成两步实现，而且这里有一个限制就是只能解析<code>json</code>格式的数据流。而改进后的程序只需一行代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">serializer = SnippetSerializer(data=request.data)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">serializer = SnippetSerializer(data=request.data)</span><br></pre></td></tr></table></figure>
 <p>直接使用之前说的<code>request.data</code>就可以获取到提交过来的数据了，并且可以处理各种数据和各种请求动作，方便了开发。</p>
 <p>还有在<code>return</code>的时候也不需要指定<code>json</code>格式了，由原本的</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> JsonResponse(serializer.data, status=<span class="number">201</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> JsonResponse(serializer.data, status=<span class="number">201</span>)</span><br></pre></td></tr></table></figure>
 <p>改成了</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> Response(serializer.data,status=status.HTTP_201_CREATED)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">return</span> Response(serializer.data,status=status.HTTP_201_CREATED)</span><br></pre></td></tr></table></figure>
 <p>这也意味着返回给客户端的可以是<code>json</code>或者<code>html</code>等格式的内容，返回<code>HTML</code>格式的内容的话，会在浏览器返回经过渲染的、更美观的页面。同时可以看出状态码也改进成了<code>django-rest-framework</code>给我们带来的可读性更高的状态标识码，以上这些措施都很大程度的提高了对客户的友好度。</p>
 <p>对于另一个视图函数的修改也是同样的原理，这里就不做同样的讲解了，代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@api_view(['GET', 'PUT', 'DELETE'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">snippet_detail</span><span class="params">(request, pk)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Retrieve, update or delete a snippet instance.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        snippet = Snippet.objects.get(pk=pk)</span><br><span class="line">    <span class="keyword">except</span> Snippet.DoesNotExist:</span><br><span class="line">        <span class="keyword">return</span> Response(status=status.HTTP_404_NOT_FOUND)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</span><br><span class="line">        serializer = SnippetSerializer(snippet)</span><br><span class="line">        <span class="keyword">return</span> Response(serializer.data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> request.method == <span class="string">'PUT'</span>:</span><br><span class="line">        serializer = SnippetSerializer(snippet, data=request.data)</span><br><span class="line">        <span class="keyword">if</span> serializer.is_valid():</span><br><span class="line">            serializer.save()</span><br><span class="line">            <span class="keyword">return</span> Response(serializer.data)</span><br><span class="line">        <span class="keyword">return</span> Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> request.method == <span class="string">'DELETE'</span>:</span><br><span class="line">        snippet.delete()</span><br><span class="line">        <span class="keyword">return</span> Response(status=status.HTTP_204_NO_CONTENT)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@api_view(['GET', 'PUT', 'DELETE'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">snippet_detail</span><span class="params">(request, pk)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Retrieve, update or delete a snippet instance.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        snippet = Snippet.objects.get(pk=pk)</span><br><span class="line">    <span class="keyword">except</span> Snippet.DoesNotExist:</span><br><span class="line">        <span class="keyword">return</span> Response(status=status.HTTP_404_NOT_FOUND)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'GET'</span>:</span><br><span class="line">        serializer = SnippetSerializer(snippet)</span><br><span class="line">        <span class="keyword">return</span> Response(serializer.data)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> request.method == <span class="string">'PUT'</span>:</span><br><span class="line">        serializer = SnippetSerializer(snippet, data=request.data)</span><br><span class="line">        <span class="keyword">if</span> serializer.is_valid():</span><br><span class="line">            serializer.save()</span><br><span class="line">            <span class="keyword">return</span> Response(serializer.data)</span><br><span class="line">        <span class="keyword">return</span> Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> request.method == <span class="string">'DELETE'</span>:</span><br><span class="line">        snippet.delete()</span><br><span class="line">        <span class="keyword">return</span> Response(status=status.HTTP_204_NO_CONTENT)</span><br></pre></td></tr></table></figure>
 <p>以上就是对原有的常规的<code>Django</code>视图函数的改进。</p>
 <p><strong>总结一下：</strong></p>
 <blockquote>
@@ -476,41 +476,41 @@
 
 <h3 id="URL添加格式后缀"><a href="#URL添加格式后缀" class="headerlink" title="URL添加格式后缀"></a>URL添加格式后缀</h3><p>既然上面已经说了返回给客户端的<code>Response</code>可是<code>json</code>或者是<code>HTML</code>等格式的内容，那么用户在使用的时候是如何指定返回哪种格式的内容呢，那就是在<strong><code>URL</code></strong>的最后加上后缀。<br>比如<code>http://127.0.0.1:8000/snippets.json</code>，这样就是用户自己指定了返回json格式的<code>Response</code>，而不是我们在后台指定返回固定的格式。</p>
 <p>只需对我们的程序稍加改进就可以了，在两个视图函数添加关键词参数<strong>format</strong>：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">snippet_list</span><span class="params">(request, format=None)</span>:</span></span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">snippet_list</span><span class="params">(request, format=None)</span>:</span></span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
 <p>以及</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">snippet_detail</span><span class="params">(request, pk, format=None)</span>:</span></span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">snippet_detail</span><span class="params">(request, pk, format=None)</span>:</span></span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
 <p>再修改一下<strong><code>snippets/urls.py</code></strong>，导入<strong><code>format_suffix_patterns</code></strong>（格式后缀模式）：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> url</span><br><span class="line"><span class="keyword">from</span> rest_framework.urlpatterns <span class="keyword">import</span> format_suffix_patterns</span><br><span class="line"><span class="keyword">from</span> snippets <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^snippets/$'</span>, views.snippet_list),</span><br><span class="line">    url(<span class="string">r'^snippets/(?P&lt;pk&gt;[0-9]+)$'</span>, views.snippet_detail),</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">urlpatterns = format_suffix_patterns(urlpatterns)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.conf.urls <span class="keyword">import</span> url</span><br><span class="line"><span class="keyword">from</span> rest_framework.urlpatterns <span class="keyword">import</span> format_suffix_patterns</span><br><span class="line"><span class="keyword">from</span> snippets <span class="keyword">import</span> views</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    url(<span class="string">r'^snippets/$'</span>, views.snippet_list),</span><br><span class="line">    url(<span class="string">r'^snippets/(?P&lt;pk&gt;[0-9]+)$'</span>, views.snippet_detail),</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">urlpatterns = format_suffix_patterns(urlpatterns)</span><br></pre></td></tr></table></figure>
 <hr>
 
 <h3 id="测试Api"><a href="#测试Api" class="headerlink" title="测试Api"></a>测试Api</h3><p>首先当然还是可以像上一篇文章中那样的使用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http http://127.0.0.1:8000/snippets/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http http://127.0.0.1:8000/snippets/</span><br></pre></td></tr></table></figure>
 <p><img src="http://p53x1dszf.bkt.clouddn.com/blog/180406/7bfiKd7Kmb.png?imageslim" alt="mark"></p>
 <ol>
 <li>通过<strong>设置Accept头部信息来控制返回的格式</strong></li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http http://127.0.0.1:8000/snippets/ Accept:application/json  # JSON</span><br><span class="line">http http://127.0.0.1:8000/snippets/ Accept:text/html         # HTML</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http http://127.0.0.1:8000/snippets/ Accept:application/json  # JSON</span><br><span class="line">http http://127.0.0.1:8000/snippets/ Accept:text/html         # HTML</span><br></pre></td></tr></table></figure>
 <p>效果如下（返回的是页面的HTML代码，只展示了一部分）：</p>
 <p><img src="http://p53x1dszf.bkt.clouddn.com/blog/180406/JKkFDIGFKk.png?imageslim" alt="mark"></p>
 <ol>
 <li>直接加格式后缀</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http http://127.0.0.1:8000/snippets.json  # JSON suffix</span><br><span class="line">http http://127.0.0.1:8000/snippets.api   # Browsable API suffix</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http http://127.0.0.1:8000/snippets.json  # JSON suffix</span><br><span class="line">http http://127.0.0.1:8000/snippets.api   # Browsable API suffix</span><br></pre></td></tr></table></figure>
 <ol>
 <li>浏览器查看Api</li>
 </ol>
 <p>我们可以直接在浏览器输入 <code>http://127.0.0.1:8000/snippets.api</code> 进行查看，会得到一个美观的页面：<br><img src="http://p53x1dszf.bkt.clouddn.com/blog/180406/1cegeECCIe.png?imageslim" alt="mark"></p>
 <h3 id="实现功能"><a href="#实现功能" class="headerlink" title="实现功能"></a>实现功能</h3><h4 id="增加数据"><a href="#增加数据" class="headerlink" title="增加数据"></a>增加数据</h4><p>我们可以控制 Content-Type 头部信息来提交POST请求：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http --form POST http://127.0.0.1:8000/snippets/ code=&quot;print 123&quot;</span><br><span class="line">http --json POST http://127.0.0.1:8000/snippets/ code=&quot;print 456&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http --form POST http://127.0.0.1:8000/snippets/ code=&quot;print 123&quot;</span><br><span class="line">http --json POST http://127.0.0.1:8000/snippets/ code=&quot;print 456&quot;</span><br></pre></td></tr></table></figure>
 <p>它会自动在原有的数据后面添加你提交过去的数据，效果如下：</p>
 <p><img src="http://p53x1dszf.bkt.clouddn.com/blog/180406/e2eLdFfbAg.png?imageslim" alt="mark"></p>
 <h4 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h4><p>我们通过<code>PUT</code>来实现修改功能，在我们之前定义的函数<code>views.snippet_detail</code>中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url(<span class="string">r'^snippets/(?P&lt;pk&gt;[0-9]+)$'</span>, views.snippet_detail),</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">url(<span class="string">r'^snippets/(?P&lt;pk&gt;[0-9]+)$'</span>, views.snippet_detail),</span><br></pre></td></tr></table></figure>
 <p>所以通过 url <code>snippets/[id]</code>就可以访问到我们要的数据，就可以对其进行修改。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http --json PUT http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8000</span>/snippets/<span class="number">1.j</span>son code=<span class="string">"sss"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">http --json PUT http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8000</span>/snippets/<span class="number">1.j</span>son code=<span class="string">"sss"</span></span><br></pre></td></tr></table></figure>
 <p><img src="http://p53x1dszf.bkt.clouddn.com/blog/180406/BcK1A73b1c.png?imageslim" alt="mark"></p>
 <h4 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h4><p>同之前的修改一样，我们使用<code>DELETE</code>，通过 url <code>snippets/[id]</code>访问数据，提交删除。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http DELETE http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8000</span>/snippets/<span class="number">8.j</span>son</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">http DELETE http://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8000</span>/snippets/<span class="number">8.j</span>son</span><br></pre></td></tr></table></figure>
 <p>这样我们就成功的删除了一条数据。</p>
 <hr>
 
@@ -1440,6 +1440,78 @@
   
 
   
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
 
 </body>
 </html>

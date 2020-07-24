@@ -425,8 +425,8 @@
       
         <p>刚接触markdown，一下就被它的美和大气所吸引，最基本的这里就不多介绍，网上一抓一大把。这里主要记录下在使用markdown过程中遇到的问题和总结的一些小技巧，将其记录下来作为以后的一个参考。这篇文章将会<strong>持续更新</strong>，将每次碰到的问题都更新在这里。<br><a id="more"></a><br>[TOC]</p>
 <h3 id="遇到的那些坑"><a href="#遇到的那些坑" class="headerlink" title="遇到的那些坑"></a>遇到的那些坑</h3><p>由于刚接触，这里总结下在使用markdown的时候出现的一些问题。</p>
-<h4 id="两个就近代码块“粘”在一起"><a href="#两个就近代码块“粘”在一起" class="headerlink" title="两个就近代码块“粘”在一起"></a>两个就近代码块“粘”在一起</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 代码1</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 代码2</span></span><br></pre></td></tr></table></figure>
+<h4 id="两个就近代码块“粘”在一起"><a href="#两个就近代码块“粘”在一起" class="headerlink" title="两个就近代码块“粘”在一起"></a>两个就近代码块“粘”在一起</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 代码1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 代码2</span></span><br></pre></td></tr></table></figure>
 <p>下面是在马克飞象上预览–完全ok!!!<br><img src="http://p53x1dszf.bkt.clouddn.com/blog/180306/JmiLfeIEBH.png?imageslim" alt="mark"><br>可当你发到博客上一看,傻眼了,粘在一起了.<br><img src="http://p53x1dszf.bkt.clouddn.com/blog/180306/fg4cc135bk.png?imageslim" alt="mark"><br>造成这种现象的原因可能就是你看不见的空格,很多人都会不自觉的敲上几个空格.<br>下面划重点:<br><strong>在一个代码块结束的<code>`</code>后面不能有空格，直接换行</strong></p>
 <h4 id="使用列表后内容不跟随缩进"><a href="#使用列表后内容不跟随缩进" class="headerlink" title="使用列表后内容不跟随缩进"></a>使用列表后内容不跟随缩进</h4><p>这样就会感觉很别扭，一点也不美观。<br>其实原因就是<strong>列表与下面的内容（代码，注释，，，等）不要留有空行，不然解释器就会以为他们的不是一体的</strong></p>
 <p><br></p>
@@ -1367,6 +1367,78 @@
   
 
   
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
 
 </body>
 </html>

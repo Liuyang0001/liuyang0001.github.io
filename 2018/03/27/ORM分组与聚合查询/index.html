@@ -419,7 +419,7 @@
 
       
         <p>详解ORM的分组查询和聚合查询。<br><a id="more"></a></p>
-<h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db.models <span class="keyword">import</span> Avg,Min,Sum,Max</span><br></pre></td></tr></table></figure>
+<h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db.models <span class="keyword">import</span> Avg,Min,Sum,Max</span><br></pre></td></tr></table></figure>
 <table>
 <thead>
 <tr>
@@ -446,21 +446,21 @@
 </tr>
 </tbody>
 </table>
-<h3 id="聚合查询"><a href="#聚合查询" class="headerlink" title="聚合查询"></a>聚合查询</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aggregate(*args,**kwargs)</span><br></pre></td></tr></table></figure>
+<h3 id="聚合查询"><a href="#聚合查询" class="headerlink" title="聚合查询"></a>聚合查询</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">aggregate(*args,**kwargs)</span><br></pre></td></tr></table></figure>
 <p>通过对QuerySet进行计算，返回一个聚合值的字典。<code>aggregate()</code>中每一个参数都指定一个包含在字典中的返回值。即<strong>在查询集上生成聚合</strong>。</p>
-<p>比如，你想要计算所有在售书的平均价钱。<br>首先拿到所有的书的QuerySet对象，使用<code>aggregate()</code>函数直接拿到平均值。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Book.objects.all().aggregate(Avg(<span class="string">'price'</span>))</span><br><span class="line">&#123;<span class="string">'price__avg'</span>: <span class="number">34.35</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>比如，你想要计算所有在售书的平均价钱。<br>首先拿到所有的书的QuerySet对象，使用<code>aggregate()</code>函数直接拿到平均值。<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Book.objects.all().aggregate(Avg(<span class="string">'price'</span>))</span><br><span class="line">&#123;<span class="string">'price__avg'</span>: <span class="number">34.35</span>&#125;</span><br></pre></td></tr></table></figure></p>
 <p><code>aggregate()</code>子句的参数描述了我们想要计算的聚合值，在这个例子中，是Book模型中price字段的平均值。</p>
 <p><code>aggregate()</code>是<code>QuerySet</code> 的一个终止子句，意思是说，它<strong>返回一个包含一些键值对的字典</strong>。键的名称是聚合值的标识符，值是计算出来的聚合值。键的名称是按照字段和聚合函数的名称自动生成出来的。</p>
 <p>当然我们也可以自己定义键名：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Book.objects.aggregate(average_price=Avg(<span class="string">'price'</span>))</span><br><span class="line">&#123;<span class="string">'average_price'</span>: <span class="number">34.35</span>&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Book.objects.aggregate(average_price=Avg(<span class="string">'price'</span>))</span><br><span class="line">&#123;<span class="string">'average_price'</span>: <span class="number">34.35</span>&#125;</span><br></pre></td></tr></table></figure>
 <p>并且从上面的语法看，这个方法是可以接受多个方法参数的，也就是说，我们可以同时使用最大值，最小值，总和等方法作为参数：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Book.objects.aggregate(Avg(<span class="string">'price'</span>), Max(<span class="string">'price'</span>), Min(<span class="string">'price'</span>))</span><br><span class="line">&#123;<span class="string">'price__avg'</span>: <span class="number">34.35</span>, <span class="string">'price__max'</span>: Decimal(<span class="string">'81.20'</span>), <span class="string">'price__min'</span>: Decimal(<span class="string">'12.99'</span>)&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Book.objects.aggregate(Avg(<span class="string">'price'</span>), Max(<span class="string">'price'</span>), Min(<span class="string">'price'</span>))</span><br><span class="line">&#123;<span class="string">'price__avg'</span>: <span class="number">34.35</span>, <span class="string">'price__max'</span>: Decimal(<span class="string">'81.20'</span>), <span class="string">'price__min'</span>: Decimal(<span class="string">'12.99'</span>)&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 
-<h3 id="分类查询"><a href="#分类查询" class="headerlink" title="分类查询"></a>分类查询</h3><h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">annotate(*args,**kwargs):</span><br></pre></td></tr></table></figure>
+<h3 id="分类查询"><a href="#分类查询" class="headerlink" title="分类查询"></a>分类查询</h3><h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">annotate(*args,**kwargs):</span><br></pre></td></tr></table></figure>
 <p>   可以通过计算查询结果中每一个对象所关联的对象集合，从而得出总计值(也可以是平均值或总和)，即为查询集的每一项生成聚合。</p>
 <p>假设我们现在的需求是按照作者的名字分组：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Book.objects.values(<span class="string">'authors__name'</span>).annotate(Max(<span class="string">'price'</span>))</span><br><span class="line">&lt;QuerySet [&#123;<span class="string">'authors__name'</span>: <span class="string">'x1'</span>, <span class="string">'price__max'</span>: Decimal(<span class="string">'100.00'</span>)&#125;,</span><br><span class="line">&#123;<span class="string">'authors__name'</span>: <span class="string">'x2'</span>, <span class="string">'price__max'</span>: Decimal(<span class="string">'100.00'</span>)&#125;,</span><br><span class="line">&#123;<span class="string">'authors__name'</span>: <span class="string">'x3'</span>, <span class="string">'price__max'</span>: Decimal(<span class="string">'100.00'</span>)&#125;]&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>Book.objects.values(<span class="string">'authors__name'</span>).annotate(Max(<span class="string">'price'</span>))</span><br><span class="line">&lt;QuerySet [&#123;<span class="string">'authors__name'</span>: <span class="string">'x1'</span>, <span class="string">'price__max'</span>: Decimal(<span class="string">'100.00'</span>)&#125;,</span><br><span class="line">&#123;<span class="string">'authors__name'</span>: <span class="string">'x2'</span>, <span class="string">'price__max'</span>: Decimal(<span class="string">'100.00'</span>)&#125;,</span><br><span class="line">&#123;<span class="string">'authors__name'</span>: <span class="string">'x3'</span>, <span class="string">'price__max'</span>: Decimal(<span class="string">'100.00'</span>)&#125;]&gt;</span><br></pre></td></tr></table></figure>
 <hr>
 
 
@@ -1395,6 +1395,78 @@
   
 
   
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
 
 </body>
 </html>
