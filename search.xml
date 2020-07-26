@@ -14,7 +14,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[wsl迁移非系统盘]]></title>
+    <title><![CDATA[wsl迁移非系统盘笔记]]></title>
     <url>%2F2020%2F07%2F26%2Fwsl%E8%BF%81%E7%A7%BB%E9%9D%9E%E7%B3%BB%E7%BB%9F%E7%9B%98%2F</url>
     <content type="text"><![CDATA[记录了如何将wsl环境迁移至非系统盘，节约本就不富裕的系统盘空间。 下载 LxRunOffline 点击这里，选择最新版下载即可。 使用与迁移 使用管理员权限打开powershell，并找到解压好的文件 查看当前的wsl环境 .\LxRunOffline.exe list 使用move命令进行迁移 .\LxRunOffline.exe move -n 分发版 -d 目录 我这里还好没出现任何报错或警告，网上说出现警告也没有任何的问题。 打开检测软件能够正常运行 检查一下目前的路径也没有问题 .\LxRunOffline.exe get-dir -n Ubuntu-18.04 更多的用法请输入.\LxRunOffline查询。 Enjoy it !]]></content>
       <categories>
@@ -38,7 +38,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[wsl配置git环境]]></title>
+    <title><![CDATA[wsl配置git环境笔记]]></title>
     <url>%2F2020%2F07%2F24%2Fwsl%E9%85%8D%E7%BD%AEgit%E7%8E%AF%E5%A2%83%2F</url>
     <content type="text"><![CDATA[这篇记录下在WSL(Ubuntu-20.04)下如何配置git环境。 安装git直接使用apt-get即可。 sudo apt-get install git 随后使用whereis git 或者git --version检查是否安装完成。 配置git 配置你的用户名 git config --global user.name xxx 配置你的邮箱地址 git config --global user.email xxx@xxx.com 查看是否配置成功 git config --list 配置SSH秘钥 生成ssh秘钥，把xxx换成你上面填的邮箱 ssh-keygen -t rsa -C "xxxx@xxx.com" 找到我们生成秘钥并打开公钥 cd ~/.ssh/ 复制公钥的内容并且打开你的github设置界面 找到SSHkey设置，点击右上角的New SSH key 把刚复制的公钥内容添加进去。 回到我们的linux命令行，使用ssh命令检查是否配置成功 ssh git@github.com 这里要输入yes，而不是直接敲回车，切记。 到这里就配置完成了，Enjoy it. 后记很简单的步骤，万万没想到，我还是踩坑了。 总结起来一句话就是：ssh key配置好了也不代表能用https的方式免密码clone和push，其实已经配置好了，只是用了错误的clone方式。 顺便记录一下已经用https方式clone项目的解决办法： 移除当前的源地址。 git remote remove origin 添加ssh格式的源地址 git remote add origin git@github.com:用户名/Repo名称.git]]></content>
       <categories>
