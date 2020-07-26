@@ -96,7 +96,7 @@
 <meta property="og:image" content="https://docs.microsoft.com/zh-cn/windows/wsl/media/ubuntuinstall.png">
 <meta property="og:image" content="https://docs.microsoft.com/zh-cn/windows/wsl/media/appstorage.png">
 <meta property="og:image" content="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723233623.png">
-<meta property="og:updated_time" content="2020-07-24T11:41:09.466Z">
+<meta property="og:updated_time" content="2020-07-26T06:30:07.398Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wsl2的升级与安装笔记">
 <meta name="twitter:description" content="这部分记录了如何安装wsl，以及如何升级到wsl2的心酸历程。">
@@ -432,13 +432,13 @@
 <a id="more"></a>
 <hr>
 
-<h2 id="版本要求"><a href="#版本要求" class="headerlink" title="版本要求"></a>版本要求</h2><p><strong>安装wsl2对系统版本有硬性的要求：</strong></p>
+<h1 id="版本要求"><a href="#版本要求" class="headerlink" title="版本要求"></a>版本要求</h1><p><strong>安装wsl2对系统版本有硬性的要求：</strong></p>
 <ul>
 <li>运行 Windows 10（<a href="ms-settings:windowsupdate" target="_blank" rel="noopener">已更新到版本 2004</a> 的<strong>内部版本 19041</strong> 或更高版本）。</li>
 <li>通过按 Windows 徽标键 + R，检查你的 Windows 版本，然后键入 <strong>winver</strong>，选择“确定”。  如果内部版本低于 19041，请<a href="ms-settings:windowsupdate" target="_blank" rel="noopener">更新到最新的 Windows 版本</a>。 </li>
 </ul>
 <p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723224746.png" alt=""></p>
-<h2 id="升级windows"><a href="#升级windows" class="headerlink" title="升级windows"></a>升级windows</h2><blockquote>
+<h1 id="升级windows"><a href="#升级windows" class="headerlink" title="升级windows"></a>升级windows</h1><blockquote>
 <p>如果版本达到了要求，则跳过此步骤。</p>
 </blockquote>
 <ul>
@@ -455,7 +455,7 @@
 
 
 
-<h2 id="WSL的安装"><a href="#WSL的安装" class="headerlink" title="WSL的安装"></a>WSL的安装</h2><ul>
+<h1 id="WSL的安装"><a href="#WSL的安装" class="headerlink" title="WSL的安装"></a>WSL的安装</h1><ul>
 <li><p>使用<strong>管理员</strong>权限打开powershell</p>
 </li>
 <li><p>启用“适用于 Linux 的 Windows 子系统”可选功能</p>
@@ -465,7 +465,7 @@
 <blockquote>
 <p>这时候wsl其实已经启用了，重启就可以了，但还要更新到wsl2，就在后面一起重启了。</p>
 </blockquote>
-<h2 id="升级到WSL2"><a href="#升级到WSL2" class="headerlink" title="升级到WSL2"></a>升级到WSL2</h2><ul>
+<h1 id="升级到WSL2"><a href="#升级到WSL2" class="headerlink" title="升级到WSL2"></a>升级到WSL2</h1><ul>
 <li>启用“虚拟机平台”可选组件</li>
 </ul>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</span><br></pre></td></tr></table></figure>
@@ -480,7 +480,7 @@
 
 
 
-<h2 id="安装linux分发版"><a href="#安装linux分发版" class="headerlink" title="安装linux分发版"></a>安装linux分发版</h2><p>选择一个你喜欢的就可以了，任君挑选。</p>
+<h1 id="安装linux分发版"><a href="#安装linux分发版" class="headerlink" title="安装linux分发版"></a>安装linux分发版</h1><p>选择一个你喜欢的就可以了，任君挑选。</p>
 <ul>
 <li><p>打开 <a href="https://aka.ms/wslstore" target="_blank" rel="noopener">Microsoft Store</a>，并选择你偏好的 Linux 分发版。</p>
 <p><img src="https://docs.microsoft.com/zh-cn/windows/wsl/media/store.png" alt="Microsoft Store 中的 Linux 分发版的视图"></p>
@@ -511,7 +511,7 @@
 
 
 
-<h2 id="排查安装问题"><a href="#排查安装问题" class="headerlink" title="排查安装问题"></a>排查安装问题</h2><p>下面是相关的错误和建议的修复措施。 有关其他常见错误及其解决方法，请参阅 <a href="https://docs.microsoft.com/zh-cn/windows/wsl/troubleshooting" target="_blank" rel="noopener">WSL 故障排除页</a>。</p>
+<h1 id="排查安装问题"><a href="#排查安装问题" class="headerlink" title="排查安装问题"></a>排查安装问题</h1><p>下面是相关的错误和建议的修复措施。 有关其他常见错误及其解决方法，请参阅 <a href="https://docs.microsoft.com/zh-cn/windows/wsl/troubleshooting" target="_blank" rel="noopener">WSL 故障排除页</a>。</p>
 <ul>
 <li><strong>安装失败并出现错误 0x80070003</strong><ul>
 <li>适用于 Linux 的 Windows 子系统只能在系统驱动器（通常是 <code>C:</code> 驱动器）中运行。 请确保分发版存储在系统驱动器上：</li>
@@ -544,14 +544,14 @@
 
 
 
-<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><p><a href="https://docs.microsoft.com/zh-cn/windows/wsl/faq" target="_blank" rel="noopener">常见问题</a></p>
+<h1 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h1><p><a href="https://docs.microsoft.com/zh-cn/windows/wsl/faq" target="_blank" rel="noopener">常见问题</a></p>
 <p><a href="https://docs.microsoft.com/zh-cn/windows/wsl/wsl2-faq" target="_blank" rel="noopener">WSL 2 常见问题解答</a></p>
 <p><a href="https://docs.microsoft.com/zh-cn/windows/wsl/troubleshooting" target="_blank" rel="noopener">疑难解答</a></p>
 <hr>
 
 
 
-<h2 id="记录所踩的坑"><a href="#记录所踩的坑" class="headerlink" title="记录所踩的坑"></a>记录所踩的坑</h2><blockquote>
+<h1 id="记录所踩的坑"><a href="#记录所踩的坑" class="headerlink" title="记录所踩的坑"></a>记录所踩的坑</h1><blockquote>
 <p>上面的问题和解决办法，是官方的手册给的，下面说记录下安装的心酸历程，如果上面没找到你的问题，可以看看我的经历是不是能给你点帮助：</p>
 </blockquote>
 <ol>
@@ -563,7 +563,7 @@
 </li>
 <li><p>之后也成功的切换到了wsl2，但是从应用商店下载的Ubuntu20,04第一次打开加载报错，不信邪的我切换回了wsl1，再打开Ubuntu成功运行，这时候我心态已经有点崩了，搞来搞去wsl2还是不能用。</p>
 </li>
-<li><p>我又在应用商店下载了Ubuntu18.04，切换回了wsl2重新安装，还是失败，看了下报错<code>0xc03a001a</code>，找到一个大佬的解答说是因为开了<strong>压缩内容以便节省磁盘空间</strong>的原因，首先确定你的一些或者所有的文件夹右上角是否都有两个相对的蓝色箭头，然后找到路径:<code>C:\Users\user name\AppData\Local\Packages\CanonicalGroupLimited.xxxx  (xxx为你所下载的对应Linux发行版)</code>这个文件夹，若它确实是右上角带有<strong>两个相对箭头</strong>，那么：</p>
+<li><p>我又在应用商店下载了Ubuntu18.04，切换回了wsl2重新安装，还是失败，看了下报错<code>0xc03a001a</code>，找到一个大佬的解答说是因为开了<strong>压缩内容以便节省磁盘空间</strong>的原因，首先确定你的一些或者所有的文件夹右上角是否都有两个相对的蓝色箭头，然后找到路径:<code>C:\Users\你的用户名\AppData\Local\Packages\CanonicalGroupLimited.xxxx  (xxx为你所下载的对应Linux发行版)</code>这个文件夹，若它确实是右上角带有<strong>两个相对箭头</strong>，那么：</p>
 </li>
 </ol>
 <blockquote>
@@ -572,6 +572,9 @@
 <p>随后我以为终于可以解决了，然而并没有。还是报错，具体是什么忘记了，也没查到答案。最后问题还是自己解决的。我灵机一动，既然wsl1环境可以正常安装，那我是不是在1环境下安装，再转换到2环境下呢？最后问题完美解决。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wsl --set-version Ubuntu-20.04  2</span><br></pre></td></tr></table></figure>
 <p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200723233623.png" alt=""></p>
+<blockquote>
+<p>上面解决办法可能是对的，可能只是需要<strong>重启一下</strong>再点开安装就行了。</p>
+</blockquote>
 <p><strong>终于等到你，还好我没放弃！</strong></p>
 
       
@@ -741,7 +744,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">143</span>
+                  <span class="site-state-item-count">145</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -763,7 +766,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">84</span>
+                  <span class="site-state-item-count">85</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -824,7 +827,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#版本要求"><span class="nav-number">1.</span> <span class="nav-text">版本要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级windows"><span class="nav-number">2.</span> <span class="nav-text">升级windows</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WSL的安装"><span class="nav-number">3.</span> <span class="nav-text">WSL的安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级到WSL2"><span class="nav-number">4.</span> <span class="nav-text">升级到WSL2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装linux分发版"><span class="nav-number">5.</span> <span class="nav-text">安装linux分发版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排查安装问题"><span class="nav-number">6.</span> <span class="nav-text">排查安装问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关链接"><span class="nav-number">7.</span> <span class="nav-text">相关链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#记录所踩的坑"><span class="nav-number">8.</span> <span class="nav-text">记录所踩的坑</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#版本要求"><span class="nav-number">1.</span> <span class="nav-text">版本要求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#升级windows"><span class="nav-number">2.</span> <span class="nav-text">升级windows</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WSL的安装"><span class="nav-number">3.</span> <span class="nav-text">WSL的安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#升级到WSL2"><span class="nav-number">4.</span> <span class="nav-text">升级到WSL2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装linux分发版"><span class="nav-number">5.</span> <span class="nav-text">安装linux分发版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#排查安装问题"><span class="nav-number">6.</span> <span class="nav-text">排查安装问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关链接"><span class="nav-number">7.</span> <span class="nav-text">相关链接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#记录所踩的坑"><span class="nav-number">8.</span> <span class="nav-text">记录所踩的坑</span></a></li></ol></div>
             
 
           </div>
