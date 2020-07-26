@@ -14,6 +14,19 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[wsl使用vscode调试cpp笔记]]></title>
+    <url>%2F2020%2F07%2F26%2Fwsl%E4%BD%BF%E7%94%A8vscode%E8%B0%83%E8%AF%95cpp%2F</url>
+    <content type="text"><![CDATA[记录如何实现在wsl中使用本地vscode进行调试，编译。 wls安装编译环境安装gcc存储库包含一个名为build-essential的元包，它包含GCC编译器以及编译软件所需的许多库和其他实用程序。 所以我们直接安装它。 sudo apt-get install build-essential 安装gdb这个我们直接apt安装就可以了。 sudo apt-get install gdb 测试测试是否完成了上面的安装，免得后面出问题。 whereis gdb whereis g++ 新建一个cpp文件夹cd ~ mkdir cpp cd cpp 在vscode中打开当前目录在命令行中输入code . 首次会自动安装驱动vscode的程序，随后自动打开vscode。 code . vscode配置安装插件之前在windows安装的插件，都会自动给你推荐适合wsl的版本，直接点击在,xxxx中安装就可以了。 Remote三件套 在扩展商店搜remote，前三个必装，后面的看你自己的实际需求。 安装 C/cpp扩展 安装code runner 配置c/c++扩展 ctrl+shift+p 输入c/c++,找到并点击打开 修改配置如图 配置Tasks 在当前目录新建一个cpp文件，方便后面检测到任务 ctrl+shift+p 输入tasks，找到并点击打开 选择g++ 复制下面的配置到任务json中 &#123; "version": "2.0.0", "windows": &#123; "options": &#123; "shell": &#123; "executable": "bash.exe", "args": [ "-c" ] &#125; &#125; &#125;, "tasks": [ &#123; "label": "g++ build active file", "type": "shell", "command": "/usr/bin/g++", "args": [ "-g", "$&#123;file&#125;", "-o", "$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;" ], "group": &#123; "kind": "build", "isDefault": true &#125; &#125;, &#123; "type": "shell", "label": "C/C++: g++ build active file", "command": "/usr/bin/g++", "args": [ "-g", "$&#123;file&#125;", "-o", "$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;" ], "options": &#123; "cwd": "$&#123;workspaceFolder&#125;" &#125;, "problemMatcher": [ "$gcc" ], "group": &#123; "kind": "build", "isDefault": true &#125;, "presentation": &#123; "echo": true, "reveal": "always", "focus": false, "panel": "shared", "showReuseMessage": true, "clear": false &#125; &#125; ]&#125; F5 运行调试 运行调试成功 Enjoy it !]]></content>
+      <categories>
+        <category>WSL使用笔记</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>WSL</tag>
+        <tag>Cpp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[wsl迁移非系统盘笔记]]></title>
     <url>%2F2020%2F07%2F26%2Fwsl%E8%BF%81%E7%A7%BB%E9%9D%9E%E7%B3%BB%E7%BB%9F%E7%9B%98%2F</url>
     <content type="text"><![CDATA[记录了如何将wsl环境迁移至非系统盘，节约本就不富裕的系统盘空间。 下载 LxRunOffline 点击这里，选择最新版下载即可。 使用与迁移 使用管理员权限打开powershell，并找到解压好的文件 查看当前的wsl环境 .\LxRunOffline.exe list 使用move命令进行迁移 .\LxRunOffline.exe move -n 分发版 -d 目录 我这里还好没出现任何报错或警告，网上说出现警告也没有任何的问题。 打开检测软件能够正常运行 检查一下目前的路径也没有问题 .\LxRunOffline.exe get-dir -n Ubuntu-18.04 更多的用法请输入.\LxRunOffline查询。 Enjoy it !]]></content>
@@ -491,8 +504,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>数学</tag>
         <tag>字符串</tag>
+        <tag>数学</tag>
       </tags>
   </entry>
   <entry>
@@ -518,8 +531,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>数学</tag>
         <tag>字符串</tag>
+        <tag>数学</tag>
       </tags>
   </entry>
   <entry>
@@ -757,8 +770,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>数学</tag>
         <tag>字符串</tag>
+        <tag>数学</tag>
       </tags>
   </entry>
   <entry>
@@ -1141,8 +1154,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>数学</tag>
         <tag>字符串</tag>
+        <tag>数学</tag>
       </tags>
   </entry>
   <entry>
@@ -1155,8 +1168,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>数学</tag>
         <tag>字符串</tag>
+        <tag>数学</tag>
         <tag>贪心算法</tag>
       </tags>
   </entry>
@@ -1209,8 +1222,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>数学</tag>
         <tag>字符串</tag>
+        <tag>数学</tag>
       </tags>
   </entry>
   <entry>
