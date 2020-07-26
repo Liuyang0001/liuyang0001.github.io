@@ -5,13 +5,11 @@
     <url>%2F2020%2F07%2F26%2Fwsl%E5%AF%BC%E8%87%B4vmmem%E5%8D%A0%E7%94%A8%E9%AB%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%2F</url>
     <content type="text"><![CDATA[自从装了wsl我这个年迈的电脑就更加吃力，尤其是内存基本上都要占到90%以上，打开任务管理器一看内存一半以上都是被vmmem吃掉了，于是在网上寻找解决办法，并记录优化过程。 定期执行缓存删除 在WSL bash上，执行以下命令，并进入编辑模式 sudo crontab -e -u root 第一次运行会让你选择编译器，我选择了nano，感觉更加友好。 并添加以下行： */15 * * * * sync; echo 3 &gt; /proc/sys/vm/drop_caches; touch /root/drop_caches_last_run */15 表示将每15分钟执行一次。您可以根据需要更改它 自动启动cron服务 在~/.bashrc 上添加以下行，允许启动cron服务而无需输入root密码， sudo nano ~/.bashrc [ -z &quot;$(ps -ef | grep cron | grep -v grep)&quot; ] &amp;&amp; sudo /etc/init.d/cron start &amp;&gt; /dev/null 在WSL bash上执行并添加以下行： sudo visudo sudo ALL=NOPASSWD: /etc/init.d/cron start 硬限制最大内存 打开文件夹，在地址栏输入%UserProfile%，并回车。 新建文件.wslconfig，并编辑内容： [wsl2]memory=4GBswap=8GBlocalhostForwarding=true 使配置生效要确保所有更改都生效，请在powershell上执行 wsl --shutdown 。然后重新打开您的WSL终端. wsl --shutdown 在wsl终端上可以通过查看/ root / drop_caches_last_run上次修改日期来检查cron作业是否正在相应地运行： sudo stat -c '%y' /root/drop_caches_last_run 上面设置的十五分钟一次，你可以计时看看有没有记录。 Enjoy it !]]></content>
       <categories>
-        <category>LeetCode</category>
+        <category>WSL使用笔记</category>
       </categories>
       <tags>
-        <tag>Python</tag>
-        <tag>Algorithms</tag>
-        <tag>1</tag>
-        <tag>2</tag>
+        <tag>Linux</tag>
+        <tag>WSL</tag>
       </tags>
   </entry>
   <entry>

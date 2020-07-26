@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://liuyang0001.github.io/"/>
-  <updated>2020-07-26T14:30:11.864Z</updated>
+  <updated>2020-07-26T14:33:55.772Z</updated>
   <id>https://liuyang0001.github.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://liuyang0001.github.io/2020/07/26/wsl%E5%AF%BC%E8%87%B4vmmem%E5%8D%A0%E7%94%A8%E9%AB%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
     <id>https://liuyang0001.github.io/2020/07/26/wsl导致vmmem占用高解决办法/</id>
     <published>2020-07-26T14:02:34.000Z</published>
-    <updated>2020-07-26T14:30:11.864Z</updated>
+    <updated>2020-07-26T14:33:55.772Z</updated>
     
-    <content type="html"><![CDATA[<p>自从装了wsl我这个年迈的电脑就更加吃力，尤其是内存基本上都要占到90%以上，打开任务管理器一看内存一半以上都是被vmmem吃掉了，于是在网上寻找解决办法，并记录优化过程。</p><a id="more"></a><hr><h1 id="定期执行缓存删除"><a href="#定期执行缓存删除" class="headerlink" title="定期执行缓存删除"></a>定期执行缓存删除</h1><ul><li>在WSL bash上，执行以下命令，并进入编辑模式</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo crontab -e -u root</span><br></pre></td></tr></table></figure><blockquote><p>第一次运行会让你选择编译器，我选择了nano，感觉更加友好。</p></blockquote><p>并添加以下行：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*/15 * * * * sync; <span class="built_in">echo</span> 3 &gt; /proc/sys/vm/drop_caches; touch /root/drop_caches_last_run</span><br></pre></td></tr></table></figure><blockquote><p>*/15 表示将每15分钟执行一次。您可以根据需要更改它</p></blockquote><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200726222502.png" alt=""></p><ul><li>自动启动cron服务</li></ul><p>在<code>~/.bashrc</code> 上添加以下行，允许启动cron服务而无需输入root密码，</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo nano ~/.bashrc</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[ -z &quot;$(ps -ef | grep cron | grep -v grep)&quot; ] &amp;&amp; sudo /etc/init.d/cron start &amp;&gt; /dev/null</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200726222643.png" alt=""></p><ul><li>在WSL bash上执行并添加以下行：</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo visudo</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo ALL=NOPASSWD: /etc/init.d/cron start</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200726222739.png" alt=""></p><hr><h1 id="硬限制最大内存"><a href="#硬限制最大内存" class="headerlink" title="硬限制最大内存"></a>硬限制最大内存</h1><ul><li>打开文件夹，在地址栏输入<code>%UserProfile%</code>，并回车。</li><li>新建文件<code>.wslconfig</code>，并编辑内容：</li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[wsl2]</span><br><span class="line">memory=4GB</span><br><span class="line">swap=8GB</span><br><span class="line">localhostForwarding=true</span><br></pre></td></tr></table></figure><h1 id="使配置生效"><a href="#使配置生效" class="headerlink" title="使配置生效"></a>使配置生效</h1><p>要确保所有更改都生效，请在<code>powershell</code>上执行 <code>wsl --shutdown</code> 。然后重新打开您的WSL终端.</p><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">wsl --shutdown</span><br></pre></td></tr></table></figure><p>在wsl终端上可以通过查看/ <code>root / drop_caches_last_run</code>上次修改日期来检查cron作业是否正在相应地运行：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">stat</span> -c <span class="string">'%y'</span> /root/drop_caches_last_run</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200726222829.png" alt=""></p><blockquote><p>上面设置的十五分钟一次，你可以计时看看有没有记录。</p></blockquote><hr><p><strong>Enjoy it !</strong></p>]]></content>
+    <content type="html"><![CDATA[<p>自从装了wsl我这个年迈的电脑就更加吃力，尤其是内存基本上都要占到90%以上，打开任务管理器一看内存一半以上都是被vmmem吃掉了，于是在网上寻找解决办法，并记录优化过程。</p><a id="more"></a><hr><h1 id="定期执行缓存删除"><a href="#定期执行缓存删除" class="headerlink" title="定期执行缓存删除"></a>定期执行缓存删除</h1><ul><li>在WSL bash上，执行以下命令，并进入编辑模式</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo crontab -e -u root</span><br></pre></td></tr></table></figure><blockquote><p>第一次运行会让你选择编译器，我选择了nano，感觉更加友好。</p></blockquote><p>并添加以下行：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*/15 * * * * sync; <span class="built_in">echo</span> 3 &gt; /proc/sys/vm/drop_caches; touch /root/drop_caches_last_run</span><br></pre></td></tr></table></figure><blockquote><p>*/15 表示将每15分钟执行一次。您可以根据需要更改它</p></blockquote><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200726222502.png" alt=""></p><ul><li>自动启动cron服务</li></ul><p>在<code>~/.bashrc</code> 上添加以下行，允许启动cron服务而无需输入root密码，</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo nano ~/.bashrc</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[ -z &quot;$(ps -ef | grep cron | grep -v grep)&quot; ] &amp;&amp; sudo /etc/init.d/cron start &amp;&gt; /dev/null</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200726222643.png" alt=""></p><ul><li>在WSL bash上执行并添加以下行：</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo visudo</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo ALL=NOPASSWD: /etc/init.d/cron start</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200726222739.png" alt=""></p><hr><h1 id="硬限制最大内存"><a href="#硬限制最大内存" class="headerlink" title="硬限制最大内存"></a>硬限制最大内存</h1><ul><li>打开文件夹，在地址栏输入<code>%UserProfile%</code>，并回车。</li><li>新建文件<code>.wslconfig</code>，并编辑内容：</li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[wsl2]</span><br><span class="line">memory=4GB</span><br><span class="line">swap=8GB</span><br><span class="line">localhostForwarding=true</span><br></pre></td></tr></table></figure><h1 id="使配置生效"><a href="#使配置生效" class="headerlink" title="使配置生效"></a>使配置生效</h1><p>要确保所有更改都生效，请在<code>powershell</code>上执行 <code>wsl --shutdown</code> 。然后重新打开您的WSL终端.</p><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">wsl --shutdown</span><br></pre></td></tr></table></figure><p>在wsl终端上可以通过查看/ <code>root / drop_caches_last_run</code>上次修改日期来检查cron作业是否正在相应地运行：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">stat</span> -c <span class="string">'%y'</span> /root/drop_caches_last_run</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200726222829.png" alt=""></p><blockquote><p>上面设置的十五分钟一次，你可以计时看看有没有记录。</p></blockquote><p><hr><br><strong>Enjoy it !</strong></p>]]></content>
     
     <summary type="html">
     
@@ -31,16 +31,12 @@
     
     </summary>
     
-      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
+      <category term="WSL使用笔记" scheme="https://liuyang0001.github.io/categories/WSL%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
     
     
-      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
+      <category term="Linux" scheme="https://liuyang0001.github.io/tags/Linux/"/>
     
-      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
-    
-      <category term="1" scheme="https://liuyang0001.github.io/tags/1/"/>
-    
-      <category term="2" scheme="https://liuyang0001.github.io/tags/2/"/>
+      <category term="WSL" scheme="https://liuyang0001.github.io/tags/WSL/"/>
     
   </entry>
   
