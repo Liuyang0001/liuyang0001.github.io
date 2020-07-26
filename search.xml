@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[wsl导致vmmem占用高解决办法]]></title>
+    <url>%2F2020%2F07%2F26%2Fwsl%E5%AF%BC%E8%87%B4vmmem%E5%8D%A0%E7%94%A8%E9%AB%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[自从装了wsl我这个年迈的电脑就更加吃力，尤其是内存基本上都要占到90%以上，打开任务管理器一看内存一半以上都是被vmmem吃掉了，于是在网上寻找解决办法，并记录优化过程。 定期执行缓存删除 在WSL bash上，执行以下命令，并进入编辑模式 sudo crontab -e -u root 第一次运行会让你选择编译器，我选择了nano，感觉更加友好。 并添加以下行： */15 * * * * sync; echo 3 &gt; /proc/sys/vm/drop_caches; touch /root/drop_caches_last_run */15 表示将每15分钟执行一次。您可以根据需要更改它 自动启动cron服务 在~/.bashrc 上添加以下行，允许启动cron服务而无需输入root密码， sudo nano ~/.bashrc [ -z &quot;$(ps -ef | grep cron | grep -v grep)&quot; ] &amp;&amp; sudo /etc/init.d/cron start &amp;&gt; /dev/null 在WSL bash上执行并添加以下行： sudo visudo sudo ALL=NOPASSWD: /etc/init.d/cron start 硬限制最大内存 打开文件夹，在地址栏输入%UserProfile%，并回车。 新建文件.wslconfig，并编辑内容： [wsl2]memory=4GBswap=8GBlocalhostForwarding=true 使配置生效要确保所有更改都生效，请在powershell上执行 wsl --shutdown 。然后重新打开您的WSL终端. wsl --shutdown 在wsl终端上可以通过查看/ root / drop_caches_last_run上次修改日期来检查cron作业是否正在相应地运行： sudo stat -c '%y' /root/drop_caches_last_run 上面设置的十五分钟一次，你可以计时看看有没有记录。 Enjoy it !]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithms</tag>
+        <tag>1</tag>
+        <tag>2</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[wsl安装/卸载mysql]]></title>
     <url>%2F2020%2F07%2F26%2Fwsl%E5%AE%89%E8%A3%85mysql%E8%AE%B0%E5%BD%95%2F</url>
     <content type="text"><![CDATA[记录下安装mysql的过程，以及遇到的问题和解决方法。 安装基于Ubuntu-18.04，之前尝试了20.04版本尝试了各种方式无果。 安装mysql 首先更新软件源，保证其为最新。 sudo apt-get update sudo apt-get upgrade 然后通过apt命令安装mysql sudo apt-get install mysql-server 静静等待完成，如果没有出现报错，将会得到下面这样： 但是不知道你有没有注意到，正常我们安装是会让你输入mysql密码，但是我们没有。于是尝试启动报错： sudo service mysql start 提示没有权限，于是我们先停止服务给它权限 sudo service mysql stop sudo usermod -d /var/lib/mysql/ mysql 重启服务，尝试登陆，依旧报错. sudo service mysql start mysql -u root -p 这是由于我们安装的过程中并没有输入密码造成的，于是我们需要给自己生成一个密码。 解决办法： 直接修改文件使得我们可以先无需密码进行登录： sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf 在图中的位置加上下面这句： skip-grant-tables 重启mysql服务并进行无密码登陆 sudo service mysql restart mysql -u root -p 进入mysql后，分别执行下面三句话： use mysql; update user set authentication_string=password(&quot;你的密码&quot;) where user=&quot;root&quot;; flush privileges; 查看当前的状态 select user,plugin from user; root用户的密码并为成功修改，于是我们再次修改表单： update user set authentication_string=password(&quot;你的密码&quot;),plugin=&apos;mysql_native_password&apos; where user=&apos;root&apos;; 查看修改成功后退出 select user,plugin from user; quit 随后去掉我们之前设置的无密码登陆语句，或者注释掉 sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf 重启mysql服务，尝试登陆。 sudo service mysql start mysql -u root -p 输入刚才设置的密码，root用户使用密码成功登陆。 卸载mysql安装的过程难免会出错，这时候就可能需要卸载掉软件。下面记录下如何完全卸载掉mysql，便于之后重新安装。 自动卸载mysql*相关的软件 sudo apt-get autoremove --purge mysql* 删除掉卸载不完全留下的文件目录 sudo rm -rf /etc/mysql /var/lib/mysql 自动卸载无用的程序 sudo apt-get autoremove 自动清理卸载后的残留信息 sudo apt-get autoclean 这样就mysql就完全卸载好了，之后遵循上面的安装步骤进行安装即可。 Enjoy it !]]></content>
@@ -504,8 +518,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>字符串</tag>
         <tag>数学</tag>
+        <tag>字符串</tag>
       </tags>
   </entry>
   <entry>
@@ -531,8 +545,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>字符串</tag>
         <tag>数学</tag>
+        <tag>字符串</tag>
       </tags>
   </entry>
   <entry>
@@ -770,8 +784,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>字符串</tag>
         <tag>数学</tag>
+        <tag>字符串</tag>
       </tags>
   </entry>
   <entry>
@@ -1154,8 +1168,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>字符串</tag>
         <tag>数学</tag>
+        <tag>字符串</tag>
       </tags>
   </entry>
   <entry>
@@ -1168,8 +1182,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>字符串</tag>
         <tag>数学</tag>
+        <tag>字符串</tag>
         <tag>贪心算法</tag>
       </tags>
   </entry>
@@ -1222,8 +1236,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>字符串</tag>
         <tag>数学</tag>
+        <tag>字符串</tag>
       </tags>
   </entry>
   <entry>
