@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[wsl中使用jupyter-lab]]></title>
+    <url>%2F2020%2F07%2F29%2Fwsl%E4%B8%AD%E4%BD%BF%E7%94%A8jupyter-lab%2F</url>
+    <content type="text"><![CDATA[wsl安装完成直接使用jupyter-lab，会出现无法自动打开浏览器，即使打开浏览器也会出现“找不到文件”的问题，这篇记录一下如何完美解决这些问题。 [TOC] 安装jupyter-lab其实直接安装anaconda3就可以了，具体请参考这里 使用jupyter-lab打开wsl，键入 jupyter lab 就可以了。 jupyter lab 这时候我们虽然不能正常的跳转浏览器打开，但可以看到对应的链接，ctrl+鼠标左键点击就可进入正确的界面了。 解决自动跳转问题1.找到浏览器的位置 点开快捷方式的属性，复制“目标位置”中的路径 C:\Program Files (x86)\Google\Chrome\Application\chrome.exe 在wsl中找到该位置，其实就是在将该路径转换成linux中的路径 注意：所有的空格或者符号前都需要加防转义符‘\’ 如果和我的路径一样，直接复制下面即可 /mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe 在wsl中键入下面命令尝试访问，如果能正确的打开浏览器，说明路径是对的 /mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe "https://liuyang0001.github.io/" 这个路径太长了，而且手打起来很麻烦，所以我们建立一个软连接 sudo ln -s /mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe /usr/bin/chrome 验证软连接是否成功，看能否成功驱动浏览器 chrome https://liuyang0001.github.io/ 2.编辑jupyter配置文件 首先我们先生成默认配置文件 jupyter notebook --generate-config 打开配置文件，更改浏览器的驱动路径 nano ~/.jupyter/jupyter_notebook_config.py 编辑器这里推荐使用nano，因为可以很方便的进行搜索等操作，当然vim也可以 我们直接在文件的最后面，加上下面这段代码： ## 自定义浏览器import webbrowserwebbrowser.register('chrome',None,webbrowser.GenericBrowser('/usr/bin/chrome'))c.NotebookApp.browser = 'chrome'# -------------------------------------------------- nano操作：Ctrl+O保存，确认，Ctrl+X退出 运行jupyter lab 尝试，发现浏览器已经可以正常打开了，但是会出现找不到文件的情况： 这是由于WSL使用重定向文件启动浏览器可能会导致浏览器无法加载。【浏览器之间的文件结构/路径不同】 所以需要设置禁用重定向，从而允许浏览器使用URL和可见标记启动。 设置禁用重定向 重新打开刚才的配置文件 nano ~/.jupyter/jupyter_notebook_config.py Ctrl +W进行搜索c.NotebookApp.use_redirect_file, 并该项设为False 保存退出，重新打开jupyter lab就已经可以正常运行了 Enjoy it !]]></content>
+      <categories>
+        <category>WSL使用笔记</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>WSL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[wsl使用zsh与终端美化]]></title>
     <url>%2F2020%2F07%2F28%2Fwsl%E4%BD%BF%E7%94%A8zsh%E4%B8%8E%E7%BB%88%E7%AB%AF%E7%BE%8E%E5%8C%96%2F</url>
     <content type="text"><![CDATA[记录如何从bash切换到zsh，如何使用oh-my-zsh对终端进行美化以及zsh一些常用插件的安装。 [TOC] 安装zsh 直接使用apt命令安装即可 sudo apt-get install zsh 切换为shell为zsh chsh -s /bin/zsh 美化zsh这是我修改后的终端样式： 安装 Powerlevel10k主题 使用git进行下载 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/themes/powerlevel10k 打开zsh的配置文件 sudo vim ~/.zshrc 选择主题为我们下载主题 ZSH_THEME=powerlevel10k/powerlevel10k 保存并关闭 安装字体为了防止终端可能会出现乱码，也是因为你的电脑不支持那么多字体，所以我们需要先安装扩展字体。 Powerlevel10k 作者推荐使用 Meslo Nerd Font 字体，Download these four ttf files: MesloLGS NF Regular.ttf MesloLGS NF Bold.ttf MesloLGS NF Italic.ttf MesloLGS NF Bold Italic.ttf Double-click on each file and click “Install”. This will make MesloLGS NF font available to all applications on your system. WSL配置字体其实就是配置终端的字体，点击设置会自动跳转到一个json格式的文档。 将文档中对应部分换成下面这个，对应的美化配置都有注释，可自行调整： "defaults": &#123; // Put settings here that you want to apply to all profiles. "acrylicOpacity": 0.8, //背景透明度 // "useAcrylic": true, // 启用毛玻璃 //"backgroundImage": "C:\\Users\\Liu\\Pictures\\ubuntu.jpg", //背景图片 // "backgroundImageOpacity": 0.5, //图片透明度 "backgroundImageStretchMode": "fill", //填充模式 "icon": "C:\\Users\\Liu\\Pictures\\最近\\1121490.png", //图标 "fontFace": "MesloLGS NF", //字体 "fontSize": 14, //文字大小 //"colorScheme": "Solarized Light", //主题 "cursorColor": "#FFFFFF", //光标颜色 "cursorShape": "bar" //光标形状 &#125;, 配置 Powerlevel10k自动配置脚本Powerlevel10k 提供了一个配置脚本，运行脚本后只需回答几个简单的问题即可完成配置。 直接输入 p10k configure 即可进入配置问答界面， p10k configure 完成后会生成一个配置文件 ~/.p10k.zsh，并且在 ~/.zshrc 中自动加入了 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.[[ -f ~/.p10k.zsh ]] &amp;&amp; source ~/.p10k.zsh 在配置过程中需要注意的是，Instant Promt Mode 尽量选择打开，可以加快终端启动速度，详情请见这里。 个性化设置在 Powerlevel10k 新生成的配置文件 ~/.p10k.zsh 中根据个人喜好进行个性化设置。 每次修改配置文件后重启终端或者新开一个 tab 即可显示。在 vim 中可以通过 :/str 来执行搜索，通过 N 或 n 键来跳转到上一个结果或下一个结果。 重新加载配置重新加载zsh的配置文件，使得配置能够生效。 source ~/.zshrc 安装Oh My Zsh选择一种方式进行安装： 使用 curl 命令 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" 或者使用wget命令 sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)" 安装插件Oh My Zsh 有非常丰富的插件，使用插件可以使得在终端的效率翻倍，下面介绍 5 个我常用的插件。插件均需在配置文件 ~/.zshrc 中写出，如下： plugins=( git github autojump zsh-syntax-highlighting zsh-autosuggestions) gitgit plugin 提供丰富的 git 别名与几个有用的函数。 githubgithub plugin 提供几个快捷的函数。 autojumpautojump 可以记录下来你之前 cd 到访过的所有目录，下次要去那个目录时不需要输入完整的路径，直接 j somedir 即可到达，甚至那个目标目录的名称只输入开头也可以。 安装方式 zsh-syntax-highlightingzsh-syntax-highlighting，终端命令语法高亮。 克隆 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-syntax-highlighting 在~/.zshrc 中配置 plugins=(zsh-syntax-highlighting) zsh-autosuggestionszsh-autosuggestions 终端命令自动推荐，会记录下来之前使用过的命令，当你输入开头时，会暗色提示之前的历史命令供你选择，可直接按右方向键选中该命令。 克隆 git clone https://github.com/zsh-users/zsh-autosuggestions $&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;/plugins/zsh-autosuggestions 在~/.zshrc 中配置 plugins=(zsh-autosuggestions) 更多插件，请自行点击查看github。 zsh配置环境变量这里拿之前装好的anaconda3举例： sudo vim ~/.zshrc 在其中加入anaconda3的环境变量，路径换成自己的： export PATH=/home/liu/anaconda3/bin:$PATH 运行python测试结果： 成功运行，环境变量配置成功。 Enjoy it !]]></content>
@@ -1734,8 +1746,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>内置函数</tag>
         <tag>eval</tag>
+        <tag>内置函数</tag>
       </tags>
   </entry>
   <entry>
