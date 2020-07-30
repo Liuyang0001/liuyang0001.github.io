@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://liuyang0001.github.io/"/>
-  <updated>2020-07-29T06:09:17.770Z</updated>
+  <updated>2020-07-30T05:05:01.663Z</updated>
   <id>https://liuyang0001.github.io/</id>
   
   <author>
@@ -15,6 +15,78 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>利用CDN加速GithubPage访问速度</title>
+    <link href="https://liuyang0001.github.io/2020/07/30/%E5%88%A9%E7%94%A8CDN%E5%8A%A0%E9%80%9FGithubPage%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6/"/>
+    <id>https://liuyang0001.github.io/2020/07/30/利用CDN加速GithubPage访问速度/</id>
+    <published>2020-07-30T04:24:51.000Z</published>
+    <updated>2020-07-30T05:05:01.663Z</updated>
+    
+    <content type="html"><![CDATA[<p>在国内，githubpage的访问速度相当感人，于是使用CDN加速就变得十分有必要了。</p><a id="more"></a><hr><p>[TOC]</p><hr><h1 id="Github-Page"><a href="#Github-Page" class="headerlink" title="Github Page"></a>Github Page</h1><p>Github Pages为Github提供的一项静态站点托管服务，它直接从Github仓库获取静态文件进行发布，然后提供一个<code>github.io</code>的二级域名供用户访问，支持绑定自定义域名，支持开启HTTPS，开启HTTPS会自动申请证书同时在证书过期前自动续签，这一切都是<strong>免费</strong>的，使用极其简单，只需要将你的静态文件提交到Github，然后开启Pages服务即可，<a href="https://ops-coffee.cn/" target="_blank" rel="noopener">我的博客</a>就托管于Github Pages</p><blockquote><p>Github Pages免费且稳定的服务让我可以专注内容，而无需考虑成本及维护的问题，非常方便广受好评，但其最大的一个问题就是国内访问速度很慢，如何简单快速又低成本的解决这个问题呢？这里介绍一个服务：Netlify</p></blockquote><h1 id="Netlify"><a href="#Netlify" class="headerlink" title="Netlify"></a>Netlify</h1><p>Netlify是一家提供静态网站托管的综合平台，支持自动从Github等仓库拉取代码并构建成静态网站进行发布，同时也支持自定义域名，自动申请SSL证书等功能，更为重要的是自动启用<strong>CDN加速</strong>，国内访问速度要快很多</p><p>以下分别是Github Pages和Netlify两个平台同一项目请求速度的对比图</p><p><img src="https://blz.nosdn.127.net/sre/images/20200313.01.png" alt="img"></p><p>从上图的测试结果可以看出国内各地的访问速度Netlify都能完胜，接下来详细介绍下如何通过Netlify给你的Github Pages加速</p><p>打开<a href="https://www.netlify.com/" target="_blank" rel="noopener">Netlify官网</a>，点击右上角的<code>Sign up</code>注册账号，这里推荐关联Github账号</p><p><img src="https://blz.nosdn.127.net/sre/images/20200313.02.png" alt="img"></p><p>关联认证后进入Netlify的后台页面，如下图，点击<code>New site from Git</code></p><p><img src="https://blz.nosdn.127.net/sre/images/20200313.03.png" alt="img"></p><p>选择网站源码托管的代码仓库类型，支持Github、Gitlab以及Bitbucket，选择<code>GitHub</code></p><p><img src="https://blz.nosdn.127.net/sre/images/20200313.04.png" alt="img"></p><p>然后会进入Github的认证授权页面，点击<code>Authorize Netlify by Netlify</code></p><p><img src="https://blz.nosdn.127.net/sre/images/20200313.05.png" alt="img"></p><p>点击<code>Only select repositories</code>选择要授权的Github仓库，当然也可以直接选择授权所有仓库，这个授权在设置中可以改</p><p><img src="https://blz.nosdn.127.net/sre/images/20200313.06.png" alt="img"></p><p>授权完成回到Netlify后台页面，选择我们刚刚授权的Github仓库继续</p><p><img src="https://blz.nosdn.127.net/sre/images/20200313.07.png" alt="img"></p><p>选择部署的用户以及分支，如果是一些需要编译的项目，还支持定义编译的命令以及最终发布的目录，纯静态网站的话都不需要填写，直接点击<code>Deploy site</code>即可完成部署</p><p><img src="https://blz.nosdn.127.net/sre/images/20200313.08.png" alt="img"></p><p>部署完成后，Netlify会自动生成一个随机的二级域名<code>xxx.netlify.com</code>，我们可以修改为自定义的二级域名，点击<code>Site Settings</code></p><p><img src="https://blz.nosdn.127.net/sre/images/20200313.09.png" alt="img"></p><p>General -&gt; Site details下点击<code>Change site name</code>，可以为这个站点设置一个自定义的名字，二级域名也会相应改变</p><p><img src="https://blz.nosdn.127.net/sre/images/20200313.10.png" alt="img"></p><p>如果你想绑定自己的域名，需要先在域名管理系统里新建解析，将域名CNAME指向到你的netlify二级域名，以阿里云为例如下</p><p><img src="https://blz.nosdn.127.net/sre/images/20200313.11.png" alt="img"></p><p>然后进入Netlify管理后台，Domain management -&gt; Domains，点击<code>Add domain alias</code>，填入你的自定义域名</p><p><img src="https://blz.nosdn.127.net/sre/images/20200313.12.png" alt="img"></p><p>待域名解析生效后就会看到新绑定的域名变为绿色，并且设置为了主域名</p><p><img src="https://blz.nosdn.127.net/sre/images/20200313.13.png" alt="img"></p><p>最后为自定义域名开启HTTPS支持，Domain management -&gt; HTTPS，点击<code>Verify DNS configuration</code>，域名验证通过则会自动申请证书</p><p><img src="https://blz.nosdn.127.net/sre/images/20200313.14.png" alt="img"></p><p>至此Netlify与Github绑定完成，可以通过自定义域名访问网站了，之后你每一次提交代码到Github，便会<strong>自动</strong>发布至Netlify，无需额外操作，非常方便</p><h1 id="其他说明"><a href="#其他说明" class="headerlink" title="其他说明"></a>其他说明</h1><p>如果你是主域名要绑定Netlify，且必须使用A记录的话，可以直接ping一下你的Netlify二级域名地址得到的IP便可以作为域名解析，例如我的域名是<code>ops-coffee.netlify.com</code>，ping之后得到的地址是<code>157.230.35.153</code>，可以多ping几次得到不同的地址，都绑定到域名上以防止单节点故障</p><p>国内也有类似于Github pages这样的服务，例如Gitee和Coding提供的pages服务，在速度方面要有不少的优势，但稳定性欠佳，且可能会面临层层审查域名备案等问题</p><p>如果你的域名有备案，项目又是纯静态的话还可以考虑直接托管在国内的一些对象存储服务上，例如七牛云、腾讯云等，然后开启CDN加速，效果也不错，并且大多都有免费流量可以使用</p><p>Github Pages和Netlify这种免费且可高度自定义的方案，在满足我们个性化需求的同时，省去了维护成本和资金压力，可以让站点活得更久，从而让我们把重点放在持续不断的输出内容，形成良性循环，赶紧试试吧</p><p><hr><br><strong>本篇转载于ops-coffee，仅个人使用。</strong></p><p><strong>Enjoy it !</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在国内，githubpage的访问速度相当感人，于是使用CDN加速就变得十分有必要了。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Others" scheme="https://liuyang0001.github.io/categories/Others/"/>
+    
+    
+      <category term="CDN" scheme="https://liuyang0001.github.io/tags/CDN/"/>
+    
+      <category term="Github" scheme="https://liuyang0001.github.io/tags/Github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>wsl配置nodejs环境</title>
+    <link href="https://liuyang0001.github.io/2020/07/30/wsl%E9%85%8D%E7%BD%AEnodejs%E7%8E%AF%E5%A2%83/"/>
+    <id>https://liuyang0001.github.io/2020/07/30/wsl配置nodejs环境/</id>
+    <published>2020-07-30T01:56:40.000Z</published>
+    <updated>2020-07-30T04:24:35.987Z</updated>
+    
+    <content type="html"><![CDATA[<p>记录如何在wsl-ubuntu下配置最新的<code>node.js</code>环境。</p><a id="more"></a><hr><p>[TOC]</p><hr><h1 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h1><ul><li>打开<a href="https://nodejs.org/en/download/current/" target="_blank" rel="noopener">Node.js官网</a></li></ul><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200730114722.png" alt=""></p><ul><li>下载安装包</li></ul><blockquote><p>最好放在一个容易找到的位置</p></blockquote><ul><li>打开wsl找到安装包的位置，进行解压。</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -xvf node-v*.xz</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200730115036.png" alt=""></p><ul><li>拷贝解压的文件夹</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">cp -r node* ~/nodejs</span><br></pre></td></tr></table></figure><ul><li>把nodejs添加至环境变量</li></ul><p>如果使用的是zsh：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo nano ~/.zshrc</span><br></pre></td></tr></table></figure><p>如果使用的是bash：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo nano ~/.bashrc</span><br></pre></td></tr></table></figure><p>添加nodejs进环境变量：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=/home/你的账号名/nodejs/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure><ul><li>测试环境</li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200730120731.png" alt=""></p><p><hr></p><h1 id="Nodejs的使用"><a href="#Nodejs的使用" class="headerlink" title="Nodejs的使用"></a>Nodejs的使用</h1><blockquote><p>占位，后续更新。</p></blockquote><hr><p><strong>Enjoy it !</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录如何在wsl-ubuntu下配置最新的&lt;code&gt;node.js&lt;/code&gt;环境。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="WSL使用笔记" scheme="https://liuyang0001.github.io/categories/WSL%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Linux" scheme="https://liuyang0001.github.io/tags/Linux/"/>
+    
+      <category term="WSL" scheme="https://liuyang0001.github.io/tags/WSL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>wsl安装字体与配置mlt</title>
+    <link href="https://liuyang0001.github.io/2020/07/30/wsl%E5%AE%89%E8%A3%85SimHei%E5%AD%97%E4%BD%93/"/>
+    <id>https://liuyang0001.github.io/2020/07/30/wsl安装SimHei字体/</id>
+    <published>2020-07-30T01:55:44.000Z</published>
+    <updated>2020-07-30T02:26:58.269Z</updated>
+    
+    <content type="html"><![CDATA[<p>wsl默认是没有中文字体的，所以使用matplotlib绘图时存在中文就无法显示。所以本篇记录一下如何安装ttf字体，以及在Matplotplotlib中增加该字体。</p><a id="more"></a><hr><p>[TOC]</p><hr><h1 id="安装字体"><a href="#安装字体" class="headerlink" title="安装字体"></a>安装字体</h1><h2 id="下载字体"><a href="#下载字体" class="headerlink" title="下载字体"></a>下载字体</h2><p>直接百度搜索下载SimHei字体，就可以找到对应网页进行下载。</p><h2 id="更改路径与权限"><a href="#更改路径与权限" class="headerlink" title="更改路径与权限"></a>更改路径与权限</h2><ul><li>拷贝字体到 usr/share/fonts </li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo cp SimHei.ttf  /usr/share/fonts/SimHei.ttf</span><br></pre></td></tr></table></figure><ul><li>更改该文件夹的权限</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo chmod 777 /usr/share/fonts</span><br></pre></td></tr></table></figure><hr><h1 id="配置matplotlib"><a href="#配置matplotlib" class="headerlink" title="配置matplotlib"></a>配置matplotlib</h1><h2 id="删除原来的缓存"><a href="#删除原来的缓存" class="headerlink" title="删除原来的缓存"></a>删除原来的缓存</h2><ul><li>找到缓存路径</li></ul><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200730101344.png" alt=""></p><ul><li>删除缓存</li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo rm -rf /home/liu/.cache/matplotlib</span><br></pre></td></tr></table></figure><h2 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h2><ul><li>找到配置文件路径</li></ul><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200730101736.png" alt=""></p><ul><li>编辑配置文件</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo nano /home/liu/anaconda3/lib/python3.7/site-packages/matplotlib/mpl-data/matplotlibrc</span><br></pre></td></tr></table></figure><p>添加下列数据：</p><figure class="highlight"><table><tr><td class="code"><pre><span class="line">font.family : sans-serif</span><br><span class="line">font.sans-serif : SimHei</span><br><span class="line">axes.unicode_minus : False</span><br></pre></td></tr></table></figure><ul><li>重启jupyter即可</li></ul><hr><p><strong>Enjoy it !</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;wsl默认是没有中文字体的，所以使用matplotlib绘图时存在中文就无法显示。所以本篇记录一下如何安装ttf字体，以及在Matplotplotlib中增加该字体。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="WSL使用笔记" scheme="https://liuyang0001.github.io/categories/WSL%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Linux" scheme="https://liuyang0001.github.io/tags/Linux/"/>
+    
+      <category term="WSL" scheme="https://liuyang0001.github.io/tags/WSL/"/>
+    
+  </entry>
   
   <entry>
     <title>wsl中使用jupyter-lab</title>
@@ -69,9 +141,9 @@
     <link href="https://liuyang0001.github.io/2020/07/26/wsl%E5%AF%BC%E8%87%B4vmmem%E5%8D%A0%E7%94%A8%E9%AB%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
     <id>https://liuyang0001.github.io/2020/07/26/wsl导致vmmem占用高解决办法/</id>
     <published>2020-07-26T14:02:34.000Z</published>
-    <updated>2020-07-26T14:53:00.944Z</updated>
+    <updated>2020-07-29T10:36:47.080Z</updated>
     
-    <content type="html"><![CDATA[<p>自从装了wsl我这个年迈的电脑就更加吃力，尤其是内存基本上都要占到90%以上，打开任务管理器一看内存一半以上都是被vmmem吃掉了，于是在网上寻找解决办法，并记录优化过程。</p><a id="more"></a><hr><h1 id="定期执行缓存删除"><a href="#定期执行缓存删除" class="headerlink" title="定期执行缓存删除"></a>定期执行缓存删除</h1><ul><li>在WSL bash上，执行以下命令，并进入编辑模式</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo crontab -e -u root</span><br></pre></td></tr></table></figure><blockquote><p>第一次运行会让你选择编译器，我选择了nano，感觉更加友好。</p></blockquote><p>并添加以下行：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*/15 * * * * sync; <span class="built_in">echo</span> 3 &gt; /proc/sys/vm/drop_caches; touch /root/drop_caches_last_run</span><br></pre></td></tr></table></figure><blockquote><p>*/15 表示将每15分钟执行一次。您可以根据需要更改它</p></blockquote><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200726222502.png" alt=""></p><ul><li>自动启动cron服务</li></ul><p>在<code>~/.bashrc</code> 上添加以下行，允许启动cron服务而无需输入root密码，</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo nano ~/.bashrc</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[ -z &quot;$(ps -ef | grep cron | grep -v grep)&quot; ] &amp;&amp; sudo /etc/init.d/cron start &amp;&gt; /dev/null</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200726222643.png" alt=""></p><ul><li>在WSL bash上执行并添加以下行：</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo visudo</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo ALL=NOPASSWD: /etc/init.d/cron start</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200726222739.png" alt=""></p><hr><h1 id="硬限制最大内存"><a href="#硬限制最大内存" class="headerlink" title="硬限制最大内存"></a>硬限制最大内存</h1><ul><li>打开文件夹，在地址栏输入<code>%UserProfile%</code>，并回车。</li><li>新建文件<code>.wslconfig</code>，并编辑内容：</li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[wsl2]</span><br><span class="line">memory=4GB</span><br><span class="line">swap=8GB</span><br><span class="line">localhostForwarding=true</span><br></pre></td></tr></table></figure><h1 id="使配置生效"><a href="#使配置生效" class="headerlink" title="使配置生效"></a>使配置生效</h1><p>要确保所有更改都生效，请在<code>powershell</code>上执行 <code>wsl --shutdown</code> 。然后重新打开您的WSL终端.</p><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">wsl --shutdown</span><br></pre></td></tr></table></figure><p>在wsl终端上可以通过查看/ <code>root / drop_caches_last_run</code>上次修改日期来检查cron作业是否正在相应地运行：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">stat</span> -c <span class="string">'%y'</span> /root/drop_caches_last_run</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200726222829.png" alt=""></p><blockquote><p>上面设置的十五分钟一次，你可以计时看看有没有记录。</p></blockquote><h1 id="ISSUE"><a href="#ISSUE" class="headerlink" title="ISSUE"></a>ISSUE</h1><p><a href="https://github.com/microsoft/WSL/issues/4166" target="_blank" rel="noopener">这个问题，在github以上已经大量反馈，点击这里查看issue详情</a></p><hr><p><strong>Enjoy it !</strong></p>]]></content>
+    <content type="html"><![CDATA[<p>自从装了wsl我这个年迈的电脑就更加吃力，尤其是内存基本上都要占到90%以上，打开任务管理器一看内存一半以上都是被vmmem吃掉了，于是在网上寻找解决办法，并记录优化过程。</p><a id="more"></a><hr><h1 id="定期执行缓存删除"><a href="#定期执行缓存删除" class="headerlink" title="定期执行缓存删除"></a>定期执行缓存删除</h1><ul><li>在WSL bash上，执行以下命令，并进入编辑模式</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo crontab -e -u root</span><br></pre></td></tr></table></figure><blockquote><p>第一次运行会让你选择编译器，我选择了nano，感觉更加友好。</p></blockquote><p>并添加以下行：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">*/15 * * * * sync; <span class="built_in">echo</span> 3 &gt; /proc/sys/vm/drop_caches; touch /root/drop_caches_last_run</span><br></pre></td></tr></table></figure><blockquote><p>*/15 表示将每15分钟执行一次。您可以根据需要更改它</p></blockquote><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200726222502.png" alt=""></p><ul><li>自动启动cron服务</li></ul><p>在<code>~/.bashrc</code> 上添加以下行，允许启动cron服务而无需输入root密码，</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo nano ~/.bashrc</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[ -z &quot;$(ps -ef | grep cron | grep -v grep)&quot; ] &amp;&amp; sudo /etc/init.d/cron start &amp;&gt; /dev/null</span><br></pre></td></tr></table></figure><blockquote><p>如果使用zsh，也在zshrc添加这句话。</p></blockquote><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200726222643.png" alt=""></p><ul><li>在WSL bash上执行并添加以下行：</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo visudo</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo ALL=NOPASSWD: /etc/init.d/cron start</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200726222739.png" alt=""></p><hr><h1 id="硬限制最大内存"><a href="#硬限制最大内存" class="headerlink" title="硬限制最大内存"></a>硬限制最大内存</h1><ul><li>打开文件夹，在地址栏输入<code>%UserProfile%</code>，并回车。</li><li>新建文件<code>.wslconfig</code>，并编辑内容：</li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[wsl2]</span><br><span class="line">memory=4GB</span><br><span class="line">swap=8GB</span><br><span class="line">localhostForwarding=true</span><br></pre></td></tr></table></figure><h1 id="使配置生效"><a href="#使配置生效" class="headerlink" title="使配置生效"></a>使配置生效</h1><p>要确保所有更改都生效，请在<code>powershell</code>上执行 <code>wsl --shutdown</code> 。然后重新打开您的WSL终端.</p><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">wsl --shutdown</span><br></pre></td></tr></table></figure><p>在wsl终端上可以通过查看/ <code>root / drop_caches_last_run</code>上次修改日期来检查cron作业是否正在相应地运行：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">stat</span> -c <span class="string">'%y'</span> /root/drop_caches_last_run</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200726222829.png" alt=""></p><blockquote><p>上面设置的十五分钟一次，你可以计时看看有没有记录。</p></blockquote><h1 id="ISSUE"><a href="#ISSUE" class="headerlink" title="ISSUE"></a>ISSUE</h1><p><a href="https://github.com/microsoft/WSL/issues/4166" target="_blank" rel="noopener">这个问题，在github以上已经大量反馈，点击这里查看issue详情</a></p><hr><p><strong>Enjoy it !</strong></p>]]></content>
     
     <summary type="html">
     
@@ -242,7 +314,7 @@
     <link href="https://liuyang0001.github.io/2020/06/20/%E7%88%AC%E8%99%AB%E9%A1%B9%E7%9B%AE-Leetcode-Helper/"/>
     <id>https://liuyang0001.github.io/2020/06/20/爬虫项目-Leetcode-Helper/</id>
     <published>2020-06-20T08:31:02.000Z</published>
-    <updated>2020-06-29T13:51:08.224Z</updated>
+    <updated>2020-07-30T04:55:21.145Z</updated>
     
     <content type="html"><![CDATA[<p>哪个程序员😁不想一键下载写过的代码，自动上传Github，并且还能生成一份好看的README呢？</p><p>有用的话点个⭐吧，谢谢你。<a href="https://github.com/Liuyang0001/Leetcode-Helper" target="_blank" rel="noopener">项目传送门 |🚪|</a></p><a id="more"></a><hr><p><strong>💕主要功能💕</strong></p><p>🍉 模拟登陆力扣中国站(leetcode-cn)</p><p>🍉 爬取每题提交的ac代码，保存至本地。</p><p>🍉 自动生成优美的README文件至本地。</p><p>🍉 支持自动更新至Github仓库。 </p><p>🍉 加入失败重试机制，减少延时，加快下载速度。</p><p>🍉 加入增量更新功能(根据最近的提交来更新已存在的题库)。【默认】 🆕</p><hr><p><strong>少啰嗦，先看东西 :   <a href="https://github.com/Liuyang0001/LeetCode_By_Python" target="_blank" rel="noopener">具体效果,点击这里 </a></strong> 😃 </p><hr><ul><li>生成的README效果图：</li></ul><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200613133201.png" alt=""></p><ul><li>生成的源码效果图：</li></ul><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200619174224.png" alt=""></p><hr><p><strong>💕使用说明💕</strong></p><ul><li><strong>clone 该项目到你的本地。</strong></li></ul><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/Liuyang0001/Leetcode-Helper.git</span><br></pre></td></tr></table></figure><ul><li><strong>配置你的cofig.json文件。</strong></li></ul><figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"email"</span>: <span class="string">"xx账号xxxx"</span>,</span><br><span class="line">    <span class="attr">"password"</span>: <span class="string">"xxx密码xxx"</span>,</span><br><span class="line">    <span class="attr">"repo_path"</span>: <span class="string">"x:/xxx源码仓库的本地路径xxx/"</span>,</span><br><span class="line">    <span class="attr">"git_url"</span>: <span class="string">"https://github.com/xxxxx/xxx仓库名xx/tree/master/codes_auto/"</span>,</span><br><span class="line">    <span class="attr">"download_start_id"</span>: <span class="number">1</span>, </span><br><span class="line">    <span class="attr">"download_end_id"</span>: <span class="number">1000000</span>,</span><br><span class="line">    <span class="attr">"refresh"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">"get_recent_submissions_nums"</span>: <span class="number">40</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li><strong>安装依赖库</strong></li></ul><p>依赖库为<code>retry</code> ，<code>pandas</code> ，<code>requests</code>，<code>gitpython</code>可自行安装，或者使用：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install -r requirement.txt</span><br></pre></td></tr></table></figure><ul><li><strong>运行<code>main.py</code>文件</strong></li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python main.py</span><br></pre></td></tr></table></figure><hr><blockquote><p>其他说明：</p><ol><li>第一次运行比较慢，主要是需要建立本地数据库，请耐心等待。</li><li><del>后续会增加增量更新，请持续关注。</del> 已加入，默认获取最近40次提交，可以在config修改。</li><li><del>如果发生异常，请尝试重新运行 。</del>   已加入失败重试机制。</li><li>为了运行速度，已生成代码不会覆盖，相同题的代码仅保留一份ac的。</li><li>如果大家有需求的话，可能还会写个GUI界面，会更直观一点。</li></ol></blockquote><hr><p>本人是一个准研一的小菜🐔，在家无事的练手项目，求轻喷。</p><p>Enjoy coding！</p>]]></content>
     
@@ -258,9 +330,9 @@
     
       <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
     
-      <category term="爬虫" scheme="https://liuyang0001.github.io/tags/%E7%88%AC%E8%99%AB/"/>
-    
       <category term="git" scheme="https://liuyang0001.github.io/tags/git/"/>
+    
+      <category term="Spider Study Notes" scheme="https://liuyang0001.github.io/tags/Spider-Study-Notes/"/>
     
   </entry>
   
@@ -439,90 +511,6 @@
     <summary type="html">
     
       &lt;p&gt;给定一个二叉树，判断其是否是一个有效的二叉搜索树。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
-    
-    
-      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
-    
-      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
-    
-      <category term="树" scheme="https://liuyang0001.github.io/tags/%E6%A0%91/"/>
-    
-      <category term="DFS" scheme="https://liuyang0001.github.io/tags/DFS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>96-不同的二叉搜索树</title>
-    <link href="https://liuyang0001.github.io/2020/04/01/96-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/"/>
-    <id>https://liuyang0001.github.io/2020/04/01/96-不同的二叉搜索树/</id>
-    <published>2020-04-01T08:08:16.000Z</published>
-    <updated>2020-04-01T09:37:45.057Z</updated>
-    
-    <content type="html"><![CDATA[<p>给定一个整数 <em>n</em>，求以 1 … <em>n</em> 为节点组成的二叉搜索树有多少种？</p><a id="more"></a><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: 3</span><br><span class="line">输出: 5</span><br><span class="line">解释:</span><br><span class="line">给定 n = 3, 一共有 5 种不同结构的二叉搜索树:</span><br><span class="line"></span><br><span class="line">   1         3     3      2      1</span><br><span class="line">    \       /     /      / \      \</span><br><span class="line">     3     2     1      1   3      2</span><br><span class="line">    /     /       \                 \</span><br><span class="line">   2     1         2                 3</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：卡特兰数问题，典型的dp解决</strong></p></blockquote><p><img src="https://github.com/Liuyang0001/liuyang0001.github.io/tree/master/images/image-98.png" alt=""></p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">numTrees</span><span class="params">(self, n: int)</span> -&gt; int:</span></span><br><span class="line">        dp_list = [<span class="number">0</span>] * (n + <span class="number">1</span>)</span><br><span class="line">        dp_list[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">        dp_list[<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">        <span class="comment"># G(n) = G(0)*G(n-1)+G(1)*(n-2)+...+G(n-1)*G(0)</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>, n + <span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(i):</span><br><span class="line">                dp_list[i] += dp_list[j]*dp_list[i-j<span class="number">-1</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> dp_list[<span class="number">-1</span>]</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/unique-binary-search-trees/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/unique-binary-search-trees/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;给定一个整数 &lt;em&gt;n&lt;/em&gt;，求以 1 … &lt;em&gt;n&lt;/em&gt; 为节点组成的二叉搜索树有多少种？&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
-    
-    
-      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
-    
-      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
-    
-      <category term="树" scheme="https://liuyang0001.github.io/tags/%E6%A0%91/"/>
-    
-      <category term="动态规划" scheme="https://liuyang0001.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>95-不同的二叉搜索树-ii</title>
-    <link href="https://liuyang0001.github.io/2020/04/01/95-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91-ii/"/>
-    <id>https://liuyang0001.github.io/2020/04/01/95-不同的二叉搜索树-ii/</id>
-    <published>2020-04-01T08:02:03.000Z</published>
-    <updated>2020-04-01T09:28:14.345Z</updated>
-    
-    <content type="html"><![CDATA[<p>给定一个整数 <em>n</em>，生成所有由 1 … <em>n</em> 为节点所组成的<strong>二叉搜索树</strong>。</p><a id="more"></a><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: 3</span><br><span class="line">输出:</span><br><span class="line">[</span><br><span class="line">  [1,null,3,2],</span><br><span class="line">  [3,2,null,1],</span><br><span class="line">  [3,1,null,null,2],</span><br><span class="line">  [2,1,3],</span><br><span class="line">  [1,null,2,null,3]</span><br><span class="line">]</span><br><span class="line">解释:</span><br><span class="line">以上的输出对应以下 5 种不同结构的二叉搜索树：</span><br><span class="line"></span><br><span class="line">   1         3     3      2      1</span><br><span class="line">    \       /     /      / \      \</span><br><span class="line">     3     2     1      1   3      2</span><br><span class="line">    /     /       \                 \</span><br><span class="line">   2     1         2                 3</span><br></pre></td></tr></table></figure><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：利用二叉搜索树的性质，左子树只能比当前结点小，右子树只能比当前结点大。每个结点均有可能做为根结点。</strong></p><p><strong>技巧点：利用lru_cache收集每一个返回的值</strong></p></blockquote><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="comment"># Notice：返回值应为List[TreeNode]</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">generateTrees</span><span class="params">(self, n: int)</span> -&gt; List[TreeNode]:</span></span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">0</span>: <span class="keyword">return</span> []</span><br><span class="line">        <span class="comment"># 收集每次的返回值，组成缓存列表,None为动态调节大小</span></span><br><span class="line"><span class="meta">        @functools.lru_cache(None)</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(start, end)</span>:</span></span><br><span class="line">            res = []</span><br><span class="line">            <span class="keyword">if</span> start &gt; end:</span><br><span class="line">                res.append(<span class="keyword">None</span>)</span><br><span class="line">            <span class="keyword">for</span> val <span class="keyword">in</span> range(start, end + <span class="number">1</span>):</span><br><span class="line">                <span class="comment"># 左子树均小于val</span></span><br><span class="line">                <span class="keyword">for</span> left <span class="keyword">in</span> helper(start, val - <span class="number">1</span>):</span><br><span class="line">                    <span class="comment"># 右子树均大于val</span></span><br><span class="line">                    <span class="keyword">for</span> right <span class="keyword">in</span> helper(val + <span class="number">1</span>, end):</span><br><span class="line">                        <span class="comment"># 构建树节点</span></span><br><span class="line">                        root = TreeNode(val,left,right)</span><br><span class="line">                        res.append(root)</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line">        <span class="keyword">return</span> helper(<span class="number">1</span>, n)</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/unique-binary-search-trees-ii/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/unique-binary-search-trees-ii/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;给定一个整数 &lt;em&gt;n&lt;/em&gt;，生成所有由 1 … &lt;em&gt;n&lt;/em&gt; 为节点所组成的&lt;strong&gt;二叉搜索树&lt;/strong&gt;。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="https://liuyang0001.github.io/categories/LeetCode/"/>
-    
-    
-      <category term="Python" scheme="https://liuyang0001.github.io/tags/Python/"/>
-    
-      <category term="Algorithms" scheme="https://liuyang0001.github.io/tags/Algorithms/"/>
-    
-      <category term="树" scheme="https://liuyang0001.github.io/tags/%E6%A0%91/"/>
-    
-      <category term="动态规划" scheme="https://liuyang0001.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>94-二叉树的中序遍历</title>
-    <link href="https://liuyang0001.github.io/2020/04/01/94-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/"/>
-    <id>https://liuyang0001.github.io/2020/04/01/94-二叉树的中序遍历/</id>
-    <published>2020-04-01T07:56:56.000Z</published>
-    <updated>2020-04-01T09:23:10.931Z</updated>
-    
-    <content type="html"><![CDATA[<p>给定一个二叉树，返回它的<em>中序</em> 遍历。</p><a id="more"></a><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: [1,null,2,3]</span><br><span class="line">   1</span><br><span class="line">    \</span><br><span class="line">     2</span><br><span class="line">    /</span><br><span class="line">   3</span><br><span class="line"></span><br><span class="line">输出: [1,3,2]</span><br></pre></td></tr></table></figure><p><strong>进阶:</strong> 递归算法很简单，你可以通过迭代算法完成吗？</p><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：利用递归算法即可</strong></p></blockquote><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inorderTraversal</span><span class="params">(self, root: TreeNode)</span> -&gt; List[int]:</span></span><br><span class="line">        res = []</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(root)</span>:</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> root: <span class="keyword">return</span></span><br><span class="line">            helper(root.left)</span><br><span class="line">            res.append(root.val)</span><br><span class="line">            helper(root.right)</span><br><span class="line">        helper(root)</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/binary-tree-inorder-traversal/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/binary-tree-inorder-traversal/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;给定一个二叉树，返回它的&lt;em&gt;中序&lt;/em&gt; 遍历。&lt;/p&gt;
     
     </summary>
     

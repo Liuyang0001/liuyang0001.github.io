@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Mr. Liu&#39;s Tech Blog">
 <meta property="og:description" content="基于C/C++顺序队列和链式队列的构建与操作。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-01T10:11:29.187Z">
+<meta property="og:updated_time" content="2020-07-30T04:52:38.695Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构-队">
 <meta name="twitter:description" content="基于C/C++顺序队列和链式队列的构建与操作。">
@@ -359,8 +359,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Data-Structure-Study-Notes/" itemprop="url" rel="index">
-                    <span itemprop="name">Data Structure Study Notes</span>
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
                   </a>
                 </span>
 
@@ -431,11 +431,9 @@
 <h5 id="出队"><a href="#出队" class="headerlink" title="出队"></a>出队</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//出队</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">SeqQueue_Pop</span><span class="params">(SeqQueue *Q)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (SeqQueue_Is_Empty(Q)) <span class="comment">//如果空队</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Elem %d has been out of the Queue.\n"</span>, Q-&gt;data[Q-&gt;front]);</span><br><span class="line">    Q-&gt;data[Q-&gt;front] = <span class="literal">NULL</span>; <span class="comment">//清空队首元素，队首上移</span></span><br><span class="line">    Q-&gt;front = (Q-&gt;front + <span class="number">1</span>) % MaxSize; <span class="comment">//循环队列操作</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="遍历打印"><a href="#遍历打印" class="headerlink" title="遍历打印"></a>遍历打印</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//循环打印</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SeqQueue_Print</span><span class="params">(SeqQueue *Q)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = Q-&gt;front; (i + <span class="number">1</span>) % MaxSize != Q-&gt;rear; i++)<span class="comment">//取余判断是否循环一遍</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, Q-&gt;data[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><br></p>
-<center><strong>···</strong></center>
+<center><strong>···</strong></center><br><hr><br><br>### <center>链式队列</center>
 
 <hr>
-
-<h3 id="链式队列"><a href="#链式队列" class="headerlink" title="链式队列"></a><center>链式队列</center></h3><hr>
 
 <h4 id="链式队列结构"><a href="#链式队列结构" class="headerlink" title="链式队列结构"></a>链式队列结构</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> ElemType;</span><br><span class="line"></span><br><span class="line"><span class="comment">//结点结构</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">QNode</span>&#123;</span></span><br><span class="line">    ElemType data;<span class="comment">//数据域</span></span><br><span class="line">    QNode *next;<span class="comment">//指针域</span></span><br><span class="line">&#125; QNode;</span><br><span class="line"></span><br><span class="line"><span class="comment">//链式队列结构</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">LinkedQueue</span>&#123;</span></span><br><span class="line">    QNode *front, *rear; <span class="comment">// 队列头和队列尾</span></span><br><span class="line">&#125;LinkedQueue;</span><br></pre></td></tr></table></figure>
 <h4 id="链式队列操作"><a href="#链式队列操作" class="headerlink" title="链式队列操作"></a>链式队列操作</h4><h5 id="空队初始化"><a href="#空队初始化" class="headerlink" title="空队初始化"></a>空队初始化</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//初始化空队列</span></span><br><span class="line"><span class="function">LinkedQueue* <span class="title">LinkedQueue_Init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    LinkedQueue *Q = (LinkedQueue*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LinkedQueue));</span><br><span class="line">    Q-&gt;front = Q-&gt;rear = (QNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(QNode));<span class="comment">//分配空间给两个指针域结点</span></span><br><span class="line">    Q-&gt;rear-&gt;next = Q-&gt;front-&gt;next = <span class="literal">NULL</span>; <span class="comment">//初始de后继指针均指向NULL</span></span><br><span class="line">    <span class="keyword">return</span> Q;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -444,18 +442,12 @@
 <h5 id="是否非空"><a href="#是否非空" class="headerlink" title="是否非空"></a>是否非空</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//是否空队</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">LinkedQueue_Is_Empty</span><span class="params">(LinkedQueue *Q)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (Q-&gt;front==Q-&gt;rear)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="遍历打印-1"><a href="#遍历打印-1" class="headerlink" title="遍历打印"></a>遍历打印</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//循环打印</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LinkedQueue_Print</span><span class="params">(LinkedQueue *Q)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(Q-&gt;front-&gt;next)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, Q-&gt;front-&gt;next-&gt;data);</span><br><span class="line">        Q-&gt;front = Q-&gt;front-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><br></p>
-<center><strong>···</strong></center>
+<center><strong>···</strong></center><br><hr><br><br>### <center>测试源码</center>
 
 <hr>
 
-<h3 id="测试源码"><a href="#测试源码" class="headerlink" title="测试源码"></a><center>测试源码</center></h3><hr>
-
 <p><br></p>
-<center><strong><a href="https://github.com/Liuyang0001/Data_Structures/tree/master/SeqQueue" target="_blank" rel="noopener">顺序队列源码，请点击这里获取</a></strong></center>
-
-<p><br></p>
-<center><strong><a href="https://github.com/Liuyang0001/Data_Structures/tree/master/LinkedQueue" target="_blank" rel="noopener">链式队列源码，请点击这里获取</a></strong></center>
-
+<center><strong><a href="https://github.com/Liuyang0001/Data_Structures/tree/master/SeqQueue" target="_blank" rel="noopener">顺序队列源码，请点击这里获取</a></strong></center><br><br><br><br><center><strong><a href="https://github.com/Liuyang0001/Data_Structures/tree/master/LinkedQueue" target="_blank" rel="noopener">链式队列源码，请点击这里获取</a></strong></center>
 
 
 
@@ -463,8 +455,7 @@
 <p><br></p>
 <hr>
 
-<center><strong>随时补充</strong></center>
-
+<p><center><strong>随时补充</strong></center></p>
 <hr>
       
     </div>
@@ -633,7 +624,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">149</span>
+                  <span class="site-state-item-count">151</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -644,7 +635,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -655,7 +646,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">86</span>
+                  <span class="site-state-item-count">88</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -716,7 +707,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序队列"><span class="nav-number">1.</span> <span class="nav-text">顺序队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#队的结构"><span class="nav-number">1.1.</span> <span class="nav-text">队的结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#队的操作"><span class="nav-number">1.2.</span> <span class="nav-text">队的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#初始化空队"><span class="nav-number">1.2.1.</span> <span class="nav-text">初始化空队</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#是否空队"><span class="nav-number">1.2.2.</span> <span class="nav-text">是否空队</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#入队"><span class="nav-number">1.2.3.</span> <span class="nav-text">入队</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出队"><span class="nav-number">1.2.4.</span> <span class="nav-text">出队</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遍历打印"><span class="nav-number">1.2.5.</span> <span class="nav-text">遍历打印</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链式队列"><span class="nav-number">2.</span> <span class="nav-text">链式队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#链式队列结构"><span class="nav-number">2.1.</span> <span class="nav-text">链式队列结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链式队列操作"><span class="nav-number">2.2.</span> <span class="nav-text">链式队列操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#空队初始化"><span class="nav-number">2.2.1.</span> <span class="nav-text">空队初始化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#入队-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">入队</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出队-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">出队</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#是否非空"><span class="nav-number">2.2.4.</span> <span class="nav-text">是否非空</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遍历打印-1"><span class="nav-number">2.2.5.</span> <span class="nav-text">遍历打印</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试源码"><span class="nav-number">3.</span> <span class="nav-text">测试源码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序队列"><span class="nav-number">1.</span> <span class="nav-text">顺序队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#队的结构"><span class="nav-number">1.1.</span> <span class="nav-text">队的结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#队的操作"><span class="nav-number">1.2.</span> <span class="nav-text">队的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#初始化空队"><span class="nav-number">1.2.1.</span> <span class="nav-text">初始化空队</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#是否空队"><span class="nav-number">1.2.2.</span> <span class="nav-text">是否空队</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#入队"><span class="nav-number">1.2.3.</span> <span class="nav-text">入队</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出队"><span class="nav-number">1.2.4.</span> <span class="nav-text">出队</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遍历打印"><span class="nav-number">1.2.5.</span> <span class="nav-text">遍历打印</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链式队列结构"><span class="nav-number">1.3.</span> <span class="nav-text">链式队列结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链式队列操作"><span class="nav-number">1.4.</span> <span class="nav-text">链式队列操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#空队初始化"><span class="nav-number">1.4.1.</span> <span class="nav-text">空队初始化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#入队-1"><span class="nav-number">1.4.2.</span> <span class="nav-text">入队</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出队-1"><span class="nav-number">1.4.3.</span> <span class="nav-text">出队</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#是否非空"><span class="nav-number">1.4.4.</span> <span class="nav-text">是否非空</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遍历打印-1"><span class="nav-number">1.4.5.</span> <span class="nav-text">遍历打印</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

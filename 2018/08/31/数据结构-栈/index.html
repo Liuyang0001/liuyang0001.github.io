@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Mr. Liu&#39;s Tech Blog">
 <meta property="og:description" content="基于C/C++顺序栈和链栈的构建与操作。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-01T08:53:00.481Z">
+<meta property="og:updated_time" content="2020-07-30T04:52:11.897Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构-栈">
 <meta name="twitter:description" content="基于C/C++顺序栈和链栈的构建与操作。">
@@ -359,8 +359,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Data-Structure-Study-Notes/" itemprop="url" rel="index">
-                    <span itemprop="name">Data Structure Study Notes</span>
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
                   </a>
                 </span>
 
@@ -430,11 +430,9 @@
 <h5 id="自动建栈"><a href="#自动建栈" class="headerlink" title="自动建栈"></a>自动建栈</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//自动建栈</span></span><br><span class="line"><span class="function">SeqStack *<span class="title">Create_SeqStack</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    SeqStack *S; <span class="comment">//定义栈</span></span><br><span class="line">    S = (SeqStack *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(SeqStack));</span><br><span class="line">    S-&gt;top = <span class="number">-1</span>; <span class="comment">//初始化栈顶指针</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        SeqStack_Push(S, i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> S;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="遍历打印"><a href="#遍历打印" class="headerlink" title="遍历打印"></a>遍历打印</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 从栈顶遍历顺序栈元素</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print_SeqStack_FromTop</span><span class="params">(SeqStack *S)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (S-&gt;top == <span class="number">-1</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"NULL"</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> x = S-&gt;top; x &gt; <span class="number">-1</span>; x--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, S-&gt;data[x]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><br></p>
-<center><strong>···</strong></center>
+<center><strong>···</strong></center><br><hr><br><br>### <center>链栈</center>
 
 <hr>
-
-<h3 id="链栈"><a href="#链栈" class="headerlink" title="链栈"></a><center>链栈</center></h3><hr>
 
 <h4 id="栈的结构-1"><a href="#栈的结构-1" class="headerlink" title="栈的结构"></a>栈的结构</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> ElemType;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 链式栈的结点</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">SNode</span>&#123;</span></span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">SNode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125; SNode;</span><br><span class="line"></span><br><span class="line"><span class="comment">//链式栈的结构</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">LinkedStack</span>&#123;</span></span><br><span class="line">    SNode *top;  <span class="comment">//栈顶指针</span></span><br><span class="line">    <span class="keyword">int</span> count;  <span class="comment">//链式栈的结点数</span></span><br><span class="line">&#125; LinkedStack;</span><br></pre></td></tr></table></figure>
 <h4 id="栈的操作-1"><a href="#栈的操作-1" class="headerlink" title="栈的操作"></a>栈的操作</h4><h5 id="进栈-1"><a href="#进栈-1" class="headerlink" title="进栈"></a>进栈</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 进栈</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">LinkedStack_Push</span><span class="params">(LinkedStack *S, ElemType x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    SNode *p = (SNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(SNode));<span class="comment">//申请新结点内存</span></span><br><span class="line">    p-&gt;data = x;<span class="comment">//赋值</span></span><br><span class="line">    p-&gt;next = S-&gt;top;<span class="comment">//p得后继指针指向原来的栈顶</span></span><br><span class="line">    S-&gt;top = p;<span class="comment">//将栈顶指针移动到新结点</span></span><br><span class="line">    S-&gt;count++;<span class="comment">//增加结点数</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -442,18 +440,12 @@
 <h5 id="自动建栈-1"><a href="#自动建栈-1" class="headerlink" title="自动建栈"></a>自动建栈</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//自动建栈</span></span><br><span class="line"><span class="function">LinkedStack *<span class="title">Create_LinkedStack</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    LinkedStack *S;</span><br><span class="line">     S = (LinkedStack*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(SNode));<span class="comment">//申请内存</span></span><br><span class="line">    S-&gt;count = <span class="number">0</span>;<span class="comment">//初始化结点数</span></span><br><span class="line">    S-&gt;top = <span class="literal">NULL</span>;<span class="comment">//初始化栈顶指针</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; <span class="number">10</span>; x++)</span><br><span class="line">    &#123;</span><br><span class="line">        LinkedStack_Push(S, x);<span class="comment">//进栈操作</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> S;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="遍历打印-1"><a href="#遍历打印-1" class="headerlink" title="遍历打印"></a>遍历打印</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">//遍历打印</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Print_LinkedStack_FromTop</span><span class="params">(LinkedStack *S)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    SNode *p = S-&gt;top;</span><br><span class="line">    <span class="keyword">while</span> (p)<span class="comment">//当栈顶指针不为空</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, p-&gt;data);</span><br><span class="line">        p = p-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><br></p>
-<center><strong>···</strong></center>
+<center><strong>···</strong></center><br><hr><br><br>### <center>测试源码</center>
 
 <hr>
 
-<h3 id="测试源码"><a href="#测试源码" class="headerlink" title="测试源码"></a><center>测试源码</center></h3><hr>
-
 <p><br></p>
-<center><strong><a href="https://github.com/Liuyang0001/Data_Structures/tree/master/LinkedList" target="_blank" rel="noopener">链式栈源码，请点击这里获取</a></strong></center>
-
-<p><br></p>
-<center><strong><a href="https://github.com/Liuyang0001/Data_Structures/tree/master/SeqList" target="_blank" rel="noopener">顺序栈源码，请点击这里获取</a></strong></center>
-
+<center><strong><a href="https://github.com/Liuyang0001/Data_Structures/tree/master/LinkedList" target="_blank" rel="noopener">链式栈源码，请点击这里获取</a></strong></center><br><br><br><br><center><strong><a href="https://github.com/Liuyang0001/Data_Structures/tree/master/SeqList" target="_blank" rel="noopener">顺序栈源码，请点击这里获取</a></strong></center>
 
 
 
@@ -461,8 +453,7 @@
 <p><br></p>
 <hr>
 
-<center><strong>随时补充</strong></center>
-
+<p><center><strong>随时补充</strong></center></p>
 <hr>
       
     </div>
@@ -631,7 +622,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">149</span>
+                  <span class="site-state-item-count">151</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -642,7 +633,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -653,7 +644,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">86</span>
+                  <span class="site-state-item-count">88</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -714,7 +705,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序栈"><span class="nav-number">1.</span> <span class="nav-text">顺序栈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的结构"><span class="nav-number">1.1.</span> <span class="nav-text">栈的结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的操作"><span class="nav-number">1.2.</span> <span class="nav-text">栈的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进栈"><span class="nav-number">1.2.1.</span> <span class="nav-text">进栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出栈"><span class="nav-number">1.2.2.</span> <span class="nav-text">出栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自动建栈"><span class="nav-number">1.2.3.</span> <span class="nav-text">自动建栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遍历打印"><span class="nav-number">1.2.4.</span> <span class="nav-text">遍历打印</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链栈"><span class="nav-number">2.</span> <span class="nav-text">链栈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的结构-1"><span class="nav-number">2.1.</span> <span class="nav-text">栈的结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的操作-1"><span class="nav-number">2.2.</span> <span class="nav-text">栈的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进栈-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">进栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出栈-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">出栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自动建栈-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">自动建栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遍历打印-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">遍历打印</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试源码"><span class="nav-number">3.</span> <span class="nav-text">测试源码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序栈"><span class="nav-number">1.</span> <span class="nav-text">顺序栈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的结构"><span class="nav-number">1.1.</span> <span class="nav-text">栈的结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的操作"><span class="nav-number">1.2.</span> <span class="nav-text">栈的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进栈"><span class="nav-number">1.2.1.</span> <span class="nav-text">进栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出栈"><span class="nav-number">1.2.2.</span> <span class="nav-text">出栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自动建栈"><span class="nav-number">1.2.3.</span> <span class="nav-text">自动建栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遍历打印"><span class="nav-number">1.2.4.</span> <span class="nav-text">遍历打印</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的结构-1"><span class="nav-number">1.3.</span> <span class="nav-text">栈的结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的操作-1"><span class="nav-number">1.4.</span> <span class="nav-text">栈的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进栈-1"><span class="nav-number">1.4.1.</span> <span class="nav-text">进栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出栈-1"><span class="nav-number">1.4.2.</span> <span class="nav-text">出栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自动建栈-1"><span class="nav-number">1.4.3.</span> <span class="nav-text">自动建栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遍历打印-1"><span class="nav-number">1.4.4.</span> <span class="nav-text">遍历打印</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
