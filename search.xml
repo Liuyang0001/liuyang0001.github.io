@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[wsl配置java环境]]></title>
+    <url>%2F2020%2F08%2F03%2Fwsl%E9%85%8D%E7%BD%AEjava%E7%8E%AF%E5%A2%83%2F</url>
+    <content type="text"><![CDATA[记录如何在wsl中配置java编译环境，以及如何使用vscode进行编译调试。 [TOC] 下载jdk 点击进入到oracle/jdk的下载页面 选择合适的安装包 解压 tar -zxvf ./jdk-* 移动到自己的软件目录 cp -r jdk1* ~/jdk 下载maven 点击进入maven的下载页面 解压 tar -zxvf ./apache* 移动到自己的软件目录 cp -r apache* ~/mvn 配置环境变量 打开sh配置文件 如果用的是bash，就打开.bashrc，我这里用的是zsh，则打开.zshrc sudo nano ~/.zshrc 加入jdk的环境变量 # jdk环境export JAVA_HOME=/home/你的用户名/jdkexport JRE_HOME=$&#123;JAVA_HOME&#125;/jreexport CLASSPATH=.:$&#123;JAVA_HOME&#125;/lib:$&#123;JRE_HOME&#125;/libexport PATH=$&#123;JAVA_HOME&#125;/bin:$PATH# maven环境export MAVEN_HOME=/home/你的用户名/mvnexport PATH=$MAVEN_HOME/bin:$PATH 重新加载zshrc source ~/.zshrc 测试环境 java -version mvn -version 使用vscode调试java 新建一个java目录 mkdir ~/java 进入java，创建一个java文件 cd ~/java &amp;&amp; touch test.java 进入到vscode中 code . 下载插件 java扩展包 如果遇到问题：【很抱歉，激活面向 Java 的 IntelliCode 支持时遇到问题。有关详细信息，请查看“针对 Java 的语言支持”和 “VS IntelliCode” 输出窗口】 手动降级language support…..到0.64.1 打开刚创建的java文件输入 public class test &#123; public static void main(String[] args) &#123; System.out.println("你好，世界"); int x = 0; while (x &lt; 5) &#123; System.out.println("value of x: " + x); x++; &#125; &#125;&#125; 指定当前的路径下的java路径，如果没有则自己再.vscode下创建一个setting.json文件 &#123; "java.home":"/home/liu/jdk",&#125; 添加断点，使用F5调试运行 完美运行 Enjoy it !]]></content>
+      <categories>
+        <category>WSL使用笔记</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>WSL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[利用CDN加速GithubPage访问速度]]></title>
     <url>%2F2020%2F07%2F30%2F%E5%88%A9%E7%94%A8CDN%E5%8A%A0%E9%80%9FGithubPage%E8%AE%BF%E9%97%AE%E9%80%9F%E5%BA%A6%2F</url>
     <content type="text"><![CDATA[在国内，githubpage的访问速度相当感人，于是使用CDN加速就变得十分有必要了。 [TOC] Github PageGithub Pages为Github提供的一项静态站点托管服务，它直接从Github仓库获取静态文件进行发布，然后提供一个github.io的二级域名供用户访问，支持绑定自定义域名，支持开启HTTPS，开启HTTPS会自动申请证书同时在证书过期前自动续签，这一切都是免费的，使用极其简单，只需要将你的静态文件提交到Github，然后开启Pages服务即可，我的博客就托管于Github Pages Github Pages免费且稳定的服务让我可以专注内容，而无需考虑成本及维护的问题，非常方便广受好评，但其最大的一个问题就是国内访问速度很慢，如何简单快速又低成本的解决这个问题呢？这里介绍一个服务：Netlify NetlifyNetlify是一家提供静态网站托管的综合平台，支持自动从Github等仓库拉取代码并构建成静态网站进行发布，同时也支持自定义域名，自动申请SSL证书等功能，更为重要的是自动启用CDN加速，国内访问速度要快很多 以下分别是Github Pages和Netlify两个平台同一项目请求速度的对比图 从上图的测试结果可以看出国内各地的访问速度Netlify都能完胜，接下来详细介绍下如何通过Netlify给你的Github Pages加速 打开Netlify官网，点击右上角的Sign up注册账号，这里推荐关联Github账号 关联认证后进入Netlify的后台页面，如下图，点击New site from Git 选择网站源码托管的代码仓库类型，支持Github、Gitlab以及Bitbucket，选择GitHub 然后会进入Github的认证授权页面，点击Authorize Netlify by Netlify 点击Only select repositories选择要授权的Github仓库，当然也可以直接选择授权所有仓库，这个授权在设置中可以改 授权完成回到Netlify后台页面，选择我们刚刚授权的Github仓库继续 选择部署的用户以及分支，如果是一些需要编译的项目，还支持定义编译的命令以及最终发布的目录，纯静态网站的话都不需要填写，直接点击Deploy site即可完成部署 部署完成后，Netlify会自动生成一个随机的二级域名xxx.netlify.com，我们可以修改为自定义的二级域名，点击Site Settings General -&gt; Site details下点击Change site name，可以为这个站点设置一个自定义的名字，二级域名也会相应改变 如果你想绑定自己的域名，需要先在域名管理系统里新建解析，将域名CNAME指向到你的netlify二级域名，以阿里云为例如下 然后进入Netlify管理后台，Domain management -&gt; Domains，点击Add domain alias，填入你的自定义域名 待域名解析生效后就会看到新绑定的域名变为绿色，并且设置为了主域名 最后为自定义域名开启HTTPS支持，Domain management -&gt; HTTPS，点击Verify DNS configuration，域名验证通过则会自动申请证书 至此Netlify与Github绑定完成，可以通过自定义域名访问网站了，之后你每一次提交代码到Github，便会自动发布至Netlify，无需额外操作，非常方便 其他说明如果你是主域名要绑定Netlify，且必须使用A记录的话，可以直接ping一下你的Netlify二级域名地址得到的IP便可以作为域名解析，例如我的域名是ops-coffee.netlify.com，ping之后得到的地址是157.230.35.153，可以多ping几次得到不同的地址，都绑定到域名上以防止单节点故障 国内也有类似于Github pages这样的服务，例如Gitee和Coding提供的pages服务，在速度方面要有不少的优势，但稳定性欠佳，且可能会面临层层审查域名备案等问题 如果你的域名有备案，项目又是纯静态的话还可以考虑直接托管在国内的一些对象存储服务上，例如七牛云、腾讯云等，然后开启CDN加速，效果也不错，并且大多都有免费流量可以使用 Github Pages和Netlify这种免费且可高度自定义的方案，在满足我们个性化需求的同时，省去了维护成本和资金压力，可以让站点活得更久，从而让我们把重点放在持续不断的输出内容，形成良性循环，赶紧试试吧 本篇转载于ops-coffee，仅个人使用。 Enjoy it !]]></content>
@@ -733,8 +745,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>数组</tag>
         <tag>贪心算法</tag>
+        <tag>数组</tag>
       </tags>
   </entry>
   <entry>
@@ -789,8 +801,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>哈希表</tag>
         <tag>字符串</tag>
+        <tag>哈希表</tag>
       </tags>
   </entry>
   <entry>
