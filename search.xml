@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[测试文章]]></title>
+    <url>%2F2020%2F08%2F07%2F%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0%2F</url>
+    <content type="text"><![CDATA[[TOC] Enjoy it !]]></content>
+      <categories>
+        <category>WSL使用笔记</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>WSL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[wsl配置java环境]]></title>
     <url>%2F2020%2F08%2F03%2Fwsl%E9%85%8D%E7%BD%AEjava%E7%8E%AF%E5%A2%83%2F</url>
     <content type="text"><![CDATA[记录如何在wsl中配置java编译环境，以及如何使用vscode进行编译调试。 [TOC] 下载jdk 点击进入到oracle/jdk的下载页面 选择合适的安装包 解压 tar -zxvf ./jdk-* 移动到自己的软件目录 cp -r jdk1* ~/jdk 下载maven 点击进入maven的下载页面 解压 tar -zxvf ./apache* 移动到自己的软件目录 cp -r apache* ~/mvn 配置环境变量 打开sh配置文件 如果用的是bash，就打开.bashrc，我这里用的是zsh，则打开.zshrc sudo nano ~/.zshrc 加入jdk的环境变量 # jdk环境export JAVA_HOME=/home/你的用户名/jdkexport JRE_HOME=$&#123;JAVA_HOME&#125;/jreexport CLASSPATH=.:$&#123;JAVA_HOME&#125;/lib:$&#123;JRE_HOME&#125;/libexport PATH=$&#123;JAVA_HOME&#125;/bin:$PATH# maven环境export MAVEN_HOME=/home/你的用户名/mvnexport PATH=$MAVEN_HOME/bin:$PATH 重新加载zshrc source ~/.zshrc 测试环境 java -version mvn -version 使用vscode调试java 新建一个java目录 mkdir ~/java 进入java，创建一个java文件 cd ~/java &amp;&amp; touch test.java 进入到vscode中 code . 下载插件 java扩展包 如果遇到问题：【很抱歉，激活面向 Java 的 IntelliCode 支持时遇到问题。有关详细信息，请查看“针对 Java 的语言支持”和 “VS IntelliCode” 输出窗口】 手动降级language support…..到0.64.1 打开刚创建的java文件输入 public class test &#123; public static void main(String[] args) &#123; System.out.println("你好，世界"); int x = 0; while (x &lt; 5) &#123; System.out.println("value of x: " + x); x++; &#125; &#125;&#125; 指定当前的路径下的java路径，如果没有则自己再.vscode下创建一个setting.json文件 &#123; "java.home":"/home/liu/jdk",&#125; 添加断点，使用F5调试运行 完美运行 Enjoy it !]]></content>
@@ -745,8 +757,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>数组</tag>
         <tag>贪心算法</tag>
+        <tag>数组</tag>
       </tags>
   </entry>
   <entry>
@@ -801,8 +813,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>哈希表</tag>
         <tag>字符串</tag>
+        <tag>哈希表</tag>
       </tags>
   </entry>
   <entry>
