@@ -785,8 +785,8 @@
         <tag>Python</tag>
         <tag>Algorithms</tag>
         <tag>数组</tag>
-        <tag>二分查找</tag>
         <tag>动态规划</tag>
+        <tag>二分查找</tag>
       </tags>
   </entry>
   <entry>
@@ -1071,8 +1071,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>双指针</tag>
         <tag>字符串</tag>
+        <tag>双指针</tag>
       </tags>
   </entry>
   <entry>
@@ -1792,8 +1792,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>内置函数</tag>
         <tag>eval</tag>
+        <tag>内置函数</tag>
       </tags>
   </entry>
   <entry>
