@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[测试文章]]></title>
     <url>%2F2020%2F08%2F07%2F%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0%2F</url>
-    <content type="text"><![CDATA[[TOC] Enjoy it !]]></content>
+    <content type="text"><![CDATA[测试文章。 [TOC] 测试test Enjoy it !]]></content>
       <categories>
         <category>WSL使用笔记</category>
       </categories>
