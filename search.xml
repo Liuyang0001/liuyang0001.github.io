@@ -125,7 +125,7 @@
   <entry>
     <title><![CDATA[wsl安装anaconda]]></title>
     <url>%2F2020%2F07%2F24%2Fwsl%E5%AE%89%E8%A3%85anaconda%E7%AC%94%E8%AE%B0%2F</url>
-    <content type="text"><![CDATA[记录如何在wsl中安装anaconda。 下载与安装 点击打开Anaconda的官网，找到下方的Download按钮，来到下载界面。 下载框中的文件，完成后找到下载的文件位置(最好放在好找的位置) 在wsl中找到这个文件 开始安装 bash Anaconda3-2020.02-Linux-x86_64.sh 随后进入安装过程，有提示时候输入yes，一路回车，等待安装结束。 这里我们需要记下框中的路径，也就conda的路径，我们需要把它添加进环境变量中。 配置环境变量bash终端 编辑profile sudo vim /etc/profile 配置conda等的环境变量，就是上面提到的路径，写到bin即可。 在文件的最底端，加上下面的这句： export PATH=/home/liu/anaconda3/bin:$PATH 重新加载环境变量 source /etc/profile 检查是否成功，输入python，看其是否在anaconda环境下。 zsh终端如果终端已经修改为zsh（没有请略过） sudo vim ~/.zshrc 在其中加入anaconda3的环境变量，路径换成自己的： export PATH=/home/liu/anaconda3/bin:$PATH 运行python测试结果： Enjoy it !]]></content>
+    <content type="text"><![CDATA[记录如何在wsl中安装anaconda。 下载与安装 点击打开Anaconda的官网，找到下方的Download按钮，来到下载界面。 下载框中的文件，完成后找到下载的文件位置(最好放在好找的位置) 在wsl中找到这个文件 开始安装 bash Anaconda3-2020.02-Linux-x86_64.sh 随后进入安装过程，有提示时候输入yes，一路回车，等待安装结束。 这里我们需要记下框中的路径，也就conda的路径，我们需要把它添加进环境变量中。 配置环境变量bash终端 编辑profile sudo vim /etc/profile 配置conda等的环境变量，就是上面提到的路径，写到bin即可。 在文件的最底端，加上下面的这句： export PATH=/home/liu/anaconda3/bin:$PATH 重新加载环境变量 source /etc/profile 检查是否成功，输入python，看其是否在anaconda环境下。 zsh终端如果终端已经修改为zsh（没有请略过） sudo vim ~/.zshrc 在其中加入anaconda3的环境变量，路径换成自己的： export PATH=/home/liu/anaconda3/bin:$PATH 运行python测试结果： 更改源更改pypi源 创建文件夹 mkdir ~/.pip 写入配置 sudo nano ~/.pip/pip.conf [global]index-url = https://pypi.doubanio.com/simple/[install]trusted-host=pypi.doubanio.com 更改conda源conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ conda config --set show_channel_urls yes Enjoy it !]]></content>
       <categories>
         <category>WSL使用笔记</category>
       </categories>
