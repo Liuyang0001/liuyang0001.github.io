@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[wsl安装systemd]]></title>
+    <url>%2F2020%2F08%2F11%2Fwsl%E5%AE%89%E8%A3%85systemd%2F</url>
+    <content type="text"><![CDATA[wsl默认是没有systemd服务的，需要自行去安装。 安装daemonize和fontconfig sudo apt install -y fontconfig daemonize 编辑/etc/profile脚本，加入如下内容： sudo nano /etc/profile SYSTEMD_PID=$(ps -ef | grep '/lib/systemd/systemd --system-unit=basic.target$' | grep -v unshare | awk '&#123;print $2&#125;')if [ -z "$SYSTEMD_PID" ]; then sudo /usr/bin/daemonize /usr/bin/unshare --fork --pid --mount-proc /lib/systemd/systemd --system-unit=basic.target SYSTEMD_PID=$(ps -ef | grep '/lib/systemd/systemd --system-unit=basic.target$' | grep -v unshare | awk '&#123;print $2&#125;')fiif [ -n "$SYSTEMD_PID" ] &amp;&amp; [ "$SYSTEMD_PID" != "1" ]; then exec sudo /usr/bin/nsenter -t $SYSTEMD_PID -a su - $LOGNAMEfi 修改/etc/sudoers文件，加入如下内容： sudo nano /etc/sudoers %sudo ALL=(ALL) NOPASSWD: /usr/sbin/daemonize /usr/bin/unshare --fork --pid --mount-proc /lib/systemd/systemd --system-unit=basic.target%sudo ALL=(ALL) NOPASSWD: /usr/bin/nsenter -t [0-9]* -a su - [a-zA-Z0-9]* 执行source /etc/profile source /etc/profile 执行systemctl验证是否能够正常操作。 systemctl --version 参考文章地址 Enjoy it !]]></content>
+      <categories>
+        <category>WSL使用笔记</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>WSL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[wsl安装docker]]></title>
     <url>%2F2020%2F08%2F11%2Fwsl%E5%AE%89%E8%A3%85docker%2F</url>
-    <content type="text"><![CDATA[记录如何在wsl2上启用docker服务。 [TOC] 安装过程 安装依赖 sudo apt-get install apt-transport-https ca-certificates curl gnupg2 software-properties-common 信任 Docker 的 GPG 公钥 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 添加软件仓库 sudo add-apt-repository \ "deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu \ $(lsb_release -cs) \ stable" 最后安装 sudo apt-get updatesudo apt-get install docker-ce 配置环境 添加用户 sudo adduser $USER docker 重启服务 sudo service docker restart 尝试运行 docker run hello-world docker images 如果报错，可能是被墙了，建议翻墙后再次尝试。 Enjoy it !]]></content>
+    <content type="text"><![CDATA[记录如何在wsl2上启用docker服务。 [TOC] 安装过程 安装依赖 sudo apt-get install apt-transport-https ca-certificates curl gnupg2 software-properties-common 信任 Docker 的 GPG 公钥 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 添加软件仓库 sudo add-apt-repository \ "deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu \ $(lsb_release -cs) \ stable" 最后安装 sudo apt-get updatesudo apt-get install docker-ce 配置环境 添加用户 sudo adduser $USER docker 重启服务 sudo service docker restart 尝试运行 docker run hello-world docker images 如果报错，可能是被墙了，建议翻墙后再次尝试。还是不管用的，建议先试试wsl –shutdown重启wsl。 Enjoy it !]]></content>
       <categories>
         <category>WSL使用笔记</category>
       </categories>
@@ -1071,8 +1083,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>字符串</tag>
         <tag>双指针</tag>
+        <tag>字符串</tag>
       </tags>
   </entry>
   <entry>
@@ -1792,8 +1804,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>内置函数</tag>
         <tag>eval</tag>
+        <tag>内置函数</tag>
       </tags>
   </entry>
   <entry>
