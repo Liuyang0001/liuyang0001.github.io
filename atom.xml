@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://liuyang0001.gitee.io/"/>
-  <updated>2020-08-03T15:09:46.726Z</updated>
+  <updated>2020-08-11T03:29:00.485Z</updated>
   <id>https://liuyang0001.gitee.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>wsl安装docker</title>
+    <link href="https://liuyang0001.gitee.io/2020/08/11/wsl%E5%AE%89%E8%A3%85docker/"/>
+    <id>https://liuyang0001.gitee.io/2020/08/11/wsl安装docker/</id>
+    <published>2020-08-11T02:49:22.000Z</published>
+    <updated>2020-08-11T03:29:00.485Z</updated>
+    
+    <content type="html"><![CDATA[<p>记录如何在wsl2上启用docker服务。</p><a id="more"></a><hr><p>[TOC]</p><h1 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h1><ul><li>安装依赖</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install apt-transport-https ca-certificates curl gnupg2 software-properties-common</span><br></pre></td></tr></table></figure><ul><li>信任 Docker 的 GPG 公钥</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure><ul><li>添加软件仓库</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository \</span><br><span class="line">   <span class="string">"deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu \</span></span><br><span class="line"><span class="string">   <span class="variable">$(lsb_release -cs)</span> \</span></span><br><span class="line"><span class="string">   stable"</span></span><br></pre></td></tr></table></figure><ul><li>最后安装</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install docker-ce</span><br></pre></td></tr></table></figure><p><hr></p><h1 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h1><ul><li>添加用户</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo adduser <span class="variable">$USER</span> docker</span><br></pre></td></tr></table></figure><ul><li>重启服务</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo service docker restart</span><br></pre></td></tr></table></figure><ul><li>尝试运行</li></ul><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200811112815.png" alt=""></p><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200811112455.png" alt=""></p><blockquote><p>如果报错，可能是被墙了，建议翻墙后再次尝试。</p></blockquote><hr><p><strong>Enjoy it !</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录如何在wsl2上启用docker服务。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="WSL使用笔记" scheme="https://liuyang0001.gitee.io/categories/WSL%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Linux" scheme="https://liuyang0001.gitee.io/tags/Linux/"/>
+    
+      <category term="WSL" scheme="https://liuyang0001.gitee.io/tags/WSL/"/>
+    
+  </entry>
   
   <entry>
     <title>wsl配置java环境</title>
@@ -479,34 +503,6 @@
     
       &lt;p&gt;给定两个二叉树，编写一个函数来检验它们是否相同。&lt;/p&gt;
 &lt;p&gt;如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="https://liuyang0001.gitee.io/categories/LeetCode/"/>
-    
-    
-      <category term="Python" scheme="https://liuyang0001.gitee.io/tags/Python/"/>
-    
-      <category term="Algorithms" scheme="https://liuyang0001.gitee.io/tags/Algorithms/"/>
-    
-      <category term="树" scheme="https://liuyang0001.gitee.io/tags/%E6%A0%91/"/>
-    
-      <category term="DFS" scheme="https://liuyang0001.gitee.io/tags/DFS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>99-恢复二叉搜索树</title>
-    <link href="https://liuyang0001.gitee.io/2020/04/01/99-%E6%81%A2%E5%A4%8D%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/"/>
-    <id>https://liuyang0001.gitee.io/2020/04/01/99-恢复二叉搜索树/</id>
-    <published>2020-04-01T08:40:11.000Z</published>
-    <updated>2020-04-01T09:45:12.751Z</updated>
-    
-    <content type="html"><![CDATA[<p>二叉搜索树中的两个节点被错误地交换。请在不改变其结构的情况下，恢复这棵树。</p><a id="more"></a><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: [1,3,null,null,2]</span><br><span class="line"></span><br><span class="line">   1</span><br><span class="line">  /</span><br><span class="line"> 3</span><br><span class="line">  \</span><br><span class="line">   2</span><br><span class="line"></span><br><span class="line">输出: [3,1,null,null,2]</span><br><span class="line"></span><br><span class="line">   3</span><br><span class="line">  /</span><br><span class="line"> 1</span><br><span class="line">  \</span><br><span class="line">   2</span><br></pre></td></tr></table></figure><p><strong>示例 2:</strong></p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">输入: [3,1,4,null,null,2]</span><br><span class="line"></span><br><span class="line">  3</span><br><span class="line"> / \</span><br><span class="line">1   4</span><br><span class="line">   /</span><br><span class="line">  2</span><br><span class="line"></span><br><span class="line">输出: [2,1,4,null,null,3]</span><br><span class="line"></span><br><span class="line">  2</span><br><span class="line"> / \</span><br><span class="line">1   4</span><br><span class="line">   /</span><br><span class="line">  3</span><br></pre></td></tr></table></figure><p><strong>进阶:</strong></p><ul><li>使用 O(<em>n</em>) 空间复杂度的解法很容易实现。</li><li>你能想出一个只使用常数空间的解决方案吗？</li></ul><hr><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><blockquote><p><strong>核心思想：两次利用中序遍历该树，第一次遍历为扫描结点值，第二次遍历为把排序后的结点值依次填入。</strong></p><p><strong>注意：取排序后的列表值，不能使用pop()</strong></p></blockquote><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">recoverTree</span><span class="params">(self, root: TreeNode)</span> -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Do not return anything, modify root in-place instead.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        tree = []</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">helper</span><span class="params">(root,flag)</span>:</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> root:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            helper(root.left,flag)</span><br><span class="line">            <span class="keyword">if</span> flag==<span class="string">"traverse"</span>:</span><br><span class="line">                tree.append(root.val)</span><br><span class="line">            <span class="keyword">elif</span> flag == <span class="string">"modify"</span>:</span><br><span class="line">                <span class="comment"># 注意:这里不能使用pop()</span></span><br><span class="line">                <span class="comment"># 排序不会改变pop的顺序</span></span><br><span class="line">                root.val = tree[<span class="number">0</span>]</span><br><span class="line">                <span class="keyword">del</span> tree[<span class="number">0</span>]</span><br><span class="line">            helper(root.right, flag)</span><br><span class="line">        <span class="comment"># 先遍历</span></span><br><span class="line">        helper(root, flag=<span class="string">"traverse"</span>)</span><br><span class="line">        <span class="comment"># 排序</span></span><br><span class="line">        tree.sort()</span><br><span class="line">        <span class="comment"># 再替换</span></span><br><span class="line">        helper(root, flag=<span class="string">"modify"</span>)</span><br></pre></td></tr></table></figure><hr><h2 id="相关信息"><a href="#相关信息" class="headerlink" title="相关信息"></a><center>相关信息</center></h2><p><strong><center>LeetCode：<a href="https://leetcode-cn.com/problems/recover-binary-search-tree/comments/" target="_blank" rel="noopener">Discussion</a> | <a href="https://leetcode-cn.com/problems/recover-binary-search-tree/solution/" target="_blank" rel="noopener">Solution</a></center></strong></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;二叉搜索树中的两个节点被错误地交换。请在不改变其结构的情况下，恢复这棵树。&lt;/p&gt;
     
     </summary>
     
