@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[WSL搭建Hadoop与Spark环境]]></title>
+    <url>%2F2021%2F03%2F20%2FWSL%E6%90%AD%E5%BB%BAHadoop%E4%B8%8ESpark%E7%8E%AF%E5%A2%83%2F</url>
+    <content type="text"><![CDATA[在wsl上搭建大数据Hadoop与Spark环境。 [TOC] ❤❤❤ jdk安装下载首先在oracle官网下载jdk1.8，最好选这个版本，其他版本可能会出现问题。 版本支持信息如下： 解压找到下载的文件进行解压： sudo tar -zxvf jdk-*-linux-x64.tar.gz -C /usr/local #解压到/usr/local目录下 改名 sudo mv jdk* jdk8 添加环境变量 sudo vim ~/.zshrc # 不是用zsh就改成.bashrc 在最后添加环境后，:x 保存退出 # jdk环境export JAVA_HOME=/usr/local/jdk8export JRE_HOME=$&#123;JAVA_HOME&#125;/jreexport CLASSPATH=.:$&#123;JAVA_HOME&#125;/lib:$&#123;JRE_HOME&#125;/libexport PATH=$&#123;JAVA_HOME&#125;/bin:$PATH 使之生效 source ~/.zshrc 检验java -version ❤❤❤ Hadoop安装下载下载最新版的hadoop，当前为3.3.0： 镜像下载 解压找到下载的文件进行解压： sudo tar -zxvf hadoop*.tar.gz -C /usr/local #解压到/usr/local目录下 改名 cd /usr/localsudo mv hadoop* hadoop 添加环境变量 sudo vim ~/.zshrc # 不是用zsh就改成.bashrc 在最后添加环境后，:x 保存退出 # Hadoop环境export HADOOP_HOME=/usr/local/hadoopexport HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/nativeexport PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbinexport JAVA_LIBRAY_PATH=/usr/local/hadoop/lib/native 使之生效 source ~/.zshrc 检验hadoop version ❤❤❤ Hadoop伪分布式模式配置文件配置进到配置目录 cd /usr/local/hadoop/etc/hadoop 修改hadoop-env.sh添加hadoop_opts和jdk路径 export JAVA_HOME=/usr/local/jdk8# 解决Unable to load native-hadoop library for your platform...export HADOOP_OPTS="-Djava.library.path=$&#123;HADOOP_HOME&#125;/lib/native" 修改core-site.xmlsudo vim core-site.xml 修改配置如下： &lt;configuration&gt; &lt;property&gt; &lt;name&gt;hadoop.tmp.dir&lt;/name&gt; &lt;value&gt;file:/usr/local/hadoop/tmp&lt;/value&gt; &lt;description&gt;Abase for other temporary directories.&lt;/description&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;fs.defaultFS&lt;/name&gt; &lt;value&gt;hdfs://localhost:9000&lt;/value&gt; &lt;/property&gt;&lt;/configuration&gt; 修改hdfs-site.xmlsudo vim hdfs-site.xml 修改如下： &lt;configuration&gt; &lt;property&gt; &lt;name&gt;dfs.replication&lt;/name&gt; &lt;value&gt;1&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt; &lt;value&gt;file:/usr/local/hadoop/tmp/dfs/name&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt; &lt;value&gt;file:/usr/local/hadoop/tmp/dfs/data&lt;/value&gt; &lt;/property&gt;&lt;/configuration&gt; ❤❤❤ 测试HDFS启动sshsudo service ssh start NameNode格式化/usr/local/hadoop/bin/hdfs namenode –format 启动dfs/usr/local/hadoop/sbin/start-dfs.sh jps 启动完成后，可以通过命令 jps 来判断是否成功启动，若成功启动则会列出如下进程: “NameNode”、”DataNode” 和 “SecondaryNameNode” 查看hadoop页面浏览器输入： http://localhost:9870 ❤❤❤ YARN单机配置修改mapred-site.xml&lt;configuration&gt; &lt;property&gt; &lt;name&gt;mapreduce.framework.name&lt;/name&gt; &lt;value&gt;yarn&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;yarn.app.mapreduce.am.env&lt;/name&gt; &lt;value&gt;HADOOP_MAPRED_HOME=$&#123;HADOOP_HOME&#125;&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;mapreduce.map.env&lt;/name&gt; &lt;value&gt;HADOOP_MAPRED_HOME=$&#123;HADOOP_HOME&#125;&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;mapreduce.reduce.env&lt;/name&gt; &lt;value&gt;HADOOP_MAPRED_HOME=$&#123;HADOOP_HOME&#125;&lt;/value&gt; &lt;/property&gt;&lt;/configuration&gt; 修改yarn-site.xml&lt;configuration&gt; &lt;property&gt; &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt; &lt;value&gt;mapreduce_shuffle&lt;/value&gt; &lt;/property&gt;&lt;/configuration&gt; 查看资源管理页面/usr/local/hadoop/sbin/start-all.sh 打开网址： http://localhost:8088/ ❤❤❤ Spark安装下载spark下载地址 解压sudo tar -zxvf spark*.gz -C /usr/local #解压到/usr/local目录下 改名 sudo mv spark* spark 配置环境sudo vim ~/.zshrc 添加： export SPARK_HOME=/usr/local/sparkexport PATH=$PATH: $&#123;SPARK_HOME&#125;/bin 使之生效： source ~/.zshrc ❤❤❤ 配置Sparkcd /usr/local/spark/conf 修改spark-env.shsudo vim spark-env.sh 添加： export LD_LIBRARY_PATH=$JAVA_LIBRARY_PATHexport JAVA_HOME=/usr/local/jdk8export SPARK_MASTER_IP=localhostexport SPARK_WORKER_MEMORY=4g 启动/usr/local/spark/sbin/start-all.sh 打开网址： http://localhost:8080/ 启动pysparkpyspark --master local[2] Enjoy it !]]></content>
+      <categories>
+        <category>WSL使用笔记</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>WSL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[wsl安装systemd]]></title>
     <url>%2F2020%2F08%2F11%2Fwsl%E5%AE%89%E8%A3%85systemd%2F</url>
     <content type="text"><![CDATA[wsl默认是没有systemd服务的，需要自行去安装。 安装daemonize和fontconfig sudo apt install -y fontconfig daemonize 编辑/etc/profile脚本，加入如下内容： sudo nano /etc/profile SYSTEMD_PID=$(ps -ef | grep '/lib/systemd/systemd --system-unit=basic.target$' | grep -v unshare | awk '&#123;print $2&#125;')if [ -z "$SYSTEMD_PID" ]; then sudo /usr/bin/daemonize /usr/bin/unshare --fork --pid --mount-proc /lib/systemd/systemd --system-unit=basic.target SYSTEMD_PID=$(ps -ef | grep '/lib/systemd/systemd --system-unit=basic.target$' | grep -v unshare | awk '&#123;print $2&#125;')fiif [ -n "$SYSTEMD_PID" ] &amp;&amp; [ "$SYSTEMD_PID" != "1" ]; then exec sudo /usr/bin/nsenter -t $SYSTEMD_PID -a su - $LOGNAMEfi 修改/etc/sudoers文件，加入如下内容： sudo nano /etc/sudoers %sudo ALL=(ALL) NOPASSWD: /usr/sbin/daemonize /usr/bin/unshare --fork --pid --mount-proc /lib/systemd/systemd --system-unit=basic.target%sudo ALL=(ALL) NOPASSWD: /usr/bin/nsenter -t [0-9]* -a su - [a-zA-Z0-9]* 执行source /etc/profile source /etc/profile 执行systemctl验证是否能够正常操作。 systemctl --version 参考文章地址 Enjoy it !]]></content>
@@ -1083,8 +1095,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>双指针</tag>
         <tag>字符串</tag>
+        <tag>双指针</tag>
       </tags>
   </entry>
   <entry>
@@ -1804,8 +1816,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>eval</tag>
         <tag>内置函数</tag>
+        <tag>eval</tag>
       </tags>
   </entry>
   <entry>
