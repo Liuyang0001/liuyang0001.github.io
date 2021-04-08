@@ -92,7 +92,7 @@
 <meta property="og:image" content="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200729001219.png">
 <meta property="og:image" content="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200728225426.png">
 <meta property="og:image" content="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200728192154.png">
-<meta property="og:updated_time" content="2020-07-29T01:02:50.244Z">
+<meta property="og:updated_time" content="2021-04-05T07:36:29.412Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wsl使用zsh与终端美化">
 <meta name="twitter:description" content="记录如何从bash切换到zsh，如何使用oh-my-zsh对终端进行美化以及zsh一些常用插件的安装。">
@@ -442,6 +442,19 @@
 
 <h1 id="美化zsh"><a href="#美化zsh" class="headerlink" title="美化zsh"></a>美化zsh</h1><p>这是我修改后的终端样式：</p>
 <p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200728234523.png" alt=""></p>
+<h2 id="安装Oh-My-Zsh"><a href="#安装Oh-My-Zsh" class="headerlink" title="安装Oh My Zsh"></a>安装Oh My Zsh</h2><blockquote>
+<p>注意：这一步最好在~目录下打开。否则可能会出错。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br></pre></td></tr></table></figure>
+<p>选择一种方式进行安装：</p>
+<ul>
+<li>使用 curl 命令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sh -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)</span>"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>或者使用wget命令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sh -c <span class="string">"<span class="variable">$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)</span>"</span></span><br></pre></td></tr></table></figure>
 <h2 id="安装-Powerlevel10k主题"><a href="#安装-Powerlevel10k主题" class="headerlink" title="安装 Powerlevel10k主题"></a>安装 Powerlevel10k主题</h2><ul>
 <li>使用git进行下载</li>
 </ul>
@@ -456,8 +469,9 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ZSH_THEME=powerlevel10k/powerlevel10k</span><br></pre></td></tr></table></figure>
 <p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200728225310.png" alt=""></p>
 <ul>
-<li>保存并关闭</li>
+<li>使之生效</li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
 <h2 id="安装字体"><a href="#安装字体" class="headerlink" title="安装字体"></a>安装字体</h2><p>为了防止终端可能会出现乱码，也是因为你的电脑不支持那么多字体，所以我们需要先安装扩展字体。</p>
 <p>Powerlevel10k 作者推荐使用 <a href="https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k" target="_blank" rel="noopener">Meslo Nerd Font</a> 字体，Download these four ttf files:</p>
 <ul>
@@ -471,7 +485,11 @@
 <p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200729001219.png" alt=""></p>
 <p>将文档中对应部分换成下面这个，对应的美化配置都有注释，可自行调整：</p>
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">"defaults":</span><br><span class="line">        &#123;</span><br><span class="line">            // Put settings here that you want to apply to all profiles.</span><br><span class="line">            "acrylicOpacity": 0.8, //背景透明度</span><br><span class="line">            // "useAcrylic": true, // 启用毛玻璃</span><br><span class="line">            //"backgroundImage": "C:\\Users\\Liu\\Pictures\\ubuntu.jpg", //背景图片</span><br><span class="line">            // "backgroundImageOpacity": 0.5, //图片透明度</span><br><span class="line">            "backgroundImageStretchMode": "fill", //填充模式</span><br><span class="line">            "icon": "C:\\Users\\Liu\\Pictures\\最近\\1121490.png", //图标</span><br><span class="line">            "fontFace": "MesloLGS NF", //字体</span><br><span class="line">            "fontSize": 14, //文字大小</span><br><span class="line">            //"colorScheme": "Solarized Light", //主题</span><br><span class="line">            "cursorColor": "#FFFFFF", //光标颜色</span><br><span class="line">            "cursorShape": "bar" //光标形状</span><br><span class="line">        &#125;,</span><br></pre></td></tr></table></figure>
-<h2 id="配置-Powerlevel10k"><a href="#配置-Powerlevel10k" class="headerlink" title="配置 Powerlevel10k"></a>配置 Powerlevel10k</h2><h3 id="自动配置脚本"><a href="#自动配置脚本" class="headerlink" title="自动配置脚本"></a>自动配置脚本</h3><p>Powerlevel10k 提供了一个配置脚本，运行脚本后只需回答几个简单的问题即可完成配置。</p>
+<h2 id="配置-Powerlevel10k"><a href="#配置-Powerlevel10k" class="headerlink" title="配置 Powerlevel10k"></a>配置 Powerlevel10k</h2><blockquote>
+<p>在上面source ~/.zshrc应该就会自动进入自动配置了。</p>
+<p>后面想再修改使用该命令即可</p>
+</blockquote>
+<h3 id="自动配置脚本"><a href="#自动配置脚本" class="headerlink" title="自动配置脚本"></a>自动配置脚本</h3><p>Powerlevel10k 提供了一个配置脚本，运行脚本后只需回答几个简单的问题即可完成配置。</p>
 <p>直接输入 <code>p10k configure</code> 即可进入配置问答界面，</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">p10k configure</span><br></pre></td></tr></table></figure>
 <p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200728225426.png" alt=""></p>
@@ -486,22 +504,15 @@
 </blockquote>
 <h2 id="重新加载配置"><a href="#重新加载配置" class="headerlink" title="重新加载配置"></a>重新加载配置</h2><p>重新加载zsh的配置文件，使得配置能够生效。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure>
-<h2 id="安装Oh-My-Zsh"><a href="#安装Oh-My-Zsh" class="headerlink" title="安装Oh My Zsh"></a>安装Oh My Zsh</h2><p>选择一种方式进行安装：</p>
-<ul>
-<li>使用 curl 命令</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sh -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)</span>"</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>或者使用wget命令</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sh -c <span class="string">"<span class="variable">$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)</span>"</span></span><br></pre></td></tr></table></figure>
 <h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><p>Oh My Zsh 有非常丰富的<a href="https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins" target="_blank" rel="noopener">插件</a>，使用插件可以使得在终端的效率翻倍，下面介绍 5 个我常用的插件。<br>插件均需在配置文件 <code>~/.zshrc</code> 中写出，如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">plugins=(</span><br><span class="line">  git</span><br><span class="line">  github</span><br><span class="line">  autojump</span><br><span class="line">  zsh-syntax-highlighting</span><br><span class="line">  zsh-autosuggestions</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <h3 id="git"><a href="#git" class="headerlink" title="git"></a>git</h3><p><a href="https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/git" target="_blank" rel="noopener">git plugin</a></p>
 <p>提供丰富的 git 别名与几个有用的函数。</p>
 <h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><p><a href="https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/github" target="_blank" rel="noopener">github plugin</a> 提供几个快捷的函数。</p>
-<h3 id="autojump"><a href="#autojump" class="headerlink" title="autojump"></a>autojump</h3><p><a href="https://github.com/wting/autojump" target="_blank" rel="noopener">autojump</a> 可以记录下来你之前 <code>cd</code> 到访过的所有目录，下次要去那个目录时不需要输入完整的路径，直接 <code>j somedir</code> 即可到达，甚至那个目标目录的名称只输入开头也可以。</p>
-<p><a href="https://github.com/wting/autojump#installation" target="_blank" rel="noopener">安装方式</a></p>
+<h3 id="autojump"><a href="#autojump" class="headerlink" title="autojump"></a>autojump</h3><p>使用apt安装即可</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install autojump</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/wting/autojump" target="_blank" rel="noopener">autojump</a> 可以记录下来你之前 <code>cd</code> 到访过的所有目录，下次要去那个目录时不需要输入完整的路径，直接 <code>j somedir</code> 即可到达，甚至那个目标目录的名称只输入开头也可以。</p>
+<p><a href="https://github.com/wting/autojump#installation" target="_blank" rel="noopener">github地址</a></p>
 <h3 id="zsh-syntax-highlighting"><a href="#zsh-syntax-highlighting" class="headerlink" title="zsh-syntax-highlighting"></a>zsh-syntax-highlighting</h3><p><a href="https://github.com/zsh-users/zsh-syntax-highlighting" target="_blank" rel="noopener">zsh-syntax-highlighting</a>，终端命令语法高亮。</p>
 <ul>
 <li>克隆</li>
@@ -787,7 +798,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装zsh"><span class="nav-number">1.</span> <span class="nav-text">安装zsh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#美化zsh"><span class="nav-number">2.</span> <span class="nav-text">美化zsh</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Powerlevel10k主题"><span class="nav-number">2.1.</span> <span class="nav-text">安装 Powerlevel10k主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装字体"><span class="nav-number">2.2.</span> <span class="nav-text">安装字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-Powerlevel10k"><span class="nav-number">2.3.</span> <span class="nav-text">配置 Powerlevel10k</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自动配置脚本"><span class="nav-number">2.3.1.</span> <span class="nav-text">自动配置脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个性化设置"><span class="nav-number">2.3.2.</span> <span class="nav-text">个性化设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重新加载配置"><span class="nav-number">2.4.</span> <span class="nav-text">重新加载配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Oh-My-Zsh"><span class="nav-number">2.5.</span> <span class="nav-text">安装Oh My Zsh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装插件"><span class="nav-number">2.6.</span> <span class="nav-text">安装插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git"><span class="nav-number">2.6.1.</span> <span class="nav-text">git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#github"><span class="nav-number">2.6.2.</span> <span class="nav-text">github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#autojump"><span class="nav-number">2.6.3.</span> <span class="nav-text">autojump</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zsh-syntax-highlighting"><span class="nav-number">2.6.4.</span> <span class="nav-text">zsh-syntax-highlighting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zsh-autosuggestions"><span class="nav-number">2.6.5.</span> <span class="nav-text">zsh-autosuggestions</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#zsh配置环境变量"><span class="nav-number">3.</span> <span class="nav-text">zsh配置环境变量</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装zsh"><span class="nav-number">1.</span> <span class="nav-text">安装zsh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#美化zsh"><span class="nav-number">2.</span> <span class="nav-text">美化zsh</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Oh-My-Zsh"><span class="nav-number">2.1.</span> <span class="nav-text">安装Oh My Zsh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Powerlevel10k主题"><span class="nav-number">2.2.</span> <span class="nav-text">安装 Powerlevel10k主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装字体"><span class="nav-number">2.3.</span> <span class="nav-text">安装字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-Powerlevel10k"><span class="nav-number">2.4.</span> <span class="nav-text">配置 Powerlevel10k</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自动配置脚本"><span class="nav-number">2.4.1.</span> <span class="nav-text">自动配置脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#个性化设置"><span class="nav-number">2.4.2.</span> <span class="nav-text">个性化设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重新加载配置"><span class="nav-number">2.5.</span> <span class="nav-text">重新加载配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装插件"><span class="nav-number">2.6.</span> <span class="nav-text">安装插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#git"><span class="nav-number">2.6.1.</span> <span class="nav-text">git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#github"><span class="nav-number">2.6.2.</span> <span class="nav-text">github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#autojump"><span class="nav-number">2.6.3.</span> <span class="nav-text">autojump</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zsh-syntax-highlighting"><span class="nav-number">2.6.4.</span> <span class="nav-text">zsh-syntax-highlighting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zsh-autosuggestions"><span class="nav-number">2.6.5.</span> <span class="nav-text">zsh-autosuggestions</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#zsh配置环境变量"><span class="nav-number">3.</span> <span class="nav-text">zsh配置环境变量</span></a></li></ol></div>
             
 
           </div>
