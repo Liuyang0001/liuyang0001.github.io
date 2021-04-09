@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://liuyang0001.gitee.io/"/>
-  <updated>2021-03-20T12:11:02.768Z</updated>
+  <updated>2021-04-09T17:09:27.558Z</updated>
   <id>https://liuyang0001.gitee.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用docker搭建大数据环境</title>
+    <link href="https://liuyang0001.gitee.io/2021/04/10/%E4%BD%BF%E7%94%A8docker%E6%90%AD%E5%BB%BA%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%8E%AF%E5%A2%83/"/>
+    <id>https://liuyang0001.gitee.io/2021/04/10/使用docker搭建大数据环境/</id>
+    <published>2021-04-09T17:04:02.000Z</published>
+    <updated>2021-04-09T17:09:27.558Z</updated>
+    
+    <content type="html"><![CDATA[<p>使用docker进行构建单机伪分布式hadoop环境。</p><a id="more"></a><hr><p>[TOC]</p><h1 id="Instruction"><a href="#Instruction" class="headerlink" title="Instruction"></a>Instruction</h1><hr><p>搭建的docker-images使用的软件版本如下：</p><ul><li>hadoop版本：2.7.7</li><li>spark版本：3.1.1</li><li>jdk版本：1.8</li><li>hive版本：待添加</li><li>Hbase版本：1.4.13</li></ul><blockquote><p><strong>ps：</strong></p></blockquote><blockquote><p><strong>1. 请先确保你的 git 、docker 和 make 是可用的。</strong></p></blockquote><blockquote><p><strong>2. 镜像内的用户密码为：qwe</strong></p></blockquote><hr><h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><ol><li><h3 id="clone本仓库到你的本地"><a href="#clone本仓库到你的本地" class="headerlink" title="clone本仓库到你的本地"></a>clone本仓库到你的本地</h3></li></ol><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:Liuyang0001/docker-hadoop.git</span><br></pre></td></tr></table></figure><ol><li><h3 id="使用make进行docker镜像下载"><a href="#使用make进行docker镜像下载" class="headerlink" title="使用make进行docker镜像下载"></a>使用make进行docker镜像下载</h3></li></ol><p>进到仓库目录下：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> docker-hadoop</span><br></pre></td></tr></table></figure><p>使用make语句进行拉取docker镜像：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make pull</span><br></pre></td></tr></table></figure><ol><li><h3 id="启动镜像"><a href="#启动镜像" class="headerlink" title="启动镜像"></a>启动镜像</h3></li></ol><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make up</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com//liuyang0001/blogimage/raw/master/img/20210408195400.png" alt=""></p><ol><li><h3 id="进入镜像"><a href="#进入镜像" class="headerlink" title="进入镜像"></a>进入镜像</h3></li></ol><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make bash</span><br></pre></td></tr></table></figure><p>启动hadoop伪分布式：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/onekey</span><br><span class="line">sh run.sh</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com//liuyang0001/blogimage/raw/master/img/20210408195558.png" alt=""></p><p>打开网址查看：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http://localhost:50070/</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com//liuyang0001/blogimage/raw/master/img/20210408195822.png" alt=""></p><p>关闭hadoop集群</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sh ~/onekey/stop.sh <span class="comment">#关闭hadoop</span></span><br><span class="line"><span class="built_in">exit</span> <span class="comment"># 退出bash</span></span><br></pre></td></tr></table></figure><p><img src="https://gitee.com//liuyang0001/blogimage/raw/master/img/20210408200428.png" alt=""></p><ol><li><h3 id="退出并解除容器"><a href="#退出并解除容器" class="headerlink" title="退出并解除容器"></a>退出并解除容器</h3></li></ol><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make down</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com//liuyang0001/blogimage/raw/master/img/20210408200452.png" alt=""></p><hr><p><strong>Enjoy it.</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;使用docker进行构建单机伪分布式hadoop环境。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="大数据学习笔记" scheme="https://liuyang0001.gitee.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Docker" scheme="https://liuyang0001.gitee.io/tags/Docker/"/>
+    
+      <category term="Hadoop" scheme="https://liuyang0001.gitee.io/tags/Hadoop/"/>
+    
+      <category term="Spark" scheme="https://liuyang0001.gitee.io/tags/Spark/"/>
+    
+  </entry>
   
   <entry>
     <title>WSL搭建Hadoop与Spark环境</title>
@@ -480,32 +506,6 @@
       <category term="cuc" scheme="https://liuyang0001.gitee.io/tags/cuc/"/>
     
       <category term="考研" scheme="https://liuyang0001.gitee.io/tags/%E8%80%83%E7%A0%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>博客更新计划</title>
-    <link href="https://liuyang0001.gitee.io/2020/05/08/%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E8%AE%A1%E5%88%92/"/>
-    <id>https://liuyang0001.gitee.io/2020/05/08/博客更新计划/</id>
-    <published>2020-05-08T15:41:58.000Z</published>
-    <updated>2020-07-24T11:01:58.966Z</updated>
-    
-    <content type="html"><![CDATA[<p>近期对博客进行调整：</p><p><del>1.加入置顶权重，而不是仅仅依靠时间线来展示顺序。</del>【已完成】</p><p>2.由于最近忙于复试，很多题解没更新也没时间进行整理，打算复试后抽出时间进行整理归纳。【在做了，进度1%】</p><p><del>3.写一个爬虫，用来辅助更新LeetCode的readme，应该不是很难得一个脚本，最近有点懒，抽空写完并把其过程记录下来。</del>【已完成】</p><p><del>4.改变代码块风格，使其不显示行号，同时增加一键复制功能。</del>【已完成】</p><a id="more"></a><p><hr><br>我真的太想念书了，毕竟啊，人菜就要多读书。</p><p>努力提升自己永远都不会出错，加油！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;近期对博客进行调整：&lt;/p&gt;
-&lt;p&gt;&lt;del&gt;1.加入置顶权重，而不是仅仅依靠时间线来展示顺序。&lt;/del&gt;【已完成】&lt;/p&gt;
-&lt;p&gt;2.由于最近忙于复试，很多题解没更新也没时间进行整理，打算复试后抽出时间进行整理归纳。【在做了，进度1%】&lt;/p&gt;
-&lt;p&gt;&lt;del&gt;3.写一个爬虫，用来辅助更新LeetCode的readme，应该不是很难得一个脚本，最近有点懒，抽空写完并把其过程记录下来。&lt;/del&gt;【已完成】&lt;/p&gt;
-&lt;p&gt;&lt;del&gt;4.改变代码块风格，使其不显示行号，同时增加一键复制功能。&lt;/del&gt;【已完成】&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Python Study Notes" scheme="https://liuyang0001.gitee.io/categories/Python-Study-Notes/"/>
-    
-    
-      <category term="Python" scheme="https://liuyang0001.gitee.io/tags/Python/"/>
     
   </entry>
   
