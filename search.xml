@@ -63,7 +63,7 @@
   <entry>
     <title><![CDATA[wsl安装docker]]></title>
     <url>%2F2020%2F08%2F11%2Fwsl%E5%AE%89%E8%A3%85docker%2F</url>
-    <content type="text"><![CDATA[记录如何在wsl2上启用docker服务。 [TOC] 安装过程 安装依赖 sudo apt-get install apt-transport-https ca-certificates curl gnupg2 software-properties-common 信任 Docker 的 GPG 公钥 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 添加软件仓库 sudo add-apt-repository \ "deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu \ $(lsb_release -cs) \ stable" 最后安装 sudo apt-get updatesudo apt-get install docker-ce 配置环境 添加用户 sudo adduser $USER docker 重启服务 sudo service docker restart 尝试运行 docker run hello-world docker images 如果报错，可能是被墙了，建议翻墙后再次尝试。还是不管用的，建议先试试wsl –shutdown重启wsl。 Enjoy it !]]></content>
+    <content type="text"><![CDATA[记录如何在wsl2上启用docker服务。 [TOC] 【更新】 之前的作废，并不建议在wsl中安装docker，而是建议直接在Windows上安装docker-desktop。 安装之后的docker也可以直接在wsl中进行使用。 下载下载地址点击这里 直接安装即可，默认会勾选使用wsl引擎。 配置安装成功后，按照图中的顺序在设置里进行选择在wsl中启用即可。 检验进入wsl，并尝试查看docker镜像： ps：不使用sudo，可能会报权限问题 以下作废，不建议使用！！！ 安装过程 安装依赖 sudo apt-get install apt-transport-https ca-certificates curl gnupg2 software-properties-common 信任 Docker 的 GPG 公钥 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 添加软件仓库 sudo add-apt-repository \ "deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu \ $(lsb_release -cs) \ stable" 最后安装 sudo apt-get updatesudo apt-get install docker-ce 配置环境 添加用户 sudo adduser $USER docker 重启服务 sudo service docker restart 尝试运行 docker run hello-world docker images 如果报错，可能是被墙了，建议翻墙后再次尝试。还是不管用的，建议先试试wsl –shutdown重启wsl。 Enjoy it !]]></content>
       <categories>
         <category>WSL使用笔记</category>
       </categories>

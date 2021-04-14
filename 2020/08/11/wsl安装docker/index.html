@@ -87,13 +87,16 @@
 <meta property="og:site_name" content="Mr. Liu&#39;s Tech Blog">
 <meta property="og:description" content="记录如何在wsl2上启用docker服务。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://gitee.com//liuyang0001/blogimage/raw/master/img/20210414233220.png">
+<meta property="og:image" content="https://gitee.com//liuyang0001/blogimage/raw/master/img/20210414233652.png">
+<meta property="og:image" content="https://gitee.com//liuyang0001/blogimage/raw/master/img/20210414233811.png">
 <meta property="og:image" content="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200811112815.png">
 <meta property="og:image" content="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200811112455.png">
-<meta property="og:updated_time" content="2020-08-11T04:57:37.367Z">
+<meta property="og:updated_time" content="2021-04-14T15:39:27.329Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wsl安装docker">
 <meta name="twitter:description" content="记录如何在wsl2上启用docker服务。">
-<meta name="twitter:image" content="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200811112815.png">
+<meta name="twitter:image" content="https://gitee.com//liuyang0001/blogimage/raw/master/img/20210414233220.png">
 
 
 
@@ -426,33 +429,50 @@
 <hr>
 
 <p>[TOC]</p>
-<h1 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h1><ul>
-<li>安装依赖</li>
+<blockquote>
+<p><strong>【更新】</strong></p>
+<p><strong>之前的作废，并不建议在wsl中安装docker，而是建议直接在Windows上安装docker-desktop。</strong></p>
+<p><strong>安装之后的docker也可以直接在wsl中进行使用。</strong></p>
+</blockquote>
+<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p><a href="https://www.docker.com/products/docker-desktop" target="_blank" rel="noopener">下载地址点击这里</a></p>
+<p>直接安装即可，默认会勾选使用wsl引擎。</p>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>安装成功后，按照图中的顺序在设置里进行选择在wsl中启用即可。</p>
+<p><img src="https://gitee.com//liuyang0001/blogimage/raw/master/img/20210414233220.png" alt=""></p>
+<h1 id="检验"><a href="#检验" class="headerlink" title="检验"></a>检验</h1><p>进入wsl，并尝试查看docker镜像：</p>
+<p><img src="https://gitee.com//liuyang0001/blogimage/raw/master/img/20210414233652.png" alt=""></p>
+<blockquote>
+<p><strong>ps：不使用sudo，可能会报权限问题</strong></p>
+</blockquote>
+<p><img src="https://gitee.com//liuyang0001/blogimage/raw/master/img/20210414233811.png" alt=""></p>
+<p><strong>以下作废，不建议使用！！！</strong></p>
+<h1 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a><del>安装过程</del></h1><ul>
+<li><del>安装依赖</del></li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install apt-transport-https ca-certificates curl gnupg2 software-properties-common</span><br></pre></td></tr></table></figure>
 <ul>
-<li>信任 Docker 的 GPG 公钥</li>
+<li><del>信任 Docker 的 GPG 公钥</del></li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
 <ul>
-<li>添加软件仓库</li>
+<li><del>添加软件仓库</del></li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo add-apt-repository \</span><br><span class="line">   <span class="string">"deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/ubuntu \</span></span><br><span class="line"><span class="string">   <span class="variable">$(lsb_release -cs)</span> \</span></span><br><span class="line"><span class="string">   stable"</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>最后安装</li>
+<li><del>最后安装</del></li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install docker-ce</span><br></pre></td></tr></table></figure>
-<p><hr></p>
-<h1 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h1><ul>
-<li>添加用户</li>
+<hr>
+
+<h1 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a><del>配置环境</del></h1><ul>
+<li><del>添加用户</del></li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo adduser <span class="variable">$USER</span> docker</span><br></pre></td></tr></table></figure>
 <ul>
-<li>重启服务</li>
+<li><del>重启服务</del></li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo service docker restart</span><br></pre></td></tr></table></figure>
 <ul>
-<li>尝试运行</li>
+<li><del>尝试运行</del></li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
@@ -717,7 +737,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装过程"><span class="nav-number">1.</span> <span class="nav-text">安装过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置环境"><span class="nav-number">2.</span> <span class="nav-text">配置环境</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#下载"><span class="nav-number">1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置"><span class="nav-number">2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#检验"><span class="nav-number">3.</span> <span class="nav-text">检验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装过程"><span class="nav-number">4.</span> <span class="nav-text">安装过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置环境"><span class="nav-number">5.</span> <span class="nav-text">配置环境</span></a></li></ol></div>
             
 
           </div>
