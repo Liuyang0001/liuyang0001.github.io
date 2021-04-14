@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[windows安装make]]></title>
+    <url>%2F2021%2F04%2F14%2Fwindows%E5%AE%89%E8%A3%85make%2F</url>
+    <content type="text"><![CDATA[记录Windows如何安装make。 [TOC] 安装chocolatey 法一——官网安装 地址传送门 法二——使用命令行安装 @&quot;%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe&quot; -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command &quot;iex ((New-Object System.Net.WebClient).DownloadString(&apos;https://chocolatey.org/install.ps1&apos;))&quot; &amp;&amp; SET &quot;PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin&quot; 安装make以管理员打开terminal： choco install make 测试： make --version Enjoy it !]]></content>
+      <categories>
+        <category>Others</category>
+      </categories>
+      <tags>
+        <tag>make</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[windows搭建hadoop环境]]></title>
     <url>%2F2021%2F04%2F10%2Fwindows%E6%90%AD%E5%BB%BAhadoop%E7%8E%AF%E5%A2%83%2F</url>
     <content type="text"><![CDATA[之前虽然在wsl和docker上都搭建了hadoop的环境，但由于需要本地的代码调试，不得以而再次搭建windows平台的运行环境。 [TOC] 下载首先下载我们需要的hadoop文件（这里的bin 和etc文件已经替换过，配置后直接使用即可）： 下载地址 提取码：owtg 强调：将该文件解压到一个没有中文与空格的路径下 拷贝dll文件解压之后拷贝bin目录下的hadoop.dll到 C:\Windows\System32目录 配置环境变量配置JAVA_HOME将自己的jdk目录添加到环境变量中 配置HADOOP_HOME就是刚才你解压的路径，不要有中文或者空格。 配置PATH将hadoop和java的环境变量配置好。 %HADOOP_HOME%\bin%JAVA_HOME%\bin 检验打开cmd窗口，如果是之前打开的就关掉重新打开。 java -version hadoop version 可以显示出版本就代表环境变量配置完成。 伪分布式配置修改hadoop-env.cmd 使用编辑器打开 解压路径\hadoop-2.7.7\etc\hadoop\hadoop-env.cmd 修改JAVA_HOME的路径 修改hdfs-site.xml&lt;configuration&gt; &lt;property&gt; &lt;name&gt;dfs.replication&lt;/name&gt; &lt;value&gt;1&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt; &lt;value&gt;file:/D:/Program/hadoop-2.7.7/data/namenode&lt;/value&gt; &lt;/property&gt; &lt;property&gt; &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt; &lt;value&gt;file:/D:/Program/hadoop-2.7.7/data/datanode&lt;/value&gt; &lt;/property&gt;&lt;/configuration&gt; 记得改成你的解压路径： 检验以管理员打开cmd： hdfs namenode -format 等待完成之后，进入到hadoop文件夹下，并启动hadoop： .\sbin\start-all.cmd 也可以使用jps来查看当前进程： 关闭hadoop .\sbin\stop-all.cmd Enjoy it !]]></content>
@@ -834,8 +845,8 @@
         <tag>Python</tag>
         <tag>Algorithms</tag>
         <tag>数组</tag>
-        <tag>二分查找</tag>
         <tag>动态规划</tag>
+        <tag>二分查找</tag>
       </tags>
   </entry>
   <entry>
@@ -862,8 +873,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Algorithms</tag>
-        <tag>哈希表</tag>
         <tag>字符串</tag>
+        <tag>哈希表</tag>
       </tags>
   </entry>
   <entry>
@@ -1841,8 +1852,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>内置函数</tag>
         <tag>eval</tag>
+        <tag>内置函数</tag>
       </tags>
   </entry>
   <entry>

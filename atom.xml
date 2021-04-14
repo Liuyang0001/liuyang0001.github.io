@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://liuyang0001.gitee.io/"/>
-  <updated>2021-04-09T19:12:13.868Z</updated>
+  <updated>2021-04-14T01:48:17.437Z</updated>
   <id>https://liuyang0001.gitee.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>windows安装make</title>
+    <link href="https://liuyang0001.gitee.io/2021/04/14/windows%E5%AE%89%E8%A3%85make/"/>
+    <id>https://liuyang0001.gitee.io/2021/04/14/windows安装make/</id>
+    <published>2021-04-14T01:42:15.000Z</published>
+    <updated>2021-04-14T01:48:17.437Z</updated>
+    
+    <content type="html"><![CDATA[<p>记录Windows如何安装make。</p><a id="more"></a><hr><p>[TOC]</p><h2 id="安装chocolatey"><a href="#安装chocolatey" class="headerlink" title="安装chocolatey"></a>安装chocolatey</h2><ul><li>法一——官网安装</li></ul><p><a href="https://chocolatey.org/install" target="_blank" rel="noopener">地址传送门</a></p><ul><li>法二——使用命令行安装</li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@&quot;%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe&quot; -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command &quot;iex ((New-Object System.Net.WebClient).DownloadString(&apos;https://chocolatey.org/install.ps1&apos;))&quot; &amp;&amp; SET &quot;PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin&quot;</span><br></pre></td></tr></table></figure><h2 id="安装make"><a href="#安装make" class="headerlink" title="安装make"></a>安装make</h2><p>以管理员打开terminal：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">choco install make</span><br></pre></td></tr></table></figure><p>测试：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">make --version</span><br></pre></td></tr></table></figure><p><img src="https://gitee.com//liuyang0001/blogimage/raw/master/img/20210414094802.png" alt=""></p><hr><p><strong>Enjoy it !</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录Windows如何安装make。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Others" scheme="https://liuyang0001.gitee.io/categories/Others/"/>
+    
+    
+      <category term="make" scheme="https://liuyang0001.gitee.io/tags/make/"/>
+    
+  </entry>
   
   <entry>
     <title>windows搭建hadoop环境</title>
@@ -479,32 +501,6 @@
       <category term="git" scheme="https://liuyang0001.gitee.io/tags/git/"/>
     
       <category term="Spider Study Notes" scheme="https://liuyang0001.gitee.io/tags/Spider-Study-Notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>同时存在unicode-escape和utf-8的解码方法</title>
-    <link href="https://liuyang0001.gitee.io/2020/06/09/%E5%90%8C%E6%97%B6%E5%AD%98%E5%9C%A8unicode-escape%E5%92%8Cutf-8%E7%9A%84%E8%A7%A3%E7%A0%81%E6%96%B9%E6%B3%95/"/>
-    <id>https://liuyang0001.gitee.io/2020/06/09/同时存在unicode-escape和utf-8的解码方法/</id>
-    <published>2020-06-09T10:53:12.000Z</published>
-    <updated>2020-06-09T12:14:30.522Z</updated>
-    
-    <content type="html"><![CDATA[<p>在爬取lc提交代码的时候遇到的一个问题，在爬取到的源码中，符号是采用<code>unicode-escape</code>编码的，而其中的中文是采用<code>utf-8</code>编码的，正常解码无论怎样都会出现乱码，本文记录下解决办法。</p><a id="more"></a><p>[TOC]</p><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>下面是lc第一题爬取的源码，编码为”utf-8”，中文可以正确显示，但是换行符等符号并不能正确显示，因此需要转换。</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">code = <span class="string">"class Solution:\u000A    def twoSum(self, nums: List[int], target: int) \u002D\u003E List[int]:\u000A        dic \u003D defaultdict(int) # 哈希字典\u000A        for i,num in enumerate(nums):\u000A            if num in dic: return [dic[num],i]\u000A            dic[target\u002Dnum]\u003Di"</span></span><br></pre></td></tr></table></figure><p>正常我们的解码是这样的：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">code = code.encode(&quot;utf-8&quot;).decode(&quot;unicode-escape&quot;)</span><br></pre></td></tr></table></figure><p>这样上面的换行符等就可以正确显示为<code>\n</code>等正确的编码，但是原本上面的中文就是<code>utf-8</code>了，解码为<code>unicode-escape</code>就会出现乱码，输出文件就会像下面的这样。</p><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200609195642.png" alt=""></p><h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><blockquote><p>其实很简单，就是<strong>局部解码</strong>就可以了：</p><ul><li><p>首先利用<strong>正则</strong>表达式找到所有采用<code>unicode-escape</code>编码的字符，</p></li><li><p>然后将其解码再替换原字符串</p></li></ul></blockquote><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">code = re.sub(<span class="string">r'(\\u[\s\S]&#123;4&#125;)'</span>,<span class="keyword">lambda</span> x:x.group(<span class="number">1</span>).encode(<span class="string">"utf-8"</span>).decode(<span class="string">"unicode-escape"</span>),code)</span><br></pre></td></tr></table></figure><p>再来查看一下我们写入的文件，就没有乱码的情况了。</p><p><img src="https://gitee.com/liuyang0001/blogimage/raw/master/img/20200609194737.png" alt=""></p><hr>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在爬取lc提交代码的时候遇到的一个问题，在爬取到的源码中，符号是采用&lt;code&gt;unicode-escape&lt;/code&gt;编码的，而其中的中文是采用&lt;code&gt;utf-8&lt;/code&gt;编码的，正常解码无论怎样都会出现乱码，本文记录下解决办法。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Spider Study Notes" scheme="https://liuyang0001.gitee.io/categories/Spider-Study-Notes/"/>
-    
-    
-      <category term="Python" scheme="https://liuyang0001.gitee.io/tags/Python/"/>
-    
-      <category term="爬虫" scheme="https://liuyang0001.gitee.io/tags/%E7%88%AC%E8%99%AB/"/>
-    
-      <category term="编码" scheme="https://liuyang0001.gitee.io/tags/%E7%BC%96%E7%A0%81/"/>
     
   </entry>
   
